@@ -11,6 +11,8 @@ kind: Application
 metadata:
   name: {{ $app }}
   namespace: {{ $appNamespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ $value.syncWave | default "99" | quote }}
   labels:
     app: {{ $app }}
     {{ $appProject }}/installType: {{ $value.installType }}

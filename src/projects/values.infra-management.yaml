@@ -9,6 +9,7 @@ apps:
       web-gui: "true"
     installType: helm
     repoURL: https://argoproj.github.io/argo-helm
+    syncWave: "0.1"
     targetRevision: 8.0.0
 
   cert-manager:
@@ -16,6 +17,7 @@ apps:
     chartName: cert-manager
     installType: helm
     repoURL: https://charts.jetstack.io
+    syncWave: "0.2"
     targetRevision: v1.17.1
 
   longhorn:
@@ -23,14 +25,16 @@ apps:
     chartName: longhorn
     repoURL: https://charts.longhorn.io
     installType: helm
+    syncWave: "0.2"
     targetRevision: 1.8.1
 
   nvidia-operator:
     automated: true
     chartName: gpu-operator
     repoURL: https://helm.ngc.nvidia.com/nvidia
-    targetRevision: v24.9.2
     installType: helm
+    syncWave: "0.3"
+    targetRevision: v24.9.2
 
   openbao:
     automated: true
@@ -44,4 +48,5 @@ apps:
           - /webhooks/0/clientConfig/caBundle
     repoURL: https://openbao.github.io/openbao-helm
     installType: helm
+    syncWave: "0.2"
     targetRevision: 0.12.0
