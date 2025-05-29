@@ -13,7 +13,7 @@ apps:
     targetRevision: 8.0.0
 
   cert-manager:
-    automated: true
+    automated: false
     chartName: cert-manager
     installType: helm
     repoURL: https://charts.jetstack.io
@@ -21,7 +21,7 @@ apps:
     targetRevision: v1.17.1
 
   longhorn:
-    automated: true
+    automated: false
     chartName: longhorn
     repoURL: https://charts.longhorn.io
     installType: helm
@@ -29,7 +29,7 @@ apps:
     targetRevision: 1.8.1
 
   nvidia-operator:
-    automated: true
+    automated: false
     chartName: gpu-operator
     repoURL: https://helm.ngc.nvidia.com/nvidia
     installType: helm
