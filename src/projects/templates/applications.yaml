@@ -40,7 +40,7 @@ spec:
       targetRevision: {{ $value.targetRevision }}
       helm:
         valueFiles:
-          - $values/src/projects/values/{{ $app }}.yaml
+          - $values/src/projects/configurations/{{ $app }}.yaml
   {{- if eq $value.installType "helm" }}
       chart: {{ $value.chartName }}
   {{- else if eq $value.installType "oci" }}
