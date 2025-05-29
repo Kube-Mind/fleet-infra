@@ -1,5 +1,5 @@
 spec:
-  project: infra-manager
+  project: infra-management
 
 apps:
   argo-cd:
