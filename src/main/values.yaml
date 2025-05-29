@@ -12,7 +12,7 @@ apps:
   infra-management:
     # Infrastructure management tools
     automated: true
-    syncWave: 0
+    syncWave: "0"
 
 #   infra-operations:
 #     # Infrastructure operation solutions
