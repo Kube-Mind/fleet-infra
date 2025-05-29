@@ -1,0 +1,47 @@
+spec:
+  project: infra-manager
+
+apps:
+  argo-cd:
+    automated: true
+    chartName: argo-cd
+    extraLabels:
+      web-gui: "true"
+    installType: helm
+    repoURL: https://argoproj.github.io/argo-helm
+    targetRevision: 8.0.0
+
+  cert-manager:
+    automated: true
+    chartName: cert-manager
+    installType: helm
+    repoURL: https://charts.jetstack.io
+    targetRevision: v1.17.1
+
+  longhorn:
+    automated: true
+    chartName: longhorn
+    repoURL: https://charts.longhorn.io
+    installType: helm
+    targetRevision: 1.8.1
+
+  nvidia-operator:
+    automated: true
+    chartName: gpu-operator
+    repoURL: https://helm.ngc.nvidia.com/nvidia
+    targetRevision: v24.9.2
+    installType: helm
+
+  openbao:
+    automated: true
+    chartName: openbao
+    extraLabels:
+      web-gui: "true"
+    ignoreDifferences:
+      - group: admissionregistration.k8s.io
+        kind: MutatingWebhookConfiguration
+        jsonPointers:
+          - /webhooks/0/clientConfig/caBundle
+    repoURL: https://openbao.github.io/openbao-helm
+    installType: helm
+    targetRevision: 0.12.0

@@ -1,0 +1,51 @@
+{{- $appNamespace := "argo-cd" -}}
+{{- $destinationServer := .Values.spec.destination.server -}}
+{{- $repoURL := .Values.spec.source.repoURL -}}
+{{- $targetRevision := .Values.spec.source.targetRevision -}}
+
+{{- range $app, $value := .Values.apps }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ $value.syncWave | default "0" }}
+  name: {{ $app }}
+  namespace: {{ $appNamespace }}
+  labels:
+    app: {{ $app }}
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: {{ $appNamespace }}
+    server: {{ $destinationServer }}
+  project: {{ $app }}
+  {{- if $value.legacy }}
+  source:
+    path: src/{{ $app }}
+    repoURL: {{ $repoURL }}
+    targetRevision: {{ $targetRevision }}
+  {{- else }}
+  sources:
+    - repoURL: {{ $repoURL }}
+      targetRevision: {{ $targetRevision }}
+      path: src/projects
+      helm:
+        valueFiles:
+          - $values/src/projects/values.{{ $app }}.yaml
+    - repoURL: {{ $repoURL }}
+      targetRevision: {{ $targetRevision }}
+      ref: values
+  {{- end }}
+  syncPolicy:
+    {{- if $value.automated }}
+    automated:
+      selfHeal: true
+    {{- end }}
+    syncOptions:
+      - CreateNamespace=true
+  {{- if $value.ignoreDifferences }}
+  ignoreDifferences: {{ toYaml $value.ignoreDifferences | nindent 4}}
+  {{- end }}
+{{- end }}

@@ -1,0 +1,69 @@
+{{- $appNamespace := "argo-cd" -}}
+{{- $destinationServer := .Values.spec.destination.server -}}
+{{- $appProject := .Values.spec.project -}}
+{{- $repoURL := .Values.spec.source.repoURL -}}
+{{- $targetRevision := .Values.spec.source.targetRevision -}}
+
+{{- range $app, $value := .Values.apps }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $app }}
+  namespace: {{ $appNamespace }}
+  labels:
+    app: {{ $app }}
+    {{ $appProject }}/installType: {{ $value.installType }}
+    {{- if $value.extraLabels }}
+    {{- toYaml $value.extraLabels | nindent 4 }}
+    {{- end }}
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: {{ $app }}
+    server: {{ $destinationServer }}
+  project: {{ $appProject }}
+  {{- if eq $value.installType "kustomize" }}
+  sources:
+    - repoURL: {{ $repoURL  }}
+      targetRevision: {{ $targetRevision }}
+      path: "$values/{{ default (printf "src/%s/%s/%s" $appProject $value.installType $app) $value.path }}"
+      kustomize:
+        namePrefix: {{ $appProject }}-
+    - repoURL: {{ $repoURL }}
+      targetRevision: {{ $targetRevision }}
+      ref: values
+  {{- else }}
+  sources:
+    - repoURL: {{ $value.repoURL }}
+      targetRevision: {{ $value.targetRevision }}
+      helm:
+        valueFiles:
+          - $values/src/projects/values/{{ $app }}.yaml
+  {{- if eq $value.installType "helm" }}
+      chart: {{ $value.chartName }}
+  {{- else if eq $value.installType "oci" }}
+      chart: {{ $value.chartName }}
+      path: {{ $value.path }}
+  {{- else }}
+      path: {{ $value.path }}
+  {{- end }}
+    - repoURL: {{ $repoURL }}
+      targetRevision: {{ $targetRevision }}
+      ref: values
+  {{- end }}
+  syncPolicy:
+    {{- if $value.automated }}
+    automated:
+      selfHeal: true
+    {{- end }}
+    syncOptions:
+      - CreateNamespace=true
+    {{- range $option := $value.extraSyncOptions | default dict }}
+      - {{ toYaml $option }}
+    {{- end }}
+  {{- if $value.ignoreDifferences }}
+  ignoreDifferences: {{ toYaml $value.ignoreDifferences | nindent 4 }}
+  {{- end }}
+{{- end }}

@@ -1,0 +1,12 @@
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: https://gitlab.com/kube-mind/fleet-infra.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+
+apps: {}

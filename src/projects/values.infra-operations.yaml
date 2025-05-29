@@ -1,0 +1,12 @@
+spec:
+  project: media-centre
+
+apps:
+  nextcloud:
+    automated: false
+    chartName: nextcloud
+    extraLabels:
+      web-gui: "true"
+    installType: helm
+    repoURL: https://nextcloud.github.io/helm/
+    targetRevision: 6.6.6

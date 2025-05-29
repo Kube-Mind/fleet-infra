@@ -1,0 +1,41 @@
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://gitlab.com/kube-mind/fleet-infra.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+
+apps:
+  infra-management:
+    # Infrastructure management tools
+    automated: true
+    syncWave: 0
+
+#   infra-operations:
+#     # Infrastructure operation solutions
+#     automated: true
+#     syncWave: 1
+# 
+#   infra-monitoring:
+#     # Infrastructure monitoring configurations
+#     automated: true
+#     syncWave: 2
+# 
+#   dev-management:
+#     # Software Development tools
+#     automated: true
+#     syncWave: 2
+# 
+#   dev-operations:
+#     # Software Development operation solutions
+#     automated: true
+#     syncWave: 3
+# 
+#   work:
+#     # Work-related environment replication
+#     automated: true
+#     syncWave: 2
+
