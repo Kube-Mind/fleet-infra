@@ -9,7 +9,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: {{ $value.syncWave | default "0" }}
+    argocd.argoproj.io/sync-wave: {{ $value.syncWave | default "0" | quote}}
   name: {{ $app }}
   namespace: {{ $appNamespace }}
   labels:
