@@ -37,7 +37,7 @@ apps:
     automated: true
     chartName: longhorn
     ignoreDifferences:
-      - group: ''
+      - group: 'apiextensions.k8s.io'
         kind: CustomResourceDefinition
         jqPathExpressions:
           - .spec.preserveUnknownFields
