@@ -1,6 +1,7 @@
 spec:
   project: infra-monitoring
 
+apps:
   kube-prometheus-stack:
     automated: false
     chartName: kube-prometheus-stack
