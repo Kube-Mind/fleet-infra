@@ -1,0 +1,74 @@
+grafana:
+  enabled: true
+  adminPassword: null
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: 'default'
+        orgId: 1
+        folder: 'default'
+        type: file
+        disableDeletion: true
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/standard
+
+  dashboards:
+    default:
+      nvidia-dcgm-exporter:
+        gnetId: 12239
+        revision: 2
+        datasource:
+          - name: Prometheus
+            value: Prometheus
+
+  grafana.ini:
+    server:
+      domain: grafana.jcan.dev
+
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prd
+    hosts:
+    - grafana.jcan.dev
+    tls:
+    - secretName: "grafana-tls-key"
+      hosts:
+      - grafana.jcan.dev
+
+prometheusOperator:
+  tls:
+    enabled: false
+  admissionWebhooks:
+    enabled: false
+
+prometheus:
+  annotations:
+    argocd.argoproj.io/skip-health-check: 'true'
+  prometheusSpec:
+    podMonitorSelectorNilUsesHelmValues: false
+    additionalScrapeConfigs:
+    - job_name: gpu-metrics
+      scrape_interval: 1s
+      metrics_path: /metrics
+      scheme: http
+      kubernetes_sd_configs:
+      - role: endpoints
+        namespaces:
+          names:
+          - nvidia-operator
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_pod_node_name]
+        action: replace
+        target_label: kubernetes_node
+
+prometheus-node-exporter:
+  tolerations:
+    - key: node-role.kubernetes.io/control-plane
+      operator: Exists
+      effect: NoSchedule
+    - key: node-role.kubernetes.io/etcd
+      operator: Exists
+      effect: NoExecute

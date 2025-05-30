@@ -3,7 +3,7 @@ spec:
 
 apps:
   dnsfix:
-    automated: true
+    automated: false
     installType: remoteHelm
     repoURL: https://gitlab.com/kuberhive/apps/dnsfix.git
     path: charts/dnsfix
@@ -11,7 +11,7 @@ apps:
     targetRevision: HEAD
 
   chartwatch:
-    automated: true
+    automated: false
     installType: remoteHelm
     repoURL: https://gitlab.com/kuberhive/apps/chartwatch.git
     path: charts/chartwatch

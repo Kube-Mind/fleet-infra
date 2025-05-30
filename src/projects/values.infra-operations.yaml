@@ -13,6 +13,6 @@ apps:
     syncWave: "1.1"
 
   secrets-integrator:
-    automated: true
+    automated: false
     installType: localHelm
     syncWave: "1.1"
