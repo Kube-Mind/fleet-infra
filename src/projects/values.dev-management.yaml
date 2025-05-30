@@ -1,0 +1,56 @@
+spec:
+  project: dev-management
+
+apps:
+  gitlab-runner:
+    automated: false
+    chartName: gitlab-runner
+    installType: helm
+    repoURL: https://charts.gitlab.io
+    syncWave: "2.1"
+    targetRevision: 0.74.0
+
+  harbor:
+    automated: false
+    chartName: harbor
+    extraLabels:
+      web-gui: "true"
+    ignoreDifferences:
+      - group: ''
+        kind: Secret
+        name: harbor-core
+        jsonPointers:
+          - /data/CSRF_KEY
+          - /data/secret
+          - /data/tls.crt
+          - /data/tls.key
+      - group: ''
+        kind: Secret
+        name: harbor-database
+        jsonPointers:
+          - /data/POSTGRES_PASSWORD
+      - group: ''
+        kind: Secret
+        name: harbor-jobservice
+        jsonPointers:
+          - /data/JOBSERVICE_SECRET
+      - group: ''
+        kind: Secret
+        name: harbor-registry
+        jsonPointers:
+          - /data/REGISTRY_HTTP_SECRET
+      - group: ''
+        kind: Secret
+        name: harbor-registry-htpasswd
+        jsonPointers:
+          - /data/REGISTRY_HTPASSWD
+      - group: apps
+        kind: Deployment
+        jqPathExpressions:
+          - .spec.template.metadata.annotations."checksum/secret"
+          - .spec.template.metadata.annotations."checksum/secret-core"
+          - .spec.template.metadata.annotations."checksum/secret-jobservice"
+    installType: helm
+    repoURL: https://helm.goharbor.io
+    syncWave: "2.1"
+    targetRevision: 1.16.2

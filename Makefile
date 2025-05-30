@@ -2,13 +2,13 @@
 CLUSTER=ha-cluster
 
 cluster-setup:
-	k3d cluster create -c k3d/$(CLUSTER).yaml
+	k3d cluster create -c simulators/k3d/$(CLUSTER).yaml
 cluster-start:
 	k3d cluster start $(CLUSTER)
 cluster-stop:
 	k3d cluster stop $(CLUSTER)
 cluster-teardown:
-	k3d cluster delete -c $(CLUSTER).yaml
+	k3d cluster delete -c simulators/k3d/$(CLUSTER).yaml
 
 .PHONY: argocd-install argocd-proxy argocd-password argocd-login argocd-clean argocd-wait
 NAMESPACE=argo-cd

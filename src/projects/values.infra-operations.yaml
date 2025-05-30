@@ -1,12 +1,18 @@
 spec:
-  project: media-centre
+  project: infra-operations
 
 apps:
-  nextcloud:
+  k3s-upgrader:
     automated: false
-    chartName: nextcloud
-    extraLabels:
-      web-gui: "true"
+    installType: kustomize
+    syncWave: "1.1"
+
+  letsencrypt:
+    automated: false
+    installType: kustomize
+    syncWave: "1.1"
+
+  secrets-integrator:
+    automated: false
     installType: helm
-    repoURL: https://nextcloud.github.io/helm/
-    targetRevision: 6.6.6
+    syncWave: "1.1"

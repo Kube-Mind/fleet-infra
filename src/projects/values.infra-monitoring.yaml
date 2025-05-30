@@ -1,0 +1,23 @@
+spec:
+  project: infra-monitoring
+
+  kube-prometheus-stack:
+    automated: false
+    chartName: kube-prometheus-stack
+    extraLabels:
+      web-gui: "true"
+    extraSyncOptions:
+      - ServerSideApply=true
+    installType: helm
+    ignoreDifferences:
+      - group: apps
+        kind: Deployment
+        jqPathExpressions:
+          - .spec.template.metadata.annotations."checksum/secret"
+      - kind: Secret
+        jsonPointers:
+          - /data/admin-password
+          - /data/ldap-toml
+    repoURL: https://prometheus-community.github.io/helm-charts
+    syncWave: "2.1"
+    targetRevision: 69.8.0

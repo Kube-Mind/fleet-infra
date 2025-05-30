@@ -1,0 +1,10 @@
+spec:
+  project: work
+
+apps:
+  ska-dependencies:
+    automated: false
+    installType: kustomize
+  ska-dev-env:
+    automated: false
+    installType: kustomize

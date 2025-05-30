@@ -3,7 +3,7 @@ spec:
 
 apps:
   argo-cd:
-    automated: true
+    automated: false
     chartName: argo-cd
     extraLabels:
       web-gui: "true"
@@ -20,6 +20,14 @@ apps:
     syncWave: "0.2"
     targetRevision: v1.17.1
 
+  external-secrets:
+    automated: false
+    chartName: external-secrets
+    installType: helm
+    repoURL: https://charts.external-secrets.io
+    syncWave: "0.2"
+    targetRevision: 0.14.3
+
   longhorn:
     automated: false
     chartName: longhorn
@@ -28,16 +36,26 @@ apps:
     syncWave: "0.2"
     targetRevision: 1.8.1
 
+  nfs-provisioner:
+    automated: false
+    chartName: nfs-subdir-external-provisioner
+    extraLabels:
+      web-gui: "true"
+    repoURL: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
+    installType: helm
+    syncWave: "0.2"
+    targetRevision: 4.0.18
+
   nvidia-operator:
     automated: false
     chartName: gpu-operator
     repoURL: https://helm.ngc.nvidia.com/nvidia
     installType: helm
-    syncWave: "0.3"
+    syncWave: "0.2"
     targetRevision: v24.9.2
 
   openbao:
-    automated: true
+    automated: false
     chartName: openbao
     extraLabels:
       web-gui: "true"
@@ -48,5 +66,5 @@ apps:
           - /webhooks/0/clientConfig/caBundle
     repoURL: https://openbao.github.io/openbao-helm
     installType: helm
-    syncWave: "0.2"
+    syncWave: "0.3"
     targetRevision: 0.12.0

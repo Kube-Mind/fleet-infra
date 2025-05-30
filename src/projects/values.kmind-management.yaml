@@ -1,0 +1,19 @@
+spec:
+  project: kmind-management
+
+apps:
+  dnsfix:
+    automated: false
+    installType: remoteHelm
+    repoURL: https://gitlab.com/kuberhive/apps/dnsfix.git
+    path: charts/dnsfix
+    syncWave: "1.2"
+    targetRevision: HEAD
+
+  chartwatch:
+    automated: false
+    installType: remoteHelm
+    repoURL: https://gitlab.com/kuberhive/apps/chartwatch.git
+    path: charts/chartwatch
+    syncWave: "1.2"
+    targetRevision: HEAD
