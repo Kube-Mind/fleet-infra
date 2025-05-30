@@ -8,7 +8,7 @@ apps:
     installType: helm
     repoURL: https://charts.gitlab.io
     syncWave: "2.1"
-    targetRevision: 0.74.0
+    targetRevision: 0.77.2
 
   harbor:
     automated: true
@@ -53,4 +53,4 @@ apps:
     installType: helm
     repoURL: https://helm.goharbor.io
     syncWave: "2.1"
-    targetRevision: 1.16.2
+    targetRevision: 1.17.1
