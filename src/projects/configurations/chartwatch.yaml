@@ -61,12 +61,17 @@ configMapData:
   payload.yaml: |-
     git_repositories:
       fleet-infra:
-        url: https://gitlab.com/kuberhive/fleet-infra.git
+        url: https://gitlab.com/kube-mind/fleet-infra.git
         name: fleet-infra
         destination_path: /tmp
-        poll_rate: 1m
+        poll_rate: 1h
         branch: main
         chart_paths:
         - src/projects/values.infra-management.yaml
         - src/projects/values.infra-monitoring.yaml
         - src/projects/values.dev-management.yaml
+
+#    - src/projects/values.infra-operations.yaml
+#    - src/projects/values.dev-operations.yaml
+#     - src/projects/values.kmind-management.yaml
+#     - src/projects/values.work.yaml
