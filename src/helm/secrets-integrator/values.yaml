@@ -60,21 +60,21 @@ externalSecret:
             property: GITLAB_CLIENT_SECRET
           secretKey: GITLAB_CLIENT_SECRET
 
-    - name: "docker-config"
-      namespaces:
-        - argo-workflows
-        - webhooks
-      secretStoreRef:
-        name: vault
-        kind: ClusterSecretStore
-      data:
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: harbor/service
-            metadataPolicy: None
-            property: regcred
-          secretKey: config.json
+    # - name: "docker-config"
+    #   namespaces:
+    #     - argo-workflows
+    #     - webhooks
+    #   secretStoreRef:
+    #     name: vault
+    #     kind: ClusterSecretStore
+    #   data:
+    #     - remoteRef:
+    #         conversionStrategy: Default
+    #         decodingStrategy: None
+    #         key: harbor/service
+    #         metadataPolicy: None
+    #         property: regcred
+    #       secretKey: config.json
 
     - name: "gitlab-access"
       namespaces:
@@ -113,23 +113,23 @@ externalSecret:
             property: runner-token
           secretKey: runner-token
 
-    - name: "harbor-regcred"
-      namespaces:
-        - argo-workflows
-        - dnsfix
-      secretStoreRef:
-        name: vault
-        kind: ClusterSecretStore
-      template:
-        type: kubernetes.io/dockerconfigjson
-        data:
-          # workaround for helm to not render "<nil>" during rendering process in pre helm deployment
-          .dockerconfigjson: "{{ .base64Regcred | toString }}"
-      data:
-        - secretKey: base64Regcred
-          remoteRef:
-            key: harbor/service
-            property: regcred
+    # - name: "harbor-regcred"
+    #   namespaces:
+    #     - argo-workflows
+    #     - dnsfix
+    #   secretStoreRef:
+    #     name: vault
+    #     kind: ClusterSecretStore
+    #   template:
+    #     type: kubernetes.io/dockerconfigjson
+    #     data:
+    #       # workaround for helm to not render "<nil>" during rendering process in pre helm deployment
+    #       .dockerconfigjson: "{{ .base64Regcred | toString }}"
+    #   data:
+    #     - secretKey: base64Regcred
+    #       remoteRef:
+    #         key: harbor/service
+    #         property: regcred
 
     - name: "nextcloud-bootstrap-secrets"
       namespaces:

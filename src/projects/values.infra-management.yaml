@@ -36,6 +36,11 @@ apps:
   longhorn:
     automated: true
     chartName: longhorn
+    ignoreDifferences:
+      - group: ''
+        kind: CustomResourceDefinition
+        jsonPointers:
+          - /spec/preserveUnknownFields
     repoURL: https://charts.longhorn.io
     installType: helm
     syncWave: "0.2"
