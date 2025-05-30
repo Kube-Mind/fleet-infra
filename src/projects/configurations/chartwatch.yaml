@@ -1,0 +1,72 @@
+
+image:
+  pullPolicy: Always
+
+podAnnotations:
+  vault.hashicorp.com/agent-inject: "true"
+  vault.hashicorp.com/agent-inject-config: kv/chatops/slack
+  vault.hashicorp.com/agent-inject-template-config: |
+    {{ with secret "kv/chatops/slack" -}}
+      export SLACK_WEBHOOK="{{ .Data.data.SLACK_WEBHOOK_CHARTWATCH }}"
+    {{- end }}
+  vault.hashicorp.com/role: chartwatch
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: '2'
+    memory: 1Gi
+  requests:
+    cpu: '1'
+    memory: 512Mi
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "chartwatch"
+
+podArgs:
+  - -c
+  - 'source /vault/secrets/config && poetry run python -m chartwatch --config /mnt/payload/payload.yaml -p 1h'
+
+# Additional volumes on the output Deployment definition.
+volumes:
+  - name: chartwatch
+    configMap:
+      # Provide the name of the ConfigMap containing the files you want
+      # to add to the container
+      name: chartwatch
+  - name: cache-volume
+    emptyDir:
+      sizeLimit: 512Mi
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts:
+  - name: chartwatch
+    mountPath: "/mnt/payload"
+    readOnly: true
+  - mountPath: "/tmp"
+    name: cache-volume
+  
+configMapData:
+  payload.yaml: |-
+    git_repositories:
+      fleet-infra:
+        url: https://gitlab.com/kuberhive/fleet-infra.git
+        name: fleet-infra
+        destination_path: /tmp
+        poll_rate: 1m
+        branch: main
+        chart_paths:
+          - src/projects/values.infra-mgr.yaml
+          - src/projects/values.media-centre.yaml
+          - src/projects/values.monitoring-stack.yaml

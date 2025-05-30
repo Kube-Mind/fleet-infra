@@ -1,0 +1,156 @@
+expose:
+  type: ingress
+  tls:
+    enabled: true
+    certSource: secret
+    secret:
+      secretName: "helm-harbor-ingress"
+  ingress:
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      cert-manager.io/cluster-issuer: letsencrypt-prd
+      # note different ingress controllers may require a different ssl-redirect annotation
+      # for Envoy, use ingress.kubernetes.io/force-ssl-redirect: "true" and remove the nginx lines below
+      # traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    hosts:
+      core: ocr.jcan.dev
+      notary: notary.jcan.dev
+    className: "traefik"
+
+externalURL: https://ocr.jcan.dev
+
+controller:
+  resources:
+    requests:
+      cpu: 2000m
+      memory: 2Gi
+    limits:
+      cpu: 4000m
+      memory: 4Gi
+
+core:
+  resources:
+    requests:
+      cpu: 2000m
+      memory: 2Gi
+    limits:
+      cpu: 4000m
+      memory: 4Gi
+
+database:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: node-role.kubernetes.io/etcd
+                operator: DoesNotExist
+  internal:
+    shmSizeLimit: 4Gi
+    resources:
+      requests:
+        memory: 2Gi
+        cpu: 2000m
+      limits:
+        memory: 4Gi
+        cpu: 4000m
+
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 300
+      periodSeconds: 100
+      timeoutSeconds: 50
+      successThreshold: 10
+      failureThreshold: 60
+      
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 50
+      periodSeconds: 100
+      timeoutSeconds: 50
+      successThreshold: 10
+      failureThreshold: 60
+      
+    startupProbe:
+      enabled: false
+      initialDelaySeconds: 50
+      periodSeconds: 100
+      timeoutSeconds: 50
+      successThreshold: 10
+      failureThreshold: 100
+
+jobservice:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: node-role.kubernetes.io/etcd
+                operator: DoesNotExist
+
+portal:
+  resources:
+    requests:
+      cpu: 2000m
+      memory: 2Gi
+
+registry:
+  resources:
+    requests:
+      memory: 4Gi
+      cpu: 1000m
+  affinity: {}
+
+persistence:
+  enabled: true
+  # Setting it to "keep" to avoid removing PVCs during a helm delete
+  # operation. Leaving it empty will delete PVCs after the chart deleted
+  # (this does not apply for PVCs that are created for internal database
+  # and redis components, i.e. they are never deleted automatically)
+  resourcePolicy: "keep"
+  persistentVolumeClaim:
+    registry:
+      storageClass: "longhorn"
+      accessMode: ReadWriteMany
+      size: 100Gi
+      annotations: {}
+    jobservice:
+      jobLog:
+        storageClass: "longhorn"
+        accessMode: ReadWriteMany
+        size: 5Gi
+        annotations: {}
+    database:
+      storageClass: "longhorn"
+      accessMode: ReadWriteMany
+      size: 10Gi
+      annotations: {}
+    redis:
+      storageClass: "longhorn"
+      subPath: ""
+      accessMode: ReadWriteMany
+      size: 5Gi
+      annotations: {}
+    trivy:
+      storageClass: "longhorn"
+      accessMode: ReadWriteMany
+      size: 15Gi
+      annotations: {}
+
+trivy:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: node-role.kubernetes.io/etcd
+                operator: DoesNotExist
+  timeout: 30m
+  resources:
+    requests:
+      cpu: 2
+      memory: 2Gi
+    limits:
+      cpu: 4
+      memory: 4Gi
+
