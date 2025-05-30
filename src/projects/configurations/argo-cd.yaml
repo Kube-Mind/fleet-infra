@@ -78,7 +78,7 @@ configs:
     # -- Annotations to be added to the argocd-cmd-params-cm ConfigMap
     annotations:
       redis.server: 'argocd-redis-ha-haproxy:6379'
-      # server.insecure: 'true'
+      server.insecure: 'true'
 
     ## Generic parameters
     # -- Open-Telemetry collector address: (e.g. "otel-collector:4317")
