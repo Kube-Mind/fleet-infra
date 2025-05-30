@@ -44,7 +44,7 @@ configs:
 
     # -- Enable local admin user
     ## Ref: https://argo-cd.readthedocs.io/en/latest/faq/#how-to-disable-admin-user
-    admin.enabled: true
+    admin.enabled: false
 
     kustomize.buildOptions: --enable-helm
     statusbadge.enabled: true
@@ -382,8 +382,8 @@ notifications:
   ## For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/subscriptions/
   subscriptions:
     - recipients:
-        - slack:infra-mgr
-      selector: argocd.argoproj.io/instance=infra-mgr
+        - slack:infra-management
+      selector: argocd.argoproj.io/instance=infra-management
       triggers:
         - on-deployed
         - on-health-degraded
@@ -392,8 +392,8 @@ notifications:
         - on-sync-status-unknown
         - on-sync-succeeded
     - recipients:
-        - slack:infra-ops
-      selector: argocd.argoproj.io/instance=infra-ops
+        - slack:infra-operations
+      selector: argocd.argoproj.io/instance=infra-operations
       triggers:
         - on-deployed
         - on-health-degraded
@@ -402,8 +402,8 @@ notifications:
         - on-sync-status-unknown
         - on-sync-succeeded
     - recipients:
-        - slack:media-centre
-      selector: argocd.argoproj.io/instance=media-centre
+        - slack:infra-monitoring
+      selector: argocd.argoproj.io/instance=infra-monitoring
       triggers:
         - on-deployed
         - on-health-degraded
@@ -412,8 +412,38 @@ notifications:
         - on-sync-status-unknown
         - on-sync-succeeded
     - recipients:
-        - slack:monitoring-stack
-      selector: argocd.argoproj.io/instance=monitoring-stack
+        - slack:dev-management
+      selector: argocd.argoproj.io/instance=dev-management
+      triggers:
+        - on-deployed
+        - on-health-degraded
+        - on-sync-failed
+        - on-sync-running
+        - on-sync-status-unknown
+        - on-sync-succeeded
+    - recipients:
+        - slack:dev-operations
+      selector: argocd.argoproj.io/instance=dev-operations
+      triggers:
+        - on-deployed
+        - on-health-degraded
+        - on-sync-failed
+        - on-sync-running
+        - on-sync-status-unknown
+        - on-sync-succeeded
+    - recipients:
+        - slack:kmind-management
+      selector: argocd.argoproj.io/instance=kmind-management
+      triggers:
+        - on-deployed
+        - on-health-degraded
+        - on-sync-failed
+        - on-sync-running
+        - on-sync-status-unknown
+        - on-sync-succeeded
+    - recipients:
+        - slack:work
+      selector: argocd.argoproj.io/instance=work
       triggers:
         - on-deployed
         - on-health-degraded

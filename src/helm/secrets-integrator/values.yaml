@@ -76,20 +76,20 @@ externalSecret:
     #         property: regcred
     #       secretKey: config.json
 
-    - name: "gitlab-access"
-      namespaces:
-        - webhooks
-      secretStoreRef:
-        name: vault
-        kind: ClusterSecretStore
-      data:
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: gitlab/repo
-            metadataPolicy: None
-            property: token
-          secretKey: token
+    # - name: "gitlab-access"
+    #   namespaces:
+    #     - webhooks
+    #   secretStoreRef:
+    #     name: vault
+    #     kind: ClusterSecretStore
+    #   data:
+    #     - remoteRef:
+    #         conversionStrategy: Default
+    #         decodingStrategy: None
+    #         key: gitlab/repo
+    #         metadataPolicy: None
+    #         property: token
+    #       secretKey: token
 
     - name: "gitlab-runner"
       namespaces:
@@ -131,46 +131,46 @@ externalSecret:
     #         key: harbor/service
     #         property: regcred
 
-    - name: "nextcloud-bootstrap-secrets"
-      namespaces:
-        - nextcloud
-      secretStoreRef:
-        name: vault
-        kind: ClusterSecretStore
-      data:
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: media-centre/nextcloud
-            metadataPolicy: None
-            property: NEXTCLOUD_ADMIN_USER
-          secretKey: NEXTCLOUD_ADMIN_USER
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: media-centre/nextcloud
-            metadataPolicy: None
-            property: NEXTCLOUD_ADMIN_PASSWORD
-          secretKey: NEXTCLOUD_ADMIN_PASSWORD
+    # - name: "nextcloud-bootstrap-secrets"
+    #   namespaces:
+    #     - nextcloud
+    #   secretStoreRef:
+    #     name: vault
+    #     kind: ClusterSecretStore
+    #   data:
+    #     - remoteRef:
+    #         conversionStrategy: Default
+    #         decodingStrategy: None
+    #         key: media-centre/nextcloud
+    #         metadataPolicy: None
+    #         property: NEXTCLOUD_ADMIN_USER
+    #       secretKey: NEXTCLOUD_ADMIN_USER
+    #     - remoteRef:
+    #         conversionStrategy: Default
+    #         decodingStrategy: None
+    #         key: media-centre/nextcloud
+    #         metadataPolicy: None
+    #         property: NEXTCLOUD_ADMIN_PASSWORD
+    #       secretKey: NEXTCLOUD_ADMIN_PASSWORD
 
-    - name: "rabbitmq"
-      namespaces:
-        - rabbitmq
-      secretStoreRef:
-        name: vault
-        kind: ClusterSecretStore
-      data:
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: rabbitmq
-            metadataPolicy: None
-            property: rabbitmq-password
-          secretKey: rabbitmq-password
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: rabbitmq
-            metadataPolicy: None
-            property: rabbitmq-erlang-cookie
-          secretKey: rabbitmq-erlang-cookie
+    # - name: "rabbitmq"
+    #   namespaces:
+    #     - rabbitmq
+    #   secretStoreRef:
+    #     name: vault
+    #     kind: ClusterSecretStore
+    #   data:
+    #     - remoteRef:
+    #         conversionStrategy: Default
+    #         decodingStrategy: None
+    #         key: rabbitmq
+    #         metadataPolicy: None
+    #         property: rabbitmq-password
+    #       secretKey: rabbitmq-password
+    #     - remoteRef:
+    #         conversionStrategy: Default
+    #         decodingStrategy: None
+    #         key: rabbitmq
+    #         metadataPolicy: None
+    #         property: rabbitmq-erlang-cookie
+    #       secretKey: rabbitmq-erlang-cookie
