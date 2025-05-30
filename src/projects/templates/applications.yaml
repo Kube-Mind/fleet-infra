@@ -30,7 +30,7 @@ spec:
   sources:
     - repoURL: {{ $repoURL  }}
       targetRevision: {{ $targetRevision }}
-      path: "$values/{{ default (printf "src/kustomization/%s" $app) $value.path }}"
+      path: "$values/src/kustomization/{{ $app }}"
       kustomize:
         namePrefix: {{ $appProject }}-
     - repoURL: {{ $repoURL }}
