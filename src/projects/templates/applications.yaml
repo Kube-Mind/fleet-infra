@@ -30,12 +30,7 @@ spec:
   sources:
     - repoURL: {{ $repoURL  }}
       targetRevision: {{ $targetRevision }}
-      path: "$values/src/kustomization/{{ $app }}"
-      kustomize:
-        namePrefix: {{ $appProject }}-
-    - repoURL: {{ $repoURL }}
-      targetRevision: {{ $targetRevision }}
-      ref: values
+      path: "src/kustomization/{{ $app }}"
   {{- else }}
   sources:
     - repoURL: {{ $value.repoURL }}
