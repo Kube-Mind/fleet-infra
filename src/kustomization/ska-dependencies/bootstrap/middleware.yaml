@@ -1,0 +1,20 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: rewrite-taranta
+spec:
+  redirectRegex:
+    regex: "^/ska-pst/taranta/(.*)"
+    replacement: "/$1"
+    permanent: false
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: rewrite-auth
+spec:
+  replacePathRegex:
+    regex: "^/auth/(.*)"
+    replacement: "/$1"

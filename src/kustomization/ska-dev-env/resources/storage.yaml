@@ -1,0 +1,21 @@
+---
+# Source: ska-pst-test-parent/charts/ska-pst/templates/core/primaryvolume.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ska-pst-dspsr-builder
+  labels:
+    helm.sh/chart: ska-pst-1.0.0
+    app.kubernetes.io/name: ska-pst
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/managed-by: Helm
+    app: ska-pst-core
+spec:
+  storageClassName: nfs-client
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 10G

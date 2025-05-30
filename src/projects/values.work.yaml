@@ -4,7 +4,7 @@ spec:
 apps:
   ska-dependencies:
     automated: false
-    installType: kustomize
+    installType: localKustomize
   ska-dev-env:
     automated: false
-    installType: kustomize
+    installType: localKustomize
