@@ -67,6 +67,6 @@ configMapData:
         poll_rate: 1m
         branch: main
         chart_paths:
-          - src/projects/values.infra-mgr.yaml
-          - src/projects/values.media-centre.yaml
-          - src/projects/values.monitoring-stack.yaml
+        - src/projects/values.infra-management.yaml
+        - src/projects/values.infra-monitoring.yaml
+        - src/projects/values.dev-management.yaml

@@ -3,7 +3,7 @@ spec:
 
 apps:
   kube-prometheus-stack:
-    automated: false
+    automated: true
     chartName: kube-prometheus-stack
     extraLabels:
       web-gui: "true"

@@ -3,7 +3,7 @@ spec:
 
 apps:
   gitlab-runner:
-    automated: false
+    automated: true
     chartName: gitlab-runner
     installType: helm
     repoURL: https://charts.gitlab.io
@@ -11,7 +11,7 @@ apps:
     targetRevision: 0.74.0
 
   harbor:
-    automated: false
+    automated: true
     chartName: harbor
     extraLabels:
       web-gui: "true"

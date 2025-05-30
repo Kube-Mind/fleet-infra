@@ -3,7 +3,7 @@ spec:
 
 apps:
   argo-cd:
-    automated: false
+    automated: true
     chartName: argo-cd
     extraLabels:
       web-gui: "true"
@@ -13,7 +13,7 @@ apps:
     targetRevision: 8.0.0
 
   cert-manager:
-    automated: false
+    automated: true
     chartName: cert-manager
     installType: helm
     repoURL: https://charts.jetstack.io
@@ -21,7 +21,7 @@ apps:
     targetRevision: v1.17.1
 
   external-secrets:
-    automated: false
+    automated: true
     chartName: external-secrets
     installType: helm
     repoURL: https://charts.external-secrets.io
@@ -29,12 +29,12 @@ apps:
     targetRevision: 0.14.3
 
   k3s-upgrader:
-    automated: false
+    automated: true
     installType: localKustomize
     syncWave: "0.2"
 
   longhorn:
-    automated: false
+    automated: true
     chartName: longhorn
     repoURL: https://charts.longhorn.io
     installType: helm
@@ -42,7 +42,7 @@ apps:
     targetRevision: 1.8.1
 
   nfs-provisioner:
-    automated: false
+    automated: true
     chartName: nfs-subdir-external-provisioner
     extraLabels:
       web-gui: "true"
@@ -52,7 +52,7 @@ apps:
     targetRevision: 4.0.18
 
   nvidia-operator:
-    automated: false
+    automated: true
     chartName: gpu-operator
     repoURL: https://helm.ngc.nvidia.com/nvidia
     installType: helm
@@ -60,7 +60,7 @@ apps:
     targetRevision: v24.9.2
 
   openbao:
-    automated: false
+    automated: true
     chartName: openbao
     extraLabels:
       web-gui: "true"

@@ -3,16 +3,16 @@ spec:
 
 apps:
   k3s-upgrader-plans:
-    automated: false
+    automated: true
     installType: localKustomize
     syncWave: "1.2"
 
   letsencrypt:
-    automated: false
+    automated: true
     installType: localKustomize
     syncWave: "1.1"
 
   secrets-integrator:
-    automated: false
+    automated: true
     installType: localHelm
     syncWave: "1.1"
