@@ -143,7 +143,7 @@ configs:
       p, role:argocd-admin, repositories, create, *, allow
       p, role:argocd-admin, repositories, update, *, allow
       p, role:argocd-admin, repositories, delete, *, allow
-      g, kube-mind, role:argocd-admin
+      g, Kube-Mind, role:argocd-admin
     # Policy rules are in the form:
     #  p, subject, resource, action, object, effect
     # Role definitions and bindings are in the form:
