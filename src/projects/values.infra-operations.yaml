@@ -4,12 +4,12 @@ spec:
 apps:
   k3s-upgrader:
     automated: false
-    installType: kustomize
+    installType: localKustomize
     syncWave: "1.1"
 
   letsencrypt:
     automated: false
-    installType: kustomize
+    installType: localKustomize
     syncWave: "1.1"
 
   secrets-integrator:

@@ -26,11 +26,11 @@ spec:
     namespace: {{ $app }}
     server: {{ $destinationServer }}
   project: {{ $appProject }}
-  {{- if eq $value.installType "kustomize" }}
+  {{- if eq $value.installType "localKustomize" }}
   sources:
     - repoURL: {{ $repoURL  }}
       targetRevision: {{ $targetRevision }}
-      path: "$values/{{ default (printf "src/%s/%s/%s" $appProject $value.installType $app) $value.path }}"
+      path: "$values/{{ default (printf "src/kustomization/%s" $app) $value.path }}"
       kustomize:
         namePrefix: {{ $appProject }}-
     - repoURL: {{ $repoURL }}
