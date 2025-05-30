@@ -17,14 +17,14 @@ spec:
             vault.hashicorp.com/agent-inject: "true"
             vault.hashicorp.com/agent-inject-token: "true"
             vault.hashicorp.com/agent-run-as-user: "1001"
-            vault.hashicorp.com/role: "vault-admin"
+            vault.hashicorp.com/role: "bao-admin"
         spec:
           initContainers:
             - command:
                 - bash
               args:
                 - -c
-                - 'kubectl delete secret --ignore-not-found=true vault-admin'
+                - 'kubectl delete secret --ignore-not-found=true bao-admin'
               image: bitnami/kubectl:1.17.4
               imagePullPolicy: IfNotPresent
               name: vault-token-secrets-cleanup
@@ -33,11 +33,11 @@ spec:
                 - bash
               args:
                 - -c
-                - 'kubectl create secret generic vault-admin --from-file=token=/vault/secrets/token'
+                - 'kubectl create secret generic bao-admin --from-file=token=/vault/secrets/token'
               image: 'bitnami/kubectl:1.17.4'
               imagePullPolicy: IfNotPresent
-              name: vault-admin
+              name: bao-admin
           restartPolicy: Never
-          serviceAccountName: vault-admin
+          serviceAccountName: bao-admin
   schedule: '1 * 1 * *'
   successfulJobsHistoryLimit: 1
