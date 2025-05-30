@@ -2,10 +2,10 @@ externalSecret:
   clusterSecretStore:
     vault:
       annotations:
-        vault.hashicorp.com/role: vault-admin
+        vault.hashicorp.com/role: bao-admin
       provider:
         vault:
-          server: "https://vault.jcan.dev"
+          server: "https://bao.jcan.dev"
           path: "kv"
           # Version is the Vault KV secret engine version.
           # This can be either "v1" or "v2", defaults to "v2"
@@ -14,7 +14,7 @@ externalSecret:
             # points to a secret that contains a vault token
             # https://www.vaultproject.io/docs/auth/token
             tokenSecretRef:
-              name: "vault-admin"
+              name: "bao-admin"
               key: "token"
               namespace: "secrets-integrator"
 
