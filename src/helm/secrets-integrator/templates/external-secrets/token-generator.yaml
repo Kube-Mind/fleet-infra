@@ -1,0 +1,43 @@
+---
+# Source: helm-bootstrap-external-secrets/templates/cornjob-token-generator.yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: token-generator
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      template:
+        metadata:
+          annotations:
+            vault.hashicorp.com/agent-pre-populate-only : "true"
+            vault.hashicorp.com/agent-inject: "true"
+            vault.hashicorp.com/agent-inject-token: "true"
+            vault.hashicorp.com/agent-run-as-user: "1001"
+            vault.hashicorp.com/role: "vault-admin"
+        spec:
+          initContainers:
+            - command:
+                - bash
+              args:
+                - -c
+                - 'kubectl delete secret --ignore-not-found=true vault-admin'
+              image: bitnami/kubectl:1.17.4
+              imagePullPolicy: IfNotPresent
+              name: vault-token-secrets-cleanup
+          containers:
+            - command:
+                - bash
+              args:
+                - -c
+                - 'kubectl create secret generic vault-admin --from-file=token=/vault/secrets/token'
+              image: 'bitnami/kubectl:1.17.4'
+              imagePullPolicy: IfNotPresent
+              name: vault-admin
+          restartPolicy: Never
+          serviceAccountName: vault-admin
+  schedule: '1 * 1 * *'
+  successfulJobsHistoryLimit: 1

@@ -28,6 +28,11 @@ apps:
     syncWave: "0.2"
     targetRevision: 0.14.3
 
+  k3s-upgrader:
+    automated: false
+    installType: localKustomize
+    syncWave: "0.2"
+
   longhorn:
     automated: false
     chartName: longhorn

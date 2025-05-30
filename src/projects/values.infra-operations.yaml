@@ -2,10 +2,10 @@ spec:
   project: infra-operations
 
 apps:
-  k3s-upgrader:
+  k3s-upgrader-plans:
     automated: false
     installType: localKustomize
-    syncWave: "1.1"
+    syncWave: "1.2"
 
   letsencrypt:
     automated: false
@@ -14,5 +14,5 @@ apps:
 
   secrets-integrator:
     automated: false
-    installType: helm
+    installType: localHelm
     syncWave: "1.1"

@@ -31,6 +31,11 @@ spec:
     - repoURL: {{ $repoURL  }}
       targetRevision: {{ $targetRevision }}
       path: "src/kustomization/{{ $app }}"
+  {{- else if eq $value.installType "localHelm" }}
+  sources:
+    - repoURL: {{ $repoURL  }}
+      targetRevision: {{ $targetRevision }}
+      path: "src/helm/{{ $app }}"
   {{- else }}
   sources:
     - repoURL: {{ $value.repoURL }}
