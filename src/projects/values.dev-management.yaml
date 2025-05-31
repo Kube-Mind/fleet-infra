@@ -64,3 +64,13 @@ apps:
     repoURL: https://helm.goharbor.io
     syncWave: "2.1"
     targetRevision: 1.17.1
+
+  rabbitmq:
+    automated: false
+    chartName: rabbitmq
+    path: rabbitmq
+    installType: oci
+    repoURL: registry-1.docker.io/bitnamicharts
+    extraLabels:
+      web-gui: "true"
+    targetRevision: 16.0.3
