@@ -3,7 +3,7 @@ spec:
 
 apps:
   kube-prometheus-stack:
-    automated: true
+    automated: false
     chartName: kube-prometheus-stack
     extraLabels:
       web-gui: "true"
@@ -22,3 +22,13 @@ apps:
     repoURL: https://prometheus-community.github.io/helm-charts
     syncWave: "2.1"
     targetRevision: 72.6.4
+  
+  neuvector:
+    automated: false
+    chartName: core
+    extraLabels:
+      web-gui: "true"
+    installType: helm
+    repoURL: https://neuvector.github.io/neuvector-helm/
+    syncWave: "2.1"
+    targetRevision: 2.8.6

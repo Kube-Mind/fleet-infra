@@ -2,6 +2,16 @@ spec:
   project: dev-management
 
 apps:
+  n8n:
+    automated: false
+    chartName: n8n
+    extraLabels:
+      web-gui: "true"
+    installType: oci
+    repoURL: oci://8gears.container-registry.com/library
+    syncWave: "2.1"
+    targetRevision: 1.0.0
+
   gitlab-runner:
     automated: true
     chartName: gitlab-runner
