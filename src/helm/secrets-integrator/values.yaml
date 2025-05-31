@@ -153,24 +153,24 @@ externalSecret:
     #         property: NEXTCLOUD_ADMIN_PASSWORD
     #       secretKey: NEXTCLOUD_ADMIN_PASSWORD
 
-    # - name: "rabbitmq"
-    #   namespaces:
-    #     - rabbitmq
-    #   secretStoreRef:
-    #     name: vault
-    #     kind: ClusterSecretStore
-    #   data:
-    #     - remoteRef:
-    #         conversionStrategy: Default
-    #         decodingStrategy: None
-    #         key: rabbitmq
-    #         metadataPolicy: None
-    #         property: rabbitmq-password
-    #       secretKey: rabbitmq-password
-    #     - remoteRef:
-    #         conversionStrategy: Default
-    #         decodingStrategy: None
-    #         key: rabbitmq
-    #         metadataPolicy: None
-    #         property: rabbitmq-erlang-cookie
-    #       secretKey: rabbitmq-erlang-cookie
+    - name: "rabbitmq"
+      namespaces:
+        - rabbitmq
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: messaging/rabbitmq
+            metadataPolicy: None
+            property: rabbitmq-password
+          secretKey: rabbitmq-password
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: messaging/rabbitmq
+            metadataPolicy: None
+            property: rabbitmq-erlang-cookie
+          secretKey: rabbitmq-erlang-cookie
