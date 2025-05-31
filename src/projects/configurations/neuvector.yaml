@@ -612,8 +612,9 @@ runtimePath:
 
 # The following runtime type and socket location are deprecated after 5.3.0.
 # If the socket path is not at the default location, use above 'runtimePath' to specify the location.
-# docker:
-#   path: /var/run/docker.sock
+docker:
+  enabled: false
+  path: /var/run/docker.sock
 
 k3s:
   enabled: true
