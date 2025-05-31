@@ -8,7 +8,8 @@ apps:
     extraLabels:
       web-gui: "true"
     installType: oci
-    repoURL: oci://8gears.container-registry.com/library
+    path: n8n
+    repoURL: 8gears.container-registry.com/library
     syncWave: "2.1"
     targetRevision: 1.0.0
 
@@ -68,9 +69,9 @@ apps:
   rabbitmq:
     automated: false
     chartName: rabbitmq
-    path: rabbitmq
-    installType: oci
-    repoURL: registry-1.docker.io/bitnamicharts
     extraLabels:
       web-gui: "true"
+    installType: oci
+    path: rabbitmq
+    repoURL: registry-1.docker.io/bitnamicharts
     targetRevision: 16.0.3
