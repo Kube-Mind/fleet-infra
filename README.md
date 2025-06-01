@@ -49,4 +49,3 @@ The k3d cluster can be bootstraped using ArgoCD make targets.
 | argocd-login | ArgoCD authentication |
 | argocd-bootstrap | Creates the main ArgoCD application which grabs all of the `fleet-infra` projects |
 |||
-

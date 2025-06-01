@@ -33,17 +33,18 @@ imagePullSecrets: []
 # Ingress
 #
 ingress:
-  enabled: false
-  annotations: {}
+  enabled: true
+  annotations: 
+    cert-manager.io/cluster-issuer: letsencrypt-prd
   # define a custom ingress class Name, like "traefik" or "nginx"
-  className: ""
+  className: "traefik"
   hosts:
-    - host: workflow.example.com
-      paths: []
-  tls:
-    - hosts:
-        - workflow.example.com
-      secretName: host-domain-cert
+    - host: n8n.jcan.dev
+      paths: ["/"]
+  # tls:
+  #   - hosts:
+  #       - workflow.example.com
+  #     secretName: host-domain-cert
 
 # the main (n8n) application related configuration + Kubernetes specific settings
 # The config: {} dictionary is converted to environmental variables in the ConfigMap.
