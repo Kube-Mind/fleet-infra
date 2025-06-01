@@ -41,10 +41,10 @@ ingress:
   hosts:
     - host: n8n.jcan.dev
       paths: ["/"]
-  # tls:
-  #   - hosts:
-  #       - workflow.example.com
-  #     secretName: host-domain-cert
+  tls:
+    - hosts:
+        - n8n.jcan.dev
+      secretName: helm-vault-ingress
 
 # the main (n8n) application related configuration + Kubernetes specific settings
 # The config: {} dictionary is converted to environmental variables in the ConfigMap.
