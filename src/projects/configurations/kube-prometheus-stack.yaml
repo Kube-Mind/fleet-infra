@@ -25,6 +25,9 @@ grafana:
           - name: Prometheus
             value: Prometheus
 
+  paths:
+    level: debug
+
   grafana.ini:
     auth:
       # remove the login form from the sign-in page 
