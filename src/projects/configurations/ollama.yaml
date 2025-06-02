@@ -370,7 +370,22 @@ nodeSelector: {}
 tolerations: []
 
 # -- Affinity for pod assignment
-affinity: {}
+affinity:
+  # -- Node affinity
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - odin
+
+  # -- Pod affinity
+  podAffinity: {}
+
+  # -- Pod anti-affinity
+  podAntiAffinity: {}
 
 # -- Lifecycle for pod assignment (override ollama.models startup pull/run)
 lifecycle: {}
