@@ -36,15 +36,20 @@ grafana:
 
     auth.gitlab:
       enabled: true
+
+      root_url: https://grafana.jcan.dev
   
       # go directly to SSO! (hint: `/login?disableAutoLogin`)
       auto_login: false
+
+      allow_sign_up: true
 
       allowed_groups:
       - Kube-Mind
 
       allowed_domains:
       - grafana.jcan.dev
+      - jcan.dev
 
       auth_url: https://gitlab.com/oauth/authorize
       token_url: https://gitlab.com/oauth/token
