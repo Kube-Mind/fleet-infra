@@ -46,6 +46,10 @@ grafana:
       allowed_domains:
       - grafana.jcan.dev
 
+      auth_url: https://gitlab.com/oauth/authorize
+      token_url: https://gitlab.com/oauth/token
+      api_url: https://gitlab.com/api/v4
+
     server:
       domain: grafana.jcan.dev
 
