@@ -76,20 +76,27 @@ externalSecret:
     #         property: regcred
     #       secretKey: config.json
 
-    # - name: "gitlab-access"
-    #   namespaces:
-    #     - webhooks
-    #   secretStoreRef:
-    #     name: vault
-    #     kind: ClusterSecretStore
-    #   data:
-    #     - remoteRef:
-    #         conversionStrategy: Default
-    #         decodingStrategy: None
-    #         key: gitlab/repo
-    #         metadataPolicy: None
-    #         property: token
-    #       secretKey: token
+    - name: "gitlab-grafana-oauth"
+      namespaces:
+        - kube-prometheus-stack
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: gitlab/grafana
+            metadataPolicy: None
+            property: GITLAB_APPLICATION_ID
+          secretKey: GITLAB_APPLICATION_ID
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: gitlab/grafana
+            metadataPolicy: None
+            property: GITLAB_CLIENT_SECRET
+          secretKey: GITLAB_CLIENT_SECRET
 
     - name: "gitlab-runner"
       namespaces:
