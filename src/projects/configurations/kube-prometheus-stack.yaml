@@ -35,25 +35,24 @@ grafana:
         enabled: true
 
       gitlab:
-        enabled: false
-        # root_url: https://grafana.jcan.de
+        enabled: true
         # # go directly to SSO! (hint: `/login?disableAutoLogin`)
         # auto_login: false
         # allow_sign_up: true
-        # allowed_groups:
-        # - Kube-Mind
-        # allowed_domains:
-        # - grafana.jcan.dev
-        # - jcan.dev
+        allowed_groups:
+        - Kube-Mind
+        allowed_domains:
+        - grafana.jcan.dev
+        - jcan.dev
         # redirect_uri: https://grafana.jcan.dev/api/auth/callback/gitlab
-        # scopes:
-        # - read_user
-        # - read_api
-        # - read_repository
-        # - openid
-        # - profile
-        # - email
-        # - read_group
+        scopes:
+        - read_user
+        - read_api
+        - read_repository
+        - openid
+        - profile
+        - email
+        - read_group
       
       oauth_generic:
         enabled: true
@@ -69,14 +68,16 @@ grafana:
         # `grafana_admin` -> Grafana **Server** Admin
         # `grafana_editor` -> Grafana Editor
         # * -> Grafana Viewer
-        role_attribute_path: contains(groups[*], 'grafana_admin') && 'GrafanaAdmin' || contains(groups[*], 'grafana_editor') && 'Editor' || 'Viewer'
+        # role_attribute_path: contains(groups[*], 'grafana_admin') && 'GrafanaAdmin' || contains(groups[*], 'grafana_editor') && 'Editor' || 'Viewer'
 
         # required for the above query ⬆️ to be able to map to Grafana **Server** Admin
         allow_assign_grafana_admin: true
-
+        auth_url: https://gitlab.com/oauth/authorize
+        token_url: https://gitlab.com/oauth/token
+        api_url: https://gitlab.com/api/v4
 
     server:
-      domain: grafana.jcan.dev
+      root_url: grafana.jcan.dev
 
   ingress:
     enabled: true
