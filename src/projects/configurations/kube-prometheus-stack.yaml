@@ -42,8 +42,11 @@ grafana:
       role_attribute_path: contains(groups[*], 'Kube-Mind') && 'Editor' || 'Viewer'
       allowed_groups: Kube-Mind
       redirect_uri: https://grafana.jcan.dev/api/auth/callback/gitlab
-      org_role: Editor
+      auto_assign_org_role: Viewer
       role_attribute_strict: false
+      auth_url: https://gitlab.com/oauth/authorize
+      token_url: https://gitlab.com/oauth/token
+      api_url: https://gitlab.com/api/v4
       scopes:
       - read_user
       - read_api
