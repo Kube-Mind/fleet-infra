@@ -45,6 +45,8 @@ grafana:
         - grafana.jcan.dev
         - jcan.dev
         # redirect_uri: https://grafana.jcan.dev/api/auth/callback/gitlab
+        role_attribute_path: "contains(groups[*], 'Kube-Mind') && 'Editor' || 'Viewer'"
+        role_attribute_strict: false
         scopes:
         - read_user
         - read_api
