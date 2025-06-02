@@ -83,6 +83,7 @@ externalSecret:
         name: vault
         kind: ClusterSecretStore
       data:
+        # GitLab OAuth
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
@@ -97,6 +98,22 @@ externalSecret:
             metadataPolicy: None
             property: GITLAB_CLIENT_SECRET
           secretKey: GF_AUTH_GITLAB_CLIENT_SECRET
+
+        # Generic OAuth
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: gitlab/grafana
+            metadataPolicy: None
+            property: GITLAB_APPLICATION_ID
+          secretKey: GF_AUTH_GENERIC_OAUTH_CLIENT_ID
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: gitlab/grafana
+            metadataPolicy: None
+            property: GITLAB_CLIENT_SECRET
+          secretKey: GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
 
     - name: "gitlab-runner"
       namespaces:

@@ -26,41 +26,40 @@ grafana:
             value: Prometheus
 
   grafana.ini:
-    auth:auth:
+    auth:
       # remove the login form from the sign-in page 
       disable_login_form: true
-    
-    auth.basic:
-      # disable HTTP Basic Authentication
-      enabled: false
 
-    auth.gitlab:
-      enabled: true
+      basic:
+        # disable HTTP Basic Authentication
+        enabled: false
 
-      root_url: https://grafana.jcan.dev
-  
-      # go directly to SSO! (hint: `/login?disableAutoLogin`)
-      auto_login: false
+      gitlab:
+        enabled: false
+        # root_url: https://grafana.jcan.de
+        # # go directly to SSO! (hint: `/login?disableAutoLogin`)
+        # auto_login: false
+        # allow_sign_up: true
+        # allowed_groups:
+        # - Kube-Mind
+        # allowed_domains:
+        # - grafana.jcan.dev
+        # - jcan.dev
+        # redirect_uri: https://grafana.jcan.dev/api/auth/callback/gitlab
+        # scopes:
+        # - read_user
+        # - read_api
+        # - read_repository
+        # - openid
+        # - profile
+        # - email
+        # - read_group
+      
+      oauth_generic:
+        enabled: true
+        # go directly to SSO! 🎉 (hint: `/login?disableAutoLogin`)
+        auto_login: true
 
-      allow_sign_up: true
-
-      allowed_groups:
-      - Kube-Mind
-
-      allowed_domains:
-      - grafana.jcan.dev
-      - jcan.dev
-
-      redirect_uri: https://grafana.jcan.dev/api/auth/callback/gitlab
-
-      scopes:
-      - read_user
-      - read_api
-      - read_repository
-      - openid
-      - profile
-      - email
-      - read_group
 
     server:
       domain: grafana.jcan.dev
