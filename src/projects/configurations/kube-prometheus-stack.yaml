@@ -35,6 +35,8 @@ grafana:
       enabled: false
 
     auth.oauth_generic:
+      enabled: true
+  
       # go directly to SSO! (hint: `/login?disableAutoLogin`)
       auto_login: true
 
