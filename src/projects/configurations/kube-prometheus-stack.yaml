@@ -78,7 +78,7 @@ grafana:
 
     server:
       domain: grafana.jcan.dev
-      root_url: https://grafana.jcan.dev
+      external_url: https://grafana.jcan.dev
 
   ingress:
     enabled: true
