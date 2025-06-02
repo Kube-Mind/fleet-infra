@@ -28,11 +28,11 @@ grafana:
   grafana.ini:
     auth:auth:
       # remove the login form from the sign-in page 
-      disable_login_form: false
+      disable_login_form: true
     
     auth.basic:
       # disable HTTP Basic Authentication
-      enabled: true
+      enabled: false
 
     auth.gitlab:
       enabled: true
