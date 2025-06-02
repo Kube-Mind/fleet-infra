@@ -65,14 +65,14 @@ apps:
     path: n8n
     repoURL: 8gears.container-registry.com/library
     syncWave: "2.1"
-    targetRevision: 1.19.0
+    targetRevision: 1.0.0
 
   ollama:
     automated: false
     chartName: ollama
     installType: helm
     repoURL: https://otwld.github.io/ollama-helm/
-    targetRevision:
+    targetRevision: 1.19.0
 
   rabbitmq:
     automated: false
