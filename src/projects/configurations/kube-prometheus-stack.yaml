@@ -42,7 +42,6 @@ grafana:
       allow_sign_up: true
       role_attribute_path: contains(groups[*], 'Kube-Mind') && 'Editor' || 'Viewer'
       allowed_groups: Kube-Mind
-      redirect_uri: https://grafana.jcan.dev/api/auth/callback/gitlab
       auto_assign_org_role: Viewer
       role_attribute_strict: false
       auth_url: https://gitlab.com/oauth/authorize
@@ -80,8 +79,8 @@ grafana:
       api_url: https://gitlab.com/api/v4
 
     server:
-      domain: grafana.jcan.dev
-      external_url: https://grafana.jcan.dev
+      root_url: https://grafana.jcan.dev
+      serve_from_sub_path: false
 
   ingress:
     enabled: true

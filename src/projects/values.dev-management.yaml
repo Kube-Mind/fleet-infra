@@ -2,16 +2,6 @@ spec:
   project: dev-management
 
 apps:
-  n8n:
-    automated: false
-    chartName: n8n
-    extraLabels:
-      web-gui: "true"
-    installType: oci
-    path: n8n
-    repoURL: 8gears.container-registry.com/library
-    syncWave: "2.1"
-    targetRevision: 1.0.0
 
   gitlab-runner:
     automated: true
@@ -65,6 +55,24 @@ apps:
     repoURL: https://helm.goharbor.io
     syncWave: "2.1"
     targetRevision: 1.17.1
+
+  n8n:
+    automated: false
+    chartName: n8n
+    extraLabels:
+      web-gui: "true"
+    installType: oci
+    path: n8n
+    repoURL: 8gears.container-registry.com/library
+    syncWave: "2.1"
+    targetRevision: 1.19.0
+
+  ollama:
+    automated: false
+    chartName: ollama
+    installType: helm
+    repoURL: https://otwld.github.io/ollama-helm/
+    targetRevision:
 
   rabbitmq:
     automated: false
