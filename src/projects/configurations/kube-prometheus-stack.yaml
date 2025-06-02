@@ -51,6 +51,15 @@ grafana:
       - grafana.jcan.dev
       - jcan.dev
 
+      scopes:
+      - read_user
+      - read_api
+      - read_repository
+      - openid
+      - profile
+      - email
+      - read_group
+
     server:
       domain: grafana.jcan.dev
 
