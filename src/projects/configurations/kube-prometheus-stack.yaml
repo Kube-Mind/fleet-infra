@@ -51,6 +51,8 @@ grafana:
       - grafana.jcan.dev
       - jcan.dev
 
+      redirect_uri: https://grafana.jcan.dev/api/auth/callback/gitlab
+
       scopes:
       - read_user
       - read_api
