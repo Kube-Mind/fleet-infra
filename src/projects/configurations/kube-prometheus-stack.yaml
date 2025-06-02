@@ -43,6 +43,9 @@ grafana:
       allowed_groups:
       - Kube-Mind
 
+      allowed_domains:
+      - grafana.jcan.dev
+
     server:
       domain: grafana.jcan.dev
 
