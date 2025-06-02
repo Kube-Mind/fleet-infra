@@ -89,14 +89,14 @@ externalSecret:
             key: gitlab/grafana
             metadataPolicy: None
             property: GITLAB_APPLICATION_ID
-          secretKey: GF_AUTH_GENERIC_OAUTH_CLIENT_ID
+          secretKey: GF_AUTH_GITLAB_CLIENT_ID
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
             key: gitlab/grafana
             metadataPolicy: None
             property: GITLAB_CLIENT_SECRET
-          secretKey: GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
+          secretKey: GF_AUTH_GITLAB_CLIENT_SECRET
 
     - name: "gitlab-runner"
       namespaces:
