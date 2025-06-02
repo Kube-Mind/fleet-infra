@@ -77,7 +77,8 @@ grafana:
         api_url: https://gitlab.com/api/v4
 
     server:
-      root_url: grafana.jcan.dev
+      domain: grafana.jcan.dev
+      root_url: https://grafana.jcan.dev
 
   ingress:
     enabled: true
