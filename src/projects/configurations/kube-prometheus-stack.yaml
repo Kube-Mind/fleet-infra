@@ -40,6 +40,9 @@ grafana:
       # go directly to SSO! (hint: `/login?disableAutoLogin`)
       auto_login: false
 
+      allowed_groups:
+      - Kube-Mind
+
     server:
       domain: grafana.jcan.dev
 
