@@ -4,26 +4,26 @@ grafana:
   envFromSecret: gitlab-grafana-oauth
 
   adminPassword: null
-  dashboardproviders.yaml:
-    apiVersion: 1
-    providers:
-      - name: 'default'
-        orgId: 1
-        folder: 'default'
-        type: file
-        disableDeletion: true
-        editable: true
-        options:
-          path: /var/lib/grafana/dashboards/standard
+  # dashboardproviders.yaml:
+  #   apiVersion: 1
+  #   providers:
+  #     - name: 'default'
+  #       orgId: 1
+  #       folder: 'default'
+  #       type: file
+  #       disableDeletion: true
+  #       editable: true
+  #       options:
+  #         path: /var/lib/grafana/dashboards/standard
 
   dashboards:
     default:
-      nvidia-dcgm-exporter:
-        gnetId: 12239
-        revision: 2
-        datasource:
-          - name: Prometheus
-            value: Prometheus
+    #   nvidia-dcgm-exporter:
+    #     gnetId: 12239
+    #     revision: 2
+    #     datasource:
+    #       - name: Prometheus
+    #         value: Prometheus
 
 
   grafana.ini:
