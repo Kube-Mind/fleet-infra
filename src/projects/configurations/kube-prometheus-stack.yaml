@@ -1,5 +1,8 @@
 grafana:
   enabled: true
+
+  envFromSecret: gitlab-grafana-oauth
+
   adminPassword: null
   dashboardproviders.yaml:
     apiVersion: 1
@@ -23,6 +26,18 @@ grafana:
             value: Prometheus
 
   grafana.ini:
+    auth:auth:
+      # remove the login form from the sign-in page 
+      disable_login_form: true
+    
+    auth.basic:
+      # disable HTTP Basic Authentication
+      enabled: false
+
+    auth.oauth_generic:
+      # go directly to SSO! (hint: `/login?disableAutoLogin`)
+      auto_login: true
+
     server:
       domain: grafana.jcan.dev
 
