@@ -38,7 +38,7 @@ grafana:
       enabled: true
   
       # go directly to SSO! (hint: `/login?disableAutoLogin`)
-      auto_login: true
+      auto_login: false
 
     server:
       domain: grafana.jcan.dev
