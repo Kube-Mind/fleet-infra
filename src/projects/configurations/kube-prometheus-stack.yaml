@@ -28,11 +28,11 @@ grafana:
   grafana.ini:
     auth:
       # remove the login form from the sign-in page 
-      disable_login_form: true
+      disable_login_form: false
 
       basic:
         # disable HTTP Basic Authentication
-        enabled: false
+        enabled: true
 
       gitlab:
         enabled: false
@@ -58,7 +58,21 @@ grafana:
       oauth_generic:
         enabled: true
         # go directly to SSO! 🎉 (hint: `/login?disableAutoLogin`)
-        auto_login: true
+        auto_login: false
+
+        # there's about to be a 👻 JSON query, by setting this to strict,
+        # Grafana will reject logins if the expression errors
+        # (fail closed)
+        role_attribute_strict: true
+
+        # LDAP group -> Grafana role mapping:
+        # `grafana_admin` -> Grafana **Server** Admin
+        # `grafana_editor` -> Grafana Editor
+        # * -> Grafana Viewer
+        role_attribute_path: contains(groups[*], 'grafana_admin') && 'GrafanaAdmin' || contains(groups[*], 'grafana_editor') && 'Editor' || 'Viewer'
+
+        # required for the above query ⬆️ to be able to map to Grafana **Server** Admin
+        allow_assign_grafana_admin: true
 
 
     server:
