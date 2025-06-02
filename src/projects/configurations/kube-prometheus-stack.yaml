@@ -39,13 +39,9 @@ grafana:
       # # go directly to SSO! (hint: `/login?disableAutoLogin`)
       # auto_login: false
       # allow_sign_up: true
-      allowed_groups:
-      - Kube-Mind
-      allowed_domains:
-      - grafana.jcan.dev
-      - jcan.dev
+      allowed_groups: Kube-Mind
       # redirect_uri: https://grafana.jcan.dev/api/auth/callback/gitlab
-      role_attribute_path: "contains(groups[*], 'Kube-Mind') && 'Editor' || 'Viewer'"
+      org_role: Editor
       role_attribute_strict: false
       scopes:
       - read_user
