@@ -85,7 +85,6 @@ ollama:
     #  - llama2
     #  - mistral
     pull:
-    - llama3
     - llama4
 
     # -- List of models to load in memory at container startup
@@ -93,7 +92,6 @@ ollama:
     #  - llama2
     #  - mistral
     run:
-    - llama3
     - llama4
 
     # -- List of models to create at container startup, there are two options
