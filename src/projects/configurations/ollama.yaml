@@ -50,7 +50,7 @@ ollama:
 
   gpu:
     # -- Enable GPU integration
-    enabled: false
+    enabled: true
 
     # -- GPU type: 'nvidia' or 'amd'
     # If 'ollama.gpu.enabled', default value is nvidia
@@ -153,7 +153,7 @@ securityContext: {}
   # runAsUser: 1000
 
 # -- Specify runtime class
-runtimeClassName: ""
+runtimeClassName: "nvidia"
 
 # Configure Service
 service:
