@@ -71,6 +71,8 @@ main:
 
   # Extra environmental variables, so you can reference other configmaps and secrets into n8n as env vars.
   extraEnv:
+    WEBHOOK_URL:
+      value: "https://n8n.jcan.dev"
   #    N8N_DB_POSTGRESDB_NAME:
   #      valueFrom:
   #        secretKeyRef:
