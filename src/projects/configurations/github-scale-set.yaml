@@ -362,7 +362,7 @@ template:
 ## to help it finish RoleBinding with the right service account.
 ## Note: if your controller is installed to only watch a single namespace, you have to pass these values explicitly.
 controllerServiceAccount:
-  namespace: github-scale-set-controller
+  namespace: agithub-runner
   name: github-scale-set-controller-gha-rs-controller
 
 # Overrides the default `.Release.Namespace` for all resources in this chart.
