@@ -23,7 +23,7 @@ metadata:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: {{ $app }}
+    namespace: {{ $value.namespace | default $app }}
     server: {{ $destinationServer }}
   project: {{ $appProject }}
   {{- if eq $value.installType "localKustomize" }}

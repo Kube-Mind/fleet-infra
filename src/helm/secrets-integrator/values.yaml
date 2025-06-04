@@ -78,7 +78,7 @@ externalSecret:
 
     - name: "github-runner"
       namespaces:
-        - github-scale-set
+        - github-runner
       secretStoreRef:
         name: vault
         kind: ClusterSecretStore

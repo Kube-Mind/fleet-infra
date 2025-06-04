@@ -7,6 +7,7 @@ apps:
     automated: false
     chartName: gha-runner-scale-set
     installType: oci
+    namespace: github-runner
     repoURL: ghcr.io/actions/actions-runner-controller-charts
     targetRevision: 0.11.0
 
@@ -21,6 +22,7 @@ apps:
         jqPathExpressions:
           - .spec.preserveUnknownFields
     installType: oci
+    namespace: github-runner
     repoURL: ghcr.io/actions/actions-runner-controller-charts
     targetRevision: 0.11.0
 
