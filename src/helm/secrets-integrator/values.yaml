@@ -76,6 +76,21 @@ externalSecret:
     #         property: regcred
     #       secretKey: config.json
 
+    - name: "github-runner"
+      namespaces:
+        - github-scale-set
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: github/runner
+            metadataPolicy: None
+            property: github_token
+          secretKey: github_token
+
     - name: "gitlab-grafana-oauth"
       namespaces:
         - kube-prometheus-stack

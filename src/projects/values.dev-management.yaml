@@ -3,6 +3,13 @@ spec:
 
 apps:
 
+  github-scale-set:
+    automated: false
+    chartName: gha-runner-scale-set
+    installType: oci
+    repoURL: ghcr.io/actions/actions-runner-controller-charts
+    targetRevision: 0.11.0
+
   github-scale-set-controller:
     automated: false
     chartName: gha-runner-scale-set-controller
