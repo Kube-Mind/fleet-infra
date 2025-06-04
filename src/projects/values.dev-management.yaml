@@ -6,6 +6,13 @@ apps:
   github-scale-set-controller:
     automated: false
     chartName: gha-runner-scale-set-controller
+    extraSyncOptions:
+      - ServerSideApply=true
+    ignoreDifferences:
+      - group: 'apiextensions.k8s.io'
+        kind: CustomResourceDefinition
+        jqPathExpressions:
+          - .spec.preserveUnknownFields
     installType: oci
     repoURL: ghcr.io/actions/actions-runner-controller-charts
     targetRevision: 0.11.0
