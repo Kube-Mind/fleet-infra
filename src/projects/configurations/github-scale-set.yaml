@@ -56,7 +56,7 @@ maxRunners: 5
 
 ## minRunners is the min number of idle runners. The target number of runners created will be
 ## calculated as a sum of minRunners and the number of jobs assigned to the scale set.
-minRunners: 1
+minRunners: 0
 
 # runnerGroup: "default"
 
@@ -362,7 +362,7 @@ template:
 ## to help it finish RoleBinding with the right service account.
 ## Note: if your controller is installed to only watch a single namespace, you have to pass these values explicitly.
 controllerServiceAccount:
-  namespace: agithub-runner
+  namespace: github-runner
   name: github-scale-set-controller-gha-rs-controller
 
 # Overrides the default `.Release.Namespace` for all resources in this chart.
