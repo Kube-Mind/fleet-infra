@@ -10,7 +10,7 @@ apps:
     installType: helm
     repoURL: https://argoproj.github.io/argo-helm
     syncWave: "0.1"
-    targetRevision: 8.0.12
+    targetRevision: 8.0.17
 
   cert-manager:
     automated: true
@@ -18,7 +18,7 @@ apps:
     installType: helm
     repoURL: https://charts.jetstack.io
     syncWave: "0.2"
-    targetRevision: v1.17.2
+    targetRevision: v1.18.0
 
   external-secrets:
     automated: true
