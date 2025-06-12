@@ -78,3 +78,18 @@ apps:
     installType: helm
     syncWave: "0.3"
     targetRevision: 0.12.0
+  
+  traefik:
+    automated: true
+    chartName: traefik
+    # extraLabels:
+    #   web-gui: "true"
+    # ignoreDifferences:
+    #   - group: admissionregistration.k8s.io
+    #     kind: MutatingWebhookConfiguration
+    #     jsonPointers:
+    #       - /webhooks/0/clientConfig/caBundle
+    repoURL: https://traefik.github.io/charts
+    installType: helm
+    syncWave: "0.1"
+    targetRevision: 35.4.0
