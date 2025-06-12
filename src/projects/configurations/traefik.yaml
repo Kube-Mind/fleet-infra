@@ -667,9 +667,9 @@ ports:
     # https://doc.traefik.io/traefik/routing/entrypoints/#transport
     transport:
       respondingTimeouts:
-        readTimeout:   # @schema type:[string, integer, null]
-        writeTimeout:  # @schema type:[string, integer, null]
-        idleTimeout:   # @schema type:[string, integer, null]
+        readTimeout: 360s  # @schema type:[string, integer, null]
+        writeTimeout: 360s # @schema type:[string, integer, null]
+        idleTimeout: 180s  # @schema type:[string, integer, null]
       lifeCycle:
         requestAcceptGraceTimeout:  # @schema type:[string, integer, null]
         graceTimeOut:               # @schema type:[string, integer, null]
