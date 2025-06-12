@@ -21,7 +21,7 @@ apps:
           - /data/ldap-toml
     repoURL: https://prometheus-community.github.io/helm-charts
     syncWave: "2.1"
-    targetRevision: 73.2.0
+    targetRevision: 73.2.2
   
   neuvector:
     automated: false
