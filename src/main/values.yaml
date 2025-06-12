@@ -33,14 +33,20 @@ apps:
     # Software Development operation solutions
     automated: true
     syncWave: "3"
-
+ 
   kmind-management:
     # Kube Mind management tools
     automated: true
     syncWave: "3"
 
+  # iot-management:
+  #   # IOT management applications
+  #   automated: true
+  #   syncWave: "3"
+
   work:
     # Work-related environment replication
     automated: true
     syncWave: "2"
+
 
