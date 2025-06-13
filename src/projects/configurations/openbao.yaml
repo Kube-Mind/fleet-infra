@@ -415,6 +415,7 @@ server:
       # traffic: external
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prd
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
       # |
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"

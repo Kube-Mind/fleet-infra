@@ -77,18 +77,11 @@ apps:
     repoURL: https://openbao.github.io/openbao-helm
     installType: helm
     syncWave: "0.3"
-    targetRevision: 0.12.0
+    targetRevision: 0.13.2
   
   traefik:
     automated: true
     chartName: traefik
-    # extraLabels:
-    #   web-gui: "true"
-    # ignoreDifferences:
-    #   - group: admissionregistration.k8s.io
-    #     kind: MutatingWebhookConfiguration
-    #     jsonPointers:
-    #       - /webhooks/0/clientConfig/caBundle
     repoURL: https://traefik.github.io/charts
     installType: helm
     syncWave: "0.1"
