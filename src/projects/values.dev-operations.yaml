@@ -3,6 +3,6 @@ spec:
 
 apps:
   traefik-runtime-configs:
-    automated: true
+    automated: false
     installType: localKustomize
     syncWave: "3.2"
