@@ -4,7 +4,8 @@ enabled: true
 # comfy
 webuiConfig:
   image: comfy
-  cli_args: --allow-code --medvram --xformers --enable-insecure-extension-access --api
+  # cli_args for auto
+  # cli_args: --allow-code --medvram --xformers --enable-insecure-extension-access --api
 models:
   links.txt: |
     https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt
