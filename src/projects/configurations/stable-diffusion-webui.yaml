@@ -1,1 +1,31 @@
 enabled: true
+models:
+  links.txt: |
+    https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt
+      out=Stable-diffusion/v1-5-pruned-emaonly.ckpt
+    https://huggingface.co/nitrosocke/Ghibli-Diffusion/resolve/main/ghibli-diffusion-v1.ckpt
+      out=Stable-diffusion/ghibli-diffusion-v1.ckpt
+    https://huggingface.co/stabilityai/sd-vae-ft-mse-original/resolve/main/vae-ft-mse-840000-ema-pruned.ckpt
+      out=VAE/vae-ft-mse-840000-ema-pruned.ckpt
+    https://huggingface.co/runwayml/stable-diffusion-inpainting/resolve/main/sd-v1-5-inpainting.ckpt
+      out=Stable-diffusion/sd-v1-5-inpainting.ckpt
+    https://github.com/TencentARC/GFPGAN/releases/download/v1.3.4/GFPGANv1.4.pth
+      out=GFPGAN/GFPGANv1.4.pth
+    https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth
+      out=RealESRGAN/RealESRGAN_x4plus.pth
+    https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.2.4/RealESRGAN_x4plus_anime_6B.pth
+      out=RealESRGAN/RealESRGAN_x4plus_anime_6B.pth
+    https://heibox.uni-heidelberg.de/f/31a76b13ea27482981b4/?dl=1
+      out=LDSR/project.yaml
+    https://heibox.uni-heidelberg.de/f/578df07c8fc04ffbadf3/?dl=1
+      out=LDSR/model.ckpt
+    https://huggingface.co/nitrosocke/Ghibli-Diffusion/resolve/main/ghibli-diffusion-v1.ckpt
+      out=Stable-diffusion/ghibli-diffusion-v1.ckpt
+    https://huggingface.co/openfree/flux-chatgpt-ghibli-lora/resolve/main/flux-chatgpt-ghibli-lora.safetensors
+      out=Stable-diffusion/flux-chatgpt-ghibli-lora.safetensors
+    https://huggingface.co/ratoenien/wan_2.1_vae/resolve/main/wan_2.1_vae.safetensors
+      out=VAE/wan_2.1_vae.safetensors
+    https://huggingface.co/ratoenien/umt5_xxl_fp8_e4m3fn_scaled/resolve/main/umt5_xxl_fp8_e4m3fn_scaled.safetensors
+      out=Stable-diffusion/umt5_xxl_fp8_e4m3fn_scaled.safetensors
+    https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/diffusion_models/wan2.1_t2v_1.3B_fp16.safetensors
+      out=Stable-diffusion/wan2.1_t2v_1.3B_fp16.safetensors
