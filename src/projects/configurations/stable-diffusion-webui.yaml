@@ -3,7 +3,7 @@ enabled: true
 # auto
 # comfy
 webuiConfig:
-  image: auto
+  image: comfy
   cli_args: --allow-code --medvram --xformers --enable-insecure-extension-access --api
 models:
   links.txt: |
