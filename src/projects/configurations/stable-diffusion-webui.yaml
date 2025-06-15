@@ -36,3 +36,5 @@ models:
       out=Stable-diffusion/umt5_xxl_fp8_e4m3fn_scaled.safetensors
     https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/diffusion_models/wan2.1_t2v_1.3B_fp16.safetensors
       out=Stable-diffusion/wan2.1_t2v_1.3B_fp16.safetensors
+    https://huggingface.co/digiplay/DreamShaper_8/resolve/main/dreamshaper_8.safetensors
+      out=Stable-diffusion/dreamshaper_8.safetensors
