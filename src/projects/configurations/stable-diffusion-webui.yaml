@@ -10,10 +10,6 @@ models:
   links.txt: |
     https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt
       out=Stable-diffusion/v1-5-pruned-emaonly.ckpt
-    https://huggingface.co/nitrosocke/Ghibli-Diffusion/resolve/main/ghibli-diffusion-v1.ckpt
-      out=Stable-diffusion/ghibli-diffusion-v1.ckpt
-    https://huggingface.co/stabilityai/sd-vae-ft-mse-original/resolve/main/vae-ft-mse-840000-ema-pruned.ckpt
-      out=VAE/vae-ft-mse-840000-ema-pruned.ckpt
     https://huggingface.co/runwayml/stable-diffusion-inpainting/resolve/main/sd-v1-5-inpainting.ckpt
       out=Stable-diffusion/sd-v1-5-inpainting.ckpt
     https://github.com/TencentARC/GFPGAN/releases/download/v1.3.4/GFPGANv1.4.pth
@@ -38,3 +34,11 @@ models:
       out=Stable-diffusion/wan2.1_t2v_1.3B_fp16.safetensors
     https://huggingface.co/digiplay/DreamShaper_8/resolve/main/dreamshaper_8.safetensors
       out=Stable-diffusion/dreamshaper_8.safetensors
+    https://huggingface.co/Drditone/safetensors/resolve/main/ghibliLikeLCM_v10.safetensors
+      out=Stable-diffusion/ghibliLikeLCM_v10.safetensors
+    https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11f1p_sd15_depth.pth
+      out=ControlNet/control_v11f1p_sd15_depth.pth
+    https://huggingface.co/EvilEngine/vae-ft-mse-840000-ema-pruned/resolve/main/vae-ft-mse-840000-ema-pruned.safetensors
+      out=VAE/vae-ft-mse-840000-ema-pruned.safetensors
+    https://huggingface.co/datasets/AddictiveFuture/sdxl-pony-models-backup/resolve/b7d2d833290653806934b3f52172f883aeb67287/ESRGAN/2xHFA2kOmniSR.pth
+      out=GFPGAN/2xHFA2kOmniSR.pth
