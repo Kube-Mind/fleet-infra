@@ -17,3 +17,11 @@ apps:
     path: charts/chartwatch
     syncWave: "1.2"
     targetRevision: HEAD
+  
+  stable-diffusion-webui:
+    automated: false
+    installType: remoteHelm
+    repoURL: https://gitlab.com/kuberhive/apps/stable-diffusion-webui.git
+    path: charts/stable-diffusion-webui
+    syncWave: "1.2"
+    targetRevision: HEAD
