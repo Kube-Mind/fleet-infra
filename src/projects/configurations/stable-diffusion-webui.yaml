@@ -1,4 +1,9 @@
 enabled: true
+# Allowed values
+# auto
+# comfy
+webuiConfig:
+  image: auto
 models:
   links.txt: |
     https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt
@@ -22,7 +27,7 @@ models:
     https://huggingface.co/nitrosocke/Ghibli-Diffusion/resolve/main/ghibli-diffusion-v1.ckpt
       out=Stable-diffusion/ghibli-diffusion-v1.ckpt
     https://huggingface.co/openfree/flux-chatgpt-ghibli-lora/resolve/main/flux-chatgpt-ghibli-lora.safetensors
-      out=Stable-diffusion/flux-chatgpt-ghibli-lora.safetensors
+      out=Lora/flux-chatgpt-ghibli-lora.safetensors
     https://huggingface.co/ratoenien/wan_2.1_vae/resolve/main/wan_2.1_vae.safetensors
       out=VAE/wan_2.1_vae.safetensors
     https://huggingface.co/ratoenien/umt5_xxl_fp8_e4m3fn_scaled/resolve/main/umt5_xxl_fp8_e4m3fn_scaled.safetensors
