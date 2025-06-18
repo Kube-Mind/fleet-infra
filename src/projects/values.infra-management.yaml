@@ -10,7 +10,7 @@ apps:
     installType: helm
     repoURL: https://argoproj.github.io/argo-helm
     syncWave: "0.1"
-    targetRevision: 8.0.17
+    targetRevision: 8.1.0
 
   cert-manager:
     automated: true
