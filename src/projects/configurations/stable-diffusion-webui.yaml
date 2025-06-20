@@ -7,7 +7,7 @@ image:
 webuiConfig:
   image: comfy
   # cli_args for auto
-  cli_args: --allow-code --medvram --xformers --enable-insecure-extension-access --api --use-persistent-queue --no-half-vae
+  cli_args: --fp32-vae --lowvram --disable-xformers --cuda-device 0 --verbose INFO
 models:
   links.txt: |
     https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth
