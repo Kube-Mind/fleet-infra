@@ -5,7 +5,7 @@ apps:
   dnsfix:
     automated: false
     installType: remoteHelm
-    repoURL: https://gitlab.com/kuberhive/apps/dnsfix.git
+    repoURL: https://gitlab.com/Kube-Mind/dnsfix.git
     path: charts/dnsfix
     syncWave: "1.2"
     targetRevision: HEAD
@@ -13,7 +13,7 @@ apps:
   chartwatch:
     automated: false
     installType: remoteHelm
-    repoURL: https://gitlab.com/kuberhive/apps/chartwatch.git
+    repoURL: https://gitlab.com/Kube-Mind/chartwatch.git
     path: charts/chartwatch
     syncWave: "1.2"
     targetRevision: HEAD
@@ -21,7 +21,7 @@ apps:
   stable-diffusion-webui:
     automated: false
     installType: remoteHelm
-    repoURL: https://gitlab.com/kuberhive/apps/stable-diffusion-webui.git
+    repoURL: https://gitlab.com/Kube-Mind/stable-diffusion-webui.git
     path: charts/stable-diffusion-webui
     syncWave: "1.2"
     targetRevision: HEAD
