@@ -85,4 +85,4 @@ apps:
     repoURL: https://traefik.github.io/charts
     installType: helm
     syncWave: "0.1"
-    targetRevision: 36.2.0
+    targetRevision: 36.3.0
