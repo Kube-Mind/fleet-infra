@@ -26,7 +26,7 @@ apps:
     installType: helm
     repoURL: https://charts.external-secrets.io
     syncWave: "0.2"
-    targetRevision: 0.18.0
+    targetRevision: 0.18.2
 
   k3s-upgrader:
     automated: true
