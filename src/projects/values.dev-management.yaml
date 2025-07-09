@@ -32,7 +32,7 @@ apps:
     installType: helm
     repoURL: https://charts.gitlab.io
     syncWave: "2.1"
-    targetRevision: 0.78.0
+    targetRevision: 0.78.1
 
   harbor:
     automated: true
