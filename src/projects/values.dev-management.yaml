@@ -122,7 +122,7 @@ apps:
     chartName: ollama
     installType: helm
     repoURL: https://otwld.github.io/ollama-helm/
-    targetRevision: 1.20.0
+    targetRevision: 1.23.0
 
   rabbitmq:
     automated: false
