@@ -1,4 +1,4 @@
 enabled: true
 
 imagePullSecrets:
-- "pft-regcred"
+- name: pft-regcred
