@@ -8,3 +8,9 @@ apps:
   ska-dev-env:
     automated: false
     installType: localKustomize
+  pft-dependencies:
+    automated: false
+    installType: localKustomize
+  pft-rxmon:
+    automated: false
+    installType: localKustomize

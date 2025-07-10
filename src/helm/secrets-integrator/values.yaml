@@ -60,6 +60,49 @@ externalSecret:
             property: GITLAB_CLIENT_SECRET
           secretKey: GITLAB_CLIENT_SECRET
 
+    - name: "pft-credentials"
+      namespaces:
+        - pft
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/part-of: argocd
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: work/pft
+            metadataPolicy: None
+            property: username
+          secretKey: username
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: work/pft
+            metadataPolicy: None
+            property: access-token
+          secretKey: access-token
+
+    - name: "pft-regcred"
+      namespaces:
+        - pft
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      template:
+        type: kubernetes.io/dockerconfigjson
+        data:
+          # workaround for helm to not render "<nil>" during rendering process in pre helm deployment
+          .dockerconfigjson: "{{ .base64Regcred | toString }}"
+      data:
+        - secretKey: base64Regcred
+          remoteRef:
+            key: work/pft
+            property: regcred
+
     # - name: "docker-config"
     #   namespaces:
     #     - argo-workflows
