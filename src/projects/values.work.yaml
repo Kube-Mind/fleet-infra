@@ -10,4 +10,7 @@ apps:
     installType: localKustomize
   pft:
     automated: false
-    installType: localKustomize
+    installType: remoteHelm
+    repoURL: https://github.com/fourier-space-au/pft.git
+    path: charts/rxmon
+    targetRevision: HEAD
