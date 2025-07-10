@@ -1,0 +1,4 @@
+enabled: true
+
+imagePullSecrets:
+  - pft-regcred
