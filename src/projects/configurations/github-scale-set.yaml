@@ -324,10 +324,10 @@ containerMode:
   ## with containerMode.type=kubernetes, we will populate the template.spec with following pod spec
 template:
   spec:
-    initContainers:
-    - name: kube-init
+    containers:
+    - name: runner
       image: ghcr.io/actions/actions-runner:latest
-      command: ["sudo", "chown", "-R", "1001:123", "/home/runner/_work"]
+      command: ["/home/runner/run.sh"]
   ##       env:
   ##         - name: ACTIONS_RUNNER_CONTAINER_HOOKS
   ##           value: /home/runner/k8s/index.js
