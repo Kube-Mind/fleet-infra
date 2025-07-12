@@ -331,18 +331,22 @@ template:
         volumeMounts:
           - name: work
             mountPath: /home/runner/_work
-  ##       env:
-  ##         - name: ACTIONS_RUNNER_CONTAINER_HOOKS
-  ##           value: /home/runner/k8s/index.js
-  ##         - name: ACTIONS_RUNNER_POD_NAME
-  ##           valueFrom:
-  ##             fieldRef:
-  ##               fieldPath: metadata.name
-  ##         - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
-  ##           value: "true"
-  ##       volumeMounts:
-  ##         - name: work
-  ##           mountPath: /home/runner/_work
+    containers:
+      - name: runner
+        image: ghcr.io/actions/actions-runner:latest
+        command: ["/home/runner/run.sh"]
+        env:
+          - name: ACTIONS_RUNNER_CONTAINER_HOOKS
+            value: /home/runner/k8s/index.js
+          - name: ACTIONS_RUNNER_POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
+            value: "true"
+        volumeMounts:
+          - name: work
+            mountPath: /home/runner/_work
   ##     volumes:
   ##       - name: work
   ##         ephemeral:
@@ -353,11 +357,6 @@ template:
   ##               resources:
   ##                 requests:
   ##                   storage: 1Gi
-  spec:
-    containers:
-      - name: runner
-        image: ghcr.io/actions/actions-runner:latest
-        command: ["/home/runner/run.sh"]
 ## Optional controller service account that needs to have required Role and RoleBinding
 ## to operate this gha-runner-scale-set installation.
 ## The helm chart will try to find the controller deployment and its service account at installation time.
