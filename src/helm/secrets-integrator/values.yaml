@@ -62,10 +62,12 @@ externalSecret:
 
     - name: "pft-credentials"
       namespaces:
-        - pft
+        - argo-cd
       secretStoreRef:
         name: vault
         kind: ClusterSecretStore
+      labels:
+        argocd.argoproj.io/secret-type: repository
       template:
         metadata:
           labels:
@@ -84,7 +86,14 @@ externalSecret:
             key: work/pft
             metadataPolicy: None
             property: access-token
-          secretKey: access-token
+          secretKey: password
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: work/pft
+            metadataPolicy: None
+            property: url
+          secretKey: url
 
     - name: "pft-regcred"
       namespaces:
