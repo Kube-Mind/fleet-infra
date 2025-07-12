@@ -9,7 +9,7 @@ apps:
       web-gui: "true"
     installType: helm
     repoURL: https://argoproj.github.io/argo-helm
-    syncWave: "0.1"
+    syncWave: "0"
     targetRevision: 8.1.2
 
   cert-manager:
@@ -17,21 +17,29 @@ apps:
     chartName: cert-manager
     installType: helm
     repoURL: https://charts.jetstack.io
-    syncWave: "0.2"
+    syncWave: "10"
     targetRevision: v1.18.2
+
+  cilium:
+    automated: true
+    chartName: cilium
+    installType: helm
+    repoURL: https://helm.cilium.io/
+    syncWave: "-10"
+    targetRevision: 1.17.5
 
   external-secrets:
     automated: true
     chartName: external-secrets
     installType: helm
     repoURL: https://charts.external-secrets.io
-    syncWave: "0.2"
+    syncWave: "10"
     targetRevision: 0.18.2
 
   k3s-upgrader:
     automated: true
     installType: localKustomize
-    syncWave: "0.2"
+    syncWave: "10"
 
   longhorn:
     automated: true
@@ -43,7 +51,7 @@ apps:
           - .spec.preserveUnknownFields
     repoURL: https://charts.longhorn.io
     installType: helm
-    syncWave: "0.2"
+    syncWave: "0"
     targetRevision: 1.9.0
 
   nfs-provisioner:
@@ -53,7 +61,7 @@ apps:
       web-gui: "true"
     repoURL: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
     installType: helm
-    syncWave: "0.2"
+    syncWave: "10"
     targetRevision: 4.0.18
 
   nvidia-operator:
@@ -61,7 +69,7 @@ apps:
     chartName: gpu-operator
     repoURL: https://helm.ngc.nvidia.com/nvidia
     installType: helm
-    syncWave: "0.2"
+    syncWave: "10"
     targetRevision: v25.3.1
 
   openbao:
@@ -76,7 +84,7 @@ apps:
           - /webhooks/0/clientConfig/caBundle
     repoURL: https://openbao.github.io/openbao-helm
     installType: helm
-    syncWave: "0.3"
+    syncWave: "20"
     targetRevision: 0.13.2
   
   traefik:
@@ -84,5 +92,5 @@ apps:
     chartName: traefik
     repoURL: https://traefik.github.io/charts
     installType: helm
-    syncWave: "0.1"
+    syncWave: "10"
     targetRevision: 36.3.0
