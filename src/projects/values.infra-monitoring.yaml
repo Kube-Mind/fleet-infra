@@ -22,13 +22,3 @@ apps:
     repoURL: https://prometheus-community.github.io/helm-charts
     syncWave: "2.1"
     targetRevision: 75.9.0
-  
-  neuvector:
-    automated: false
-    chartName: core
-    extraLabels:
-      web-gui: "true"
-    installType: helm
-    repoURL: https://neuvector.github.io/neuvector-helm/
-    syncWave: "2.1"
-    targetRevision: 2.8.6
