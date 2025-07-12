@@ -94,6 +94,27 @@ externalSecret:
             metadataPolicy: None
             property: url
           secretKey: url
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: work/pft
+            metadataPolicy: None
+            property: type
+          secretKey: type
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: work/pft
+            metadataPolicy: None
+            property: name
+          secretKey: name
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: work/pft
+            metadataPolicy: None
+            property: project
+          secretKey: project
 
     - name: "pft-regcred"
       namespaces:
