@@ -383,7 +383,7 @@ notifications:
   subscriptions:
     - recipients:
         - slack:infra-management
-      selector: app=infra-management
+      selector: argocd.argoproj.io/appproject=infra-management
       triggers:
         - on-deployed
         - on-health-degraded
@@ -393,7 +393,7 @@ notifications:
         - on-sync-succeeded
     - recipients:
         - slack:infra-operations
-      selector: app=infra-operations
+      selector: argocd.argoproj.io/appproject=infra-operations
       triggers:
         - on-deployed
         - on-health-degraded
@@ -403,7 +403,7 @@ notifications:
         - on-sync-succeeded
     - recipients:
         - slack:infra-monitoring
-      selector: app=infra-monitoring
+      selector: argocd.argoproj.io/appproject=infra-monitoring
       triggers:
         - on-deployed
         - on-health-degraded
@@ -413,7 +413,7 @@ notifications:
         - on-sync-succeeded
     - recipients:
         - slack:dev-management
-      selector: app=dev-management
+      selector: argocd.argoproj.io/appproject=dev-management
       triggers:
         - on-deployed
         - on-health-degraded
@@ -423,7 +423,7 @@ notifications:
         - on-sync-succeeded
     - recipients:
         - slack:dev-operations
-      selector: app=dev-operations
+      selector: argocd.argoproj.io/appproject=dev-operations
       triggers:
         - on-deployed
         - on-health-degraded
@@ -433,7 +433,7 @@ notifications:
         - on-sync-succeeded
     - recipients:
         - slack:kmind-management
-      selector: app=kmind-management
+      selector: argocd.argoproj.io/appproject=kmind-management
       triggers:
         - on-deployed
         - on-health-degraded
@@ -443,7 +443,7 @@ notifications:
         - on-sync-succeeded
     - recipients:
         - slack:work
-      selector: app=work
+      selector: argocd.argoproj.io/appproject=work
       triggers:
         - on-deployed
         - on-health-degraded

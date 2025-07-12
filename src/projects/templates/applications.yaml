@@ -15,6 +15,7 @@ metadata:
     argocd.argoproj.io/sync-wave: {{ $value.syncWave | default "99" | quote }}
   labels:
     app: {{ $app }}
+    argocd.argoproj.io/appproject: {{ $appProject }}
     {{ $appProject }}/installType: {{ $value.installType }}
     {{- if $value.extraLabels }}
     {{- toYaml $value.extraLabels | nindent 4 }}
