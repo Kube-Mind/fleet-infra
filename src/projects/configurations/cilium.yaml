@@ -2,6 +2,9 @@ k8sServiceHost: 10.1.1.14
 k8sServicePort: 6443
 kubeProxyReplacement: true
 
+loadBalancer:
+  enabled: true
+
 hubble:
   relay:
     enabled: true
