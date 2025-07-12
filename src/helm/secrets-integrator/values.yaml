@@ -146,7 +146,7 @@ externalSecret:
       data:
         - remoteRef:
             conversionStrategy: Default
-            decodingStrategy: None
+            decodingStrategy: Base64
             key: harbor/config
             metadataPolicy: None
             property: CONFIG_OVERWRITE_JSON
