@@ -2,13 +2,13 @@ spec:
   project: dev-management
 
 apps:
-
   github-scale-set:
     automated: false
     chartName: gha-runner-scale-set
     installType: oci
     namespace: github-runner
     repoURL: ghcr.io/actions/actions-runner-controller-charts
+    syncWave: "30"
     targetRevision: 0.10.0
 
   github-scale-set-controller:
@@ -24,6 +24,7 @@ apps:
     installType: oci
     namespace: github-runner
     repoURL: ghcr.io/actions/actions-runner-controller-charts
+    syncWave: "30"
     targetRevision: 0.10.0
 
   gitlab-runner:
@@ -31,7 +32,7 @@ apps:
     chartName: gitlab-runner
     installType: helm
     repoURL: https://charts.gitlab.io
-    syncWave: "2.1"
+    syncWave: "20"
     targetRevision: 0.78.1
 
   harbor:
@@ -76,16 +77,13 @@ apps:
           - .spec.template.metadata.annotations."checksum/secret-jobservice"
     installType: helm
     repoURL: https://helm.goharbor.io
-    syncWave: "2.1"
+    syncWave: "30"
     targetRevision: 1.17.1
 
   kafka:
     automated: false
     chartName: kafka
     path: kafka
-    installType: oci
-    repoURL: registry-1.docker.io/bitnamicharts
-    targetRevision: 31.0.0
     ignoreDifferences:
       - group: ''
         kind: Secret
@@ -105,7 +103,11 @@ apps:
         kind: StatefulSet
         jqPathExpressions:
           - .spec.template.metadata.annotations."checksum/passwords-secret"
-
+    installType: oci
+    repoURL: registry-1.docker.io/bitnamicharts
+    targetRevision: 31.0.0
+    syncWave: "30"
+    
   n8n:
     automated: false
     chartName: n8n
@@ -114,7 +116,7 @@ apps:
     installType: oci
     path: n8n
     repoURL: 8gears.container-registry.com/library
-    syncWave: "2.1"
+    syncWave: "30"
     targetRevision: 1.0.0
 
   ollama:
@@ -122,6 +124,7 @@ apps:
     chartName: ollama
     installType: helm
     repoURL: https://otwld.github.io/ollama-helm/
+    syncWave: "30"
     targetRevision: 1.23.0
 
   rabbitmq:
@@ -132,4 +135,5 @@ apps:
     installType: oci
     path: rabbitmq
     repoURL: registry-1.docker.io/bitnamicharts
+    syncWave: "30"
     targetRevision: 16.0.3
