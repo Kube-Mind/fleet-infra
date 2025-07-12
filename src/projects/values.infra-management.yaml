@@ -54,6 +54,14 @@ apps:
     syncWave: "0"
     targetRevision: 1.9.0
 
+  metallb:
+    automated: true
+    chartName: metallb
+    installType: helm
+    repoURL: https://metallb.github.io/metallb
+    syncWave: "0"
+    targetRevision: 0.15.2
+
   nfs-provisioner:
     automated: true
     chartName: nfs-subdir-external-provisioner
