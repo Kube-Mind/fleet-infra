@@ -6,10 +6,14 @@ loadBalancer:
   enabled: true
 
 hubble:
+  enabled: true
   relay:
     enabled: true
+
   ui:
     enabled: true
+    service:
+      type: NodePort
 
 operator:
   replicas: 1
