@@ -132,6 +132,25 @@ externalSecret:
             key: work/pft
             property: regcred
 
+    - name: "pft-credentials"
+      namespaces:
+        - harbor
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/part-of: argocd
+            argocd.argoproj.io/secret-type: repository
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: harbor/config
+            metadataPolicy: None
+            property: CONFIG_OVERWRITE_JSON
+          secretKey: CONFIG_OVERWRITE_JSON
     # - name: "docker-config"
     #   namespaces:
     #     - argo-workflows

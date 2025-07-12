@@ -69,6 +69,12 @@ core:
     limits:
       cpu: 4000m
       memory: 4Gi
+  extraEnvVars:
+    - name: CONFIG_OVERWRITE_JSON
+      valueFrom:
+        secretKeyRef:
+          name: harbor-config
+          key: CONFIG_OVERWRITE_JSON
 
 database:
   affinity:
@@ -193,4 +199,3 @@ trivy:
     limits:
       cpu: 4
       memory: 4Gi
-
