@@ -329,6 +329,8 @@ template:
         image: ghcr.io/actions/actions-runner:latest
         command: ["sudo", "chown", "-R", "1001:123", "/home/runner/_work"]
         volumeMounts:
+          - name: work
+            mountPath: /home/runner/_work
   ##       env:
   ##         - name: ACTIONS_RUNNER_CONTAINER_HOOKS
   ##           value: /home/runner/k8s/index.js
