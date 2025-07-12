@@ -56,7 +56,7 @@ maxRunners: 5
 
 ## minRunners is the min number of idle runners. The target number of runners created will be
 ## calculated as a sum of minRunners and the number of jobs assigned to the scale set.
-minRunners: 1
+minRunners: 0
 
 runnerGroup: "homelab"
 
