@@ -2,17 +2,22 @@ spec:
   project: infra-operations
 
 apps:
+  metallb-runtime-configs:
+    automated: false
+    installType: localKustomize
+    syncWave: "10"
+
   k3s-upgrader-plans:
     automated: true
     installType: localKustomize
-    syncWave: "1.2"
+    syncWave: "20"
 
   letsencrypt:
     automated: true
     installType: localKustomize
-    syncWave: "1.1"
+    syncWave: "20"
 
   secrets-integrator:
     automated: false
     installType: localHelm
-    syncWave: "1.1"
+    syncWave: "20"
