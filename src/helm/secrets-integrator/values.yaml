@@ -132,7 +132,7 @@ externalSecret:
             key: work/pft
             property: regcred
 
-    - name: "pft-credentials"
+    - name: "harbor-config"
       namespaces:
         - harbor
       secretStoreRef:
