@@ -10,3 +10,9 @@ hubble:
     enabled: true
   ui:
     enabled: true
+
+operator:
+  replicas: 1
+
+externalIPs:
+  enabled: true
