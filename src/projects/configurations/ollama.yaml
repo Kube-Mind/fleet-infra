@@ -85,18 +85,16 @@ ollama:
     #  - llama2
     #  - mistral
     pull:
+    - lllama3:latest
     - llava:latest
-    - devstral:latest
-    - llama3:latest
 
     # -- List of models to load in memory at container startup
     # run:
     #  - llama2
     #  - mistral
     run:
-    - llava:latest
-    - devstral:latest
     - llama3:latest
+    - llava:latest
 
     # -- List of models to create at container startup, there are two options
     # 1. Create a raw model
