@@ -1,6 +1,7 @@
 enabled: true
-image:
-  tag: "0.1.0"
+# image:
+#   tag: "0.1.0"
+
 # Allowed values
 # auto
 # comfy
@@ -8,6 +9,18 @@ webuiConfig:
   image: comfy
   # cli_args for auto
   cli_args: --fp32-vae --lowvram --disable-xformers --cuda-device 0 --verbose INFO
+
+affinity:
+  podAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+    - labelSelector:
+        matchExpressions:
+        - key: app
+          operator: In
+          values:
+          - turing
+      topologyKey: kubernetes.io/hostname
+
 models:
   links.txt: |
     https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth
