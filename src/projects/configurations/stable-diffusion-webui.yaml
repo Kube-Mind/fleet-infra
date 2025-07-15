@@ -1,6 +1,6 @@
 enabled: true
-# image:
-#   tag: "0.1.0"
+image:
+  tag: "0.1.0-f570fab0"
 
 # Allowed values
 # auto
@@ -32,8 +32,6 @@ models:
       out=LDSR/model.ckpt
     https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt
       out=Stable-diffusion/v1-5-pruned-emaonly.ckpt
-    https://huggingface.co/runwayml/stable-diffusion-inpainting/resolve/main/sd-v1-5-inpainting.ckpt
-      out=Stable-diffusion/sd-v1-5-inpainting.ckpt
     https://huggingface.co/nitrosocke/Ghibli-Diffusion/resolve/main/ghibli-diffusion-v1.ckpt
       out=Stable-diffusion/ghibli-diffusion-v1.ckpt
     https://huggingface.co/openfree/flux-chatgpt-ghibli-lora/resolve/main/flux-chatgpt-ghibli-lora.safetensors
