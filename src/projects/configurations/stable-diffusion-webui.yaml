@@ -11,15 +11,14 @@ webuiConfig:
   cli_args: --fp32-vae --lowvram --disable-xformers --cuda-device 0 --verbose INFO
 
 affinity:
-  podAffinity:
+  nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
-    - labelSelector:
-        matchExpressions:
-        - key: app
-          operator: In
-          values:
-          - turing
-      topologyKey: kubernetes.io/hostname
+      nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - "turing"
 
 models:
   links.txt: |
