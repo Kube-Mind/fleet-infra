@@ -1,6 +1,6 @@
 enabled: true
 image:
-  tag: "a1877541"
+  tag: "0.1.0"
 # Allowed values
 # auto
 # comfy
