@@ -1,21 +1,16 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base"
-  ],
-  "labels": ["dependencies"],
+  "extends": ["config:base"],
   "dependencyDashboard": true,
-  "helm": {
-    "enabled": true
-  },
-  "kustomize": {
-    "enabled": true
-  },
+  "labels": ["dependencies"],
+
+  "enabledManagers": ["helm-values", "kustomize"],
+
   "packageRules": [
     {
       "matchManagers": ["helm-values"],
       "matchPaths": ["**/values.yaml"],
-      "groupName": "Helm Chart Dependencies"
+      "groupName": "Helm Chart Versions"
     },
     {
       "matchManagers": ["kustomize"],
