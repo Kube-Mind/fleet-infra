@@ -9,7 +9,8 @@
   ],
   "enabledManagers": [
     "helm-values",
-    "kustomize"
+    "kustomize",
+    "regex"
   ],
   "packageRules": [
     {
@@ -26,6 +27,23 @@
         "kustomize"
       ],
       "groupName": "Kustomize Remote Bases"
+    },
+    {
+      "matchManagers": [
+        "regex"
+      ],
+      "groupName": "Raw GitHub URL Versions"
+    }
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": ["^src/.*/kustomization\\.yaml$"],
+      "matchStrings": [
+        "https://raw\\.githubusercontent\\.com/(?<repo>[^/]+/[^/]+)/refs/tags/v(?<currentValue>[0-9.]+)/(?<filePath>.+\\.yaml)"
+      ],
+      "depNameTemplate": "{{{ repo }}}",
+      "datasourceTemplate": "github-tags",
+      "versioningTemplate": "semver"
     }
   ]
 }
