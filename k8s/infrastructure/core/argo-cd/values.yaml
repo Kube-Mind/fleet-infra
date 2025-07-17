@@ -26,19 +26,20 @@ dex:
       cpu: 100m
       memory: 128Mi
 
+# Use regular Redis (non-HA)
 redis:
-  enabled: false
+  enabled: true
+  replicas: 2  # Horizontal scaling for availability, not replication
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
 
 redis-ha:
-  # -- Enables the Redis HA subchart and disables the custom Redis single node deployment
-  enabled: true
-  replicas: 3
-  persistentVolume:
-    enabled: false  # Set to true if you want persistent storage
-  exporter:
-    enabled: true
-  test:
-    enabled: false
+  enabled: false
 
 server:
   replicas: 2
@@ -90,9 +91,6 @@ notifications:
 
 configs:
   params:
-    # -- Annotations to be added to the argocd-cmd-params-cm ConfigMap
-    annotations:
-      redis.server: 'argocd-redis-ha-haproxy:6379'
     server.insecure: "true"
     controller.shard.count: "1"
     applicationsetcontroller.enable.leader.election: "true"
