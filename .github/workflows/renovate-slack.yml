@@ -1,0 +1,31 @@
+name: Notify Slack on Renovate PR
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+  pull_request_review:
+  pull_request_target:
+
+jobs:
+  notify:
+    if: contains(github.event.pull_request.title, 'renovate')
+    # The type of runner that the job will run on
+    runs-on:
+      group: homelab
+      labels: github-scale-set
+    steps:
+      - name: Send Slack notification
+        env:
+          SLACK_WEBHOOK_URL_RENOVATE: ${{ secrets.SLACK_WEBHOOK_URL_RENOVATE }}
+        run: |
+          pr_title="${{ github.event.pull_request.title }}"
+          pr_url="${{ github.event.pull_request.html_url }}"
+          repo="${{ github.repository }}"
+          curl -X POST -H 'Content-type: application/json' \
+            --data "{
+              \"text\": \"📦 Renovate PR in *$repo*:\n*<$pr_url|$pr_title>*\"
+            }" \
+            $SLACK_WEBHOOK_URL_RENOVATE
