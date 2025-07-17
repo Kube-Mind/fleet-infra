@@ -2,11 +2,6 @@ spec:
   project: infra-operations
 
 apps:
-  metallb-runtime-configs:
-    automated: false
-    installType: localKustomize
-    syncWave: "10"
-
   k3s-upgrader-plans:
     automated: true
     installType: localKustomize
@@ -16,6 +11,11 @@ apps:
     automated: true
     installType: localKustomize
     syncWave: "20"
+
+  metallb-runtime-configs:
+    automated: false
+    installType: localKustomize
+    syncWave: "10"
 
   secrets-integrator:
     automated: false

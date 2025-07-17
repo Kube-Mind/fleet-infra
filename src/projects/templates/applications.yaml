@@ -31,19 +31,19 @@ spec:
   sources:
     - repoURL: {{ $repoURL  }}
       targetRevision: {{ $targetRevision }}
-      path: "src/kustomization/{{ $app }}"
+      path: "src/projects/configurations/{{ $appProject }}/{{ $app }}"
   {{- else if eq $value.installType "localHelm" }}
   sources:
     - repoURL: {{ $repoURL  }}
       targetRevision: {{ $targetRevision }}
-      path: "src/helm/{{ $app }}"
+      path: "src/projects/configurations/{{ $appProject }}/{{ $app }}"
   {{- else }}
   sources:
     - repoURL: {{ $value.repoURL }}
       targetRevision: {{ $value.targetRevision }}
       helm:
         valueFiles:
-          - $values/src/projects/configurations/{{ $app }}.yaml
+          - $values/src/projects/configurations/{{ $appProject }}/{{ $app }}.yaml
   {{- if eq $value.installType "helm" }}
       chart: {{ $value.chartName }}
   {{- else if eq $value.installType "oci" }}
