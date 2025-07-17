@@ -1,19 +1,30 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
+  "extends": [
+    "config:recommended"
+  ],
   "dependencyDashboard": true,
-  "labels": ["dependencies"],
-
-  "enabledManagers": ["helm-values", "kustomize"],
-
+  "labels": [
+    "dependencies"
+  ],
+  "enabledManagers": [
+    "helm-values",
+    "kustomize"
+  ],
   "packageRules": [
     {
-      "matchManagers": ["helm-values"],
-      "matchPaths": ["**/values.yaml"],
+      "matchManagers": [
+        "helm-values"
+      ],
+      "matchFileNames": [
+        "**/values.yaml"
+      ],
       "groupName": "Helm Chart Versions"
     },
     {
-      "matchManagers": ["kustomize"],
+      "matchManagers": [
+        "kustomize"
+      ],
       "groupName": "Kustomize Remote Bases"
     }
   ]
