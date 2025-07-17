@@ -1,6 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+commonLabels:
+  argocd.argoproj.io/instance: system-upgrade
+
 # https://github.com/rancher/system-upgrade-controller
 resources:
 - https://raw.githubusercontent.com/rancher/system-upgrade-controller/v0.13.2/manifests/system-upgrade-controller.yaml
