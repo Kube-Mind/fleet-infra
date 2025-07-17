@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: infra-storage
+  namespace: argo-cd
+  labels:
+    app.kubernetes.io/instance: 'infra-storage'
+    app.kubernetes.io/component: storage
+    app.kubernetes.io/part-of: infrastructure
+    app.kubernetes.io/managed-by: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-10"
+    argocd.argoproj.io/tracking-id: infrastructure:argoproj.io/Application:argo-cd/infra-storage
+spec:
+  description: Project for storage infrastructure applications
+  sourceRepos:
+    - 'https://gitlab.com/Kube-Mind/fleet-infra.git'
+  destinations:
+    - namespace: 'longhorn'
+      server: '*'
+    - namespace: 'nfs-provisioner'
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'

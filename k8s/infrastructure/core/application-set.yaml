@@ -1,0 +1,67 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  namespace: argo-cd
+  name: infra-core
+  labels:
+    app.kubernetes.io/instance: core
+    app.kubernetes.io/part-of: infrastructure
+    app.kubernetes.io/managed-by: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: '0'
+    argocd.argoproj.io/tracking-id: default:argoproj.io/Application:argo-cd/infra-core
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - list:
+        elements:
+        - name: argo-cd
+          wave: 0
+        - name: cert-manager
+          wave: 10
+        - name: external-secrets
+          wave: 10
+        - name: nvidia-operator
+          wave: 10
+        - name: system-upgrade
+          wave: 0
+        - name: system-upgrade
+          wave: 10
+  template:
+    metadata:
+      name: '{{ .name }}'
+      namespace: '{{ .name }}'
+      annotations:
+        argocd.argoproj.io/tracking-id: infra-core:argoproj.io/Application:argo-cd/{{ .name }}
+        argocd.argoproj.io/sync-wave: "{{ .wave }}"
+      labels:
+        app.kubernetes.io/instance: '{{ .name }}'
+        app.kubernetes.io/component: '{{ .name }}'
+        app.kubernetes.io/part-of: infra-core
+    spec:
+      project: infra-core
+      source:
+        repoURL: https://gitlab.com/Kube-Mind/fleet-infra.git
+        targetRevision: main
+        path: 'k8s/infrastructure/core/{{ .name }}'
+        kustomize: {} # Let Kustomize handle naming
+      destination:
+        namespace: '{{ .name }}'
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        retry:
+          limit: 1
+          backoff:
+            duration: 10s
+            factor: 2
+            maxDuration: 3m
+        syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true
+          - ServerSideApply=true
+          - PruneLast=true
+          - RespectIgnoreDifferences=true
