@@ -33,7 +33,7 @@ spec:
       path: src/projects
       helm:
         valueFiles:
-          - $values/src/projects/values.{{ $app }}.yaml
+          - $values/src/projects/{{ $app }}/values.yaml
     - repoURL: {{ $repoURL }}
       targetRevision: {{ $targetRevision }}
       ref: values
