@@ -10,7 +10,7 @@ apps:
     installType: helm
     repoURL: https://goauthentik.io/helm-charts
     syncWave: "10"
-    targetRevision: 2024.6.1
+    targetRevision: 2025.6.3
 
   argo-cd:
     automated: true
