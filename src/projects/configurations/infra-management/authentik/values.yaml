@@ -510,7 +510,7 @@ server:
     ingressClassName: "traefik"
     # -- List of ingress hosts
     hosts:
-      - host: auth.jcan.dev
+      - "auth.jcan.dev"
       # - authentik.domain.tld
 
     # -- List of ingress paths
