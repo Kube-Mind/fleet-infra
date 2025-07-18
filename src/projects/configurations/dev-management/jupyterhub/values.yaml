@@ -8,6 +8,8 @@ nameOverride:
 # condition.
 enabled: true
 
+debug:
+  enabled: true
 hub:
   config:
     JupyterHub:
@@ -27,8 +29,6 @@ hub:
 singleuser:
   defaultUrl: "/lab"
   startTimeout: 360
-  extraEnv:
-    JUPYTER_SERVER_LOG_LEVEL: DEBUG
   image:
     name: jupyter/minimal-notebook
     tag: latest
