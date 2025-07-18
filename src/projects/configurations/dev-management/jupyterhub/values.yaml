@@ -27,11 +27,7 @@ hub:
     type: ClusterIP
 
 singleuser:
-  defaultUrl: "/lab"
   startTimeout: 360
-  image:
-    name: jupyter/minimal-notebook
-    tag: latest
   memory:
     guarantee: 512M
     limit: 1G
