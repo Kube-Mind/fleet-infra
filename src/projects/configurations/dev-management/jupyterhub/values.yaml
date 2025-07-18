@@ -30,13 +30,13 @@ singleuser:
     tag: latest
   memory:
     guarantee: 512Mi
-    limit: 1Gi
+    limit: 1G
   cpu:
     guarantee: 0.5
     limit: 1
   storage:
     type: dynamic
-    capacity: 1Gi
+    capacity: 1G
 
 ingress:
   enabled: false
