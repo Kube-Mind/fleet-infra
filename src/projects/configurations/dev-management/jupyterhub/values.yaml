@@ -40,8 +40,6 @@ singleuser:
     limit: 2
   storage:
     type: none
-    persistence:
-      enabled: false
     # type: dynamic
     # capacity: 1G
     # dynamic:
