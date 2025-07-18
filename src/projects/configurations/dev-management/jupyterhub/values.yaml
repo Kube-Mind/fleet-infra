@@ -29,7 +29,7 @@ singleuser:
     name: jupyter/minimal-notebook
     tag: latest
   memory:
-    guarantee: 512Mi
+    guarantee: 512M
     limit: 1G
   cpu:
     guarantee: 0.5
