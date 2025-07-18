@@ -39,10 +39,13 @@ singleuser:
     guarantee: 1
     limit: 2
   storage:
-    type: dynamic
-    capacity: 1G
-    dynamic:
-      storageClass: longhorn
+    type: none
+    persistence:
+      enabled: false
+    # type: dynamic
+    # capacity: 1G
+    # dynamic:
+    #   storageClass: longhorn
 
 ingress:
   enabled: false
