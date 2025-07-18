@@ -26,6 +26,7 @@ hub:
 
 singleuser:
   defaultUrl: "/lab"
+  startTimeout: 360
   image:
     name: jupyter/minimal-notebook
     tag: latest
@@ -33,8 +34,8 @@ singleuser:
     guarantee: 512M
     limit: 1G
   cpu:
-    guarantee: 0.5
-    limit: 1
+    guarantee: 1
+    limit: 2
   storage:
     type: dynamic
     capacity: 1G
