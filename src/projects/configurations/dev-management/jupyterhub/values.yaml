@@ -19,13 +19,13 @@ hub:
     dummy_auth: |
       c.Authenticator.admin_users = {'admin'}
       c.DummyAuthenticator.password = "admin"
-      c.Spawner.start_timeout = 360
 
   service:
     type: ClusterIP
 
 singleuser:
   defaultUrl: "/lab"
+  startTimeout: 360
   image:
     name: jupyter/minimal-notebook
     tag: latest
@@ -38,6 +38,8 @@ singleuser:
   storage:
     type: dynamic
     capacity: 1G
+    dynamic:
+      storageClass: longhorn
 
 ingress:
   enabled: false
