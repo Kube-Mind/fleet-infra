@@ -60,21 +60,6 @@ externalSecret:
             property: GITLAB_CLIENT_SECRET
           secretKey: GITLAB_CLIENT_SECRET
 
-    - name: "authentik-external-secrets"
-      namespaces:
-        - authentik
-      secretStoreRef:
-        name: vault
-        kind: ClusterSecretStore
-      data:
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: infra-management/authentik
-            metadataPolicy: None
-            property: AUTHENTIK_SECRET_KEY
-          secretKey: AUTHENTIK_SECRET_KEY
-
     - name: "pft-credentials"
       namespaces:
         - argo-cd
