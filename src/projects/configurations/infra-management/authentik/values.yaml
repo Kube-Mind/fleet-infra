@@ -45,11 +45,11 @@ global:
 
   # -- envFrom to pass to all deployed Deployments. Does not apply to GeoIP
   # @default -- `[]` (See [values.yaml])
-  envFrom: []
+  envFrom:
     # - configMapRef:
     #     name: config-map-name
-    # - secretRef:
-    #     name: secret-name
+    - secretRef:
+        name: authentik-external-secrets
 
   # -- Additional volumeMounts to all deployed Deployments. Does not apply to GeoIP
   # @default -- `[]` (See [values.yaml])
