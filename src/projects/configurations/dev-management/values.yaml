@@ -80,6 +80,16 @@ apps:
     syncWave: "30"
     targetRevision: 1.17.1
 
+  jupyterhub:
+    automated: false
+    chartName: jupyterhub
+    extraLabels:
+      web-gui: "true"
+    installType: helm
+    repoURL: https://jupyterhub.github.io/helm-chart
+    syncWave: "30"
+    targetRevision: 4.2.0
+
   kafka:
     automated: false
     chartName: kafka

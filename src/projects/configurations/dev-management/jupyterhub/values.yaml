@@ -1,0 +1,48 @@
+# fullnameOverride and nameOverride distinguishes blank strings, null values,
+# and non-blank strings. For more details, see the configuration reference.
+fullnameOverride: ""
+nameOverride:
+
+# enabled is ignored by the jupyterhub chart itself, but a chart depending on
+# the jupyterhub chart conditionally can make use this config option as the
+# condition.
+enabled: true
+
+hub:
+  config:
+    JupyterHub:
+      authenticator_class: dummy
+      allow_named_servers: true
+      admin_users:
+        - admin
+  extraConfig:
+    dummy_auth: |
+      c.Authenticator.admin_users = {'admin'}
+      c.DummyAuthenticator.password = "admin"
+
+  service:
+    type: ClusterIP
+
+singleuser:
+  defaultUrl: "/lab"
+  image:
+    name: jupyter/minimal-notebook
+    tag: latest
+  memory:
+    guarantee: 512Mi
+    limit: 1Gi
+  cpu:
+    guarantee: 0.5
+    limit: 1
+  storage:
+    type: dynamic
+    capacity: 1Gi
+
+ingress:
+  enabled: false
+
+prePuller:
+  hook:
+    enabled: true
+  continuous:
+    enabled: true
