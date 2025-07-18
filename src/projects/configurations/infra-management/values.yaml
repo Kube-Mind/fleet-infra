@@ -2,6 +2,16 @@ spec:
   project: infra-management
 
 apps:
+  authentik:
+    automated: false
+    chartName: authentik
+    extraLabels:
+      web-gui: "true"
+    installType: helm
+    repoURL: https://goauthentik.io/helm-charts
+    syncWave: "10"
+    targetRevision: 2024.6.1
+
   argo-cd:
     automated: true
     chartName: argo-cd
