@@ -10,6 +10,7 @@ enabled: true
 
 debug:
   enabled: true
+
 hub:
   config:
     JupyterHub:
@@ -21,25 +22,24 @@ hub:
     dummy_auth: |
       c.Authenticator.admin_users = {'admin'}
       c.DummyAuthenticator.password = "admin"
-      c.Spawner.start_timeout = 360
+      c.Spawner.start_timeout = 3600
+      c.JupyterHub.log_level = 'DEBUG'
 
   service:
     type: ClusterIP
 
 singleuser:
-  startTimeout: 360
+  startTimeout: 3600
   memory:
-    guarantee: 512M
-    limit: 1G
+    guarantee: 1G
+    limit: 2G
   cpu:
-    guarantee: 1
-    limit: 2
+    guarantee: 2
+    limit: 4
   storage:
-    type: none
-    # type: dynamic
-    # capacity: 1G
-    # dynamic:
-    #   storageClass: longhorn
+    type: dynamic
+    dynamic:
+      storageClass: longhorn
 
 ingress:
   enabled: false
