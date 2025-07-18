@@ -8,7 +8,7 @@ apps:
     extraLabels:
       web-gui: "true"
     installType: helm
-    repoURL: https://goauthentik.io/helm-charts
+    repoURL: https://charts.goauthentik.io
     syncWave: "10"
     targetRevision: 2025.6.3
 
