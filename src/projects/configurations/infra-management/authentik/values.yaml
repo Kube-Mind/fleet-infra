@@ -9,10 +9,7 @@ global:
 
   # -- Toggle and define pod-level security context.
   # @default -- `{}` (See [values.yaml])
-  securityContext:
-    runAsUser: 1000
-    runAsGroup: 1000
-    fsGroup: 1000
+  securityContext: {}
 
   # -- Default priority class for all components
   priorityClassName: ""
