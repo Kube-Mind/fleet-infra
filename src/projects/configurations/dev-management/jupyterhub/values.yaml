@@ -25,6 +25,7 @@ hub:
       c.Spawner.start_timeout = 3600
       c.KubeSpawner.debug = True
       c.JupyterHub.log_level = 'DEBUG'
+      c.JupyterHub.authenticator_class = "dummy"
 
   service:
     type: ClusterIP
