@@ -103,8 +103,8 @@ apps:
   kafka:
     # renovate bot sequenced fields
     chartName: kafka
-    installType: oci
-    repoURL: registry-1.docker.io/bitnamicharts
+    installType: helm
+    repoURL: https://charts.bitnami.com/bitnami
     targetRevision: 31.5.0
     # chart required fields
     automated: false
