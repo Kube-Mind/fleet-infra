@@ -28,7 +28,7 @@
         "(?s)chartName:\\s(?<chartName>\\S+)\\s+installType:\\soci\\s+repoURL:\\s(?<repoURL>\\S+)\\s+targetRevision:\\s(?<currentValue>\\S+)"
       ],
       "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}",
-      "datasourceTemplate": "helm"
+      "datasourceTemplate": "docker"
     }
   ]
 }
