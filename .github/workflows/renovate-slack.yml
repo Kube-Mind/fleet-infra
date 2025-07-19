@@ -16,6 +16,8 @@ jobs:
     runs-on:
       group: homelab
       labels: github-scale-set
+    container:
+      image: ocr.jcan.dev/dh/ubuntu:jammy-20250714
     steps:
       - name: Send Slack notification
         env:
