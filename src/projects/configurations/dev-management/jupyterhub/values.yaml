@@ -15,14 +15,10 @@ hub:
       authenticator_class: gitlab
 
     GitLabOAuthenticator:
-      client_id: env:OAUTH_CLIENT_ID
-      client_secret: env:OAUTH_CLIENT_SECRET
-      oauth_callback_url: env:OAUTH_CALLBACK_URL
       gitlab_url: https://gitlab.com
+      enable_auth_state: true
       scope:
         - read_user
-      allowed_users:
-        - admin
       username_key: username
 
   extraEnv:
@@ -42,10 +38,6 @@ hub:
           name: jupyterhub-external-secret
           key: GITLAB_CALLBACK_URL
 
-  extraConfig:
-    remove_insecure_auth: |
-      # Remove insecure DummyAuthenticator settings
-      pass
 
   service:
     type: ClusterIP
