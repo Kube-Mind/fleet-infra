@@ -52,9 +52,9 @@ externalSecret:
             property: GITLAB_CLIENT_SECRET
           secretKey: GITLAB_CLIENT_SECRET
 
-    - name: "jupyterlab-external-secret"
+    - name: "jupyterhub-external-secret"
       namespaces:
-        - jupyterlab
+        - jupyterhub
       secretStoreRef:
         name: vault
         kind: ClusterSecretStore
@@ -66,21 +66,21 @@ externalSecret:
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
-            key: infra-management/jupyterlab
+            key: infra-management/jupyterhub
             metadataPolicy: None
             property: GITLAB_APPLICATION_ID
           secretKey: GITLAB_APPLICATION_ID
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
-            key: infra-management/jupyterlab
+            key: infra-management/jupyterhub
             metadataPolicy: None
             property: GITLAB_CLIENT_SECRET
           secretKey: GITLAB_CLIENT_SECRET
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
-            key: infra-management/jupyterlab
+            key: infra-management/jupyterhub
             metadataPolicy: None
             property: GITLAB_CALLBACK_URL
           secretKey: GITLAB_CALLBACK_URL
