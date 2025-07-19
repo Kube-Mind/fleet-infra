@@ -9,7 +9,7 @@ apps:
     namespace: github-runner
     repoURL: ghcr.io/actions/actions-runner-controller-charts
     syncWave: "30"
-    targetRevision: 0.10.0
+    targetRevision: 0.12.1
 
   github-scale-set-controller:
     automated: false
@@ -25,7 +25,7 @@ apps:
     namespace: github-runner
     repoURL: ghcr.io/actions/actions-runner-controller-charts
     syncWave: "30"
-    targetRevision: 0.10.0
+    targetRevision: 0.12.1
 
   gitlab-runner:
     automated: true
