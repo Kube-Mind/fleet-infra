@@ -105,7 +105,7 @@ apps:
     chartName: kafka
     installType: oci
     repoURL: registry-1.docker.io/bitnamicharts
-    targetRevision: 32.3.6
+    targetRevision: 31.5.0
     # chart required fields
     automated: false
     syncWave: "30"
