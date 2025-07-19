@@ -19,9 +19,9 @@ jobs:
       - name: Post to Slack
         uses: slackapi/slack-github-action@v2.1.1
         with:
-          webhook: ${{ env.SLACK_WEBHOOK_URL_RENOVATE }}
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL_RENOVATE }}
           webhook-type: incoming-webhook
-          payload: |
+          payload: | 
             text: |
               *<${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>*  
               _by `${{ github.actor }}` on `${{ github.event.repository.name }}`_  
