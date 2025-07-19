@@ -70,10 +70,8 @@ ingress:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
   hosts:
-    - host: jhub.jcan.dev
-      paths:
-        - path: /
-          pathType: Prefix
+    - jhub.jcan.dev
+
   tls:
     - hosts:
         - jhub.jcan.dev
