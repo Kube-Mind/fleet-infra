@@ -49,8 +49,8 @@ apps:
         kind: CustomResourceDefinition
         jqPathExpressions:
           - .spec.preserveUnknownFields
-    repoURL: https://charts.longhorn.io
     installType: helm
+    repoURL: https://charts.longhorn.io
     syncWave: "0"
     targetRevision: 1.9.0
 
@@ -75,8 +75,8 @@ apps:
   nvidia-operator:
     automated: true
     chartName: gpu-operator
-    repoURL: https://helm.ngc.nvidia.com/nvidia
     installType: helm
+    repoURL: https://helm.ngc.nvidia.com/nvidia
     syncWave: "10"
     targetRevision: v25.3.1
 
@@ -98,7 +98,7 @@ apps:
   traefik:
     automated: true
     chartName: traefik
-    repoURL: https://traefik.github.io/charts
     installType: helm
+    repoURL: https://traefik.github.io/charts
     syncWave: "10"
     targetRevision: 36.3.0
