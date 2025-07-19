@@ -39,14 +39,15 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/^src/.*/kustomization\\.yaml$/"
+        "^src/.*/values\\.yaml$"
       ],
       "matchStrings": [
-        "https://raw\\.githubusercontent\\.com/(?<repo>[^/]+/[^/]+)/refs/tags/v(?<currentValue>[0-9.]+)/(?<filePath>.+\\.yaml)"
+        "installType:\\s+(?<installType>oci|helm)[\\s\\S]*?repoURL:\\s+(?<repoURL>\\S+)[\\s\\S]*?chartName:\\s+(?<chartName>\\S+)[\\s\\S]*?targetRevision:\\s+(?<currentValue>[0-9.]+)"
       ],
-      "depNameTemplate": "{{{ repo }}}",
-      "datasourceTemplate": "github-tags",
-      "versioningTemplate": "semver"
+      "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}",
+      "datasourceTemplate": "{{#if (eq installType \"helm\")}}helm{{else}}docker{{/if}}",
+      "versioningTemplate": "semver",
+      "extractVersionTemplate": "{{{ currentValue }}}"
     }
   ]
 }
