@@ -18,9 +18,7 @@
         "installType:\\s*helm[\\s\\S]*?repoURL:\\s*(?<repoURL>\\S+)[\\s\\S]*?chartName:\\s*(?<chartName>\\S+)[\\s\\S]*?targetRevision:\\s*(?<currentValue>\\S+)"
       ],
       "depNameTemplate": "{{{ chartName }}}",
-      "datasourceTemplate": "helm",
-      "registryUrlTemplate": "{{{ repoURL }}}",
-      "versioningTemplate": "semver"
+      "datasourceTemplate": "helm"
     },
     {
       "customType": "regex",
@@ -29,8 +27,7 @@
         "installType:\\s*oci[\\s\\S]*?repoURL:\\s*(?<repoURL>\\S+)[\\s\\S]*?chartName:\\s*(?<chartName>\\S+)[\\s\\S]*?targetRevision:\\s*(?<currentValue>\\S+)"
       ],
       "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}",
-      "datasourceTemplate": "docker",
-      "versioningTemplate": "semver"
+      "datasourceTemplate": "docker"
     }
   ]
 }
