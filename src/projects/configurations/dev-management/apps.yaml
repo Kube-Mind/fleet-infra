@@ -125,10 +125,18 @@ apps:
           - /data/controller-password
           - /data/inter-broker-password
           - /data/system-user-password
+      - group: ''
+        kind: Secret
+        name: kafka-kraft
+        jsonPointers:
+          - /data/cluster-id
+          - /data/controller-0-id
+          - /data/controller-1-id
+          - /data/controller-2-id
       - group: apps
         kind: StatefulSet
         jqPathExpressions:
-          - .spec.template.metadata.annotations."checksum/passwords-secret"
+          - .spec.template.metadata.annotations."checksum/secret"
 
   n8n:
     # renovate bot sequenced fields
