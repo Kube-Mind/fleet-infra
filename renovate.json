@@ -22,12 +22,13 @@
       "datasourceTemplate": "helm"
     },
     {
-      "fileMatch": ["apps.yaml"],
+      "customType": "regex",
+      "managerFilePatterns": ["**/apps.yaml"],
       "matchStrings": [
-        "(?<depName>chartName:\\s*(?<chartName>\\S+)[\\s\\S]*?repoURL:\\s*(?<repoURL>\\S+)[\\s\\S]*?targetRevision:\\s*(?<currentValue>\\S+))"
+        "(?s)chartName:\\s*(?<chartName>\\S+).*?installType:\\s*oci.*?repoURL:\\s*(?<repoURL>\\S+).*?targetRevision:\\s*(?<currentValue>\\S+)"
       ],
-      "datasourceTemplate": "docker",
-      "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}"
+      "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}",
+      "datasourceTemplate": "docker"
     }
   ]
 }
