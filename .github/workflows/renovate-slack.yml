@@ -9,19 +9,32 @@ on:
 
 jobs:
   notify:
-    if: contains(github.event.pull_request.title, 'update helm and oci chart versions')
+    if: contains(github.event.pull_request.title, 'chore(deps)')
     runs-on:
       group: homelab
       labels: github-scale-set
     container:
-      image: ocr.jcan.dev/dh/curlimages/curl:8.5.0
+      image: ocr.jcan.dev/dh/node:20-alpine
     steps:
-      - name: Send Slack notification
-        env:
-          SLACK_WEBHOOK_URL_RENOVATE: ${{ secrets.SLACK_WEBHOOK_URL_RENOVATE }}
-          BODY: ${{ github.event.pull_request.body }}
-        run: |
-          SANITIZED_BODY=$(printf '%s' "$BODY" | sed 's/"/\\"/g; s/$/\\n/' | tr -d '\n')
-          curl -X POST -H 'Content-type: application/json' \
-            --data "{\"text\": \"$SANITIZED_BODY\"}" \
-            "$SLACK_WEBHOOK_URL_RENOVATE"
+      - name: Post to Slack
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL_RENOVATE }}
+          webhook-type: incoming-webhook
+          payload: | 
+            blocks:
+              - type: section
+                text:
+                  type: mrkdwn
+                  text: ":package: *<${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>*"
+              - type: context
+                elements:
+                  - type: mrkdwn
+                    text: "Triggered by `${{ github.actor }}` on *${{ github.event.repository.name }}*"
+              - type: divider
+              - type: section
+                fields:
+                  - type: mrkdwn
+                    text: "*Branch:*\n`${{ github.head_ref }}`"
+                  - type: mrkdwn
+                    text: "*PR Number:*\n#${{ github.event.pull_request.number }}"
