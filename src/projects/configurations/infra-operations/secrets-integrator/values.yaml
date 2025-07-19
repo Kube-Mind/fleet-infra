@@ -18,23 +18,8 @@ externalSecret:
               key: "token"
               namespace: "secrets-integrator"
 
-  externalSecrets:
-    - name: "argocd-notifications-secret"
-      namespaces:
-        - argo-cd
-      secretStoreRef:
-        name: vault
-        kind: ClusterSecretStore
-      data:
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: chatops/slack
-            metadataPolicy: None
-            property: slack-token
-          secretKey: slack-token
-
-    - name: "argocd-mfa"
+  externalSecrets:    
+    - name: "argocd-external-secret"
       namespaces:
         - argo-cd
       secretStoreRef:
@@ -48,14 +33,21 @@ externalSecret:
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
-            key: gitlab/argo-cd
+            key: infra-management/argo-cd
+            metadataPolicy: None
+            property: slack-token
+          secretKey: slack-token
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: infra-management/argo-cd
             metadataPolicy: None
             property: GITLAB_APPLICATION_ID
           secretKey: GITLAB_APPLICATION_ID
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
-            key: gitlab/argo-cd
+            key: infra-management/argo-cd
             metadataPolicy: None
             property: GITLAB_CLIENT_SECRET
           secretKey: GITLAB_CLIENT_SECRET
