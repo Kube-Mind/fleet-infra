@@ -3,86 +3,109 @@ spec:
 
 apps:
   argo-cd:
-    automated: true
+    # renovate bot sequenced fields
     chartName: argo-cd
-    extraLabels:
-      web-gui: "true"
     installType: helm
     repoURL: https://argoproj.github.io/argo-helm
-    syncWave: "0"
     targetRevision: 8.1.2
+    # chart required fields
+    automated: true
+    extraLabels:
+      web-gui: "true"
+    syncWave: "0"
 
   cert-manager:
-    automated: true
+    # renovate bot sequenced fields
     chartName: cert-manager
     installType: helm
     repoURL: https://charts.jetstack.io
-    syncWave: "10"
     targetRevision: v1.18.2
+    # chart required fields
+    automated: true
+    syncWave: "10"
 
   cilium:
-    automated: true
+    # renovate bot sequenced fields
     chartName: cilium
     installType: helm
     repoURL: https://helm.cilium.io/
-    syncWave: "-10"
     targetRevision: 1.17.5
+    # chart required fields
+    automated: true
+    syncWave: "-10"
 
   external-secrets:
-    automated: true
+    # renovate bot sequenced fields
     chartName: external-secrets
     installType: helm
     repoURL: https://charts.external-secrets.io
-    syncWave: "10"
     targetRevision: 0.18.2
+    # chart required fields
+    automated: true
+    syncWave: "10"
 
   k3s-upgrader:
-    automated: true
+    # renovate bot sequenced fields
     installType: localKustomize
+    # chart required fields
+    automated: true
     syncWave: "10"
 
   longhorn:
-    automated: true
+    # renovate bot sequenced fields
     chartName: longhorn
+    installType: helm
+    repoURL: https://charts.longhorn.io
+    targetRevision: 1.9.0
+    # chart required fields
+    automated: true
     ignoreDifferences:
-      - group: 'apiextensions.k8s.io'
+      - group: apiextensions.k8s.io
         kind: CustomResourceDefinition
         jqPathExpressions:
           - .spec.preserveUnknownFields
-    installType: helm
-    repoURL: https://charts.longhorn.io
     syncWave: "0"
-    targetRevision: 1.9.0
 
   metallb:
-    automated: true
+    # renovate bot sequenced fields
     chartName: metallb
     installType: helm
     repoURL: https://metallb.github.io/metallb
-    syncWave: "0"
     targetRevision: 0.15.2
+    # chart required fields
+    automated: true
+    syncWave: "0"
 
   nfs-provisioner:
-    automated: true
+    # renovate bot sequenced fields
     chartName: nfs-subdir-external-provisioner
-    extraLabels:
-      web-gui: "true"
     installType: helm
     repoURL: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
-    syncWave: "10"
     targetRevision: 4.0.18
+    # chart required fields
+    automated: true
+    extraLabels:
+      web-gui: "true"
+    syncWave: "10"
 
   nvidia-operator:
-    automated: true
+    # renovate bot sequenced fields
     chartName: gpu-operator
     installType: helm
     repoURL: https://helm.ngc.nvidia.com/nvidia
-    syncWave: "10"
     targetRevision: v25.3.1
+    # chart required fields
+    automated: true
+    syncWave: "10"
 
   openbao:
-    automated: true
+    # renovate bot sequenced fields
     chartName: openbao
+    installType: helm
+    repoURL: https://openbao.github.io/openbao-helm
+    targetRevision: 0.13.2
+    # chart required fields
+    automated: true
     extraLabels:
       web-gui: "true"
     ignoreDifferences:
@@ -90,15 +113,14 @@ apps:
         kind: MutatingWebhookConfiguration
         jsonPointers:
           - /webhooks/0/clientConfig/caBundle
-    repoURL: https://openbao.github.io/openbao-helm
-    installType: helm
     syncWave: "20"
-    targetRevision: 0.13.2
-  
+
   traefik:
-    automated: true
+    # renovate bot sequenced fields
     chartName: traefik
     installType: helm
     repoURL: https://traefik.github.io/charts
-    syncWave: "10"
     targetRevision: 36.3.0
+    # chart required fields
+    automated: true
+    syncWave: "10"

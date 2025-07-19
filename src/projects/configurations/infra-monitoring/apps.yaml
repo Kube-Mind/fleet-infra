@@ -3,13 +3,17 @@ spec:
 
 apps:
   kube-prometheus-stack:
-    automated: false
+    # renovate bot sequenced fields
     chartName: kube-prometheus-stack
+    installType: helm
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 75.9.0
+    # chart required fields
+    automated: false
     extraLabels:
       web-gui: "true"
     extraSyncOptions:
       - ServerSideApply=true
-    installType: helm
     ignoreDifferences:
       - group: apps
         kind: Deployment
@@ -19,6 +23,4 @@ apps:
         jsonPointers:
           - /data/admin-password
           - /data/ldap-toml
-    repoURL: https://prometheus-community.github.io/helm-charts
     syncWave: "2.1"
-    targetRevision: 75.9.0

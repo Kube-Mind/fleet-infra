@@ -3,17 +3,26 @@ spec:
 
 apps:
   github-scale-set:
-    automated: false
+    # renovate bot sequenced fields
     chartName: gha-runner-scale-set
     installType: oci
     repoURL: ghcr.io/actions/actions-runner-controller-charts
     targetRevision: 0.10.0
+    # chart required fields
+    automated: false
     namespace: github-runner
     syncWave: "30"
 
   github-scale-set-controller:
-    automated: false
+    # renovate bot sequenced fields
     chartName: gha-runner-scale-set-controller
+    installType: oci
+    repoURL: ghcr.io/actions/actions-runner-controller-charts
+    targetRevision: 0.10.0
+    # chart required fields
+    automated: false
+    namespace: github-runner
+    syncWave: "30"
     extraSyncOptions:
       - ServerSideApply=true
     ignoreDifferences:
@@ -21,23 +30,26 @@ apps:
         kind: CustomResourceDefinition
         jqPathExpressions:
           - .spec.preserveUnknownFields
-    installType: oci
-    namespace: github-runner
-    repoURL: ghcr.io/actions/actions-runner-controller-charts
-    syncWave: "30"
-    targetRevision: 0.10.0
 
   gitlab-runner:
-    automated: true
+    # renovate bot sequenced fields
     chartName: gitlab-runner
     installType: helm
     repoURL: https://charts.gitlab.io
-    syncWave: "20"
     targetRevision: 0.78.1
+    # chart required fields
+    automated: true
+    syncWave: "20"
 
   harbor:
-    automated: true
+    # renovate bot sequenced fields
     chartName: harbor
+    installType: helm
+    repoURL: https://helm.goharbor.io
+    targetRevision: 1.17.1
+    # chart required fields
+    automated: true
+    syncWave: "30"
     extraLabels:
       web-gui: "true"
     ignoreDifferences:
@@ -75,24 +87,29 @@ apps:
           - .spec.template.metadata.annotations."checksum/secret"
           - .spec.template.metadata.annotations."checksum/secret-core"
           - .spec.template.metadata.annotations."checksum/secret-jobservice"
-    installType: helm
-    repoURL: https://helm.goharbor.io
-    syncWave: "30"
-    targetRevision: 1.17.1
 
   jupyterhub:
-    automated: false
+    # renovate bot sequenced fields
     chartName: jupyterhub
-    extraLabels:
-      web-gui: "true"
     installType: helm
     repoURL: https://jupyterhub.github.io/helm-chart
-    syncWave: "30"
     targetRevision: 4.2.0
+    # chart required fields
+    automated: false
+    syncWave: "30"
+    extraLabels:
+      web-gui: "true"
 
   kafka:
-    automated: false
+    # renovate bot sequenced fields
     chartName: kafka
+    installType: oci
+    repoURL: registry-1.docker.io/bitnamicharts
+    targetRevision: 31.0.0
+    # chart required fields
+    automated: false
+    syncWave: "30"
+    path: kafka
     ignoreDifferences:
       - group: ''
         kind: Secret
@@ -112,38 +129,39 @@ apps:
         kind: StatefulSet
         jqPathExpressions:
           - .spec.template.metadata.annotations."checksum/passwords-secret"
-    installType: oci
-    path: kafka
-    repoURL: registry-1.docker.io/bitnamicharts
-    syncWave: "30"
-    targetRevision: 31.0.0
-    
+
   n8n:
-    automated: false
+    # renovate bot sequenced fields
     chartName: n8n
+    installType: oci
+    repoURL: 8gears.container-registry.com/library
+    targetRevision: 1.0.0
+    # chart required fields
+    automated: false
+    syncWave: "30"
+    path: n8n
     extraLabels:
       web-gui: "true"
-    installType: oci
-    path: n8n
-    repoURL: 8gears.container-registry.com/library
-    syncWave: "30"
-    targetRevision: 1.0.0
 
   ollama:
-    automated: false
+    # renovate bot sequenced fields
     chartName: ollama
     installType: helm
     repoURL: https://otwld.github.io/ollama-helm/
-    syncWave: "30"
     targetRevision: 1.23.0
+    # chart required fields
+    automated: false
+    syncWave: "30"
 
   rabbitmq:
-    automated: false
+    # renovate bot sequenced fields
     chartName: rabbitmq
+    installType: oci
+    repoURL: registry-1.docker.io/bitnamicharts
+    targetRevision: 16.0.3
+    # chart required fields
+    automated: false
+    syncWave: "30"
+    path: rabbitmq
     extraLabels:
       web-gui: "true"
-    installType: oci
-    path: rabbitmq
-    repoURL: registry-1.docker.io/bitnamicharts
-    syncWave: "30"
-    targetRevision: 16.0.3

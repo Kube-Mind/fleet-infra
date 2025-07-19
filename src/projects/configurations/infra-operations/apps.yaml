@@ -3,21 +3,29 @@ spec:
 
 apps:
   k3s-upgrader-plans:
-    automated: true
+    # renovate bot sequenced fields
     installType: localKustomize
+    # chart required fields
+    automated: true
     syncWave: "20"
 
   letsencrypt:
-    automated: true
+    # renovate bot sequenced fields
     installType: localKustomize
+    # chart required fields
+    automated: true
     syncWave: "20"
 
   metallb-runtime-configs:
-    automated: false
+    # renovate bot sequenced fields
     installType: localKustomize
+    # chart required fields
+    automated: false
     syncWave: "10"
 
   secrets-integrator:
-    automated: false
+    # renovate bot sequenced fields
     installType: localHelm
+    # chart required fields
+    automated: false
     syncWave: "20"

@@ -3,25 +3,31 @@ spec:
 
 apps:
   dnsfix:
-    automated: false
+    # renovate bot sequenced fields
     installType: remoteHelm
     repoURL: https://gitlab.com/Kube-Mind/dnsfix.git
+    targetRevision: HEAD
+    # chart required fields
+    automated: false
     path: charts/dnsfix
     syncWave: "1.2"
-    targetRevision: HEAD
 
   chartwatch:
-    automated: false
+    # renovate bot sequenced fields
     installType: remoteHelm
     repoURL: https://gitlab.com/Kube-Mind/chartwatch.git
+    targetRevision: HEAD
+    # chart required fields
+    automated: false
     path: charts/chartwatch
     syncWave: "1.2"
-    targetRevision: HEAD
-  
+
   stable-diffusion-webui:
-    automated: false
+    # renovate bot sequenced fields
     installType: remoteHelm
     repoURL: https://gitlab.com/Kube-Mind/stable-diffusion-webui.git
+    targetRevision: HEAD
+    # chart required fields
+    automated: false
     path: charts/stable-diffusion-webui
     syncWave: "1.2"
-    targetRevision: HEAD
