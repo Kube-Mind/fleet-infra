@@ -52,6 +52,40 @@ externalSecret:
             property: GITLAB_CLIENT_SECRET
           secretKey: GITLAB_CLIENT_SECRET
 
+    - name: "jupyterlab-external-secret"
+      namespaces:
+        - jupyterlab
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/part-of: argocd
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: infra-management/jupyterlab
+            metadataPolicy: None
+            property: GITLAB_APPLICATION_ID
+          secretKey: GITLAB_APPLICATION_ID
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: infra-management/jupyterlab
+            metadataPolicy: None
+            property: GITLAB_CLIENT_SECRET
+          secretKey: GITLAB_CLIENT_SECRET
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: infra-management/jupyterlab
+            metadataPolicy: None
+            property: GITLAB_CALLBACK_URL
+          secretKey: GITLAB_CALLBACK_URL
+
+
     - name: "pft-credentials"
       namespaces:
         - argo-cd

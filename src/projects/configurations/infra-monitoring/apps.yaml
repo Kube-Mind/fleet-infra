@@ -12,8 +12,6 @@ apps:
     automated: false
     extraLabels:
       web-gui: "true"
-    extraSyncOptions:
-      - ServerSideApply=true
     ignoreDifferences:
       - group: apps
         kind: Deployment

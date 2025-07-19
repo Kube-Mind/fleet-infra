@@ -1,11 +1,6 @@
-# fullnameOverride and nameOverride distinguishes blank strings, null values,
-# and non-blank strings. For more details, see the configuration reference.
 fullnameOverride: ""
 nameOverride:
 
-# enabled is ignored by the jupyterhub chart itself, but a chart depending on
-# the jupyterhub chart conditionally can make use this config option as the
-# condition.
 enabled: true
 
 debug:
@@ -14,18 +9,43 @@ debug:
 hub:
   config:
     JupyterHub:
-      authenticator_class: dummy
       allow_named_servers: true
       admin_users:
         - admin
+      authenticator_class: gitlab
+
+    GitLabOAuthenticator:
+      client_id: env:OAUTH_CLIENT_ID
+      client_secret: env:OAUTH_CLIENT_SECRET
+      oauth_callback_url: env:OAUTH_CALLBACK_URL
+      gitlab_url: https://gitlab.com
+      scope:
+        - read_user
+      allowed_users:
+        - admin
+      username_key: username
+
+  extraEnv:
+    OAUTH_CLIENT_ID:
+      valueFrom:
+        secretKeyRef:
+          name: jupyterhub-external-secret
+          key: GITLAB_APPLICATION_ID
+    OAUTH_CLIENT_SECRET:
+      valueFrom:
+        secretKeyRef:
+          name: jupyterhub-external-secret
+          key: GITLAB_CLIENT_SECRET
+    OAUTH_CALLBACK_URL:
+      valueFrom:
+        secretKeyRef:
+          name: jupyterhub-external-secret
+          key: GITLAB_CALLBACK_URL
+
   extraConfig:
-    dummy_auth: |
-      c.Authenticator.admin_users = {'admin'}
-      c.DummyAuthenticator.password = "admin"
-      c.Spawner.start_timeout = 3600
-      c.KubeSpawner.debug = True
-      c.JupyterHub.log_level = 'DEBUG'
-      c.JupyterHub.authenticator_class = "dummy"
+    remove_insecure_auth: |
+      # Remove insecure DummyAuthenticator settings
+      pass
 
   service:
     type: ClusterIP
@@ -44,7 +64,20 @@ singleuser:
       storageClass: longhorn
 
 ingress:
-  enabled: false
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  hosts:
+    - host: jhub.jcan.dev
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+        - jhub.jcan.dev
+      secretName: jupyterhub-tls
 
 prePuller:
   hook:
