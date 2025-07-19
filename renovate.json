@@ -15,7 +15,7 @@
       "customType": "regex",
       "managerFilePatterns": ["**/apps.yaml"],
       "matchStrings": [
-        "(?s)chartName:\\s(?<chartName>\\S+)\\ninstallType:\\shelm\\nrepoURL:\\s(?<repoURL>\\S+)\\ntargetRevision:\\s(?<currentValue>\\S+)$"
+        "chartName:\\s(?<chartName>\\S+)\\s*\\ninstallType:\\shelm\\s*\\nrepoURL:\\s(?<repoURL>\\S+)\\s*\\ntargetRevision:\\s(?<currentValue>\\S+)"
       ],
       "depNameTemplate": "{{{ chartName }}}",
       "registryUrlTemplate": "{{{ repoURL }}}",
@@ -25,7 +25,7 @@
       "customType": "regex",
       "managerFilePatterns": ["**/apps.yaml"],
       "matchStrings": [
-        "(?s)chartName:\\s(?<chartName>\\S+)\\ninstallType:\\soci\\nrepoURL:\\s(?<repoURL>\\S+)\\ntargetRevision:\\s(?<currentValue>\\S+)$"
+        "chartName:\\s(?<chartName>\\S+)\\s*\\ninstallType:\\soci\\s*\\nrepoURL:\\s(?<repoURL>\\S+)\\s*\\ntargetRevision:\\s(?<currentValue>\\S+)"
       ],
       "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}",
       "datasourceTemplate": "docker"
