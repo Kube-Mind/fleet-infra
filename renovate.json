@@ -25,10 +25,11 @@
       "customType": "regex",
       "managerFilePatterns": ["**/apps.yaml"],
       "matchStrings": [
-        "installType:\\s*oci[\\s\\S]*?repoURL:\\s*(?<repoURL>\\S+)[\\s\\S]*?chartName:\\s*(?<chartName>\\S+)[\\s\\S]*?targetRevision:\\s*(?<currentValue>\\S+)"
+        "chartName:\\s*(?<chartName>\\S+)[\\s\\S]*?installType:\\s*oci[\\s\\S]*?repoURL:\\s*(?<repoURL>\\S+)[\\s\\S]*?targetRevision:\\s*(?<currentValue>\\S+)"
       ],
       "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}",
-      "datasourceTemplate": "docker"
+      "datasourceTemplate": "helm",
+      "registryUrlTemplate": "oci://{{{ repoURL }}}"
     }
   ]
 }
