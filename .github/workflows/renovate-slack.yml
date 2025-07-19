@@ -15,23 +15,17 @@ jobs:
       labels: github-scale-set
     container:
       image: ocr.jcan.dev/dh/curlimages/curl:8.5.0
+    env:
+      BODY64: ${{ github.event.pull_request.body }}
     steps:
-      - name: Get PR body
-        id: get-body
-        run: |
-          echo "body64=$(echo "${{ github.event.pull_request.body }}" | base64 -w 0)" >> "$GITHUB_OUTPUT"
-
       - name: Send Slack notification
         env:
           SLACK_WEBHOOK_URL_RENOVATE: ${{ secrets.SLACK_WEBHOOK_URL_RENOVATE }}
         run: |
-          # Decode the body from the previous step
-          DECODED_BODY=$(echo "${{ steps.get-body.outputs.body64 }}" | base64 --decode)
+          # Encode and decode body within the same step
+          ENCODED_BODY=$(echo "$BODY64" | base64 -w 0)
+          DECODED_BODY=$(echo "$ENCODED_BODY" | base64 --decode | sed ':a;N;$!ba;s/"/\\"/g; s/\n/\\n/g')
 
-          # Optional: wrap as proper JSON string to handle quotes/newlines
-          MESSAGE=$(echo "$DECODED_BODY" | jq -Rs .)
-
-          # Send Slack notification
           curl -X POST -H 'Content-type: application/json' \
-            --data "{\"text\": $MESSAGE }" \
+            --data "{\"text\": \"$DECODED_BODY\"}" \
             "$SLACK_WEBHOOK_URL_RENOVATE"
