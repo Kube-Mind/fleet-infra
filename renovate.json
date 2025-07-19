@@ -10,7 +10,7 @@
   "enabledManagers": [
     "helm-values",
     "kustomize",
-    "regex"
+    "custom.regex"
   ],
   "packageRules": [
     {
@@ -30,14 +30,17 @@
     },
     {
       "matchManagers": [
-        "regex"
+        "custom.regex"
       ],
       "groupName": "Raw GitHub URL Versions"
     }
   ],
-  "regexManagers": [
+  "customManagers": [
     {
-      "fileMatch": ["^src/.*/kustomization\\.yaml$"],
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^src/.*/kustomization\\.yaml$/"
+      ],
       "matchStrings": [
         "https://raw\\.githubusercontent\\.com/(?<repo>[^/]+/[^/]+)/refs/tags/v(?<currentValue>[0-9.]+)/(?<filePath>.+\\.yaml)"
       ],
