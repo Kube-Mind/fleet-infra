@@ -24,7 +24,7 @@ jobs:
         run: |
           # Encode and decode body within the same step
           ENCODED_BODY=$(echo "$BODY64" | base64 -w 0)
-          DECODED_BODY=$(echo "$ENCODED_BODY" | base64 --decode | sed ':a;N;$!ba;s/"/\\"/g; s/\n/\\n/g')
+          DECODED_BODY=$(echo "$ENCODED_BODY" | base64 -d | sed ':a;N;$!ba;s/"/\\"/g; s/\n/\\n/g')
 
           curl -X POST -H 'Content-type: application/json' \
             --data "{\"text\": \"$DECODED_BODY\"}" \
