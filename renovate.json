@@ -15,7 +15,7 @@
       "customType": "regex",
       "managerFilePatterns": ["**/apps.yaml"],
       "matchStrings": [
-        "installType:\\s*helm[\\s\\S]*?repoURL:\\s*(?<repoURL>\\S+)[\\s\\S]*?chartName:\\s*(?<chartName>\\S+)[\\s\\S]*?targetRevision:\\s*(?<currentValue>\\S+)"
+        "(?s)chartName:\\s*(?<chartName>\\S+).*?installType:\\s*helm.*?repoURL:\\s*(?<repoURL>\\S+).*?targetRevision:\\s*(?<currentValue>\\S+)"
       ],
       "depNameTemplate": "{{{ chartName }}}",
       "registryUrlTemplate": "{{{ repoURL }}}",
