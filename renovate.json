@@ -8,6 +8,10 @@
     {
       "matchManagers": ["custom.regex"],
       "groupName": "chore(deps): update helm charts and oci"
+    },
+    {
+      "matchManagers": ["docker"],
+      "excludePaths": ["**/apps.yaml"]
     }
   ],
   "customManagers": [
