@@ -23,8 +23,6 @@ apps:
     automated: false
     namespace: github-runner
     syncWave: "30"
-    extraSyncOptions:
-      - ServerSideApply=true
     ignoreDifferences:
       - group: 'apiextensions.k8s.io'
         kind: CustomResourceDefinition
