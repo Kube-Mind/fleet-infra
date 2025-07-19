@@ -67,8 +67,8 @@ apps:
     chartName: nfs-subdir-external-provisioner
     extraLabels:
       web-gui: "true"
-    repoURL: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
     installType: helm
+    repoURL: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
     syncWave: "10"
     targetRevision: 4.0.18
 
