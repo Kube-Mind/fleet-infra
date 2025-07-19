@@ -10,7 +10,7 @@
       "groupName": "chore(deps): update helm charts and oci"
     },
     {
-      "matchManagers": ["docker"],
+      "matchManagers": ["helm-values", "helm-oci"],
       "excludePaths": ["**/apps.yaml"]
     }
   ],
