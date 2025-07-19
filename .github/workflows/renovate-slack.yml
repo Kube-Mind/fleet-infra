@@ -23,6 +23,5 @@ jobs:
           webhook-type: incoming-webhook
           payload: | 
             text: |
-              *<${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>*  
-              _by `${{ github.actor }}` on `${{ github.event.repository.name }}`_  
-              ```
+              📦 *<${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>*  
+              `${{ github.actor }}` on `${{ github.event.repository.name }}`
