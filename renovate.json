@@ -3,24 +3,11 @@
   "extends": ["config:recommended"],
   "dependencyDashboard": true,
   "labels": ["dependencies"],
-  "enabledManagers": [
-    "helm-values",
-    "kustomize",
-    "custom.regex"
-  ],
+  "enabledManagers": ["custom.regex"],
   "packageRules": [
     {
-      "matchManagers": ["helm-values"],
-      "matchFileNames": ["**/values.yaml"],
-      "groupName": "Helm Chart Versions"
-    },
-    {
-      "matchManagers": ["kustomize"],
-      "groupName": "Kustomize Remote Bases"
-    },
-    {
       "matchManagers": ["custom.regex"],
-      "groupName": "Raw GitHub URL Versions"
+      "groupName": "Helm and OCI Chart Versions"
     }
   ],
   "customManagers": [
@@ -28,19 +15,22 @@
       "customType": "regex",
       "managerFilePatterns": ["**/apps.yaml"],
       "matchStrings": [
-        "installType:\\s+helm[\\s\\S]*?repoURL:\\s+(?<repoURL>\\S+)[\\s\\S]*?chartName:\\s+(?<chartName>\\S+)[\\s\\S]*?targetRevision:\\s+(?<currentValue>\\S+)"
+        "(?<=installType:\\s*helm)(?:[\\s\\S]*?)repoURL:\\s*(?<repoURL>\\S+?)[/\\s]+(?:chartName|name):\\s*(?<chartName>\\S+)[\\s\\S]*?targetRevision:\\s*(?<currentValue>\\S+)"
       ],
-      "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}",
-      "datasourceTemplate": "helm"
+      "depNameTemplate": "{{{ chartName }}}",
+      "datasourceTemplate": "helm",
+      "registryUrlTemplate": "{{{ repoURL }}}",
+      "versioningTemplate": "semver"
     },
     {
       "customType": "regex",
       "managerFilePatterns": ["**/apps.yaml"],
       "matchStrings": [
-        "installType:\\s+oci[\\s\\S]*?repoURL:\\s+(?<repoURL>\\S+)[\\s\\S]*?chartName:\\s+(?<chartName>\\S+)[\\s\\S]*?targetRevision:\\s+(?<currentValue>\\S+)"
+        "(?<=installType:\\s*oci)(?:[\\s\\S]*?)repoURL:\\s*(?<repoURL>\\S+)[\\s\\S]*?chartName:\\s*(?<chartName>\\S+)[\\s\\S]*?targetRevision:\\s*(?<currentValue>\\S+)"
       ],
       "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}",
-      "datasourceTemplate": "docker"
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "semver"
     }
   ]
 }
