@@ -7,7 +7,7 @@ apps:
     chartName: argo-cd
     installType: helm
     repoURL: https://argoproj.github.io/argo-helm
-    targetRevision: 8.1.2
+    targetRevision: 8.1.3
     # chart required fields
     automated: true
     extraLabels:
@@ -29,7 +29,7 @@ apps:
     chartName: cilium
     installType: helm
     repoURL: https://helm.cilium.io/
-    targetRevision: 1.17.5
+    targetRevision: 1.17.6
     # chart required fields
     automated: true
     syncWave: "-10"
@@ -103,7 +103,7 @@ apps:
     chartName: openbao
     installType: helm
     repoURL: https://openbao.github.io/openbao-helm
-    targetRevision: 0.13.2
+    targetRevision: 0.16.2
     # chart required fields
     automated: true
     extraLabels:
