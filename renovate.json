@@ -18,6 +18,7 @@
         "installType:\\s*helm[\\s\\S]*?repoURL:\\s*(?<repoURL>\\S+)[\\s\\S]*?chartName:\\s*(?<chartName>\\S+)[\\s\\S]*?targetRevision:\\s*(?<currentValue>\\S+)"
       ],
       "depNameTemplate": "{{{ chartName }}}",
+      "registryUrlTemplate": "{{{ repoURL }}}",
       "datasourceTemplate": "helm"
     },
     {
