@@ -7,7 +7,7 @@
   "packageRules": [
     {
       "matchManagers": ["custom.regex"],
-      "groupName": "Helm and OCI Chart Versions"
+      "groupName": "chore(deps): update helm charts and oci"
     }
   ],
   "customManagers": [

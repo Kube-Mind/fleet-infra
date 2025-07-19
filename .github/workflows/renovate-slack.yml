@@ -1,12 +1,15 @@
 name: Notify Slack on Renovate PR
 
 on:
-  discussion:
-    types: [labeled]
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
 
 jobs:
   notify:
-    if: contains(github.event.label.name, 'dependencies')
+    if: contains(github.event.pull_request.title, 'chore(deps)')
     runs-on:
       group: homelab
       labels: github-scale-set
