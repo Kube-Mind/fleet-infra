@@ -1,11 +1,8 @@
 name: Notify Slack on Renovate PR
 
 on:
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
+  discussion:
+    types: [labeled]
 
 jobs:
   notify:
