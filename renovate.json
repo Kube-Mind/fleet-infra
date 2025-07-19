@@ -8,10 +8,6 @@
     {
       "matchManagers": ["custom.regex"],
       "groupName": "chore(deps): update helm charts and oci"
-    },
-    {
-      "matchManagers": ["helm-values"],
-      "enabled": false
     }
   ],
   "customManagers": [
@@ -32,7 +28,7 @@
         "(?s)chartName:\\s(?<chartName>\\S+)\\s+installType:\\soci\\s+repoURL:\\s(?<repoURL>\\S+)\\s+targetRevision:\\s(?<currentValue>\\S+)"
       ],
       "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}",
-      "datasourceTemplate": "docker"
+      "datasourceTemplate": "helm"
     }
   ]
 }
