@@ -3,13 +3,15 @@ spec:
 
 apps:
   github-scale-set:
-    automated: false
+    # renovate bot sequenced fields
     chartName: gha-runner-scale-set
     installType: oci
-    namespace: github-runner
     repoURL: ghcr.io/actions/actions-runner-controller-charts
-    syncWave: "30"
     targetRevision: 0.10.0
+    # chart template required fields
+    automated: false
+    namespace: github-runner
+    syncWave: "30"
 
   github-scale-set-controller:
     automated: false
