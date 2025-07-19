@@ -22,14 +22,12 @@
       "datasourceTemplate": "helm"
     },
     {
-      "customType": "regex",
-      "managerFilePatterns": ["**/apps.yaml"],
+      "fileMatch": ["apps.yaml"],
       "matchStrings": [
-        "chartName:\\s*(?<chartName>\\S+)[\\s\\S]*?installType:\\s*oci[\\s\\S]*?repoURL:\\s*(?<repoURL>\\S+)[\\s\\S]*?targetRevision:\\s*(?<currentValue>\\S+)"
+        "(?<depName>chartName:\\s*(?<chartName>\\S+)[\\s\\S]*?repoURL:\\s*(?<repoURL>\\S+)[\\s\\S]*?targetRevision:\\s*(?<currentValue>\\S+))"
       ],
-      "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}",
-      "datasourceTemplate": "helm",
-      "registryUrlTemplate": "oci://{{{ repoURL }}}"
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}"
     }
   ]
 }
