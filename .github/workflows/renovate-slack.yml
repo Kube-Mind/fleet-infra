@@ -9,19 +9,24 @@ on:
 
 jobs:
   notify:
-    if: contains(github.event.pull_request.title, 'update helm and oci chart versions')
+    if: contains(github.event.label.name, 'dependencies')
     runs-on:
       group: homelab
       labels: github-scale-set
     container:
       image: ocr.jcan.dev/dh/curlimages/curl:8.5.0
     steps:
-      - name: Send Slack notification
+      - name: Post to Slack
+        id: slack
+        uses: slackapi/slack-github-action@fcfb566f8b0aab22203f066d80ca1d7e4b5d05b3 # v1.27.1
+        with:
+          channel-id: 'C07HRJFATEV'
+          # For posting a simple plain text message
+          slack-message: |
+            *<${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}>*  
+            _by `${{ github.actor }}` on `${{ github.event.repository.name }}`_ 
+            ```
+            ${{ github.event.pull_request.body }}
+            ```
         env:
-          SLACK_WEBHOOK_URL_RENOVATE: ${{ secrets.SLACK_WEBHOOK_URL_RENOVATE }}
-          BODY: ${{ github.event.pull_request.body }}
-        run: |
-          SANITIZED_BODY=$(printf '%s' "$BODY" | sed 's/"/\\"/g; s/$/\\n/' | tr -d '\n')
-          curl -X POST -H 'Content-type: application/json' \
-            --data "{\"text\": \"$SANITIZED_BODY\"}" \
-            "$SLACK_WEBHOOK_URL_RENOVATE"
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
