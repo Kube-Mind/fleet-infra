@@ -63,6 +63,10 @@ spec:
     {{- end }}
     syncOptions:
       - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - ServerSideApply=true
+      - PruneLast=true
+      - RespectIgnoreDifferences=true
     {{- range $option := $value.extraSyncOptions | default dict }}
       - {{ toYaml $option }}
     {{- end }}
