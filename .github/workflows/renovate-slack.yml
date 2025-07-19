@@ -9,23 +9,36 @@ on:
 
 jobs:
   notify:
-    if: contains(github.event.pull_request.title, 'renovate')
-    # The type of runner that the job will run on
+    if: contains(github.event.pull_request.title, 'update helm and oci chart versions')
     runs-on:
       group: homelab
       labels: github-scale-set
     container:
       image: ocr.jcan.dev/dh/curlimages/curl:8.5.0
     steps:
+      - name: Get PR details
+        id: pr
+        run: |
+          echo "title=${{ github.event.pull_request.title }}" >> "$GITHUB_OUTPUT"
+          echo "url=${{ github.event.pull_request.html_url }}" >> "$GITHUB_OUTPUT"
+          echo "body=$(echo "${{ github.event.pull_request.body }}" | base64)" >> "$GITHUB_OUTPUT"
+
       - name: Send Slack notification
         env:
           SLACK_WEBHOOK_URL_RENOVATE: ${{ secrets.SLACK_WEBHOOK_URL_RENOVATE }}
         run: |
-          pr_title="${{ github.event.pull_request.title }}"
-          pr_url="${{ github.event.pull_request.html_url }}"
+          pr_title="${{ steps.pr.outputs.title }}"
+          pr_url="${{ steps.pr.outputs.url }}"
           repo="${{ github.repository }}"
+          body_decoded=$(echo "${{ steps.pr.outputs.body }}" | base64 -d)
+
+          # Extract package updates summary
+          updates=$(echo "$body_decoded" | awk '/Package/{f=1;next}/Configuration/{f=0}f' | grep -E '\|.*\|' | tail -n +3 | while IFS='|' read _ pkg _ update _ change _; do
+            echo "- *$pkg*: $change"
+          done)
+
           curl -X POST -H 'Content-type: application/json' \
             --data "{
-              \"text\": \"📦 Renovate PR in *$repo*:\n*<$pr_url|$pr_title>*\"
+              \"text\": \"📦 *Renovate Updates in $repo*:\n<$pr_url|$pr_title>\n$updates\"
             }" \
             $SLACK_WEBHOOK_URL_RENOVATE
