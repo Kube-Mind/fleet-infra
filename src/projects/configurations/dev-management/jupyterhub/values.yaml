@@ -6,17 +6,19 @@ enabled: true
 debug:
   enabled: true
 
-auth:
-  type: gitlab
-  # The following are obtained from env vars as per the following links:
-  #  - https://github.com/jupyterhub/oauthenticator/blob/main/oauthenticator/gitlab.py
-  #  - https://github.com/jupyterhub/oauthenticator/blob/main/oauthenticator/oauth2.py
-  # gitlab:
-  #   clientId: <client_id>
-  #   clientSecret: <client_secret>
-  #   callbackUrl: https://hub.example.com/hub/oauth_callback
-
 hub:
+  auth:
+    type: gitlab
+    # The following are obtained from env vars as per the following links:
+    #  - https://github.com/jupyterhub/oauthenticator/blob/main/oauthenticator/gitlab.py
+    #  - https://github.com/jupyterhub/oauthenticator/blob/main/oauthenticator/oauth2.py
+    # gitlab:
+    #   clientId: <client_id>
+    #   clientSecret: <client_secret>
+    #   callbackUrl: https://hub.example.com/hub/oauth_callback
+    state:
+      enabled: true
+
   extraConfig:
     gitlab: |
       c.KubeSpawner.cmd = ['jupyter-labhub']
