@@ -36,25 +36,22 @@
     }
   ],
   "customManagers": [
-    {
-      "customType": "regex",
-      "managerFilePatterns": ["(?i)^.*apps\\.yaml$"],
-      "matchStrings": [
-        "installType:\\s+helm[\\s\\S]*?repoURL:\\s+(?<repoURL>\\S+)[\\s\\S]*?chartName:\\s+(?<chartName>\\S+)[\\s\\S]*?targetRevision:\\s+(?<currentValue>\\S+)"
-      ],
-      "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}",
-      "datasource": "helm",
-      "versioning": "semver"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": ["(?i)^.*apps\\.yaml$"],
-      "matchStrings": [
-        "installType:\\s+oci[\\s\\S]*?repoURL:\\s+(?<repoURL>\\S+)[\\s\\S]*?chartName:\\s+(?<chartName>\\S+)[\\s\\S]*?targetRevision:\\s+(?<currentValue>\\S+)"
-      ],
-      "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}",
-      "datasource": "docker",
-      "versioning": "docker"
-    }
-  ]
+  {
+    "customType": "regex",
+    "managerFilePatterns": ["(?i)^.*values\\.yaml$"],
+    "matchStrings": [
+      "installType:\\s+helm[\\s\\S]*?repoURL:\\s+(?<repoURL>\\S+)[\\s\\S]*?chartName:\\s+(?<chartName>\\S+)[\\s\\S]*?targetRevision:\\s+(?<currentValue>\\S+)"
+    ],
+    "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}"
+  },
+  {
+    "customType": "regex",
+    "managerFilePatterns": ["(?i)^.*apps\\.yaml$"],
+    "matchStrings": [
+      "installType:\\s+oci[\\s\\S]*?repoURL:\\s+(?<repoURL>\\S+)[\\s\\S]*?chartName:\\s+(?<chartName>\\S+)[\\s\\S]*?targetRevision:\\s+(?<currentValue>\\S+)"
+    ],
+    "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}"
+  }
+]
+
 }
