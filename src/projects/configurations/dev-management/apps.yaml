@@ -15,7 +15,12 @@ apps:
 
   github-scale-set-controller:
     automated: false
+    # renovate bot sequenced fields
     chartName: gha-runner-scale-set-controller
+    installType: oci
+    repoURL: ghcr.io/actions/actions-runner-controller-charts
+    targetRevision: 0.10.0
+    # chart template required fields
     extraSyncOptions:
       - ServerSideApply=true
     ignoreDifferences:
@@ -23,11 +28,8 @@ apps:
         kind: CustomResourceDefinition
         jqPathExpressions:
           - .spec.preserveUnknownFields
-    installType: oci
     namespace: github-runner
-    repoURL: ghcr.io/actions/actions-runner-controller-charts
     syncWave: "30"
-    targetRevision: 0.10.0
 
   gitlab-runner:
     automated: true
