@@ -42,10 +42,23 @@
         "^src/.*/values\\.yaml$"
       ],
       "matchStrings": [
-        "installType:\\s+(?<installType>oci|helm)[\\s\\S]*?repoURL:\\s+(?<repoURL>\\S+)[\\s\\S]*?chartName:\\s+(?<chartName>\\S+)[\\s\\S]*?targetRevision:\\s+(?<currentValue>[0-9.]+)"
+        "installType:\\s+helm[\\s\\S]*?repoURL:\\s+(?<repoURL>\\S+)[\\s\\S]*?chartName:\\s+(?<chartName>\\S+)[\\s\\S]*?targetRevision:\\s+(?<currentValue>[0-9.]+)"
       ],
       "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}",
-      "datasourceTemplate": "{{#if (eq installType \"helm\")}}helm{{else}}docker{{/if}}",
+      "datasourceTemplate": "helm",
+      "versioningTemplate": "semver",
+      "extractVersionTemplate": "{{{ currentValue }}}"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "^src/.*/values\\.yaml$"
+      ],
+      "matchStrings": [
+        "installType:\\s+oci[\\s\\S]*?repoURL:\\s+(?<repoURL>\\S+)[\\s\\S]*?chartName:\\s+(?<chartName>\\S+)[\\s\\S]*?targetRevision:\\s+(?<currentValue>[0-9.]+)"
+      ],
+      "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}",
+      "datasourceTemplate": "docker",
       "versioningTemplate": "semver",
       "extractVersionTemplate": "{{{ currentValue }}}"
     }
