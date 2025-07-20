@@ -33,7 +33,7 @@ tika:
 
 # -- A list of Ollama API endpoints. These can be added in lieu of automatically installing the Ollama Helm chart, or in addition to it.
 ollamaUrls:
-  - "ollama.ollama.svc.cluster.local:11434"
+  - "ollama.ollama.svc.cluster.local"
 
 # -- Disables taking Ollama Urls from `ollamaUrls`  list
 ollamaUrlsFromExtraEnv: false
