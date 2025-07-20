@@ -86,14 +86,12 @@ hub:
 singleuser:
   startTimeout: 3600
   extraNodeAffinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-                - turing
+    required:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+            - turing
   memory:
     guarantee: 1G
     limit: 2G
