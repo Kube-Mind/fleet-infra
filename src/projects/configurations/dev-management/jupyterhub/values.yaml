@@ -72,6 +72,11 @@ hub:
           name: jupyterhub-external-secret
           key: GITLAB_CALLBACK_URL
 
+  networkPolicy:
+    egress:
+      - ports:
+          - port: 6443
+
   service:
     type: ClusterIP
 
