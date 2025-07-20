@@ -82,7 +82,7 @@ grafana:
           isDefault: true
     dashboards:
       default:
-        k8s-dashboard:
+        k8s-dashboard.json:
           gnetId: 15661
           revision: 2
           datasource: Prometheus
@@ -106,7 +106,7 @@ grafana:
 
     sidecar:
       dashboards:
-        enabled: false
+        enabled: true
         label: grafana_dashboard
 
   ingress:
