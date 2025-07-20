@@ -18,8 +18,3 @@ node-feature-discovery:
       - key: node-role.kubernetes.io/etcd
         operator: Exists
         effect: NoExecute
-
-devicePlugin:
-  config:
-    default: all-disabled
-    name: default-mig-parted-config
