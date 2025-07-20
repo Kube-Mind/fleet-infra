@@ -90,7 +90,7 @@ singleuser:
 
 scheduling:
   userScheduler:
-    enabled: true
+    enabled: false
     revisionHistoryLimit:
     replicas: 2
     logLevel: 5
