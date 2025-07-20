@@ -84,9 +84,16 @@ singleuser:
     guarantee: 2
     limit: 4
   storage:
-    type: dynamic
-    dynamic:
-      storageClass: longhorn
+    type: none
+    # dynamic:
+    #   storageClass: longhorn
+
+scheduling:
+  userScheduler:
+    enabled: true
+    revisionHistoryLimit:
+    replicas: 2
+    logLevel: 5
 
 ingress:
   enabled: true
