@@ -28,6 +28,8 @@ pipelines:
   extraEnvVars:
     - name: OLLAMA_BASE_URL
       value: "http://ollama.ollama.svc.cluster.local:11434"
+    - name: PIPELINES_URLS
+      value: "https://github.com/open-webui/pipelines/blob/main/examples/filters/detoxify_filter_pipeline.py"
 
 tika:
   # -- Automatically install Apache Tika to extend Open WebUI
