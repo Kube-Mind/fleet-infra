@@ -87,7 +87,7 @@ apps:
           - .spec.template.metadata.annotations."checksum/secret-jobservice"
       - group: apps
         kind: StatefulSet
-        jsonPointers:
+        jqPathExpressions:
         - '.spec.volumeClaimTemplates[].apiVersion'
         - '.spec.volumeClaimTemplates[].kind'
 
