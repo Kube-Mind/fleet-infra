@@ -39,7 +39,7 @@ tika:
 ollamaUrls: []
 
 # -- Disables taking Ollama Urls from `ollamaUrls`  list
-ollamaUrlsFromExtraEnv: false
+ollamaUrlsFromExtraEnv: true
 
 websocket:
   # -- Enables websocket support in Open WebUI with env `ENABLE_WEBSOCKET_SUPPORT`
@@ -333,8 +333,8 @@ openaiBaseApiUrls:
 # -- Env vars added to the Open WebUI deployment. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/
 extraEnvVars:
   # -- Default API key value for Pipelines. Should be updated in a production deployment, or be changed to the required API key if not using Pipelines
-  - name: OPENAI_API_KEY
-    value: "0p3n-w3bu!"
+  # - name: OPENAI_API_KEY
+  #   value: "0p3n-w3bu!"
   # valueFrom:
   #   secretKeyRef:
   #     name: pipelines-api-key
@@ -346,6 +346,8 @@ extraEnvVars:
   #       key: api-key
   # - name: OLLAMA_DEBUG
   #   value: "1"
+  - name: OLLAMA_BASE_URL
+    value: "http://ollama.ollama.svc.cluster.local:11434"
 
 # -- Env vars added to the Open WebUI deployment, common across environments. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: environment variables defined in both `extraEnvVars` and `commonEnvVars` will result in a conflict. Avoid duplicates)
 commonEnvVars: []
