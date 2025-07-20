@@ -82,7 +82,7 @@ grafana:
           isDefault: true
     dashboards:
       default:
-        k8s-dashboard.json:
+        k8s-dashboard:
           gnetId: 15661
           revision: 2
           datasource: Prometheus
@@ -90,24 +90,24 @@ grafana:
       dashboardproviders.yaml:
         apiVersion: 1
         providers:
-          - name: 'default'
-            orgId: 1
-            folder: ''
-            type: file
-            disableDeletion: false
-            editable: true
-            updateIntervalSeconds: 10
-            options:
-              path: /var/lib/grafana/dashboards/default
-
-    server:
-      root_url: https://grafana.jcan.dev
-      serve_from_sub_path: false
-
+        - name: 'default'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: true
+          updateIntervalSeconds: 10
+          options:
+            path: /var/lib/grafana/dashboards/default
     sidecar:
       dashboards:
         enabled: true
         label: grafana_dashboard
+    server:
+      root_url: https://grafana.jcan.dev
+      serve_from_sub_path: false
+
+
 
   ingress:
     enabled: true
