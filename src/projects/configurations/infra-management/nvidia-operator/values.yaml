@@ -20,4 +20,5 @@ node-feature-discovery:
         effect: NoExecute
 
 devicePlugin:
-  name: default-mig-parted-config
+  config:
+    name: default-mig-parted-config
