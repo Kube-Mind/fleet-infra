@@ -56,7 +56,7 @@ grafana:
         type: prometheus
         url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090/
         access: proxy
-        isDefault: true
+        isDefault: false
   dashboards:
     community:
       k8s-dashboard:
