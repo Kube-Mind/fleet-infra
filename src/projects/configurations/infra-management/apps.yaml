@@ -101,7 +101,7 @@ apps:
         kind: ClusterPolicy
         name: cluster-policy
         jsonPointers:
-          - /spec/config/
+          - /spec/migManager/config/name
     syncWave: "10"
 
   openbao:
