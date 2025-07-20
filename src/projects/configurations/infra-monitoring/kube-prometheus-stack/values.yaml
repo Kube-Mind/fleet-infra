@@ -77,7 +77,7 @@ grafana:
         datasources:
         - name: Prometheus
           type: prometheus
-          url: http://prometheus-prometheus-server
+          url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack.svc.cluster.local:9090
           access: proxy
           isDefault: true
     dashboards:
@@ -86,7 +86,6 @@ grafana:
           gnetId: 15661
           revision: 2
           datasource: Prometheus
-    
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
