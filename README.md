@@ -24,28 +24,9 @@ The applications are categorised through ArgoCD's [Application Projects](https:/
 | [work](./src/projects/values.infra-operations.yaml) | ![work](https://cd.jcan.dev/api/badge?name=work&revision=true&showAppName=true) | Tools and dependencies used for work. |
 ||||
 
-## Simulating cluster environment
+## Tools
 
-A localised Kubernetes cluster can be used for simulating deployment behaviours. `k3d` is used as the Kubernetes cluster simulator.
-
-The following make targets are used for setting up a localised kubernetes cluster for deployment tests.
-
-| target | description |
-| ------ | ----------- |
-| cluster-setup | Launches a k3d cluster |
-| cluster-start | Starts a stopped k3d cluster |
-| cluster-stop | Stops a running k3d cluster |
-| cluster-teardown | Destroys a k3d cluster |
-|||
-
-The k3d cluster can be bootstraped using ArgoCD make targets.
-
-| target | description |
-| ------ | ----------- |
-| argocd-install | Installs ArgoCD using the provided values yaml |
-| argocd-wait | Waits for successful ArgoCD installation |
-| argocd-proxy | Creates a proxy tunnel for ArgoCD installation |
-| argocd-password | Extracts ArgoCD from k3d cluster |
-| argocd-login | ArgoCD authentication |
-| argocd-bootstrap | Creates the main ArgoCD application which grabs all of the `fleet-infra` projects |
-|||
+| Name | Description |
+| --- | --- |
+| [ArgoCD](./docs/make/argo-cd.md) | GitOps tool used for managing k8s clusters. |
+| [k3d](./docs/make/k3d.md) | K3s in docker. Used for simulating k8s clusters. |
