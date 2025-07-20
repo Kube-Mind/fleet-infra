@@ -81,7 +81,7 @@ grafana:
           access: proxy
           isDefault: true
     dashboards:
-      default:
+      community:
         k8s-dashboard:
           gnetId: 15661
           revision: 2
@@ -90,7 +90,7 @@ grafana:
       dashboardproviders.yaml:
         apiVersion: 1
         providers:
-        - name: 'default'
+        - name: 'community'
           orgId: 1
           folder: ''
           type: file
@@ -98,11 +98,7 @@ grafana:
           editable: true
           updateIntervalSeconds: 10
           options:
-            path: /var/lib/grafana/dashboards/default
-    sidecar:
-      dashboards:
-        enabled: true
-        label: grafana_dashboard
+            path: /var/lib/grafana/dashboards/community
     server:
       root_url: https://grafana.jcan.dev
       serve_from_sub_path: false
