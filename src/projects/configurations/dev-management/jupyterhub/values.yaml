@@ -89,9 +89,9 @@ singleuser:
     guarantee: 2
     limit: 4
   storage:
-    type: none
-    # dynamic:
-    #   storageClass: longhorn
+    type: dynamic
+    dynamic:
+      storageClass: longhorn
 
 scheduling:
   userScheduler:
