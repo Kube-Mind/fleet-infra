@@ -85,7 +85,6 @@ externalSecret:
             property: GITLAB_CALLBACK_URL
           secretKey: GITLAB_CALLBACK_URL
 
-
     - name: "pft-credentials"
       namespaces:
         - argo-cd
@@ -155,7 +154,10 @@ externalSecret:
       data:
         - secretKey: base64Regcred
           remoteRef:
+            conversionStrategy: Default	
+            decodingStrategy: None
             key: work/pft
+            metadataPolicy: None
             property: regcred
 
     - name: "harbor-config"
