@@ -48,15 +48,15 @@ grafana:
       token_url: https://gitlab.com/oauth/token
       api_url: https://gitlab.com/api/v4
 
-  # datasources:
-  #   datasources.yaml:
-  #     apiVersion: 1
-  #     datasources:
-  #     - name: Prometheus
-  #       type: prometheus
-  #       url: http://kube-prometheus-stack-prometheus:9090
-  #       access: proxy
-  #       isDefault: true
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090/
+        access: proxy
+        isDefault: true
   dashboards:
     community:
       k8s-dashboard:
