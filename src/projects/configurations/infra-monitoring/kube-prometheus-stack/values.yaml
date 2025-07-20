@@ -47,14 +47,7 @@ grafana:
       auth_url: https://gitlab.com/oauth/authorize
       token_url: https://gitlab.com/oauth/token
       api_url: https://gitlab.com/api/v4/user
-      scopes:
-      - read_user
-      - read_api
-      - read_repository
-      - openid
-      - profile
-      - email
-      - read_group
+      scopes: read_user,read_api,read_repository,openid,profile,email,read_group
       
     auth.oauth_generic:
       enabled: true
