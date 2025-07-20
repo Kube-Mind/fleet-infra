@@ -8,6 +8,9 @@ debug:
 
 hub:
   config:
+    Authenticator:
+      admin_users:
+      - "jesmigel"
     JupyterHub:
       allow_named_servers: true
       admin_users:
@@ -27,14 +30,12 @@ hub:
         - "openid"
         - "profile"
         - "email"
-      username_key: username
       gitlab_group_whitelist: ["Kube-Mind"]
       gitlab_project_id_whitelist: []
 
   extraConfig:
     gitlab: |
       c.KubeSpawner.cmd = ['jupyter-labhub']
-      c.GitLabOAuthenticator.scope = ['read_user api read_repository write_repository']
 
       async def pre_spawn_hook(spawner):
         auth_state = await spawner.user.get_auth_state()
