@@ -85,6 +85,11 @@ apps:
           - .spec.template.metadata.annotations."checksum/secret"
           - .spec.template.metadata.annotations."checksum/secret-core"
           - .spec.template.metadata.annotations."checksum/secret-jobservice"
+      - group: apps
+        kind: StatefulSet
+        jsonPointers:
+        - '.spec.volumeClaimTemplates[].apiVersion'
+        - '.spec.volumeClaimTemplates[].kind'
 
   jupyterhub:
     # renovate bot sequenced fields
