@@ -23,7 +23,7 @@ hub:
       gitlab_url: https://gitlab.com
       scope:
         - read_user
-        - groups
+        - read_api  # <-- optional, if group/project filtering used
       username_key: username
       gitlab_group_whitelist: ["Kube-Mind"]
       gitlab_project_id_whitelist: []
