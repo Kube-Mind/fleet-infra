@@ -7,17 +7,26 @@ debug:
   enabled: true
 
 hub:
-  auth:
-    type: gitlab
-    # The following are obtained from env vars as per the following links:
-    #  - https://github.com/jupyterhub/oauthenticator/blob/main/oauthenticator/gitlab.py
-    #  - https://github.com/jupyterhub/oauthenticator/blob/main/oauthenticator/oauth2.py
-    # gitlab:
-    #   clientId: <client_id>
-    #   clientSecret: <client_secret>
-    #   callbackUrl: https://hub.example.com/hub/oauth_callback
-    state:
-      enabled: true
+  config:
+    JupyterHub:
+      allow_named_servers: true
+      admin_users:
+        - admin
+      authenticator_class: gitlab
+
+    GitLabOAuthenticator:
+      # the following are obtained from OS env vars
+      # - https://github.com/jupyterhub/oauthenticator/blob/main/oauthenticator/gitlab.py
+      # client_id: env:OAUTH_CLIENT_ID
+      # client_secret: env:OAUTH_CLIENT_SECRET
+      # oauth_callback_url: env:OAUTH_CALLBACK_URL
+      gitlab_url: https://gitlab.com
+      scope:
+        - read_user
+        - groups
+      username_key: username
+      gitlab_group_whitelist: ["Kube-Mind"]
+      gitlab_project_id_whitelist: []
 
   extraConfig:
     gitlab: |
