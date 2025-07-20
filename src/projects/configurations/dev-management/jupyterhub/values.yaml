@@ -85,6 +85,9 @@ hub:
 
 singleuser:
   startTimeout: 3600
+  image:
+    # name: quay.io/jupyterhub/k8s-singleuser-sample
+    name: registry.gitlab.com/ska-telescope/pst/ska-pst/ska-pst-test-support:1.1.1-dev.c1d94d256
   # extraNodeAffinity:
   #   required:
   #     - matchExpressions:
