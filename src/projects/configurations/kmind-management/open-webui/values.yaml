@@ -33,7 +33,7 @@ pipelines:
 
 tika:
   # -- Automatically install Apache Tika to extend Open WebUI
-  enabled: false
+  enabled: true
 
 # -- A list of Ollama API endpoints. These can be added in lieu of automatically installing the Ollama Helm chart, or in addition to it.
 ollamaUrls: []
@@ -69,7 +69,6 @@ websocket:
     # -- Redis image
     image:
       repository: redis
-      tag: 7.4.2-alpine3.21
       pullPolicy: IfNotPresent
     # -- Redis command (overrides default)
     command: []
@@ -320,7 +319,7 @@ service:
   loadBalancerClass: ""
 
 # -- Enables the use of OpenAI APIs
-enableOpenaiApi: false
+enableOpenaiApi: true
 
 # -- OpenAI base API URL to use. Defaults to the Pipelines service endpoint when Pipelines are enabled, and "https://api.openai.com/v1" if Pipelines are not enabled and this value is blank
 openaiBaseApiUrl: "https://api.openai.com/v1"
@@ -332,10 +331,10 @@ openaiBaseApiUrls:
   # - "https://api.company.openai.com/v1"
 
 # -- Env vars added to the Open WebUI deployment. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/
-extraEnvVars: []
+extraEnvVars:
   # -- Default API key value for Pipelines. Should be updated in a production deployment, or be changed to the required API key if not using Pipelines
-  # - name: OPENAI_API_KEY
-  #   value: "0p3n-w3bu!"
+  - name: OPENAI_API_KEY
+    value: "0p3n-w3bu!"
   # valueFrom:
   #   secretKeyRef:
   #     name: pipelines-api-key
