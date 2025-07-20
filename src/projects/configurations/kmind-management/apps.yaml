@@ -22,10 +22,11 @@ apps:
     path: charts/chartwatch
     syncWave: "30"
 
-  openweb-ui:
+  open-webui:
     # renovate bot sequenced fields
+    chartName: open-webui
     installType: helm
-    repoURL: https://helm.openwebui.com/
+    repoURL: https://helm.openwebui.com
     targetRevision: 6.24.0
     # chart required fields
     automated: false
