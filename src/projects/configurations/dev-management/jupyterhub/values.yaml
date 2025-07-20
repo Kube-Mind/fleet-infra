@@ -31,6 +31,7 @@ hub:
         - "openid"
         - "profile"
         - "email"
+      username_key: username
       gitlab_group_whitelist: ["Kube-Mind"]
       gitlab_project_id_whitelist: []
 
@@ -93,6 +94,7 @@ ingress:
     kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.middlewares: default-headers@kubernetescrd
   hosts:
     - jhub.jcan.dev
 
