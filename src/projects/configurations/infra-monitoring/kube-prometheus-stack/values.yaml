@@ -82,7 +82,7 @@ grafana:
           isDefault: true
     dashboards:
       default:
-        node-exporter-full:
+        k8s-dashboard:
           gnetId: 15661
           revision: 2
           datasource: Prometheus
@@ -90,11 +90,12 @@ grafana:
       dashboardproviders.yaml:
         apiVersion: 1
         providers:
-          - name: "default"
+          - name: 'default'
             orgId: 1
-            folder: ""
+            folder: ''
             type: file
             disableDeletion: false
+            editable: true
             updateIntervalSeconds: 10
             options:
               path: /var/lib/grafana/dashboards/default
@@ -105,7 +106,7 @@ grafana:
 
     sidecar:
       dashboards:
-        enabled: true
+        enabled: false
         label: grafana_dashboard
 
   ingress:
