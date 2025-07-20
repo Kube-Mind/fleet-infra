@@ -212,7 +212,7 @@ ingress:
   #   # nginx.ingress.kubernetes.io/rewrite-target: /
   host: "chat.jcan.dev" # update to your real domain
   additionalHosts: []
-  tls: false
+  tls: true
   existingSecret: ""
 
   # -- Additional custom labels to add to the Ingress metadata
