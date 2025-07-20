@@ -49,7 +49,6 @@ hub:
       c.KubeSpawner.pre_spawn_hook = pre_spawn_hook
 
   extraEnv:
-    JUPYTER_ENABLE_LAB: 1
     GITLAB_HOST: https://gitlab.com
     OAUTH_CLIENT_ID:
       valueFrom:
