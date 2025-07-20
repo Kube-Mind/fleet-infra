@@ -22,8 +22,11 @@ hub:
       # oauth_callback_url: env:OAUTH_CALLBACK_URL
       gitlab_url: https://gitlab.com
       scope:
-        - read_user
-        - read_api  # <-- optional, if group/project filtering used
+        - "read_api"
+        - "read_user"
+        - "openid"
+        - "profile"
+        - "email"
       username_key: username
       gitlab_group_whitelist: ["Kube-Mind"]
       gitlab_project_id_whitelist: []
