@@ -3,29 +3,6 @@ grafana:
 
   envFromSecret: gitlab-grafana-oauth
 
-  adminPassword: null
-  # dashboardproviders.yaml:
-  #   apiVersion: 1
-  #   providers:
-  #     - name: 'default'
-  #       orgId: 1
-  #       folder: 'default'
-  #       type: file
-  #       disableDeletion: true
-  #       editable: true
-  #       options:
-  #         path: /var/lib/grafana/dashboards/standard
-
-  dashboards:
-    default:
-    #   nvidia-dcgm-exporter:
-    #     gnetId: 12239
-    #     revision: 2
-    #     datasource:
-    #       - name: Prometheus
-    #         value: Prometheus
-
-
   grafana.ini:
     auth:
       # remove the login form from the sign-in page 
@@ -71,34 +48,34 @@ grafana:
       token_url: https://gitlab.com/oauth/token
       api_url: https://gitlab.com/api/v4
 
-    datasources:
-      datasources.yaml:
-        apiVersion: 1
-        datasources:
-        - name: Prometheus
-          type: prometheus
-          url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack.svc.cluster.local:9090
-          access: proxy
-          isDefault: true
-    dashboards:
-      community:
-        k8s-dashboard:
-          gnetId: 15661
-          revision: 2
-          datasource: Prometheus
-    dashboardProviders:
-      dashboardproviders.yaml:
-        apiVersion: 1
-        providers:
-        - name: 'community'
-          orgId: 1
-          folder: ''
-          type: file
-          disableDeletion: false
-          editable: true
-          updateIntervalSeconds: 10
-          options:
-            path: /var/lib/grafana/dashboards/community
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack.svc.cluster.local:9090
+        access: proxy
+        isDefault: true
+  dashboards:
+    community:
+      k8s-dashboard:
+        gnetId: 15661
+        revision: 2
+        datasource: Prometheus
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+      - name: 'community'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        editable: true
+        updateIntervalSeconds: 10
+        options:
+          path: /var/lib/grafana/dashboards/community
     server:
       root_url: https://grafana.jcan.dev
       serve_from_sub_path: false
