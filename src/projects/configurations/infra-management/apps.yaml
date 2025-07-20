@@ -97,11 +97,11 @@ apps:
     # chart required fields
     automated: true
     ignoreDifferences:
-      - group: nvidia.com/v1
+      - group: nvidia.com
         kind: ClusterPolicy
         name: cluster-policy
         jsonPointers:
-          - /spec/config/name
+          - /spec/config/
     syncWave: "10"
 
   openbao:
