@@ -94,6 +94,7 @@ apps:
     targetRevision: 4.2.0
     # chart required fields
     automated: false
+    namespace: jhub
     syncWave: "30"
     extraLabels:
       web-gui: "true"

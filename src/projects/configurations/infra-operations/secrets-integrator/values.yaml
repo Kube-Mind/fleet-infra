@@ -54,7 +54,7 @@ externalSecret:
 
     - name: "jupyterhub-external-secret"
       namespaces:
-        - jupyterhub
+        - jhub
       secretStoreRef:
         name: vault
         kind: ClusterSecretStore

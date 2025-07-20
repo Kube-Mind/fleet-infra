@@ -35,6 +35,25 @@ hub:
       gitlab_group_whitelist: ["Kube-Mind"]
       gitlab_project_id_whitelist: []
 
+  extraConfig:
+    gitlab: |
+      c.KubeSpawner.cmd = ['jupyter-labhub']
+
+      async def pre_spawn_hook(spawner):
+        auth_state = await spawner.user.get_auth_state()
+
+        if not auth_state:
+            spawner.log.warning("No auth state for %s", spawner.user)
+            return
+
+        spawner.environment['GITLAB_ACCESS_TOKEN'] = auth_state['access_token']
+        spawner.environment['GITLAB_USER_LOGIN'] = auth_state['gitlab_user']['username']
+        spawner.environment['GITLAB_USER_ID'] = str(auth_state['gitlab_user']['id'])
+        spawner.environment['GITLAB_USER_EMAIL'] = auth_state['gitlab_user']['email']
+        spawner.environment['GITLAB_USER_NAME'] = auth_state['gitlab_user']['name']
+
+      c.KubeSpawner.pre_spawn_hook = pre_spawn_hook
+
   extraEnv:
     GITLAB_HOST: https://gitlab.com
     OAUTH_CLIENT_ID:
@@ -71,7 +90,7 @@ singleuser:
 
 scheduling:
   userScheduler:
-    enabled: false
+    enabled: true
     revisionHistoryLimit:
     replicas: 2
     logLevel: 5
