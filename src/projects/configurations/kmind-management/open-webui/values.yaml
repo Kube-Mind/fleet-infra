@@ -25,18 +25,19 @@ pipelines:
   # -- Automatically install Pipelines chart to extend Open WebUI functionality using Pipelines: https://github.com/open-webui/pipelines
   enabled: true
   # -- This section can be used to pass required environment variables to your pipelines (e.g. Langfuse hostname)
-  extraEnvVars: []
+  extraEnvVars:
+    - name: OLLAMA_BASE_URL
+      value: "http://ollama.ollama.svc.cluster.local:11434"
 
 tika:
   # -- Automatically install Apache Tika to extend Open WebUI
   enabled: false
 
 # -- A list of Ollama API endpoints. These can be added in lieu of automatically installing the Ollama Helm chart, or in addition to it.
-ollamaUrls:
-  - "ollama.ollama.svc.cluster.local:11434"
+ollamaUrls: []
 
 # -- Disables taking Ollama Urls from `ollamaUrls`  list
-ollamaUrlsFromExtraEnv: true
+ollamaUrlsFromExtraEnv: false
 
 websocket:
   # -- Enables websocket support in Open WebUI with env `ENABLE_WEBSOCKET_SUPPORT`
@@ -317,7 +318,7 @@ service:
   loadBalancerClass: ""
 
 # -- Enables the use of OpenAI APIs
-enableOpenaiApi: true
+enableOpenaiApi: false
 
 # -- OpenAI base API URL to use. Defaults to the Pipelines service endpoint when Pipelines are enabled, and "https://api.openai.com/v1" if Pipelines are not enabled and this value is blank
 openaiBaseApiUrl: "https://api.openai.com/v1"
