@@ -10,7 +10,7 @@ apps:
     # chart required fields
     automated: false
     path: charts/dnsfix
-    syncWave: "1.2"
+    syncWave: "30"
 
   chartwatch:
     # renovate bot sequenced fields
@@ -20,7 +20,15 @@ apps:
     # chart required fields
     automated: false
     path: charts/chartwatch
-    syncWave: "1.2"
+    syncWave: "30"
+
+  openweb-ui:
+    # renovate bot sequenced fields
+    installType: helm
+    repoURL: https://helm.openwebui.com/
+    targetRevision: 6.24.0
+    # chart required fields
+    automated: false
 
   stable-diffusion-webui:
     # renovate bot sequenced fields
@@ -30,4 +38,4 @@ apps:
     # chart required fields
     automated: false
     path: charts/stable-diffusion-webui
-    syncWave: "1.2"
+    syncWave: "30"
