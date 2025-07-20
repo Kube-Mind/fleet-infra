@@ -62,7 +62,7 @@ grafana:
       k8s-dashboard:
         gnetId: 15661
         revision: 2
-        datasource: prometheus
+        datasource: Prometheus
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
