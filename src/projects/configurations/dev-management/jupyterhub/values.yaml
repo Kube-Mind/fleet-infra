@@ -98,6 +98,11 @@ singleuser:
   cpu:
     guarantee: 2
     limit: 4
+  extraResource:
+    limits:
+      nvidia.com/gpu: '1'
+    guarantees:
+      nvidia.com/gpu: '1'
   storage:
     type: dynamic
     dynamic:
