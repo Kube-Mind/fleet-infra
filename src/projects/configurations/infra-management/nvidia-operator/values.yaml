@@ -21,4 +21,5 @@ node-feature-discovery:
 
 devicePlugin:
   config:
+    default: all-disabled
     name: default-mig-parted-config
