@@ -97,7 +97,7 @@ apps:
     # chart required fields
     automated: true
     ignoreDifferences:
-      - group: nvidia.com
+      - group: nvidia.com/v1
         kind: ClusterPolicy
         name: cluster-policy
         jsonPointers:
