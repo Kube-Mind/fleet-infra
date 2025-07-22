@@ -271,6 +271,21 @@ externalSecret:
             property: runner-token
           secretKey: runner-token
 
+    - name: open-webui-external-secret
+      namespaces:
+        - open-webui
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: kmind-management/open-webui
+            metadataPolicy: None
+            property: GITLAB_CLIENT_SECRET
+          secretKey: GITLAB_CLIENT_SECRET
+
     # - name: "harbor-regcred"
     #   namespaces:
     #     - argo-workflows
