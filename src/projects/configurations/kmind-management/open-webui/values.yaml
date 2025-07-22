@@ -493,7 +493,7 @@ sso:
   oidc:
     # -- Enable OIDC authentication
     # @section -- OIDC configuration
-    enabled: false
+    enabled: true
     # -- OIDC client ID
     # @section -- OIDC configuration
     clientId: "38a67a685cc0e09415c2fc48d53df079f7934151379a0308e9dbe6808e7af89a"
