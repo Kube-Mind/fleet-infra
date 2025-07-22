@@ -425,7 +425,7 @@ sso:
   enabled: true
   # -- Enable account creation when logging in with OAuth (distinct from regular signup)
   # @section -- SSO Configuration
-  enableSignup: false
+  enableSignup: true
   # -- Allow logging into accounts that match email from OAuth provider (considered insecure)
   # @section -- SSO Configuration
   mergeAccountsByEmail: false
