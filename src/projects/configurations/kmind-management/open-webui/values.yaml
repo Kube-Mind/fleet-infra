@@ -434,7 +434,7 @@ sso:
   enableRoleManagement: false
   # -- Enable OAuth group management through access token groups claim
   # @section -- SSO Configuration
-  enableGroupManagement: false
+  enableGroupManagement: true
 
   google:
     # -- Enable Google OAuth
@@ -508,7 +508,7 @@ sso:
     clientExistingSecretKey: "GITLAB_CLIENT_SECRET"
     # -- OIDC provider well known URL
     # @section -- OIDC configuration
-    providerUrl: "https://gitlab.com"
+    providerUrl: "https://gitlab.com/.well-known/openid-configuration"
     # -- Name of the provider to show on the UI
     # @section -- OIDC configuration
     providerName: "GitLab"
