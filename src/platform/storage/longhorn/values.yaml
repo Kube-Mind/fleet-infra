@@ -1,0 +1,26 @@
+preUpgradeChecker:
+  jobEnabled: false
+
+defaultSettings:
+  taintToleration:
+    toleratorions:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/etcd
+        operator: Exists
+        effect: NoExecute
+
+longhornManager:
+  tolerations:
+    - key: node-role.kubernetes.io/control-plane
+      operator: Exists
+      effect: NoSchedule
+    - key: node-role.kubernetes.io/etcd
+      operator: Exists
+      effect: NoExecute
+
+service:
+  ui:
+    type: NodePort
+    nodePort: 31412
