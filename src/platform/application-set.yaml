@@ -2,40 +2,47 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   namespace: argo-cd
-  name: platform-storage
+  name: platform
   labels:
-    app.kubernetes.io/instance: storage
-    app.kubernetes.io/part-of: platform
+    app.kubernetes.io/instance: platform
+    app.kubernetes.io/part-of: main
     app.kubernetes.io/managed-by: argo-cd
   annotations:
     argocd.argoproj.io/sync-wave: '0'
-    argocd.argoproj.io/tracking-id: default:argoproj.io/Application:argo-cd/platform-storage
+    argocd.argoproj.io/tracking-id: default:argoproj.io/Application:argo-cd/platform
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
     - list:
         elements:
-        - name: longhorn
-          wave: 0
-        - name: nfs-provisioner
-          wave: 10
+        - name: core
+          wave: -100
+        - name: network
+          wave: -90
+        # - name: observability
+        #   wave: 10
+        # - name: security
+        #   wave: 10
+        - name: storage
+          wave: -80
   template:
     metadata:
-      name: '{{ .name }}'
+      name: 'platform-{{ .name }}'
       namespace: '{{ .name }}'
       annotations:
-        argocd.argoproj.io/tracking-id: platform-storage:argoproj.io/Application:argo-cd/'{{ .name }}'
+        argocd.argoproj.io/tracking-id: platform:argoproj.io/Application:argo-cd/{{ .name }}
+        argocd.argoproj.io/sync-wave: "{{ .wave }}"
       labels:
         app.kubernetes.io/instance: '{{ .name }}'
         app.kubernetes.io/component: '{{ .name }}'
-        app.kubernetes.io/part-of: platform-storage
+        app.kubernetes.io/part-of: platform
     spec:
-      project: platform-storage
+      project: platform
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
         targetRevision: migration
-        path: 'src/platform/storage/{{ .name }}'
+        path: 'src/platform/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:
         namespace: '{{ .name }}'
