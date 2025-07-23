@@ -11,7 +11,7 @@ argocd-teardown:
 argocd-wait:
 	kubectl -n $(ARGOCD_NAMESPACE) wait -l app.kubernetes.io/name=argocd-server --for=condition=ready pod --timeout=360s
 
-argocd-proxy:
+argocd-proxy: argocd-password
 	kubectl -n $(ARGOCD_NAMESPACE) port-forward svc/argo-cd-server 8080:80
 
 argocd-password:

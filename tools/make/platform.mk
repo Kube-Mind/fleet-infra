@@ -15,3 +15,12 @@ platform-network-setup:
 
 platform-network-teardown:
 	$(call kustomize_delete,$(_PLATFORM_NETWORK_PATH))
+
+.PHONY: platform-storage-setup platform-storage-teardown
+
+_PLATFORM_STORAGE_PATH = src/platform/network
+platform-storage-setup:
+	$(call kustomize_apply,$(_PLATFORM_STORAGE_PATH))
+
+platform-storage-teardown:
+	$(call kustomize_delete,$(_PLATFORM_STORAGE_PATH))
