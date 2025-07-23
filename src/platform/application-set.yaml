@@ -20,8 +20,8 @@ spec:
           wave: -100
         - name: network
           wave: -90
-        # - name: observability
-        #   wave: 10
+        - name: observability
+          wave: 10
         # - name: security
         #   wave: 10
         - name: storage
