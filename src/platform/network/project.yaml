@@ -14,13 +14,15 @@ metadata:
 spec:
   description: Project for network platform applications
   sourceRepos:
-    - 'https://gitlab.com/Kube-Mind/fleet-infra.git'
+    - 'https://github.com/Kube-Mind/fleet-infra.git'
   destinations:
     - namespace: 'cilium'
       server: '*'
     - namespace: 'cilium-secrets'
       server: '*'
     - namespace: 'letsencrypt'
+      server: '*'
+    - namespace: 'metallb'
       server: '*'
     - namespace: 'traefik'
       server: '*'

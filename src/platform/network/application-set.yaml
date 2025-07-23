@@ -20,6 +20,8 @@ spec:
         #   wave: 0
         - name: letsencrypt
           wave: 10
+        - name: metallb
+          wave: 0
         - name: traefik
           wave: 10
   template:
@@ -27,7 +29,7 @@ spec:
       name: '{{ .name }}'
       namespace: '{{ .name }}'
       annotations:
-        argocd.argoproj.io/tracking-id: platform-network:argoproj.io/Application:argo-cd/{{ path.basename }}
+        argocd.argoproj.io/tracking-id: platform-network:argoproj.io/Application:argo-cd/{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"
       labels:
         app.kubernetes.io/instance: '{{ .name }}'
@@ -41,7 +43,7 @@ spec:
         path: 'src/platform/network/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:
-        namespace: '{{ path.basename }}'
+        namespace: '{{ .name }}'
         server: https://kubernetes.default.svc
       syncPolicy:
         automated:
