@@ -27,7 +27,7 @@ apps:
     chartName: open-webui
     installType: helm
     repoURL: https://helm.openwebui.com
-    targetRevision: 6.28.0
+    targetRevision: 6.29.0
     # chart required fields
     automated: false
 
