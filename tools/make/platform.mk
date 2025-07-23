@@ -1,4 +1,17 @@
-.PHONY: platform-core-setup platform-core-teardown platform-core-wait
+.PHONY: platform-core-setup platform-core-teardown
 
+_PLATFORM_CORE_PATH = src/platform/core
 platform-core-setup:
-	$(call kustomize_apply,src/platform/core)
+	$(call kustomize_apply,$(_PLATFORM_CORE_PATH))
+
+platform-core-teardown:
+	$(call kustomize_delete,$(_PLATFORM_CORE_PATH))
+
+.PHONY: platform-network-setup platform-network-teardown
+
+_PLATFORM_NETWORK_PATH = src/platform/network
+platform-network-setup:
+	$(call kustomize_apply,$(_PLATFORM_NETWORK_PATH))
+
+platform-network-teardown:
+	$(call kustomize_delete,$(_PLATFORM_NETWORK_PATH))
