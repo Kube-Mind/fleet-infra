@@ -14,7 +14,7 @@ metadata:
 spec:
   description: Project for platform observability applications
   sourceRepos:
-    - 'https://gitlab.com/Kube-Mind/fleet-infra.git'
+    - 'https://github.com/Kube-Mind/fleet-infra.git'
   destinations:
     - namespace: 'kube-prometheus-stack'
       server: '*'
