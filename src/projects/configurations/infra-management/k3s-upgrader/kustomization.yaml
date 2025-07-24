@@ -8,4 +8,4 @@ resources:
 - https://raw.githubusercontent.com/rancher/system-upgrade-controller/v0.13.4/manifests/system-upgrade-controller.yaml
 
 patchesStrategicMerge:
-  - crb.yaml
+  - patch/crb.yaml
