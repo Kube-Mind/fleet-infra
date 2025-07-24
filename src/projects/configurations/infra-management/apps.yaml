@@ -49,6 +49,7 @@ apps:
     installType: localKustomize
     # chart required fields
     automated: false
+    namespace: system-upgrade
     syncWave: "10"
 
   longhorn:
