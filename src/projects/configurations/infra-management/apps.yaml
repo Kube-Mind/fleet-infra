@@ -48,7 +48,7 @@ apps:
     # renovate bot sequenced fields
     installType: localKustomize
     # chart required fields
-    automated: true
+    automated: false
     syncWave: "10"
 
   longhorn:
