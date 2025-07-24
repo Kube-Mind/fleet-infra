@@ -16,7 +16,7 @@ image:
 
 imagePullSecrets: []
 nameOverride: ""
-fullnameOverride: ""
+fullnameOverride: ""ghar-scale-set"-controller"
 
 env:
 ## Define environment variables for the controller pod
