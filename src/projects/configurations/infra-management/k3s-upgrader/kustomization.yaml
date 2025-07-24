@@ -3,9 +3,9 @@ kind: Kustomization
 
 # https://github.com/rancher/system-upgrade-controller
 resources:
-- https://raw.githubusercontent.com/rancher/system-upgrade-controller/v0.13.4/manifests/clusterrole.yaml
-- https://raw.githubusercontent.com/rancher/system-upgrade-controller/v0.13.4/manifests/clusterrolebinding.yaml
-- https://raw.githubusercontent.com/rancher/system-upgrade-controller/v0.13.4/manifests/system-upgrade-controller.yaml
+- https://raw.githubusercontent.com/rancher/system-upgrade-controller/v0.16.0/manifests/clusterrole.yaml
+- https://raw.githubusercontent.com/rancher/system-upgrade-controller/v0.16.0/manifests/clusterrolebinding.yaml
+- https://raw.githubusercontent.com/rancher/system-upgrade-controller/v0.16.0/manifests/system-upgrade-controller.yaml
 
 patchesStrategicMerge:
   - patch/crb.yaml
