@@ -22,8 +22,8 @@ spec:
           wave: -90
         - name: observability
           wave: 10
-        # - name: security
-        #   wave: 10
+        - name: security
+          wave: 10
         - name: storage
           wave: -80
   template:
