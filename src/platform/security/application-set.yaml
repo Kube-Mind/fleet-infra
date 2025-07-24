@@ -2,40 +2,41 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   namespace: argo-cd
-  name: infra-security
+  name: platform-security
   labels:
     app.kubernetes.io/instance: security
-    app.kubernetes.io/part-of: infrastructure
+    app.kubernetes.io/part-of: platform
     app.kubernetes.io/managed-by: argo-cd
   annotations:
     argocd.argoproj.io/sync-wave: '0'
-    argocd.argoproj.io/tracking-id: default:argoproj.io/Application:argo-cd/infra-security
+    argocd.argoproj.io/tracking-id: default:argoproj.io/Application:argo-cd/platform-security
 spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
   generators:
-    - git:
-        repoURL: https://gitlab.com/Kube-Mind/fleet-infra.git
-        revision: main
-        directories:
-          - path: k8s/infrastructure/security/openbao
+    - list:
+        elements:
+        - name: openbao
+          wave: 10
   template:
     metadata:
-      name: '{{ path.basename }}'
-      namespace: '{{ path.basename }}'
+      name: '{{ .name }}'
+      namespace: '{{ .name }}'
       annotations:
-        argocd.argoproj.io/tracking-id: infra-security:argoproj.io/Application:argo-cd/{{ path.basename }}
+        argocd.argoproj.io/tracking-id: platform-security:argoproj.io/Application:argo-cd/{{ path.basename }}
       labels:
-        app.kubernetes.io/instance: '{{ path.basename }}'
-        app.kubernetes.io/component: '{{ path.basename }}'
-        app.kubernetes.io/part-of: infra-security
+        app.kubernetes.io/instance: '{{ .name }}'
+        app.kubernetes.io/component: '{{ .name }}'
+        app.kubernetes.io/part-of: platform-security
     spec:
-      project: infra-security
+      project: platform-security
       source:
-        repoURL: https://gitlab.com/Kube-Mind/fleet-infra.git
+        repoURL: https://github.com/Kube-Mind/fleet-infra.git
         targetRevision: main
         path: '{{ path }}'
         kustomize: {} # Let Kustomize handle naming
       destination:
-        namespace: '{{ path.basename }}'
+        namespace: '{{ .name }}'
         server: https://kubernetes.default.svc
       syncPolicy:
         automated:
