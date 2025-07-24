@@ -23,7 +23,7 @@ spec:
       name: '{{ .name }}'
       namespace: '{{ .name }}'
       annotations:
-        argocd.argoproj.io/tracking-id: platform-security:argoproj.io/Application:argo-cd/{{ path.basename }}
+        argocd.argoproj.io/tracking-id: platform-security:argoproj.io/Application:argo-cd/{{ .name }}
       labels:
         app.kubernetes.io/instance: '{{ .name }}'
         app.kubernetes.io/component: '{{ .name }}'
