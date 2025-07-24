@@ -15,4 +15,4 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: system-upgrade
-    namespace: kube-system
+    namespace: system-upgrade
