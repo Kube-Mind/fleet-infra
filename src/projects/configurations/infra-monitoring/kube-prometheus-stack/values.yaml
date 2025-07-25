@@ -57,12 +57,15 @@ grafana:
     #     url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090/
     #     access: proxy
     #     isDefault: false
+    # 15661
+    # 22515
   dashboards:
     community:
-      k8s-dashboard:
-        gnetId: 15661
+      dcgm-exporter:
+        gnetId: 22515
         revision: 2
         datasource: Prometheus
+
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
@@ -76,9 +79,9 @@ grafana:
         updateIntervalSeconds: 10
         options:
           path: /var/lib/grafana/dashboards/community
-    server:
-      root_url: https://grafana.jcan.dev
-      serve_from_sub_path: false
+  server:
+    root_url: https://grafana.jcan.dev
+    serve_from_sub_path: false
 
 
 
