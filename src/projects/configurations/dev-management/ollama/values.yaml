@@ -138,12 +138,12 @@ podAnnotations: {}
 podLabels: {}
 
 # -- Pod Security Context
-podSecurityContext:
-  privileged: true
+podSecurityContext: {}
   # fsGroup: 2000
 
 # -- Container Security Context
-securityContext: {}
+securityContext:
+  privileged: true
   # capabilities:
   #  drop:
   #   - ALL
