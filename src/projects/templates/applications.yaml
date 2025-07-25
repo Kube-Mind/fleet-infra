@@ -21,7 +21,10 @@ metadata:
     {{- toYaml $value.extraLabels | nindent 4 }}
     {{- end }}
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
+    {{- if $value.additionalFinalizers }}
+    {{ toYaml $value.additionalFinalizers | nindent 4 }}
+    {{- end }}
 spec:
   destination:
     namespace: {{ $value.namespace | default $app }}

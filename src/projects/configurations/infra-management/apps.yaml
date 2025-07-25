@@ -96,6 +96,9 @@ apps:
     repoURL: https://helm.ngc.nvidia.com/nvidia
     targetRevision: v25.3.1
     # chart required fields
+    additionalFinalizers:
+      - post-delete-finalizer.argocd.argoproj.io	
+      - post-delete-finalizer.argocd.argoproj.io/cleanup
     automated: true
     ignoreDifferences:
       - group: nvidia.com
