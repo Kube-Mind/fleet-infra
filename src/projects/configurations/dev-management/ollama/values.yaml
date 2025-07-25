@@ -63,7 +63,7 @@ ollama:
     number: 1
 
     # -- only for nvidia cards; change to (example) 'nvidia.com/mig-1g.10gb' to use MIG slice
-    nvidiaResource: "nvidia.com/gpu"
+    nvidiaResource: ""
     # nvidiaResource: "nvidia.com/mig-1g.10gb" # example
     # If you want to use more than one NVIDIA MIG you can use the following syntax (then nvidiaResource is ignored and only the configuration in the following MIG section is used)
 
@@ -138,7 +138,8 @@ podAnnotations: {}
 podLabels: {}
 
 # -- Pod Security Context
-podSecurityContext: {}
+podSecurityContext:
+  privileged: true
   # fsGroup: 2000
 
 # -- Container Security Context
@@ -379,7 +380,7 @@ affinity:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - odin
+                - turing
 
   # -- Pod affinity
   podAffinity: {}
