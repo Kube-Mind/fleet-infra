@@ -29,10 +29,11 @@ spec:
   project: {{ $appProject }}
   sources:
     - repoURL: {{ $repoURL  }}
-      targetRevision: {{ $targetRevision }}
   {{- if or (eq $value.installType "localKustomize") (eq $value.installType "localHelm") }}
       path: "src/projects/configurations/{{ $appProject }}/{{ $app }}"
+      targetRevision: {{ $targetRevision }}
   {{- else }}
+      targetRevision: {{ $value.targetRevision }}
       helm:
         valueFiles:
           - $values/src/projects/configurations/{{ $appProject }}/{{ $app }}/values.yaml
