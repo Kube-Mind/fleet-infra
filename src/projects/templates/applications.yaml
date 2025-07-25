@@ -27,29 +27,17 @@ spec:
     namespace: {{ $value.namespace | default $app }}
     server: {{ $destinationServer }}
   project: {{ $appProject }}
-  {{- if eq $value.installType "localKustomize" }}
   sources:
     - repoURL: {{ $repoURL  }}
       targetRevision: {{ $targetRevision }}
-      path: "src/projects/configurations/{{ $appProject }}/{{ $app }}"
-  {{- else if eq $value.installType "localHelm" }}
-  sources:
-    - repoURL: {{ $repoURL  }}
-      targetRevision: {{ $targetRevision }}
+  {{- if or (eq $value.installType "localKustomize") (eq $value.installType "localHelm") }}
       path: "src/projects/configurations/{{ $appProject }}/{{ $app }}"
   {{- else }}
-  sources:
-    - repoURL: {{ $value.repoURL }}
-      targetRevision: {{ $value.targetRevision }}
       helm:
         valueFiles:
           - $values/src/projects/configurations/{{ $appProject }}/{{ $app }}/values.yaml
-  {{- if eq $value.installType "helm" }}
       chart: {{ $value.chartName }}
-  {{- else if eq $value.installType "oci" }}
-      chart: {{ $value.chartName }}
-      path: {{ $value.path }}
-  {{- else }}
+  {{- if eq $value.installType "oci" }}
       path: {{ $value.path }}
   {{- end }}
     - repoURL: {{ $repoURL }}
