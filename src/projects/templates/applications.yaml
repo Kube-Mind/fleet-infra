@@ -38,7 +38,7 @@ spec:
       helm:
         valueFiles:
           - $values/src/projects/configurations/{{ $appProject }}/{{ $app }}/values.yaml
-  {{- if or (eq $value.installType "oci") (eq $value.installType "remoteHelm") }}
+  {{- if eq $value.installType "remoteHelm" }}
       path: {{ $value.path }}
   {{- else }}
       chart: {{ $value.chartName }}
