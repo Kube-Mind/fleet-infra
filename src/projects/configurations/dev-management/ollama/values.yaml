@@ -212,15 +212,15 @@ ingress:
 # ref: http://kubernetes.io/docs/user-guide/compute-resources/
 resources:
   # -- Pod requests
-  requests: {}
-    # Memory request
-    # memory: 4096Mi
+  requests:
+    nvidia.com/gpu: '0'
 
     # CPU request
     # cpu: 2000m
 
   # -- Pod limit
-  limits: {}
+  limits:
+    nvidia.com/gpu: '0'
     # Memory limit
     # memory: 8192Mi
 
