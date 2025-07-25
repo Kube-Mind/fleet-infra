@@ -9,6 +9,14 @@ toolkit:
   - name: CONTAINERD_SET_AS_DEFAULT
     value: "true"
 
+dcgmExporter:
+  enabled: true
+  repository: nvcr.io/nvidia/k8s
+  serviceMonitor:
+    enabled: true
+    interval: 15s
+    honorLabels: true
+
 node-feature-discovery:
   worker:
     tolerations:
