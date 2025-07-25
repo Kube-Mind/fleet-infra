@@ -28,11 +28,12 @@ spec:
     server: {{ $destinationServer }}
   project: {{ $appProject }}
   sources:
-    - repoURL: {{ $repoURL  }}
   {{- if or (eq $value.installType "localKustomize") (eq $value.installType "localHelm") }}
+    - repoURL: {{ $repoURL  }}
       path: "src/projects/configurations/{{ $appProject }}/{{ $app }}"
       targetRevision: {{ $targetRevision }}
   {{- else }}
+    - repoURL: {{ $value.repoURL }}
       targetRevision: {{ $value.targetRevision }}
       helm:
         valueFiles:
