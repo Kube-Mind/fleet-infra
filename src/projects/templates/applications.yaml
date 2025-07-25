@@ -38,9 +38,10 @@ spec:
       helm:
         valueFiles:
           - $values/src/projects/configurations/{{ $appProject }}/{{ $app }}/values.yaml
-      chart: {{ $value.chartName }}
-  {{- if eq $value.installType "oci" }}
+  {{- if or (eq $value.installType "oci") (eq $value.installType "remoteHelm") }}
       path: {{ $value.path }}
+  {{- else }}
+      chart: {{ $value.chartName }}
   {{- end }}
     - repoURL: {{ $repoURL }}
       targetRevision: {{ $targetRevision }}
