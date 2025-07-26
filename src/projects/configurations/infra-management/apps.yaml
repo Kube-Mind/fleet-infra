@@ -2,7 +2,7 @@ spec:
   project: infra-management
 
 apps:
-  argo-cd:
+  - name: argo-cd
     # renovate bot sequenced fields
     chartName: argo-cd
     installType: helm
@@ -14,7 +14,7 @@ apps:
       web-gui: "true"
     syncWave: "0"
 
-  cert-manager:
+  - name: cert-manager
     # renovate bot sequenced fields
     chartName: cert-manager
     installType: helm
@@ -24,7 +24,7 @@ apps:
     automated: true
     syncWave: "10"
 
-  cilium:
+  - name: cilium
     # renovate bot sequenced fields
     chartName: cilium
     installType: helm
@@ -34,7 +34,7 @@ apps:
     automated: true
     syncWave: "-10"
 
-  external-secrets:
+  - name: external-secrets
     # renovate bot sequenced fields
     chartName: external-secrets
     installType: helm
@@ -44,7 +44,7 @@ apps:
     automated: true
     syncWave: "10"
 
-  k3s-upgrader:
+  - name: k3s-upgrader
     # renovate bot sequenced fields
     installType: localKustomize
     # chart required fields
@@ -52,7 +52,7 @@ apps:
     namespace: system-upgrade
     syncWave: "10"
 
-  longhorn:
+  - name: longhorn
     # renovate bot sequenced fields
     chartName: longhorn
     installType: helm
@@ -67,7 +67,7 @@ apps:
           - .spec.preserveUnknownFields
     syncWave: "0"
 
-  metallb:
+  - name: metallb
     # renovate bot sequenced fields
     chartName: metallb
     installType: helm
@@ -77,7 +77,7 @@ apps:
     automated: true
     syncWave: "0"
 
-  nfs-provisioner:
+  - name: nfs-provisioner
     # renovate bot sequenced fields
     chartName: nfs-subdir-external-provisioner
     installType: helm
@@ -89,7 +89,7 @@ apps:
       web-gui: "true"
     syncWave: "10"
 
-  nvidia-operator:
+  - name: nvidia-operator
     # renovate bot sequenced fields
     chartName: gpu-operator
     installType: helm
@@ -108,7 +108,7 @@ apps:
           - /spec/migManager/config/name
     syncWave: "10"
 
-  openbao:
+  - name: openbao
     # renovate bot sequenced fields
     chartName: openbao
     installType: helm
@@ -125,7 +125,7 @@ apps:
           - /webhooks/0/clientConfig/caBundle
     syncWave: "20"
 
-  traefik:
+  - name: traefik
     # renovate bot sequenced fields
     chartName: traefik
     installType: helm

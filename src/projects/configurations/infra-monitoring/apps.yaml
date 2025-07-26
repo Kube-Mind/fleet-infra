@@ -2,7 +2,7 @@ spec:
   project: infra-monitoring
 
 apps:
-  kube-prometheus-stack:
+  - name: kube-prometheus-stack
     # renovate bot sequenced fields
     chartName: kube-prometheus-stack
     installType: helm

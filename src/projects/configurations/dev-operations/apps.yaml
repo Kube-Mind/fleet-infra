@@ -2,7 +2,7 @@ spec:
   project: dev-operations
 
 apps:
-  traefik-runtime-configs:
+  - name: traefik-runtime-configs
     automated: false
     installType: localKustomize
     syncWave: "3.2"

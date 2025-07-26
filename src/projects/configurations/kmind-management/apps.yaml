@@ -2,17 +2,7 @@ spec:
   project: kmind-management
 
 apps:
-  dnsfix:
-    # renovate bot sequenced fields
-    installType: remoteHelm
-    repoURL: https://gitlab.com/Kube-Mind/dnsfix.git
-    targetRevision: HEAD
-    # chart required fields
-    automated: false
-    path: charts/dnsfix
-    syncWave: "30"
-
-  chartwatch:
+  - name: chartwatch
     # renovate bot sequenced fields
     installType: remoteHelm
     repoURL: https://gitlab.com/Kube-Mind/chartwatch.git
@@ -22,7 +12,17 @@ apps:
     path: charts/chartwatch
     syncWave: "30"
 
-  open-webui:
+  - name: dnsfix
+    # renovate bot sequenced fields
+    installType: remoteHelm
+    repoURL: https://gitlab.com/Kube-Mind/dnsfix.git
+    targetRevision: HEAD
+    # chart required fields
+    automated: false
+    path: charts/dnsfix
+    syncWave: "30"
+
+  - name: open-webui
     # renovate bot sequenced fields
     chartName: open-webui
     installType: helm
@@ -31,7 +31,7 @@ apps:
     # chart required fields
     automated: false
 
-  stable-diffusion-webui:
+  - name: stable-diffusion-webui
     # renovate bot sequenced fields
     installType: remoteHelm
     repoURL: https://gitlab.com/Kube-Mind/stable-diffusion-webui.git

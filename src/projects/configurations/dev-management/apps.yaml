@@ -2,7 +2,7 @@ spec:
   project: dev-management
 
 apps:
-  github-scale-set:
+  - name: github-scale-set
     # renovate bot sequenced fields
     chartName: gha-runner-scale-set
     installType: oci
@@ -13,7 +13,7 @@ apps:
     namespace: github-runner
     syncWave: "30"
 
-  github-scale-set-controller:
+  - name: github-scale-set-controller
     # renovate bot sequenced fields
     chartName: gha-runner-scale-set-controller
     installType: oci
@@ -29,7 +29,7 @@ apps:
         jqPathExpressions:
           - .spec.preserveUnknownFields
 
-  gitlab-runner:
+  - name: gitlab-runner
     # renovate bot sequenced fields
     chartName: gitlab-runner
     installType: helm
@@ -39,7 +39,7 @@ apps:
     automated: true
     syncWave: "20"
 
-  harbor:
+  - name: harbor
     # renovate bot sequenced fields
     chartName: harbor
     installType: helm
@@ -91,7 +91,7 @@ apps:
         - '.spec.volumeClaimTemplates[].apiVersion'
         - '.spec.volumeClaimTemplates[].kind'
 
-  jupyterhub:
+  - name: jupyterhub
     # renovate bot sequenced fields
     chartName: jupyterhub
     installType: helm
@@ -122,7 +122,7 @@ apps:
     namespace: jhub
     syncWave: "30"
 
-  kafka:
+  - name: kafka
     # renovate bot sequenced fields
     chartName: kafka
     installType: helm
@@ -160,7 +160,7 @@ apps:
         jqPathExpressions:
           - .spec.template.metadata.annotations."checksum/secret"
 
-  n8n:
+  - name: n8n
     # renovate bot sequenced fields
     chartName: n8n
     installType: oci
@@ -173,7 +173,7 @@ apps:
     extraLabels:
       web-gui: "true"
 
-  ollama:
+  - name: ollama
     # renovate bot sequenced fields
     chartName: ollama
     installType: helm
@@ -183,7 +183,7 @@ apps:
     automated: false
     syncWave: "30"
 
-  rabbitmq:
+  - name: rabbitmq
     # renovate bot sequenced fields
     chartName: rabbitmq
     installType: oci
