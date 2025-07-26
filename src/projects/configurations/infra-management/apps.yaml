@@ -7,7 +7,7 @@ apps:
     chartName: argo-cd
     installType: helm
     repoURL: https://argoproj.github.io/argo-helm
-    targetRevision: 8.2.0
+    targetRevision: 8.2.2
     # chart required fields
     automated: true
     extraLabels:
@@ -94,7 +94,7 @@ apps:
     chartName: gpu-operator
     installType: helm
     repoURL: https://helm.ngc.nvidia.com/nvidia
-    targetRevision: v25.3.1
+    targetRevision: v25.3.2
     # chart required fields
     additionalFinalizers:
       - post-delete-finalizer.argocd.argoproj.io	
