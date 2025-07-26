@@ -2,16 +2,6 @@ spec:
   project: kmind-management
 
 apps:
-  - name: chartwatch
-    # renovate bot sequenced fields
-    installType: remoteHelm
-    repoURL: https://gitlab.com/Kube-Mind/chartwatch.git
-    targetRevision: HEAD
-    # chart required fields
-    automated: false
-    path: charts/chartwatch
-    syncWave: "30"
-
   - name: dnsfix
     # renovate bot sequenced fields
     installType: remoteHelm
