@@ -54,7 +54,7 @@ externalSecret:
 
     - name: "dnsfix-external-secret"
       namespaces:
-        - argo-cd
+        - dnsfix
       secretStoreRef:
         name: vault
         kind: ClusterSecretStore
