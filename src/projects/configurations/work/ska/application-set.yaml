@@ -40,7 +40,6 @@ spec:
         namespace: 'ska-{{ .name }}'
         server: https://kubernetes.default.svc
       syncPolicy:
-        automated: {}
         retry:
           limit: 1
           backoff:
