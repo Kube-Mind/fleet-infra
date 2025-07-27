@@ -1,6 +1,6 @@
 grafana:
   enabled: true
-
+  adminPassword: null # enforce random password generation upon sync
   envFromSecret: gitlab-grafana-oauth
 
   grafana.ini:
@@ -75,15 +75,15 @@ grafana:
     dashboardproviders.yaml:
       apiVersion: 1
       providers:
-      - name: 'default'
-        orgId: 1
-        folder: ''
-        type: file
-        disableDeletion: false
-        editable: true
-        updateIntervalSeconds: 10
-        options:
-          path: /var/lib/grafana/dashboards/default
+        - name: 'default'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: true
+          updateIntervalSeconds: 10
+          options:
+            path: /var/lib/grafana/dashboards/default
 
   ingress:
     enabled: true
@@ -96,9 +96,6 @@ grafana:
     - secretName: "grafana-tls-key"
       hosts:
       - grafana.jcan.dev
-    
-  operator:
-    adminPassword: "" # Enforce random password at sync
 
 prometheusOperator:
   tls:
