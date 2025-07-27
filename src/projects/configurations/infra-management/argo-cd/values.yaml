@@ -494,9 +494,9 @@ notifications:
             },
             {
               "title": "Revision",
-              "value": "{{.app.status.sync.revision}}",
+              "value": "{{ (index .app.spec.sources 0).targetRevision }}",
               "short": true
-            }
+            },
             {{range $index, $c := .app.status.conditions}}
             {{if not $index}},{{end}}
             {{if $index}},{{end}}
@@ -529,6 +529,11 @@ notifications:
             {
               "title": "Repository",
               "value": "{{ (index .app.spec.sources 0).repoURL }}",
+              "short": true
+            },
+            {
+              "title": "Revision",
+              "value": "{{ (index .app.spec.sources 0).targetRevision }}",
               "short": true
             },
             {{range $index, $c := .app.status.conditions}}
@@ -565,6 +570,11 @@ notifications:
               "value": "{{ (index .app.spec.sources 0).repoURL }}",
               "short": true
             },
+            {
+              "title": "Revision",
+              "value": "{{ (index .app.spec.sources 0).targetRevision }}",
+              "short": true
+            },
             {{range $index, $c := .app.status.conditions}}
             {{if not $index}},{{end}}
             {{if $index}},{{end}}
@@ -597,6 +607,11 @@ notifications:
             {
               "title": "Repository",
               "value": "{{ (index .app.spec.sources 0).repoURL }}",
+              "short": true
+            },
+            {
+              "title": "Revision",
+              "value": "{{ (index .app.spec.sources 0).targetRevision }}",
               "short": true
             },
             {{range $index, $c := .app.status.conditions}}
@@ -638,6 +653,11 @@ notifications:
               "value": "{{ (index .app.spec.sources 0).repoURL }}",
               "short": true
             },
+            {
+              "title": "Revision",
+              "value": "{{ (index .app.spec.sources 0).targetRevision }}",
+              "short": true
+            },
             {{range $index, $c := .app.status.conditions}}
             {{if not $index}},{{end}}
             {{if $index}},{{end}}
@@ -670,6 +690,11 @@ notifications:
             {
               "title": "Repository",
               "value": "{{ (index .app.spec.sources 0).repoURL }}",
+              "short": true
+            },
+            {
+              "title": "Revision",
+              "value": "{{ (index .app.spec.sources 0).targetRevision }}",
               "short": true
             },
             {{range $index, $c := .app.status.conditions}}
