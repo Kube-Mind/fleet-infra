@@ -1,19 +1,29 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": [
+    "config:recommended"
+  ],
   "dependencyDashboard": true,
-  "labels": ["dependencies"],
-  "enabledManagers": ["custom.regex"],
+  "labels": [
+    "dependencies"
+  ],
+  "enabledManagers": [
+    "custom.regex"
+  ],
   "packageRules": [
     {
-      "matchManagers": ["custom.regex"],
+      "matchManagers": [
+        "custom.regex"
+      ],
       "groupName": "chore(deps): update helm charts and oci"
     }
   ],
   "customManagers": [
     {
       "customType": "regex",
-      "managerFilePatterns": ["**/apps.yaml"],
+      "managerFilePatterns": [
+        "**/apps.yaml"
+      ],
       "matchStrings": [
         "(?s)chartName:\\s(?<chartName>\\S+)\\s+installType:\\shelm\\s+repoURL:\\s(?<repoURL>\\S+)\\s+targetRevision:\\s(?<currentValue>\\S+)"
       ],
@@ -23,7 +33,9 @@
     },
     {
       "customType": "regex",
-      "managerFilePatterns": ["**/apps.yaml"],
+      "managerFilePatterns": [
+        "**/apps.yaml"
+      ],
       "matchStrings": [
         "(?s)chartName:\\s(?<chartName>\\S+)\\s+installType:\\soci\\s+repoURL:\\s(?<repoURL>\\S+)\\s+targetRevision:\\s(?<currentValue>\\S+)"
       ],
@@ -31,8 +43,13 @@
       "datasourceTemplate": "docker"
     },
     {
-      "fileMatch": "kustomization.yaml",
-      "matchStrings": ["https:\/\/raw.githubusercontent.com\/(?<depName>[^\/]*\/[^\/]*)\/(?<currentValue>.*?)\/"],
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/kustomization.yaml/"
+      ],
+      "matchStrings": [
+        "https://raw.githubusercontent.com/(?<depName>[^/]*/[^/]*)/(?<currentValue>.*?)/"
+      ],
       "datasourceTemplate": "github-tags"
     }
   ]
