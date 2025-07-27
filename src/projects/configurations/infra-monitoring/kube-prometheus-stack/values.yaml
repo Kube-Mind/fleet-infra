@@ -63,14 +63,14 @@ grafana:
         isDefault: false
   dashboards:
     default:
-      k8s-dashboard:
-        gnetId: 15661
-        revision: 2
-        datasource: kube-prometheus
-      dcgm-exporter:
-        gnetId: 22515
-        revision: 1
-        datasource: kube-prometheus
+      # k8s-dashboard:
+      #   gnetId: 15661
+      #   revision: 2
+      #   datasource: kube-prometheus
+      # dcgm-exporter:
+      #   gnetId: 22515
+      #   revision: 1
+      #   datasource: kube-prometheus
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
@@ -85,8 +85,6 @@ grafana:
         options:
           path: /var/lib/grafana/dashboards/default
 
-
-
   ingress:
     enabled: true
     ingressClassName: traefik
@@ -98,6 +96,12 @@ grafana:
     - secretName: "grafana-tls-key"
       hosts:
       - grafana.jcan.dev
+    
+  operator:
+    ## Enable references to ConfigMaps containing dashboards in GrafanaDashboard CRs
+    ## Set to true to allow dashboards to be loaded from ConfigMap references
+    dashboardsConfigMapRefEnabled: true
+    adminPassword: "" # Enforce random password at sync
 
 prometheusOperator:
   tls:
