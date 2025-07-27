@@ -33,7 +33,7 @@ spec:
       project: work
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
-        targetRevision: migration
+        targetRevision: main
         path: 'src/projects/configurations/work/ska/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:
