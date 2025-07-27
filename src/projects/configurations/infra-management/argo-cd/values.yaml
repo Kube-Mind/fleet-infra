@@ -496,11 +496,11 @@ notifications:
               "title": "Revision",
               "value": "{{ (index .app.spec.sources 0).targetRevision }}",
               "short": true
-            },
+            }
             {{range $index, $c := .app.status.conditions}}
             {{if not $index}},{{end}}
             {{if $index}},{{end}}
-            {
+            ,{
               "title": "{{$c.type}}",
               "value": "{{$c.message}}",
               "short": true
@@ -535,11 +535,11 @@ notifications:
               "title": "Revision",
               "value": "{{ (index .app.spec.sources 0).targetRevision }}",
               "short": true
-            },
+            }
             {{range $index, $c := .app.status.conditions}}
             {{if not $index}},{{end}}
             {{if $index}},{{end}}
-            {
+            ,{
               "title": "{{$c.type}}",
               "value": "{{$c.message}}",
               "short": true
@@ -574,11 +574,11 @@ notifications:
               "title": "Revision",
               "value": "{{ (index .app.spec.sources 0).targetRevision }}",
               "short": true
-            },
+            }
             {{range $index, $c := .app.status.conditions}}
             {{if not $index}},{{end}}
             {{if $index}},{{end}}
-            {
+            ,{
               "title": "{{$c.type}}",
               "value": "{{$c.message}}",
               "short": true
@@ -613,11 +613,11 @@ notifications:
               "title": "Revision",
               "value": "{{ (index .app.spec.sources 0).targetRevision }}",
               "short": true
-            },
+            }
             {{range $index, $c := .app.status.conditions}}
             {{if not $index}},{{end}}
             {{if $index}},{{end}}
-            {
+            ,{
               "title": "{{$c.type}}",
               "value": "{{$c.message}}",
               "short": true
@@ -657,11 +657,11 @@ notifications:
               "title": "Revision",
               "value": "{{ (index .app.spec.sources 0).targetRevision }}",
               "short": true
-            },
+            }
             {{range $index, $c := .app.status.conditions}}
             {{if not $index}},{{end}}
             {{if $index}},{{end}}
-            {
+            ,{
               "title": "{{$c.type}}",
               "value": "{{$c.message}}",
               "short": true
@@ -696,11 +696,11 @@ notifications:
               "title": "Revision",
               "value": "{{ (index .app.spec.sources 0).targetRevision }}",
               "short": true
-            },
+            }
             {{range $index, $c := .app.status.conditions}}
             {{if not $index}},{{end}}
             {{if $index}},{{end}}
-            {
+            ,{
               "title": "{{$c.type}}",
               "value": "{{$c.message}}",
               "short": true
