@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
 - dependencies/middleware.yaml
-- dependencies/storage.yaml
+- dependencies/storage-class.yaml
 - application-set.yaml
 
 generatorOptions:
