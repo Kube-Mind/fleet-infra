@@ -9,10 +9,6 @@ apps:
     path: charts/rxmon
     targetRevision: HEAD
 
-  - name: ska-dependencies
-    automated: false
-    installType: localKustomize
-
-  - name: ska-dev-env
+  - name: ska
     automated: false
     installType: localKustomize
