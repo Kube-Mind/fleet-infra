@@ -2,14 +2,14 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   namespace: argo-cd
-  name: workloads-ci
+  name: github-runner
   labels:
     app.kubernetes.io/instance: ci
     app.kubernetes.io/part-of: workloads
     app.kubernetes.io/managed-by: argo-cd
   annotations:
     argocd.argoproj.io/sync-wave: '0'
-    argocd.argoproj.io/tracking-id: default:argoproj.io/Application:argo-cd/workloads-ci
+    argocd.argoproj.io/tracking-id: workloads-ci:argoproj.io/Application:argo-cd/github-runner
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
