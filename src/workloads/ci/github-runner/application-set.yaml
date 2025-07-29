@@ -46,10 +46,6 @@ spec:
       destination:
         namespace: 'github-runner'
         server: https://kubernetes.default.svc
-      {{- if .ignoreDifferences }}
-      ignoreDifferences:
-        {{- toYaml .ignoreDifferences | nindent 8 }}
-      {{- end }}
       syncPolicy:
         automated:
           prune: true
@@ -66,3 +62,9 @@ spec:
           - ServerSideApply=true
           - PruneLast=true
           - RespectIgnoreDifferences=true
+  templatePatch: |
+    {{- if .ignoreDifferences }}
+    spec:
+      ignoreDifferences:
+      {{- toYaml .ignoreDifferences | nindent 12 }}
+    {{- end }}
