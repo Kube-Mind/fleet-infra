@@ -12,7 +12,6 @@ metadata:
     argocd.argoproj.io/tracking-id: workloads-ci:argoproj.io/Application:argo-cd/github-runner
 spec:
   goTemplate: true
-  goTemplateOptions: ["missingkey=error"]
   generators:
     - list:
         elements:
