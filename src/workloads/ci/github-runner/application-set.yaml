@@ -20,6 +20,11 @@ spec:
           wave: 40
         - name: gha-runner-scale-set-controller
           wave: 40
+          ignoreDifferences:
+            - group: 'apiextensions.k8s.io'
+              kind: CustomResourceDefinition
+              jqPathExpressions:
+                - .spec.preserveUnknownFields
   template:
     metadata:
       name: '{{ .name }}'
@@ -41,6 +46,10 @@ spec:
       destination:
         namespace: 'github-runner'
         server: https://kubernetes.default.svc
+      {{- if .ignoreDifferences }}
+      ignoreDifferences:
+        {{- toYaml .ignoreDifferences | nindent 8 }}
+      {{- end }}
       syncPolicy:
         automated:
           prune: true
