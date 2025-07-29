@@ -16,10 +16,10 @@ spec:
   generators:
     - list:
         elements:
-        - name: github-runner
-          wave: 0
-        - name: gitlab-runner
-          wave: 10
+        - name: kafka
+          wave: 30
+        - name: rabbitmq
+          wave: 30
   template:
     metadata:
       name: '{{ .name }}'
