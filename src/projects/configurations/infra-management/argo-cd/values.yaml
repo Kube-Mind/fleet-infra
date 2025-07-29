@@ -386,7 +386,7 @@ notifications:
   ## For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/subscriptions/
   subscriptions:
     - recipients:
-        - slack:infra-management
+        - slack:argo-notifications
       selector: argocd.argoproj.io/appproject=infra-management
       triggers:
         - on-deployed
@@ -396,7 +396,7 @@ notifications:
         - on-sync-status-unknown
         - on-sync-succeeded
     - recipients:
-        - slack:infra-operations
+        - slack:argo-notifications
       selector: argocd.argoproj.io/appproject=infra-operations
       triggers:
         - on-deployed
@@ -406,7 +406,7 @@ notifications:
         - on-sync-status-unknown
         - on-sync-succeeded
     - recipients:
-        - slack:infra-monitoring
+        - slack:argo-notifications
       selector: argocd.argoproj.io/appproject=infra-monitoring
       triggers:
         - on-deployed
@@ -416,7 +416,7 @@ notifications:
         - on-sync-status-unknown
         - on-sync-succeeded
     - recipients:
-        - slack:dev-management
+        - slack:argo-notifications
       selector: argocd.argoproj.io/appproject=dev-management
       triggers:
         - on-deployed
@@ -426,7 +426,7 @@ notifications:
         - on-sync-status-unknown
         - on-sync-succeeded
     - recipients:
-        - slack:dev-operations
+        - slack:argo-notifications
       selector: argocd.argoproj.io/appproject=dev-operations
       triggers:
         - on-deployed
@@ -436,7 +436,7 @@ notifications:
         - on-sync-status-unknown
         - on-sync-succeeded
     - recipients:
-        - slack:kmind-management
+        - slack:argo-notifications
       selector: argocd.argoproj.io/appproject=kmind-management
       triggers:
         - on-deployed
@@ -446,7 +446,7 @@ notifications:
         - on-sync-status-unknown
         - on-sync-succeeded
     - recipients:
-        - slack:work
+        - slack:argo-notifications
       selector: argocd.argoproj.io/appproject=work
       triggers:
         - on-deployed
@@ -489,18 +489,18 @@ notifications:
             },
             {
               "title": "Repository",
-              "value": "{{.app.spec.source.repoURL}}",
+              "value": "{{ (index .app.spec.sources 0).repoURL }}",
               "short": true
             },
             {
               "title": "Revision",
-              "value": "{{.app.status.sync.revision}}",
+              "value": "{{ (index .app.spec.sources 0).targetRevision }}",
               "short": true
             }
             {{range $index, $c := .app.status.conditions}}
             {{if not $index}},{{end}}
             {{if $index}},{{end}}
-            {
+            ,{
               "title": "{{$c.type}}",
               "value": "{{$c.message}}",
               "short": true
@@ -525,16 +525,21 @@ notifications:
               "title": "Sync Status",
               "value": "{{.app.status.sync.status}}",
               "short": true
-            },
+            }
             {
               "title": "Repository",
-              "value": "{{.app.spec.source.repoURL}}",
+              "value": "{{ (index .app.spec.sources 0).repoURL }}",
+              "short": true
+            },
+            {
+              "title": "Revision",
+              "value": "{{ (index .app.spec.sources 0).targetRevision }}",
               "short": true
             }
             {{range $index, $c := .app.status.conditions}}
             {{if not $index}},{{end}}
             {{if $index}},{{end}}
-            {
+            ,{
               "title": "{{$c.type}}",
               "value": "{{$c.message}}",
               "short": true
@@ -562,13 +567,18 @@ notifications:
             },
             {
               "title": "Repository",
-              "value": "{{.app.spec.source.repoURL}}",
+              "value": "{{ (index .app.spec.sources 0).repoURL }}",
+              "short": true
+            },
+            {
+              "title": "Revision",
+              "value": "{{ (index .app.spec.sources 0).targetRevision }}",
               "short": true
             }
             {{range $index, $c := .app.status.conditions}}
             {{if not $index}},{{end}}
             {{if $index}},{{end}}
-            {
+            ,{
               "title": "{{$c.type}}",
               "value": "{{$c.message}}",
               "short": true
@@ -596,13 +606,18 @@ notifications:
             },
             {
               "title": "Repository",
-              "value": "{{.app.spec.source.repoURL}}",
+              "value": "{{ (index .app.spec.sources 0).repoURL }}",
+              "short": true
+            },
+            {
+              "title": "Revision",
+              "value": "{{ (index .app.spec.sources 0).targetRevision }}",
               "short": true
             }
             {{range $index, $c := .app.status.conditions}}
             {{if not $index}},{{end}}
             {{if $index}},{{end}}
-            {
+            ,{
               "title": "{{$c.type}}",
               "value": "{{$c.message}}",
               "short": true
@@ -635,13 +650,18 @@ notifications:
             },
             {
               "title": "Repository",
-              "value": "{{.app.spec.source.repoURL}}",
+              "value": "{{ (index .app.spec.sources 0).repoURL }}",
+              "short": true
+            },
+            {
+              "title": "Revision",
+              "value": "{{ (index .app.spec.sources 0).targetRevision }}",
               "short": true
             }
             {{range $index, $c := .app.status.conditions}}
             {{if not $index}},{{end}}
             {{if $index}},{{end}}
-            {
+            ,{
               "title": "{{$c.type}}",
               "value": "{{$c.message}}",
               "short": true
@@ -669,13 +689,18 @@ notifications:
             },
             {
               "title": "Repository",
-              "value": "{{.app.spec.source.repoURL}}",
+              "value": "{{ (index .app.spec.sources 0).repoURL }}",
+              "short": true
+            },
+            {
+              "title": "Revision",
+              "value": "{{ (index .app.spec.sources 0).targetRevision }}",
               "short": true
             }
             {{range $index, $c := .app.status.conditions}}
             {{if not $index}},{{end}}
             {{if $index}},{{end}}
-            {
+            ,{
               "title": "{{$c.type}}",
               "value": "{{$c.message}}",
               "short": true

@@ -2,16 +2,7 @@
 image:
   pullPolicy: Always
 
-podAnnotations:
-  vault.hashicorp.com/agent-inject: "true"
-  vault.hashicorp.com/agent-inject-config: kv/infra-ops/dnsfix
-  vault.hashicorp.com/agent-inject-template-config: |
-    {{ with secret "kv/infra-ops/dnsfix" -}}
-      export CLOUDFLARE_API_KEY="{{ .Data.data.CLOUDFLARE_API_KEY }}"
-      export CLOUDFLARE_API_TOKEN="{{ .Data.data.CLOUDFLARE_API_TOKEN }}"
-      export CLOUDFLARE_EMAIL="{{ .Data.data.CLOUDFLARE_EMAIL }}"
-    {{- end }}
-  vault.hashicorp.com/role: dnsfix
+podAnnotations: {}
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -38,7 +29,11 @@ serviceAccount:
 
 podArgs:
   - -c
-  - 'source /vault/secrets/config && poetry run python -m dnsfix --data /mnt/payload/payload.yaml -p 1h'
+  - 'poetry run python -m dnsfix --data /mnt/payload/payload.yaml -p 1h'
+
+envFrom:
+  - secretRef:
+      name: dnsfix-external-secret
 
 # Additional volumes on the output Deployment definition.
 volumes:

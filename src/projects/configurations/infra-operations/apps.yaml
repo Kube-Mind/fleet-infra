@@ -2,28 +2,28 @@ spec:
   project: infra-operations
 
 apps:
-  k3s-upgrader-plans:
+  - name: k3s-upgrader-plans
+    # renovate bot sequenced fields
+    installType: localKustomize
+    # chart required fields
+    automated: false
+    syncWave: "20"
+
+  - name: letsencrypt
     # renovate bot sequenced fields
     installType: localKustomize
     # chart required fields
     automated: true
     syncWave: "20"
 
-  letsencrypt:
-    # renovate bot sequenced fields
-    installType: localKustomize
-    # chart required fields
-    automated: true
-    syncWave: "20"
-
-  metallb-runtime-configs:
+  - name: metallb-runtime-configs
     # renovate bot sequenced fields
     installType: localKustomize
     # chart required fields
     automated: false
     syncWave: "10"
 
-  secrets-integrator:
+  - name: secrets-integrator
     # renovate bot sequenced fields
     installType: localHelm
     # chart required fields

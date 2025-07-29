@@ -4,53 +4,47 @@
 {{- $repoURL := .Values.spec.source.repoURL -}}
 {{- $targetRevision := .Values.spec.source.targetRevision -}}
 
-{{- range $app, $value := .Values.apps }}
+{{- range $value := .Values.apps }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ $app }}
+  name: {{ $value.name }}
   namespace: {{ $appNamespace }}
   annotations:
     argocd.argoproj.io/sync-wave: {{ $value.syncWave | default "99" | quote }}
   labels:
-    app: {{ $app }}
+    app: {{ $value.name }}
     argocd.argoproj.io/appproject: {{ $appProject }}
     {{ $appProject }}/installType: {{ $value.installType }}
     {{- if $value.extraLabels }}
     {{- toYaml $value.extraLabels | nindent 4 }}
     {{- end }}
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
+    {{- if $value.additionalFinalizers }}
+    {{ toYaml $value.additionalFinalizers | nindent 4 }}
+    {{- end }}
 spec:
   destination:
-    namespace: {{ $value.namespace | default $app }}
+    namespace: {{ $value.namespace | default $value.name }}
     server: {{ $destinationServer }}
   project: {{ $appProject }}
-  {{- if eq $value.installType "localKustomize" }}
   sources:
-    - repoURL: {{ $repoURL  }}
+  {{- if or (eq $value.installType "localKustomize") (eq $value.installType "localHelm") }}
+    - repoURL: {{ $repoURL }}
+      path: "src/projects/configurations/{{ $appProject }}/{{ $value.name }}"
       targetRevision: {{ $targetRevision }}
-      path: "src/projects/configurations/{{ $appProject }}/{{ $app }}"
-  {{- else if eq $value.installType "localHelm" }}
-  sources:
-    - repoURL: {{ $repoURL  }}
-      targetRevision: {{ $targetRevision }}
-      path: "src/projects/configurations/{{ $appProject }}/{{ $app }}"
   {{- else }}
-  sources:
     - repoURL: {{ $value.repoURL }}
       targetRevision: {{ $value.targetRevision }}
       helm:
         valueFiles:
-          - $values/src/projects/configurations/{{ $appProject }}/{{ $app }}/values.yaml
-  {{- if eq $value.installType "helm" }}
-      chart: {{ $value.chartName }}
-  {{- else if eq $value.installType "oci" }}
-      chart: {{ $value.chartName }}
+          - $values/src/projects/configurations/{{ $appProject }}/{{ $value.name }}/values.yaml
+  {{- if eq $value.installType "remoteHelm" }}
       path: {{ $value.path }}
   {{- else }}
-      path: {{ $value.path }}
+      chart: {{ $value.chartName }}
   {{- end }}
     - repoURL: {{ $repoURL }}
       targetRevision: {{ $targetRevision }}

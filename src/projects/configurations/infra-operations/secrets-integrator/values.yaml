@@ -18,7 +18,7 @@ externalSecret:
               key: "token"
               namespace: "secrets-integrator"
 
-  externalSecrets:    
+  externalSecrets:
     - name: "argocd-external-secret"
       namespaces:
         - argo-cd
@@ -51,6 +51,39 @@ externalSecret:
             metadataPolicy: None
             property: GITLAB_CLIENT_SECRET
           secretKey: GITLAB_CLIENT_SECRET
+
+    - name: "dnsfix-external-secret"
+      namespaces:
+        - dnsfix
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/part-of: argocd
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: kmind-management/dnsfix
+            metadataPolicy: None
+            property: CLOUDFLARE_API_KEY
+          secretKey: CLOUDFLARE_API_KEY
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: kmind-management/dnsfix
+            metadataPolicy: None
+            property: CLOUDFLARE_API_TOKEN
+          secretKey: CLOUDFLARE_API_TOKEN
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: kmind-management/dnsfix
+            metadataPolicy: None
+            property: CLOUDFLARE_EMAIL
+          secretKey: CLOUDFLARE_EMAIL
 
     - name: "jupyterhub-external-secret"
       namespaces:
@@ -285,46 +318,6 @@ externalSecret:
             metadataPolicy: None
             property: GITLAB_CLIENT_SECRET
           secretKey: GITLAB_CLIENT_SECRET
-
-    # - name: "harbor-regcred"
-    #   namespaces:
-    #     - argo-workflows
-    #     - dnsfix
-    #   secretStoreRef:
-    #     name: vault
-    #     kind: ClusterSecretStore
-    #   template:
-    #     type: kubernetes.io/dockerconfigjson
-    #     data:
-    #       # workaround for helm to not render "<nil>" during rendering process in pre helm deployment
-    #       .dockerconfigjson: "{{ .base64Regcred | toString }}"
-    #   data:
-    #     - secretKey: base64Regcred
-    #       remoteRef:
-    #         key: harbor/service
-    #         property: regcred
-
-    # - name: "nextcloud-bootstrap-secrets"
-    #   namespaces:
-    #     - nextcloud
-    #   secretStoreRef:
-    #     name: vault
-    #     kind: ClusterSecretStore
-    #   data:
-    #     - remoteRef:
-    #         conversionStrategy: Default
-    #         decodingStrategy: None
-    #         key: media-centre/nextcloud
-    #         metadataPolicy: None
-    #         property: NEXTCLOUD_ADMIN_USER
-    #       secretKey: NEXTCLOUD_ADMIN_USER
-    #     - remoteRef:
-    #         conversionStrategy: Default
-    #         decodingStrategy: None
-    #         key: media-centre/nextcloud
-    #         metadataPolicy: None
-    #         property: NEXTCLOUD_ADMIN_PASSWORD
-    #       secretKey: NEXTCLOUD_ADMIN_PASSWORD
 
     - name: "rabbitmq"
       namespaces:
