@@ -3,17 +3,4 @@ kind: Kustomization
 
 resources:
 - namespace.yaml
-
-helmCharts:
-- name: gha-runner-scale-set
-  namespace: github-runner
-  repo: oci://ghcr.io/actions/actions-runner-controller-charts
-  valuesFile: gha-runner-scale-set.values.yaml
-  version: 0.12.1
-  includeCRDs: true
-- name: gha-runner-scale-set-controller
-  namespace: github-runner
-  repo: oci://ghcr.io/actions/actions-runner-controller-charts
-  valuesFile: gha-runner-scale-set-controller.values.yaml
-  version: 0.12.1
-  includeCRDs: true
+- application-set.yaml
