@@ -1,0 +1,181 @@
+enabled: true
+
+# How many runner pods to launch.
+replicas: 2
+
+# How many old ReplicaSets for this Deployment you want to retain
+revisionHistoryLimit: 5
+
+# The GitLab Server URL (with protocol) that want to register the runner against
+gitlabUrl: https://gitlab.com
+
+# Unregister all runners before termination
+unregisterRunners: true
+
+# Configure the maximum number of concurrent jobs
+concurrent: 5
+
+# For RBAC support:
+rbac:
+  create: true
+
+  ## Define list of rules to be added to the rbac role permissions.
+  ## Each rule supports the keys:
+  ## - apiGroups: default "" (indicates the core API group) if missing or empty.
+  ## - resources: default "*" if missing or empty.
+  ## - verbs: default "*" if missing or empty.
+  ##
+  ## Read more about the recommended rules on the following link
+  ##
+  ## ref: https://docs.gitlab.com/runner/executors/kubernetes.html#configure-runner-api-permissions
+  ##
+  rules:
+    - resources: ["configmaps", "events", "pods", "pods/attach", "pods/exec", "secrets", "services"]
+      verbs: ["get", "list", "watch", "create", "patch", "update", "delete"]
+    - apiGroups: [""]
+      resources: ["pods/exec"]
+      verbs: ["create", "patch", "delete"]
+    - apiGroups: [""]
+      resources: ["pods/log"]
+      verbs: ["get"]
+
+  ## Run the gitlab-bastion container with the ability to deploy/manage containers of jobs
+  ## cluster-wide or only within namespace
+  clusterWideAccess: false
+
+  ## Use the following Kubernetes Service Account name if RBAC is disabled in this Helm chart (see rbac.create)
+  ##
+  # serviceAccountName: default
+
+  ## Specify annotations for Service Accounts, useful for annotations such as eks.amazonaws.com/role-arn.
+  ## Values may refer to other values as the _tpl_ function is implicitly applied. Mind the quotes when using this, e.g.
+  ## serviceAccountAnnotations:
+  ##   eks.amazonaws.com/role-arn: "arn:aws:iam::{{ .Values.global.accountId }}:role/{{ .Values.global.iamRoleName }}"
+  ##
+  ## ref: https://docs.aws.amazon.com/eks/latest/userguide/associate-service-account-role.html
+  ##
+  # serviceAccountAnnotations: {}
+
+  ## Use podSecurity Policy
+  ## ref: https://kubernetes.io/docs/concepts/policy/pod-security-policy/
+  podSecurityPolicy:
+    enabled: false
+    resourceNames:
+    - gitlab-runner
+
+
+## Configuration for the Pods that the runner launches for each new job
+##
+runners:
+  # runner configuration, where the multi line string is evaluated as a
+  # template so you can specify helm values inside of it.
+  #
+  # tpl: https://helm.sh/docs/howto/charts_tips_and_tricks/#using-the-tpl-function
+  # runner configuration: https://docs.gitlab.com/runner/configuration/advanced-configuration.html
+  config: |
+    [[runners]]
+      [runners.kubernetes]
+        namespace = "{{.Release.Namespace}}"
+        image = "alpine"
+
+  ## Absolute path for an existing runner configuration file
+  ## Can be used alongside "volumes" and "volumeMounts" to use an external config file
+  ## Active if runners.config is empty or null
+  configPath: ""
+
+  ## Which executor should be used
+  ##
+  # executor: kubernetes
+
+  ## DEPRECATED: Specify whether the runner should be locked to a specific project: true, false.
+  ##
+  ## ref: https://docs.gitlab.com/ee/ci/runners/new_creation_workflow.html
+  ##
+  # locked: true
+
+  ## DEPRECATED: Specify the tags associated with the runner. Comma-separated list of tags.
+  ##
+  ## ref: https://docs.gitlab.com/ee/ci/runners/new_creation_workflow.html
+  ##
+  # tags: ""
+
+  ## Specify the name for the runner.
+  ##
+  # name: ""
+
+  ## DEPRECATED: Specify the maximum timeout (in seconds) that will be set for job when using this Runner
+  ##
+  ## ref: https://docs.gitlab.com/ee/ci/runners/new_creation_workflow.html
+  ##
+  # maximumTimeout: ""
+
+  ## DEPRECATED: Specify if jobs without tags should be run.
+  ##
+  ## ref: https://docs.gitlab.com/ee/ci/runners/new_creation_workflow.html
+  ##
+  # runUntagged: true
+
+  ## DEPRECATED: Specify whether the runner should only run protected branches.
+  ##
+  ## ref: https://docs.gitlab.com/ee/ci/runners/new_creation_workflow.html
+  ##
+  # protected: true
+
+  ## The name of the secret containing runner-token and runner-registration-token
+  # TODO: @jesmigel
+  secret: gitlab-runner
+
+  ## Distributed runners caching
+  ## ref: https://docs.gitlab.com/runner/configuration/autoscale.html#distributed-runners-caching
+  ##
+  ## If you want to use s3 based distributing caching:
+  ## First of all you need to uncomment General settings and S3 settings sections.
+  ##
+  ## Create a secret 's3access' containing 'accesskey' & 'secretkey'
+  ## ref: https://aws.amazon.com/blogs/security/wheres-my-secret-access-key/
+  ##
+  ## $ kubectl create secret generic s3access \
+  ##   --from-literal=accesskey="YourAccessKey" \
+  ##   --from-literal=secretkey="YourSecretKey"
+  ## ref: https://kubernetes.io/docs/concepts/configuration/secret/
+  ##
+  ## If you want to use gcs based distributing caching:
+  ## First of all you need to uncomment General settings and GCS settings sections.
+  ##
+  ## Access using credentials file:
+  ## Create a secret 'google-application-credentials' containing your application credentials file.
+  ## ref: https://docs.gitlab.com/runner/configuration/advanced-configuration.html#the-runnerscachegcs-section
+  ## You could configure
+  ## $ kubectl create secret generic google-application-credentials \
+  ##   --from-file=gcs-application-credentials-file=./path-to-your-google-application-credentials-file.json
+  ## ref: https://kubernetes.io/docs/concepts/configuration/secret/
+  ##
+  ## Access using access-id and private-key:
+  ## Create a secret 'gcsaccess' containing 'gcs-access-id' & 'gcs-private-key'.
+  ## ref: https://docs.gitlab.com/runner/configuration/advanced-configuration.html#the-runnerscachegcs-section
+  ## You could configure
+  ## $ kubectl create secret generic gcsaccess \
+  ##   --from-literal=gcs-access-id="YourAccessID" \
+  ##   --from-literal=gcs-private-key="YourPrivateKey"
+  ## ref: https://kubernetes.io/docs/concepts/configuration/secret/
+  ##
+  ## If you want to use Azure-based distributed caching:
+  ## First, uncomment General settings.
+  ##
+  ## Create a secret 'azureaccess' containing 'azure-account-name' & 'azure-account-key'
+  ## ref: https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction
+  ##
+  ## $ kubectl create secret generic azureaccess \
+  ##   --from-literal=azure-account-name="YourAccountName" \
+  ##   --from-literal=azure-account-key="YourAccountKey"
+  ## ref: https://kubernetes.io/docs/concepts/configuration/secret/
+
+  cache: {}
+    ## S3 the name of the secret.
+    # secretName: s3access
+    ## Use this line for access using gcs-access-id and gcs-private-key
+    # secretName: gcsaccess
+    ## Use this line for access using google-application-credentials file
+    # secretName: google-application-credentials
+    ## Use this line for access using Azure with azure-account-name and azure-account-key
+    # secretName: azureaccess
