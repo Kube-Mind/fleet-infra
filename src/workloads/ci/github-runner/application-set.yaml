@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  namespace: argo-cd
+  namespace: github-runner
   name: workloads-ci
   labels:
     app.kubernetes.io/instance: ci
