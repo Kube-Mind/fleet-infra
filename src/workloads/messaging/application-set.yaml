@@ -12,12 +12,39 @@ metadata:
     argocd.argoproj.io/tracking-id: default:argoproj.io/Application:argo-cd/workloads-messaging
 spec:
   goTemplate: true
-  goTemplateOptions: ["missingkey=error"]
   generators:
     - list:
         elements:
         - name: kafka
           wave: 30
+          ignoreDifferences:
+            - group: ''
+              kind: Secret
+              name: kafka-kraft-cluster-id
+              jsonPointers:
+                - /data/kraft-cluster-id
+            - group: ''
+              kind: Secret
+              name: kafka-user-passwords
+              jsonPointers:
+                - /data/kraft-cluster-id
+                - /data/client-passwords
+                - /data/controller-password
+                - /data/inter-broker-password
+                - /data/system-user-password
+            - group: ''
+              kind: Secret
+              name: kafka-kraft
+              jsonPointers:
+                - /data/cluster-id
+                - /data/controller-0-id
+                - /data/controller-1-id
+                - /data/controller-2-id
+            - group: apps
+              kind: StatefulSet
+              jqPathExpressions:
+                - .spec.template.metadata.annotations."checksum/secret"
+
         - name: rabbitmq
           wave: 30
   template:

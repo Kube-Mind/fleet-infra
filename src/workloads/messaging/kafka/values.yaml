@@ -17,7 +17,7 @@ global:
   ##   - myRegistryKeySecretName
   ##
   imagePullSecrets: []
-  defaultStorageClass: "longhorn"
+  defaultStorageClass: "local-path"
   ## Compatibility adaptations for Kubernetes platforms
   ##
   compatibility:
