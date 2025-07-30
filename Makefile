@@ -4,6 +4,7 @@ MAKE_PATH = ./tools/make
 include $(MAKE_PATH)/k3d.mk
 include $(MAKE_PATH)/k8s.mk
 include $(MAKE_PATH)/platform.mk
+include $(MAKE_PATH)/workloads.mk
 
 # platform applications
 include $(MAKE_PATH)/argo-cd.mk
