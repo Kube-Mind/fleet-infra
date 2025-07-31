@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: platform-security
-  namespace: platform-security
+  namespace: argo-cd
   labels:
     app.kubernetes.io/instance: 'platform-security'
     app.kubernetes.io/component: security
