@@ -35,7 +35,7 @@ spec:
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
         targetRevision: migration
-        path: 'src/platform/{{ .name }}'
+        path: 'src/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:
         # group appsets should reside in argo-cd namespace

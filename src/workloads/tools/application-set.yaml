@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/managed-by: argo-cd
   annotations:
     argocd.argoproj.io/sync-wave: '0'
-    argocd.argoproj.io/tracking-id: default:argoproj.io/Application:argo-cd/workloads-tools
+    argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/tools
 spec:
   goTemplate: true
   generators:

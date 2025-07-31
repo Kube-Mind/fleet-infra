@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/managed-by: argo-cd
   annotations:
     argocd.argoproj.io/sync-wave: '0'
-    argocd.argoproj.io/tracking-id: default:argoproj.io/Application:argo-cd/workloads-ai
+    argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/ai
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -23,7 +23,6 @@ spec:
   template:
     metadata:
       name: '{{ .name }}'
-      namespace: workloads-ai
       annotations:
         argocd.argoproj.io/tracking-id: workloads-ai:argoproj.io/Application:argo-cd/{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"
