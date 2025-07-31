@@ -18,8 +18,8 @@ spec:
         elements:
           - name: platform
             wave: 0
-          # - name: workloads
-          #   wave: 0
+          - name: workloads
+            wave: 0
   template:
     metadata:
       name: '{{ .name }}'
