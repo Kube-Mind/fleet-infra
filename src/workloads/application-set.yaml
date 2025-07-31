@@ -1,8 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  namespace: argo-cd
   name: workloads
+  namespace: argo-cd
   labels:
     app.kubernetes.io/instance: workloads
     app.kubernetes.io/part-of: main
