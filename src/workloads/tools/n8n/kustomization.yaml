@@ -7,7 +7,7 @@ resources:
 helmCharts:
 - name: n8n
   namespace: n8n
-  repo: 8gears.container-registry.com/library
+  repo: oci://8gears.container-registry.com/library
   valuesFile: values.yaml
   version: 1.0.10
   includeCRDs: true
