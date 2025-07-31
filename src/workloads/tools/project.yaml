@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: workloads-tools
-  namespace: workloads-tools
+  namespace: argo-cd
   labels:
     app.kubernetes.io/instance: 'workloads-tools'
     app.kubernetes.io/component: tools

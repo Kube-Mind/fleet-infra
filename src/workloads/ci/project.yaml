@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: workloads-ci
-  namespace: workloads-ci
+  namespace: argo-cd
   labels:
     app.kubernetes.io/instance: 'workloads-ci'
     app.kubernetes.io/component: ci

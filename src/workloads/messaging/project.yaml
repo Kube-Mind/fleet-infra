@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: workloads-messaging
-  namespace: workloads-messaging
+  namespace: argo-cd
   labels:
     app.kubernetes.io/instance: 'workloads-messaging'
     app.kubernetes.io/component: messaging
