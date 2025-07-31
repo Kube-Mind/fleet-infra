@@ -16,14 +16,14 @@ spec:
   generators:
     - list:
         elements:
-          # - name: cilium
-          #   wave: -20
+          - name: cilium
+            wave: -20
           - name: letsencrypt
             wave: 10
-          # - name: metallb
-          #   wave: -10
-          # - name: traefik
-          #   wave: 10
+          - name: metallb
+            wave: -10
+          - name: traefik
+            wave: 10
   template:
     metadata:
       name: '{{ .name }}'

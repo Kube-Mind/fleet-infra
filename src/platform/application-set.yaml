@@ -20,12 +20,12 @@ spec:
           wave: -100
         - name: network
           wave: -100
-        # - name: observability
-        #   wave: -100
-        # - name: security
-        #   wave: -100
-        # - name: storage
-        #   wave: -100
+        - name: observability
+          wave: -100
+        - name: security
+          wave: -100
+        - name: storage
+          wave: -100
   template:
     metadata:
       name: 'platform-{{ .name }}'
