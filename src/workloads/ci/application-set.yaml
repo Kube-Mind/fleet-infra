@@ -17,7 +17,7 @@ spec:
     - list:
         elements:
         - name: github-runner
-          wave: 0
+          wave: 10
         - name: gitlab-runner
           wave: 10
   template:
