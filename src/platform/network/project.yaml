@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: platform-network
-  namespace: platform-network
+  namespace: argo-cd
   labels:
     app.kubernetes.io/instance: 'platform-network'
     app.kubernetes.io/component: network

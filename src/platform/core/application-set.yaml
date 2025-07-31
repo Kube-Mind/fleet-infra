@@ -36,7 +36,6 @@ spec:
   template:
     metadata:
       name: '{{ .name }}'
-      namespace: '{{ .name }}'
       annotations:
         argocd.argoproj.io/tracking-id: platform-core:argoproj.io/Application:argo-cd/{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"
