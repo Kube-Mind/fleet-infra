@@ -1,8 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  namespace: argo-cd
   name: platform
+  namespace: argo-cd
   labels:
     app.kubernetes.io/instance: platform
     app.kubernetes.io/part-of: main
@@ -20,16 +20,15 @@ spec:
           wave: -100
         - name: network
           wave: -100
-        - name: observability
-          wave: -100
-        - name: security
-          wave: -100
-        - name: storage
-          wave: -100
+        # - name: observability
+        #   wave: -100
+        # - name: security
+        #   wave: -100
+        # - name: storage
+        #   wave: -100
   template:
     metadata:
       name: 'platform-{{ .name }}'
-      namespace: '{{ .name }}'
       annotations:
         argocd.argoproj.io/tracking-id: platform:argoproj.io/Application:argo-cd/{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"
@@ -45,7 +44,7 @@ spec:
         path: 'src/platform/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:
-        namespace: '{{ .name }}'
+        namespace: 'platform-{{ .name }}'
         server: https://kubernetes.default.svc
       syncPolicy:
         automated:
