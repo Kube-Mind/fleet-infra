@@ -27,7 +27,6 @@ spec:
   template:
     metadata:
       name: 'workloads-{{ .name }}'
-      namespace: '{{ .name }}'
       annotations:
         argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"
@@ -43,7 +42,7 @@ spec:
         path: 'src/workloads/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:
-        namespace: '{{ .name }}'
+        namespace: 'workloads-{{ .name }}'
         server: https://kubernetes.default.svc
       syncPolicy:
         automated:
