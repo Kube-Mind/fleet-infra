@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: workloads-messaging
-  namespace: argo-cd
+  namespace: workloads-messaging
   labels:
     app.kubernetes.io/instance: 'workloads-messaging'
     app.kubernetes.io/component: messaging
@@ -18,8 +18,6 @@ spec:
   sourceRepos:
     - 'https://github.com/Kube-Mind/fleet-infra.git'
   destinations:
-    - namespace: 'argo-cd'
-      server: '*'
     - namespace: 'kafka'
       server: '*'
     - namespace: 'rabbitmq'

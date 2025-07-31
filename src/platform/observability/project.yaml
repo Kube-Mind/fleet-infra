@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: platform-observability
-  namespace: argo-cd
+  namespace: platform-observability
   labels:
     app.kubernetes.io/instance: 'platform-observability'
     app.kubernetes.io/component: observability

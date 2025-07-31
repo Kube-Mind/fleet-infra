@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  namespace: argo-cd
+  namespace: workloads-messaging
   name: workloads-messaging
   labels:
     app.kubernetes.io/instance: messaging
@@ -50,7 +50,7 @@ spec:
   template:
     metadata:
       name: '{{ .name }}'
-      namespace: '{{ .name }}'
+      namespace: workloads-messaging
       annotations:
         argocd.argoproj.io/tracking-id: workloads-messaging:argoproj.io/Application:argo-cd/{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"

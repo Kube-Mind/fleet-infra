@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  namespace: argo-cd
+  namespace: platform-storage
   name: platform-storage
   labels:
     app.kubernetes.io/instance: storage
@@ -16,14 +16,16 @@ spec:
   generators:
     - list:
         elements:
+        - name: harbor
+          wave: 20
         - name: longhorn
-          wave: 0
+          wave: 10
         - name: nfs-provisioner
           wave: 10
   template:
     metadata:
       name: '{{ .name }}'
-      namespace: '{{ .name }}'
+      namespace: platform-storage
       annotations:
         argocd.argoproj.io/tracking-id: platform-storage:argoproj.io/Application:argo-cd/'{{ .name }}'
       labels:

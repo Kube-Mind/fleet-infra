@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: platform-storage
-  namespace: argo-cd
+  namespace: platform-storage
   labels:
     app.kubernetes.io/instance: 'platform-storage'
     app.kubernetes.io/component: storage
@@ -16,6 +16,8 @@ spec:
   sourceRepos:
     - 'https://github.com/Kube-Mind/fleet-infra.git'
   destinations:
+    - namespace: 'harbor'
+      server: '*'
     - namespace: 'longhorn'
       server: '*'
     - namespace: 'nfs-provisioner'

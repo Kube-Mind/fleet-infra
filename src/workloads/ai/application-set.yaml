@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  namespace: argo-cd
+  namespace: workloads-ai
   name: workloads-ai
   labels:
     app.kubernetes.io/instance: ai
@@ -23,7 +23,7 @@ spec:
   template:
     metadata:
       name: '{{ .name }}'
-      namespace: '{{ .name }}'
+      namespace: workloads-ai
       annotations:
         argocd.argoproj.io/tracking-id: workloads-ai:argoproj.io/Application:argo-cd/{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"

@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: platform-core
-  namespace: argo-cd
+  namespace: platform-core
   labels:
     app.kubernetes.io/instance: 'platform-core'
     app.kubernetes.io/component: core

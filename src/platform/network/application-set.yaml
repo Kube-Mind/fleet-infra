@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  namespace: argo-cd
+  namespace: platform-network
   name: platform-network
   labels:
     app.kubernetes.io/instance: platform-network
@@ -16,18 +16,18 @@ spec:
   generators:
     - list:
         elements:
-        # - name: cilium
-        #   wave: 0
-        - name: letsencrypt
-          wave: 10
-        - name: metallb
-          wave: 0
-        - name: traefik
-          wave: 10
+          # - name: cilium
+          #   wave: -20
+          - name: letsencrypt
+            wave: 10
+          - name: metallb
+            wave: -10
+          - name: traefik
+            wave: 10
   template:
     metadata:
       name: '{{ .name }}'
-      namespace: '{{ .name }}'
+      namespace: platform-network
       annotations:
         argocd.argoproj.io/tracking-id: platform-network:argoproj.io/Application:argo-cd/{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"

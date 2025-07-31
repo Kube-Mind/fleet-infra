@@ -1,47 +1,59 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  namespace: platform-observability
-  name: platform-observability
+  namespace: workloads-tools
+  name: workloads-tools
   labels:
-    app.kubernetes.io/instance: core
-    app.kubernetes.io/part-of: infrastructure
+    app.kubernetes.io/instance: tools
+    app.kubernetes.io/part-of: workloads
     app.kubernetes.io/managed-by: argo-cd
   annotations:
     argocd.argoproj.io/sync-wave: '0'
-    argocd.argoproj.io/tracking-id: default:argoproj.io/Application:argo-cd/platform-observability
+    argocd.argoproj.io/tracking-id: default:argoproj.io/Application:argo-cd/workloads-tools
 spec:
   goTemplate: true
   generators:
     - list:
         elements:
-          - name: kube-prometheus-stack
+          - name: jupyterhub
             wave: 20
             ignoreDifferences:
+              - group: ''
+                kind: Secret
+                name: hub
+                jsonPointers:
+                  - /data/hub.config.ConfigurableHTTPProxy.auth_token
+                  - /data/hub.config.CryptKeeper.keys
+                  - /data/hub.config.JupyterHub.cookie_secret
+              - group: ''
+                kind: Secret
+                name: harbor-registry-htpasswd
+                jsonPointers:
+                  - /data/REGISTRY_HTPASSWD
               - group: apps
                 kind: Deployment
                 jqPathExpressions:
+                  - .spec.template.metadata.annotations."checksum/auth-token"
                   - .spec.template.metadata.annotations."checksum/secret"
-              - kind: Secret
-                jsonPointers:
-                  - /data/admin-password
-                  - /data/ldap-toml
+          - name: n8n
+            wave: 20
   template:
     metadata:
       name: '{{ .name }}'
-      namespace: platform-observability
+      namespace: workloads-tools
       annotations:
-        argocd.argoproj.io/tracking-id: platform-observability:argoproj.io/Application:argo-cd/{{ .name }}
+        argocd.argoproj.io/tracking-id: workloads-tools:argoproj.io/Application:argo-cd/{{ .name }}
+        argocd.argoproj.io/sync-wave: "{{ .wave }}"
       labels:
         app.kubernetes.io/instance: '{{ .name }}'
         app.kubernetes.io/component: '{{ .name }}'
-        app.kubernetes.io/part-of: platform-observability
+        app.kubernetes.io/part-of: workloads-tools
     spec:
-      project: platform-observability
+      project: workloads-tools
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
         targetRevision: migration
-        path: 'src/platform/observability/{{ .name }}'
+        path: 'src/workloads/tools/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:
         namespace: '{{ .name }}'

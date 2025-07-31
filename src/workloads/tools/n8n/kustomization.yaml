@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- namespace.yaml
+
+helmCharts:
+- name: n8n
+  namespace: n8n
+  repo: 8gears.container-registry.com/library
+  valuesFile: values.yaml
+  version: 1.0.10
+  includeCRDs: true

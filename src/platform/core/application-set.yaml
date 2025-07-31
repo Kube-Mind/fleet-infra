@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  namespace: argo-cd
+  namespace: platform-core
   name: platform-core
   labels:
     app.kubernetes.io/instance: core
@@ -24,14 +24,20 @@ spec:
           wave: 10
         - name: nvidia-operator
           wave: 10
+          ignoreDifferences:
+            - group: nvidia.com
+              kind: ClusterPolicy
+              name: cluster-policy
+              jsonPointers:
+                - /spec/migManager/config/name
         - name: system-upgrade
-          wave: 0
-        - name: system-upgrade-plans
           wave: 10
+        - name: system-upgrade-plans
+          wave: 20
   template:
     metadata:
       name: '{{ .name }}'
-      namespace: '{{ .name }}'
+      namespace: 'platform-core'
       annotations:
         argocd.argoproj.io/tracking-id: platform-core:argoproj.io/Application:argo-cd/{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"
@@ -65,3 +71,9 @@ spec:
           - ServerSideApply=true
           - PruneLast=true
           - RespectIgnoreDifferences=true
+  templatePatch: |
+    {{- if .ignoreDifferences }}
+    spec:
+      ignoreDifferences:
+      {{- toYaml .ignoreDifferences | nindent 12 }}
+    {{- end }}

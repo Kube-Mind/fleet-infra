@@ -19,13 +19,13 @@ spec:
         - name: core
           wave: -100
         - name: network
-          wave: -90
+          wave: -100
         - name: observability
-          wave: 10
+          wave: -100
         - name: security
-          wave: 10
+          wave: -100
         - name: storage
-          wave: -80
+          wave: -100
   template:
     metadata:
       name: 'platform-{{ .name }}'
