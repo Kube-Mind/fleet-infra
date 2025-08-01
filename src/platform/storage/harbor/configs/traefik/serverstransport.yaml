@@ -1,0 +1,15 @@
+
+---
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: harbor-transport
+  namespace: harbor
+spec:
+  insecureSkipVerify: true  # Set to true if Harbor uses self-signed TLS certs
+  forwardingTimeouts:
+    dialTimeout: 600s
+    idleConnTimeout: 360s
+    pingTimeout: 120s
+    readIdleTimeout: 180s
+    responseHeaderTimeout: 360s
