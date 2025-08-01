@@ -127,7 +127,7 @@ apps:
     chartName: kafka
     installType: helm
     repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 32.3.9
+    targetRevision: 32.3.10
     # chart required fields
     automated: false
     syncWave: "30"
