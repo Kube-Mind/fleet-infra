@@ -15,6 +15,7 @@ spec:
   description: Project for storage platform applications
   sourceRepos:
     - 'https://github.com/Kube-Mind/fleet-infra.git'
+    - 'https://charts.longhorn.io'
   destinations:
     - namespace: 'argo-cd'
       server: '*'
