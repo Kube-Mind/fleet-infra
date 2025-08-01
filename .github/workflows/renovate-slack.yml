@@ -12,7 +12,7 @@ jobs:
     if: contains(github.event.pull_request.title, 'chore(deps)')
     runs-on:
       group: homelab
-      labels: github-scale-set
+      labels: ghar-scale-set
     container:
       image: ocr.jcan.dev/dh/node:20-alpine
     steps:
