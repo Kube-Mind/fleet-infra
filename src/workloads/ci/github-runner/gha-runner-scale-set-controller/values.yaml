@@ -104,7 +104,7 @@ flags:
 
   ## Restricts the controller to only watch resources in the desired namespace.
   ## Defaults to watch all namespaces when unset.
-  watchSingleNamespace: "github-runner"
+  # watchSingleNamespace: "github-runner"
 
   ## The maximum number of concurrent reconciles which can be run by the EphemeralRunner controller.
   # Increase this value to improve the throughput of the controller.
