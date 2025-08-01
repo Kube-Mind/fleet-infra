@@ -34,7 +34,7 @@ apps:
     chartName: gitlab-runner
     installType: helm
     repoURL: https://charts.gitlab.io
-    targetRevision: 0.79.0
+    targetRevision: 0.79.1
     # chart required fields
     automated: true
     syncWave: "20"
@@ -127,7 +127,7 @@ apps:
     chartName: kafka
     installType: helm
     repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 32.3.8
+    targetRevision: 32.3.9
     # chart required fields
     automated: false
     syncWave: "30"
@@ -178,7 +178,7 @@ apps:
     chartName: ollama
     installType: helm
     repoURL: https://otwld.github.io/ollama-helm/
-    targetRevision: 1.24.0
+    targetRevision: 1.25.0
     # chart required fields
     automated: false
     syncWave: "30"

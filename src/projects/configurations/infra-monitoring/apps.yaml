@@ -7,7 +7,7 @@ apps:
     chartName: kube-prometheus-stack
     installType: helm
     repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 75.15.0
+    targetRevision: 75.15.1
     # chart required fields
     automated: false
     extraLabels:
