@@ -1,19 +1,26 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
+    "config:base",
     "config:recommended"
   ],
   "dependencyDashboard": true,
   "labels": [
     "dependencies"
   ],
+  "kustomize": {
+    "managerFilePatterns": ["**/kustomization.yaml"]
+  },
+  "helm-values": {
+    "managerFilePatterns": ["**/values.yaml"]
+  },
   "enabledManagers": [
     "custom.regex"
   ],
   "packageRules": [
     {
       "matchManagers": [
-        "custom.regex"
+        "kustomize", "helm-values"
       ],
       "groupName": "chore(deps): update helm charts and oci"
     }
