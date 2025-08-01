@@ -17,7 +17,7 @@ spec:
   destination:
     namespace: longhorn
     server: https://kubernetes.default.svc
-  project: platform-network
+  project: platform-storage
   sources:
     - helm:
         valueFiles:
