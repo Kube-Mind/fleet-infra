@@ -11,3 +11,17 @@ helmCharts:
   valuesFile: values.yaml
   version: 1.9.0
   includeCRDs: true
+
+patches:
+  - target:
+      kind: Job
+      name: longhorn-post-upgrade
+    patch: |
+      - op: remove
+        path: /
+  - target:
+      kind: Job
+      name: longhorn-uninstall
+    patch: |
+      - op: remove
+        path: /
