@@ -22,10 +22,10 @@ spec:
             $values/src/platform/security/secrets-integrator/values.yaml
       path: src/platform/security/secrets-integrator
       repoURL: https://github.com/Kube-Mind/fleet-infra.git
-      targetRevision: migration
+      targetRevision: HEAD
     - ref: values
       repoURL: https://github.com/Kube-Mind/fleet-infra.git
-      targetRevision: migration
+      targetRevision: HEAD
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

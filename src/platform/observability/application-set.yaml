@@ -39,7 +39,7 @@ spec:
       project: platform-observability
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
-        targetRevision: migration
+        targetRevision: HEAD
         path: 'src/platform/observability/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:

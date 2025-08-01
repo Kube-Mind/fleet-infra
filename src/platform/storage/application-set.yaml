@@ -35,7 +35,7 @@ spec:
       project: platform-storage
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
-        targetRevision: migration
+        targetRevision: HEAD
         path: 'src/platform/storage/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:

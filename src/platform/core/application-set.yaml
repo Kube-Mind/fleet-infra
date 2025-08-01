@@ -47,7 +47,7 @@ spec:
       project: platform-core
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
-        targetRevision: migration
+        targetRevision: HEAD
         path: 'src/platform/core/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:

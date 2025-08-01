@@ -65,7 +65,7 @@ spec:
       project: workloads-messaging
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
-        targetRevision: migration
+        targetRevision: HEAD
         path: 'src/workloads/messaging/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:
