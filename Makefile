@@ -3,8 +3,7 @@ MAKE_PATH = ./tools/make
 # libraries
 include $(MAKE_PATH)/k3d.mk
 include $(MAKE_PATH)/k8s.mk
-include $(MAKE_PATH)/platform.mk
-include $(MAKE_PATH)/workloads.mk
+include $(MAKE_PATH)/gitops.mk
 
 # platform applications
 include $(MAKE_PATH)/argo-cd.mk

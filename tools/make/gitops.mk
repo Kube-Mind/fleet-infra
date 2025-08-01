@@ -48,4 +48,58 @@ platform-setup:
 platform-teardown:
 	$(call kustomize_delete,$(_PLATFORM_PATH))
 
-# WORKLOAD APPLICATIONS
+# WORKLOADS APPLICATIONS
+.PHONY: workloads-ci-setup workloads-ci-teardown
+_WORKLOADS_CI_PATH = src/workloads/ci
+
+workloads-ci-setup:
+	$(call kustomize_apply,$(_WORKLOADS_CI_PATH))
+
+workloads-ci-teardown:
+	$(call kustomize_delete,$(_WORKLOADS_CI_PATH))
+
+.PHONY: workloads-messaging-setup workloads-messaging-teardown
+_WORKLOADS_MESSAGING_PATH = src/workloads/messaging
+
+workloads-messaging-setup:
+	$(call kustomize_apply,$(_WORKLOADS_MESSAGING_PATH))
+
+workloads-messaging-teardown:
+	$(call kustomize_delete,$(_WORKLOADS_MESSAGING_PATH))
+
+.PHONY: workloads-ai-setup workloads-ai-teardown
+_WORKLOADS_AI_PATH = src/workloads/ai
+
+workloads-ai-setup:
+	$(call kustomize_apply,$(_WORKLOADS_AI_PATH))
+
+workloads-ai-teardown:
+	$(call kustomize_delete,$(_WORKLOADS_AI_PATH))
+
+.PHONY: workloads-setup workloads-teardown
+_WORKLOADS_PATH = src/workloads/
+
+workloads-setup:
+	$(call kustomize_apply,$(_WORKLOADS_PATH))
+
+workloads-teardown:
+	$(call kustomize_delete,$(_WORKLOADS_PATH))
+
+# MAIN ArgoCD application
+.PHONY: main-setup main-teardown
+_MAIN_PATH = src/
+
+main-setup:
+	kubectl apply -f src/application.yaml
+
+main-teardown:
+	kubectl delete -f src/application.yaml
+
+.PHONY: test-setup test-teardown
+test-setup:
+_TEST_PATH = src/platform/security
+
+test-setup:
+	$(call kustomize_apply,$(_TEST_PATH))
+test-teardown:
+	$(call kustomize_delete,$(_TEST_PATH))
