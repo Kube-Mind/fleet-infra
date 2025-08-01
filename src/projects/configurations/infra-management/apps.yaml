@@ -7,7 +7,7 @@ apps:
     chartName: argo-cd
     installType: helm
     repoURL: https://argoproj.github.io/argo-helm
-    targetRevision: 8.2.2
+    targetRevision: 8.2.5
     # chart required fields
     automated: true
     extraLabels:
@@ -29,7 +29,7 @@ apps:
     chartName: cilium
     installType: helm
     repoURL: https://helm.cilium.io/
-    targetRevision: 1.17.6
+    targetRevision: 1.18.0
     # chart required fields
     automated: true
     syncWave: "-10"
@@ -130,7 +130,7 @@ apps:
     chartName: traefik
     installType: helm
     repoURL: https://traefik.github.io/charts
-    targetRevision: 36.3.0
+    targetRevision: 37.0.0
     # chart required fields
     automated: true
     syncWave: "10"
