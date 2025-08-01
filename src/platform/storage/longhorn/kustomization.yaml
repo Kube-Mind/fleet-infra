@@ -12,16 +12,16 @@ helmCharts:
   version: 1.9.0
   includeCRDs: true
 
-patchesJson6902:
+patches:
   - target:
       group: batch
       version: v1
       kind: Job
       name: longhorn-uninstall
-    path: patches/remove-job.yaml
+    path: patches/remove-uninstall-job.yaml
   - target:
       group: batch
       version: v1
       kind: Job
       name: longhorn-post-upgrade
-    path: patches/remove-job.yaml
+    path: patches/remove-postupgrade-job.yaml
