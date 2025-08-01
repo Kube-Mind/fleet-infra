@@ -15,7 +15,7 @@
     "managerFilePatterns": ["**/values.yaml"]
   },
   "enabledManagers": [
-    "custom.regex"
+    "kustomize", "helm-values"
   ],
   "packageRules": [
     {
