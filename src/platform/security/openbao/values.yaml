@@ -8,6 +8,15 @@ global:
   # will enable or disable all the components within this chart by default.
   enabled: true
 
+  # -- The namespace to deploy to. Defaults to the `helm` installation namespace.
+  namespace: ""
+
+  # -- Image pull secret to use for registry authentication.
+  # Alternatively, the value may be specified as an array of strings.
+  imagePullSecrets: []
+  # imagePullSecrets:
+  #   - name: image-pull-secret
+
   # -- TLS for end-to-end encrypted transport
   tlsDisable: true
 
@@ -17,6 +26,17 @@ global:
 
   # -- If deploying to OpenShift
   openshift: false
+
+  # -- Create PodSecurityPolicy for pods
+  psp:
+    enable: false
+    # -- Annotation for PodSecurityPolicy.
+    # This is a multi-line templated string map, and can also be set as YAML.
+    annotations: |
+      seccomp.security.alpha.kubernetes.io/allowedProfileNames: docker/default,runtime/default
+      apparmor.security.beta.kubernetes.io/allowedProfileNames: runtime/default
+      seccomp.security.alpha.kubernetes.io/defaultProfileName:  runtime/default
+      apparmor.security.beta.kubernetes.io/defaultProfileName:  runtime/default
 
   serverTelemetry:
     # -- Enable integration with the Prometheus Operator
@@ -50,8 +70,6 @@ injector:
     registry: "docker.io"
     # -- image repo to use for k8s image
     repository: "hashicorp/vault-k8s"
-    # -- image tag to use for k8s image
-    tag: "1.4.2"
     # -- image pull policy to use for k8s image. if tag is "latest", set to "Always"
     pullPolicy: IfNotPresent
 
@@ -63,8 +81,6 @@ injector:
     registry: "quay.io"
     # -- image repo to use for agent image
     repository: "openbao/openbao"
-    # -- image tag to use for agent image
-    tag: "2.0.2"
     # -- image pull policy to use for agent image. if tag is "latest", set to "Always"
     pullPolicy: IfNotPresent
 
@@ -346,6 +362,22 @@ injector:
   #   type: RollingUpdate
 
 server:
+  # If true, or "-" with global.enabled true, OpenBao server will be installed.
+  # See openbao.mode in _helpers.tpl for implementation details.
+  enabled: "-"
+
+  # Resource requests, limits, etc. for the server cluster placement. This
+  # should map directly to the value of the resources field for a PodSpec.
+  # By default no direct resource request is made.
+
+  image:
+    # -- image registry to use for server image
+    registry: "quay.io"
+    # -- image repo to use for server image
+    repository: "openbao/openbao"
+    # -- image pull policy to use for server image. if tag is "latest", set to "Always"
+    pullPolicy: IfNotPresent
+
   # Configure the Update Strategy Type for the StatefulSet
   # See https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
   updateStrategyType: "OnDelete"
@@ -372,7 +404,7 @@ server:
   # If deployment is on OpenShift, the following block is ignored.
   # In order to expose the service, use the route section below
   ingress:
-    enabled: false
+    enabled: true
     labels: {}
       # traffic: external
     annotations:
@@ -945,8 +977,6 @@ csi:
     registry: "docker.io"
     # -- image repo to use for csi image
     repository: "hashicorp/vault-csi-provider"
-    # -- image tag to use for csi image
-    tag: "1.4.0"
     # -- image pull policy to use for csi image. if tag is "latest", set to "Always"
     pullPolicy: IfNotPresent
 
@@ -1035,8 +1065,6 @@ csi:
       registry: "quay.io"
       # -- image repo to use for agent image
       repository: "openbao/openbao"
-      # -- image tag to use for agent image
-      tag: "2.0.2"
       # -- image pull policy to use for agent image. if tag is "latest", set to "Always"
       pullPolicy: IfNotPresent
 
