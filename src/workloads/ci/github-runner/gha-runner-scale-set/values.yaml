@@ -363,8 +363,8 @@ template:
 ## In case the helm chart can't find the right service account, you can explicitly pass in the following value
 ## to help it finish RoleBinding with the right service account.
 ## Note: if your controller is installed to only watch a single namespace, you have to pass these values explicitly.
-# controllerServiceAccount:
-#   namespace: github-runner
+controllerServiceAccount:
+  namespace: github-runner
 #   name: ghar-scale-set-controller
 
 # Overrides the default `.Release.Namespace` for all resources in this chart.
