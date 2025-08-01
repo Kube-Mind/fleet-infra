@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/instance: dnsfix
     app.kubernetes.io/component: dnsfix
     app.kubernetes.io/part-of: workloads-tools
-  name: dnsfix
+  name: dnsfix-git-chart
   namespace: argo-cd
 spec:
   destination:
