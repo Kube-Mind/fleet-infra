@@ -17,11 +17,11 @@ spec:
     - 'https://github.com/Kube-Mind/fleet-infra.git'
     - 'https://gitlab.com/Kube-Mind/dnsfix.git'
   destinations:
+    - namespace: 'dnsfix'
+      server: '*'
     - namespace: 'cilium'
       server: '*'
     - namespace: 'cilium-secrets'
-      server: '*'
-    - namespace: 'dnsfix'
       server: '*'
     - namespace: 'letsencrypt'
       server: '*'
