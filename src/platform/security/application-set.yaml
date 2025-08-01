@@ -17,6 +17,8 @@ spec:
         elements:
         - name: openbao
           wave: 10
+        - name: secrets-integrator
+          wave: 20
   template:
     metadata:
       name: '{{ .name }}'

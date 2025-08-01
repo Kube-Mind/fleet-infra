@@ -18,6 +18,8 @@ spec:
   destinations:
     - namespace: 'openbao'
       server: '*'
+    - namespace: 'secrets-integrator'
+      server: '*'
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'

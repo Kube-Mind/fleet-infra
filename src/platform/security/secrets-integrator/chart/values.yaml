@@ -1,0 +1,342 @@
+externalSecret:
+  clusterSecretStore:
+    vault:
+      annotations:
+        vault.hashicorp.com/role: bao-admin
+      provider:
+        vault:
+          server: "https://bao.jcan.dev"
+          path: "kv"
+          # Version is the Vault KV secret engine version.
+          # This can be either "v1" or "v2", defaults to "v2"
+          version: "v2"
+          auth:
+            # points to a secret that contains a vault token
+            # https://www.vaultproject.io/docs/auth/token
+            tokenSecretRef:
+              name: "bao-admin"
+              key: "token"
+              namespace: "secrets-integrator"
+
+  externalSecrets:
+    - name: "argocd-external-secret"
+      namespaces:
+        - argo-cd
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/part-of: argocd
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: infra-management/argo-cd
+            metadataPolicy: None
+            property: slack-token
+          secretKey: slack-token
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: infra-management/argo-cd
+            metadataPolicy: None
+            property: GITLAB_APPLICATION_ID
+          secretKey: GITLAB_APPLICATION_ID
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: infra-management/argo-cd
+            metadataPolicy: None
+            property: GITLAB_CLIENT_SECRET
+          secretKey: GITLAB_CLIENT_SECRET
+
+    - name: "dnsfix-external-secret"
+      namespaces:
+        - dnsfix
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/part-of: argocd
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: kmind-management/dnsfix
+            metadataPolicy: None
+            property: CLOUDFLARE_API_KEY
+          secretKey: CLOUDFLARE_API_KEY
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: kmind-management/dnsfix
+            metadataPolicy: None
+            property: CLOUDFLARE_API_TOKEN
+          secretKey: CLOUDFLARE_API_TOKEN
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: kmind-management/dnsfix
+            metadataPolicy: None
+            property: CLOUDFLARE_EMAIL
+          secretKey: CLOUDFLARE_EMAIL
+
+    - name: "jupyterhub-external-secret"
+      namespaces:
+        - jhub
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/part-of: argocd
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: dev-management/jupyterhub
+            metadataPolicy: None
+            property: GITLAB_APPLICATION_ID
+          secretKey: GITLAB_APPLICATION_ID
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: dev-management/jupyterhub
+            metadataPolicy: None
+            property: GITLAB_CLIENT_SECRET
+          secretKey: GITLAB_CLIENT_SECRET
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: dev-management/jupyterhub
+            metadataPolicy: None
+            property: GITLAB_CALLBACK_URL
+          secretKey: GITLAB_CALLBACK_URL
+
+    - name: "pft-credentials"
+      namespaces:
+        - argo-cd
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/part-of: argocd
+            argocd.argoproj.io/secret-type: repository
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: work/pft
+            metadataPolicy: None
+            property: username
+          secretKey: username
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: work/pft
+            metadataPolicy: None
+            property: access-token
+          secretKey: password
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: work/pft
+            metadataPolicy: None
+            property: url
+          secretKey: url
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: work/pft
+            metadataPolicy: None
+            property: type
+          secretKey: type
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: work/pft
+            metadataPolicy: None
+            property: name
+          secretKey: name
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: work/pft
+            metadataPolicy: None
+            property: project
+          secretKey: project
+
+    - name: "pft-regcred"
+      namespaces:
+        - pft
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      template:
+        type: kubernetes.io/dockerconfigjson
+        data:
+          # workaround for helm to not render "<nil>" during rendering process in pre helm deployment
+          .dockerconfigjson: "{{ .base64Regcred | toString }}"
+      data:
+        - secretKey: base64Regcred
+          remoteRef:
+            conversionStrategy: Default	
+            decodingStrategy: None
+            key: work/pft
+            metadataPolicy: None
+            property: regcred
+
+    - name: "harbor-config"
+      namespaces:
+        - harbor
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/part-of: argocd
+            argocd.argoproj.io/secret-type: repository
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: Base64
+            key: harbor/config
+            metadataPolicy: None
+            property: CONFIG_OVERWRITE_JSON
+          secretKey: CONFIG_OVERWRITE_JSON
+    # - name: "docker-config"
+    #   namespaces:
+    #     - argo-workflows
+    #     - webhooks
+    #   secretStoreRef:
+    #     name: vault
+    #     kind: ClusterSecretStore
+    #   data:
+    #     - remoteRef:
+    #         conversionStrategy: Default
+    #         decodingStrategy: None
+    #         key: harbor/service
+    #         metadataPolicy: None
+    #         property: regcred
+    #       secretKey: config.json
+
+    - name: "github-runner"
+      namespaces:
+        - github-runner
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: github/runner
+            metadataPolicy: None
+            property: github_token
+          secretKey: github_token
+
+    - name: "gitlab-grafana-oauth"
+      namespaces:
+        - kube-prometheus-stack
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      data:
+        # GitLab OAuth
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: gitlab/grafana
+            metadataPolicy: None
+            property: GITLAB_APPLICATION_ID
+          secretKey: GF_AUTH_GITLAB_CLIENT_ID
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: gitlab/grafana
+            metadataPolicy: None
+            property: GITLAB_CLIENT_SECRET
+          secretKey: GF_AUTH_GITLAB_CLIENT_SECRET
+
+        # Generic OAuth
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: gitlab/grafana
+            metadataPolicy: None
+            property: GITLAB_APPLICATION_ID
+          secretKey: GF_AUTH_GENERIC_OAUTH_CLIENT_ID
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: gitlab/grafana
+            metadataPolicy: None
+            property: GITLAB_CLIENT_SECRET
+          secretKey: GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
+
+    - name: "gitlab-runner"
+      namespaces:
+        - gitlab-runner
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: gitlab/runner
+            metadataPolicy: None
+            property: runner-registration-token
+          secretKey: runner-registration-token
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: gitlab/runner
+            metadataPolicy: None
+            property: runner-token
+          secretKey: runner-token
+
+    - name: open-webui-external-secret
+      namespaces:
+        - open-webui
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: kmind-management/open-webui
+            metadataPolicy: None
+            property: GITLAB_CLIENT_SECRET
+          secretKey: GITLAB_CLIENT_SECRET
+
+    - name: "rabbitmq"
+      namespaces:
+        - rabbitmq
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: messaging/rabbitmq
+            metadataPolicy: None
+            property: rabbitmq-password
+          secretKey: rabbitmq-password
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: messaging/rabbitmq
+            metadataPolicy: None
+            property: rabbitmq-erlang-cookie
+          secretKey: rabbitmq-erlang-cookie
