@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: default:argoproj.io/Application:argo-cd/main
+    argocd.argoproj.io/sync-wave: '0'
+  labels:
+    app.kubernetes.io/instance: main
+    app.kubernetes.io/component: main
+    app.kubernetes.io/part-of: default
+  name: main
+  namespace: argo-cd
+spec:
+  destination:
+    namespace: argo-cd
+    server: https://kubernetes.default.svc
+  project: default
+  sources:
+    - repoURL: https://github.com/Kube-Mind/fleet-infra.git
+      targetRevision: migration
+      path: src/
+      kustomize: {}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - ServerSideApply=true
+      - PruneLast=true
+      - RespectIgnoreDifferences=true

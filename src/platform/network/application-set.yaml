@@ -1,0 +1,62 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: platform-network
+  namespace: argo-cd
+  labels:
+    app.kubernetes.io/instance: platform-network
+    app.kubernetes.io/part-of: platform
+    app.kubernetes.io/managed-by: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: '0'
+    argocd.argoproj.io/tracking-id: platform:argoproj.io/Application:argo-cd/network
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - list:
+        elements:
+          - name: cilium
+            wave: -20
+          - name: letsencrypt
+            wave: 10
+          - name: metallb
+            wave: -10
+          - name: traefik
+            wave: 10
+  template:
+    metadata:
+      name: '{{ .name }}'
+      annotations:
+        argocd.argoproj.io/tracking-id: platform-network:argoproj.io/Application:argo-cd/{{ .name }}
+        argocd.argoproj.io/sync-wave: "{{ .wave }}"
+      labels:
+        app.kubernetes.io/instance: '{{ .name }}'
+        app.kubernetes.io/component: '{{ .name }}'
+        app.kubernetes.io/part-of: platform-network
+    spec:
+      project: platform-network
+      source:
+        repoURL: https://github.com/Kube-Mind/fleet-infra.git
+        targetRevision: migration
+        path: 'src/platform/network/{{ .name }}'
+        kustomize: {} # Let Kustomize handle naming
+      destination:
+        namespace: '{{ .name }}'
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        retry:
+          limit: 1
+          backoff:
+            duration: 10s
+            factor: 2
+            maxDuration: 3m
+        syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true
+          - ServerSideApply=true
+          - PruneLast=true
+          - RespectIgnoreDifferences=true

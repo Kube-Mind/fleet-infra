@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: workloads-messaging
+  namespace: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-10"
+    argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/workloads-messaging
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    app.kubernetes.io/instance: 'workloads-messaging'
+    app.kubernetes.io/component: messaging
+    app.kubernetes.io/part-of: workloads
+    app.kubernetes.io/managed-by: argo-cd
+spec:
+  description: Project for messaging workloads applications
+  sourceRepos:
+    - 'https://github.com/Kube-Mind/fleet-infra.git'
+  destinations:
+    - namespace: 'kafka'
+      server: '*'
+    - namespace: 'rabbitmq'
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'

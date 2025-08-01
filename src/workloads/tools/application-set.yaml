@@ -1,0 +1,91 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: workloads-tools
+  namespace: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: '0'
+    argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/tools
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    app.kubernetes.io/instance: tools
+    app.kubernetes.io/part-of: workloads
+    app.kubernetes.io/managed-by: argo-cd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - name: dnsfix
+            wave: 30
+
+          - name: jupyterhub
+            wave: 20
+            ignoreDifferences:
+              - group: ''
+                kind: Secret
+                name: hub
+                jsonPointers:
+                  - /data/hub.config.ConfigurableHTTPProxy.auth_token
+                  - /data/hub.config.CryptKeeper.keys
+                  - /data/hub.config.JupyterHub.cookie_secret
+              - group: ''
+                kind: Secret
+                name: harbor-registry-htpasswd
+                jsonPointers:
+                  - /data/REGISTRY_HTPASSWD
+              - group: apps
+                kind: Deployment
+                jqPathExpressions:
+                  - .spec.template.metadata.annotations."checksum/auth-token"
+                  - .spec.template.metadata.annotations."checksum/secret"
+
+          - name: n8n
+            wave: 20
+
+  template:
+    metadata:
+      name: '{{ .name }}'
+      namespace: workloads-tools
+      annotations:
+        argocd.argoproj.io/tracking-id: workloads-tools:argoproj.io/Application:argo-cd/{{ .name }}
+        argocd.argoproj.io/sync-wave: "{{ .wave }}"
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
+      labels:
+        app.kubernetes.io/instance: '{{ .name }}'
+        app.kubernetes.io/component: '{{ .name }}'
+        app.kubernetes.io/part-of: workloads-tools
+    spec:
+      project: workloads-tools
+      source:
+        repoURL: https://github.com/Kube-Mind/fleet-infra.git
+        targetRevision: migration
+        path: 'src/workloads/tools/{{ .name }}'
+        kustomize: {} # Let Kustomize handle naming
+      destination:
+        namespace: '{{ .name }}'
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        retry:
+          limit: 1
+          backoff:
+            duration: 10s
+            factor: 2
+            maxDuration: 3m
+        syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true
+          - ServerSideApply=true
+          - PruneLast=true
+          - RespectIgnoreDifferences=true
+  templatePatch: |
+    {{- if .ignoreDifferences }}
+    spec:
+      ignoreDifferences:
+      {{- toYaml .ignoreDifferences | nindent 12 }}
+    {{- end }}

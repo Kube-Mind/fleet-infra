@@ -1,0 +1,66 @@
+# -- Provide a name in place of `argocd`
+fullnameOverride: "argo-cd"
+
+controller:
+  replicas: 1
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+
+dex:
+  enabled: true
+  replicas: 2
+  resources:
+    limits:
+      cpu: 250m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+redis-ha:
+  enabled: true
+  fullnameOverride: "argo-cd-redis"
+  haproxy.enabled: false
+  
+
+server:
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+
+repoServer:
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+
+applicationSet:
+  replicas: 2
+
+notifications:
+  enabled: true
+  replicas: 2
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+configs:
+  params:
+    server.insecure: "true"
+    controller.shard.count: "1"
+    applicationsetcontroller.enable.leader.election: "true"
+
+  cm:
+    kustomize.buildOptions: "--enable-alpha-plugins --enable-helm"
+    exec.enabled: "true"
+
+  rbac:
+    policy.default: role:readonly

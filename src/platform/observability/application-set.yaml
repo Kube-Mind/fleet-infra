@@ -1,0 +1,69 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: platform-observability
+  namespace: argo-cd
+  labels:
+    app.kubernetes.io/instance: core
+    app.kubernetes.io/part-of: infrastructure
+    app.kubernetes.io/managed-by: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: '0'
+    argocd.argoproj.io/tracking-id: platform:argoproj.io/Application:argo-cd/observability
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - name: kube-prometheus-stack
+            wave: 20
+            ignoreDifferences:
+              - group: apps
+                kind: Deployment
+                jqPathExpressions:
+                  - .spec.template.metadata.annotations."checksum/secret"
+              - kind: Secret
+                jsonPointers:
+                  - /data/admin-password
+                  - /data/ldap-toml
+  template:
+    metadata:
+      name: '{{ .name }}'
+      annotations:
+        argocd.argoproj.io/tracking-id: platform-observability:argoproj.io/Application:argo-cd/{{ .name }}
+      labels:
+        app.kubernetes.io/instance: '{{ .name }}'
+        app.kubernetes.io/component: '{{ .name }}'
+        app.kubernetes.io/part-of: platform-observability
+    spec:
+      project: platform-observability
+      source:
+        repoURL: https://github.com/Kube-Mind/fleet-infra.git
+        targetRevision: migration
+        path: 'src/platform/observability/{{ .name }}'
+        kustomize: {} # Let Kustomize handle naming
+      destination:
+        namespace: '{{ .name }}'
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        retry:
+          limit: 1
+          backoff:
+            duration: 10s
+            factor: 2
+            maxDuration: 3m
+        syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true
+          - ServerSideApply=true
+          - PruneLast=true
+          - RespectIgnoreDifferences=true
+  templatePatch: |
+    {{- if .ignoreDifferences }}
+    spec:
+      ignoreDifferences:
+      {{- toYaml .ignoreDifferences | nindent 12 }}
+    {{- end }}

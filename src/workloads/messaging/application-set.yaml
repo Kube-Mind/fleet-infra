@@ -1,0 +1,95 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: workloads-messaging
+  namespace: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: '0'
+    argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/messaging
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    app.kubernetes.io/instance: messaging
+    app.kubernetes.io/part-of: workloads
+    app.kubernetes.io/managed-by: argo-cd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - name: kafka
+            wave: 30
+            ignoreDifferences:
+              - group: ''
+                kind: Secret
+                name: kafka-kraft-cluster-id
+                jsonPointers:
+                  - /data/kraft-cluster-id
+              - group: ''
+                kind: Secret
+                name: kafka-user-passwords
+                jsonPointers:
+                  - /data/kraft-cluster-id
+                  - /data/client-passwords
+                  - /data/controller-password
+                  - /data/inter-broker-password
+                  - /data/system-user-password
+              - group: ''
+                kind: Secret
+                name: kafka-kraft
+                jsonPointers:
+                  - /data/cluster-id
+                  - /data/controller-0-id
+                  - /data/controller-1-id
+                  - /data/controller-2-id
+              - group: apps
+                kind: StatefulSet
+                jqPathExpressions:
+                  - .spec.template.metadata.annotations."checksum/secret"
+
+          - name: rabbitmq
+            wave: 30
+  template:
+    metadata:
+      name: '{{ .name }}'
+      annotations:
+        argocd.argoproj.io/tracking-id: workloads-messaging:argoproj.io/Application:argo-cd/{{ .name }}
+        argocd.argoproj.io/sync-wave: "{{ .wave }}"
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
+      labels:
+        app.kubernetes.io/instance: '{{ .name }}'
+        app.kubernetes.io/component: '{{ .name }}'
+        app.kubernetes.io/part-of: workloads-messaging
+    spec:
+      project: workloads-messaging
+      source:
+        repoURL: https://github.com/Kube-Mind/fleet-infra.git
+        targetRevision: migration
+        path: 'src/workloads/messaging/{{ .name }}'
+        kustomize: {} # Let Kustomize handle naming
+      destination:
+        namespace: '{{ .name }}'
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        retry:
+          limit: 1
+          backoff:
+            duration: 10s
+            factor: 2
+            maxDuration: 3m
+        syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true
+          - ServerSideApply=true
+          - PruneLast=true
+          - RespectIgnoreDifferences=true
+  templatePatch: |
+    {{- if .ignoreDifferences }}
+    spec:
+      ignoreDifferences:
+      {{- toYaml .ignoreDifferences | nindent 12 }}
+    {{- end }}

@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: platform-network
+  namespace: argo-cd
+  labels:
+    app.kubernetes.io/instance: 'platform-network'
+    app.kubernetes.io/component: network
+    app.kubernetes.io/part-of: platform
+    app.kubernetes.io/managed-by: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-10"
+    argocd.argoproj.io/tracking-id: platform:argoproj.io/Application:argo-cd/network
+spec:
+  description: Project for platform network applications
+  sourceRepos:
+    - 'https://github.com/Kube-Mind/fleet-infra.git'
+    - 'https://gitlab.com/Kube-Mind/dnsfix.git'
+  destinations:
+    - namespace: 'cilium'
+      server: '*'
+    - namespace: 'cilium-secrets'
+      server: '*'
+    - namespace: 'dnsfix'
+      server: '*'
+    - namespace: 'letsencrypt'
+      server: '*'
+    - namespace: 'metallb'
+      server: '*'
+    - namespace: 'traefik'
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
