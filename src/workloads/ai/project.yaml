@@ -17,8 +17,11 @@ spec:
   description: Project for ai workloads applications
   sourceRepos:
     - 'https://github.com/Kube-Mind/fleet-infra.git'
+    - 'https://gitlab.com/Kube-Mind/stable-diffusion-webui.git'
   destinations:
     - namespace: 'argo-cd'
+      server: '*'
+    - namespace: 'stable-diffusion-webui'
       server: '*'
     - namespace: 'ollama'
       server: '*'
