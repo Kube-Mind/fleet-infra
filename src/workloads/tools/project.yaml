@@ -18,6 +18,8 @@ spec:
   sourceRepos:
     - 'https://github.com/Kube-Mind/fleet-infra.git'
   destinations:
+    - namespace: 'dnsfix'
+      server: '*'
     - namespace: 'jupyterhub'
       server: '*'
     - namespace: 'n8n'

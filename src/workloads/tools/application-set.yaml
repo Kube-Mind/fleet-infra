@@ -15,6 +15,9 @@ spec:
   generators:
     - list:
         elements:
+          - name: dnsfix
+            wave: 30
+
           - name: jupyterhub
             wave: 20
             ignoreDifferences:
@@ -35,8 +38,10 @@ spec:
                 jqPathExpressions:
                   - .spec.template.metadata.annotations."checksum/auth-token"
                   - .spec.template.metadata.annotations."checksum/secret"
+
           - name: n8n
             wave: 20
+
   template:
     metadata:
       name: '{{ .name }}'

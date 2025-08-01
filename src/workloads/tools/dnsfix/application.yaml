@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: workloads-tools:argoproj.io/Application:argo-cd/dnsfix
+    argocd.argoproj.io/sync-wave: '30'
+  labels:
+    app.kubernetes.io/instance: dnsfix
+    app.kubernetes.io/component: dnsfix
+    app.kubernetes.io/part-of: workloads-tools
+  name: dnsfix
+  namespace: argo-cd
+spec:
+  destination:
+    namespace: dnsfix
+    server: https://kubernetes.default.svc
+  project: workloads-tools
+  sources:
+    - helm:
+        valueFiles:
+          - >-
+            $values/src/worloads/tools/dnsfix/values.yaml
+      path: charts/dnsfix
+      repoURL: https://gitlab.com/Kube-Mind/dnsfix.git
+      targetRevision: HEAD
+    - ref: values
+      repoURL: https://github.com/Kube-Mind/fleet-infra.git
+      targetRevision: main
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - ServerSideApply=true
+      - PruneLast=true
+      - RespectIgnoreDifferences=true
