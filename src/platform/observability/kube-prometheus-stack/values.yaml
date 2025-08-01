@@ -2,6 +2,7 @@ grafana:
   enabled: true
 
   adminPassword: null
+  envFromSecret: grafana-external-secret
   # dashboardproviders.yaml:
   #   apiVersion: 1
   #   providers:

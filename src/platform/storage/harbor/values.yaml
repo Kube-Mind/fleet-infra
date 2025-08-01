@@ -73,7 +73,7 @@ core:
     - name: CONFIG_OVERWRITE_JSON
       valueFrom:
         secretKeyRef:
-          name: harbor-config
+          name: harbor-external-secret
           key: CONFIG_OVERWRITE_JSON
 
 database:
