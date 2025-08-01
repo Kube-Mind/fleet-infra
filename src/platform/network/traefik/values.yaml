@@ -46,10 +46,10 @@ deployment:
   labels: {}
   # -- Additional pod annotations (e.g. for mesh injection or prometheus scraping)
   # It supports templating. One can set it with values like traefik/name: '{{ template "traefik.name" . }}'
-  podAnnotations:
+  podAnnotations: {}
   # -- Additional Pod labels (e.g. for filtering Pod by custom labels)
-    prometheus.io/port: "8082"
-    prometheus.io/scrape: "true"
+  #  prometheus.io/port: "8082"
+  #  prometheus.io/scrape: "true"
   podLabels: {}
   # -- Additional containers (e.g. for metric offloading sidecars)
   additionalContainers: []
