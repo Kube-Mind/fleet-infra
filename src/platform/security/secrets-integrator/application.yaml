@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: platform-security:argoproj.io/Application:argo-cd/secrets-integrator
+    argocd.argoproj.io/sync-wave: '30'
+  labels:
+    app.kubernetes.io/instance: secrets-integrator
+    app.kubernetes.io/component: secrets-integrator
+    app.kubernetes.io/part-of: platform-security
+  name: secrets-integrator-git-chart
+  namespace: argo-cd
+spec:
+  destination:
+    namespace: secrets-integrator
+    server: https://kubernetes.default.svc
+  project: platform-security
+  sources:
+    - helm:
+        valueFiles:
+          - >-
+            $values/src/platform/security/secrets-integrator/values.yaml
+      path: src/platform/secutity/secrets-integrator
+      repoURL: https://github.com/Kube-Mind/fleet-infra.git
+      targetRevision: HEAD
+    - ref: values
+      repoURL: https://github.com/Kube-Mind/fleet-infra.git
+      targetRevision: migration
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - ServerSideApply=true
+      - PruneLast=true
+      - RespectIgnoreDifferences=true
