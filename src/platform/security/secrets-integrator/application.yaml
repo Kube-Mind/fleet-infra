@@ -20,7 +20,7 @@ spec:
         valueFiles:
           - >-
             $values/src/platform/security/secrets-integrator/values.yaml
-      path: src/platform/secutity/secrets-integrator
+      path: src/platform/security/secrets-integrator
       repoURL: https://github.com/Kube-Mind/fleet-infra.git
       targetRevision: HEAD
     - ref: values
