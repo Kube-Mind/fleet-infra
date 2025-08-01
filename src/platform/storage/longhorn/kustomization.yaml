@@ -14,14 +14,14 @@ helmCharts:
 
 patches:
   - target:
-      kind: Job
-      name: longhorn-post-upgrade
-    patch: |
-      - op: remove
-        path: /
-  - target:
+      group: batch
+      version: v1
       kind: Job
       name: longhorn-uninstall
-    patch: |
-      - op: remove
-        path: /
+    path: uninstall-job.yaml
+  - target:
+      group: batch
+      version: v1
+      kind: Job
+      name: longhorn-post-upgrade
+    path: postupgrade-job.yaml
