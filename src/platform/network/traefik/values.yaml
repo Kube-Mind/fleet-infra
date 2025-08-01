@@ -46,7 +46,10 @@ deployment:
   labels: {}
   # -- Additional pod annotations (e.g. for mesh injection or prometheus scraping)
   # It supports templating. One can set it with values like traefik/name: '{{ template "traefik.name" . }}'
-  # podAnnotations: {}
+  podAnnotations:
+  # -- Additional Pod labels (e.g. for filtering Pod by custom labels)
+    prometheus.io/port: "8082"
+    prometheus.io/scrape: "true"
   podLabels: {}
   # -- Additional containers (e.g. for metric offloading sidecars)
   additionalContainers: []
@@ -645,7 +648,7 @@ ports:
     # The port protocol (TCP/UDP)
     protocol: TCP
     # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
-    nodePort:  # @schema type:[integer, null]; minimum:0
+    nodePort: 30080 # @schema type:[integer, null]; minimum:0
     redirections:
       # -- Port Redirections
       # Added in 2.2, one can make permanent redirects via entrypoints.
@@ -686,7 +689,7 @@ ports:
     ## -- The port protocol (TCP/UDP)
     protocol: TCP
     # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
-    nodePort:  # @schema type:[integer, null]; minimum:0
+    nodePort: 30443 # @schema type:[integer, null]; minimum:0
     # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#application-protocol)
     appProtocol:  # @schema type:[string, null]
     # -- See [upstream documentation](https://doc.traefik.io/traefik/routing/entrypoints/#allowacmebypass)
