@@ -18,10 +18,10 @@ patchesJson6902:
       version: v1
       kind: Job
       name: longhorn-uninstall
-    path: uninstall-job.yaml
+    path: patches/remove-job.yaml
   - target:
       group: batch
       version: v1
       kind: Job
       name: longhorn-post-upgrade
-    path: postupgrade-job.yaml
+    path: patches/remove-job.yaml
