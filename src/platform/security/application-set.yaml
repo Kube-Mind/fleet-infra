@@ -17,19 +17,20 @@ spec:
   generators:
     - list:
         elements:
-        - name: openbao
-          wave: 10
-          ignoreDifferences:
-            - group: admissionregistration.k8s.io
-              kind: MutatingWebhookConfiguration
-              jsonPointers:
-                - /webhooks/0/clientConfig/caBundle
-            - group: apps/v1
-              kind: StatefulSet
-              jsonPointers:
-                - spec/volumeClaimTemplates
-        - name: secrets-integrator
-          wave: 20
+          - name: openbao
+            wave: 10
+            ignoreDifferences:
+              - group: admissionregistration.k8s.io
+                kind: MutatingWebhookConfiguration
+                jsonPointers:
+                  - /webhooks/0/clientConfig/caBundle
+              - group: apps
+                kind: StatefulSet
+                jqPathExpressions:
+                - '.spec.volumeClaimTemplates[].apiVersion'
+                - '.spec.volumeClaimTemplates[].kind'
+          - name: secrets-integrator
+            wave: 20
   template:
     metadata:
       name: '{{ .name }}'
