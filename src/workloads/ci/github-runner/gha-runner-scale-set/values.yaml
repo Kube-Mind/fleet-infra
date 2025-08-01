@@ -365,7 +365,7 @@ template:
 ## Note: if your controller is installed to only watch a single namespace, you have to pass these values explicitly.
 controllerServiceAccount:
   namespace: github-runner
-#   name: ghar-scale-set-controller
+  name: ghar-scale-set-controller
 
 # Overrides the default `.Release.Namespace` for all resources in this chart.
 namespaceOverride: ""
