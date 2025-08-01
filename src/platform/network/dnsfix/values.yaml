@@ -1,143 +1,71 @@
-fullnameOverride: ""
-nameOverride:
 
-enabled: true
+image:
+  pullPolicy: Always
 
-debug:
-  enabled: true
+podAnnotations: {}
 
-hub:
-  config:
-    Authenticator:
-      admin_users:
-      - jesmigel
-    JupyterHub:
-      allow_named_servers: true
-      admin_users:
-        - jesmigel
-        - admin
-      authenticator_class: gitlab
-    KubeSpawner:
-      extra_pod_config:
-        runtimeClassName: nvidia
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: '2'
+    memory: 1Gi
+  requests:
+    cpu: '1'
+    memory: 512Mi
 
-    GitLabOAuthenticator:
-      # the following are obtained from OS env vars
-      # - https://github.com/jupyterhub/oauthenticator/blob/main/oauthenticator/gitlab.py
-      # client_id: env:OAUTH_CLIENT_ID
-      # client_secret: env:OAUTH_CLIENT_SECRET
-      # oauth_callback_url: env:OAUTH_CALLBACK_URL
-      gitlab_url: https://gitlab.com
-      scope:
-        - "read_api"
-        - "read_user"
-        - "openid"
-        - "profile"
-        - "email"
-      username_key: username
-      gitlab_group_whitelist: ["Kube-Mind"]
-      gitlab_project_id_whitelist: []
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "dnsfix"
 
-  extraConfig:
-    gitlab: |
-      c.KubeSpawner.cmd = ['jupyter-labhub']
+podArgs:
+  - -c
+  - 'poetry run python -m dnsfix --data /mnt/payload/payload.yaml -p 1h'
 
-      async def pre_spawn_hook(spawner):
-        auth_state = await spawner.user.get_auth_state()
+envFrom:
+  - secretRef:
+      name: dnsfix-external-secret
 
-        if not auth_state:
-            spawner.log.warning("No auth state for %s", spawner.user)
-            return
+# Additional volumes on the output Deployment definition.
+volumes:
+  - name: dnsfix
+    configMap:
+      # Provide the name of the ConfigMap containing the files you want
+      # to add to the container
+      name: dnsfix
+  - name: cache-volume
+    emptyDir:
+      sizeLimit: 512Mi
 
-        spawner.environment['GITLAB_ACCESS_TOKEN'] = auth_state['access_token']
-        spawner.environment['GITLAB_USER_LOGIN'] = auth_state['gitlab_user']['username']
-        spawner.environment['GITLAB_USER_ID'] = str(auth_state['gitlab_user']['id'])
-        spawner.environment['GITLAB_USER_EMAIL'] = auth_state['gitlab_user']['email']
-        spawner.environment['GITLAB_USER_NAME'] = auth_state['gitlab_user']['name']
-
-      c.KubeSpawner.pre_spawn_hook = pre_spawn_hook
-
-  extraEnv:
-    GITLAB_HOST: https://gitlab.com
-    OAUTH_CLIENT_ID:
-      valueFrom:
-        secretKeyRef:
-          name: jupyterhub-external-secret
-          key: GITLAB_APPLICATION_ID
-    OAUTH_CLIENT_SECRET:
-      valueFrom:
-        secretKeyRef:
-          name: jupyterhub-external-secret
-          key: GITLAB_CLIENT_SECRET
-    OAUTH_CALLBACK_URL:
-      valueFrom:
-        secretKeyRef:
-          name: jupyterhub-external-secret
-          key: GITLAB_CALLBACK_URL
-
-  networkPolicy:
-    egress:
-      - ports:
-          - port: 6443
-
-  service:
-    type: ClusterIP
-
-singleuser:
-  startTimeout: 3600
-  image:
-    name: quay.io/jupyterhub/k8s-singleuser-sample
-  # extraNodeAffinity:
-  #   required:
-  #     - matchExpressions:
-  #       - key: kubernetes.io/hostname
-  #         operator: In
-  #         values:
-  #           - turing
-  memory:
-    guarantee: 2G
-    limit: 2G
-  cpu:
-    guarantee: 2
-    limit: 2
-  profileList:
-    - display_name: "Default: Shared, 2 CPU cores and 2GB RAM"
-      description: "By selecting this choice, you will be assigned a environment that will run on a shared machine with CPU only."
-      default: True
-    - display_name: "Dedicated, 2 CPU cores & 13GB RAM, 1 NVIDIA Tesla K80 GPU"
-      description: "By selecting this choice, you will be assigned a environment that will run on a dedicated machine with a single GPU, just for you."
-      kubespawner_override:
-        # image: consideratio/singleuser-gpu:v0.3.0
-        extra_resource_limits:
-          nvidia.com/gpu: "1"
-  storage:
-    type: dynamic
-    dynamic:
-      storageClass: longhorn
-
-scheduling:
-  userScheduler:
-    enabled: true
-    revisionHistoryLimit:
-    replicas: 2
-    logLevel: 5
-
-ingress:
-  enabled: true
-  ingressClassName: traefik
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
-  hosts:
-    - jhub.jcan.dev
-
-  tls:
-    - hosts:
-        - jhub.jcan.dev
-      secretName: jupyterhub-tls
-
-prePuller:
-  hook:
-    enabled: true
-  continuous:
-    enabled: true
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts:
+  - name: dnsfix
+    mountPath: "/mnt/payload"
+    readOnly: true
+  - mountPath: "/tmp"
+    name: cache-volume
+  
+configMapData:
+  payload.yaml: |-
+    domains:
+      cloudflare:
+        os_envvars:
+          - CLOUDFLARE_API_KEY
+          - CLOUDFLARE_API_TOKEN
+          - CLOUDFLARE_EMAIL
+        comments: |-
+          https://developers.cloudflare.com/api/
+        domain: jcan.dev
+        records:
+          - record: "*"
+            proxy: true
+          - record: "vpn"
