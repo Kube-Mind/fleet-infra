@@ -3,6 +3,8 @@ kind: ApplicationSet
 metadata:
   name: workloads
   namespace: argo-cd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
   labels:
     app.kubernetes.io/instance: workloads
     app.kubernetes.io/part-of: main
@@ -30,6 +32,8 @@ spec:
       annotations:
         argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
       labels:
         app.kubernetes.io/instance: '{{ .name }}'
         app.kubernetes.io/component: '{{ .name }}'

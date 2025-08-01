@@ -3,13 +3,15 @@ kind: ApplicationSet
 metadata:
   name: workloads-ai
   namespace: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: '0'
+    argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/ai
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
   labels:
     app.kubernetes.io/instance: ai
     app.kubernetes.io/part-of: workloads
     app.kubernetes.io/managed-by: argo-cd
-  annotations:
-    argocd.argoproj.io/sync-wave: '0'
-    argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/ai
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -28,6 +30,8 @@ spec:
       annotations:
         argocd.argoproj.io/tracking-id: workloads-ai:argoproj.io/Application:argo-cd/{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
       labels:
         app.kubernetes.io/instance: '{{ .name }}'
         app.kubernetes.io/component: '{{ .name }}'

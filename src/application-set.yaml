@@ -3,13 +3,15 @@ kind: ApplicationSet
 metadata:
   name: main
   namespace: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: '0'
+    argocd.argoproj.io/tracking-id: argo-cd:argoproj.io/Application:argo-cd/main
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
   labels:
     app.kubernetes.io/instance: platform
     app.kubernetes.io/part-of: main
     app.kubernetes.io/managed-by: argo-cd
-  annotations:
-    argocd.argoproj.io/sync-wave: '0'
-    argocd.argoproj.io/tracking-id: argo-cd:argoproj.io/Application:argo-cd/main
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -26,6 +28,8 @@ spec:
       annotations:
         argocd.argoproj.io/tracking-id: default:argoproj.io/Application:argo-cd/{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
       labels:
         app.kubernetes.io/instance: '{{ .name }}'
         app.kubernetes.io/component: '{{ .name }}'

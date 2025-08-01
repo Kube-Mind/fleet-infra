@@ -3,13 +3,15 @@ kind: ApplicationSet
 metadata:
   name: workloads-tools
   namespace: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: '0'
+    argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/tools
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
   labels:
     app.kubernetes.io/instance: tools
     app.kubernetes.io/part-of: workloads
     app.kubernetes.io/managed-by: argo-cd
-  annotations:
-    argocd.argoproj.io/sync-wave: '0'
-    argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/tools
 spec:
   goTemplate: true
   generators:
@@ -49,6 +51,8 @@ spec:
       annotations:
         argocd.argoproj.io/tracking-id: workloads-tools:argoproj.io/Application:argo-cd/{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
       labels:
         app.kubernetes.io/instance: '{{ .name }}'
         app.kubernetes.io/component: '{{ .name }}'

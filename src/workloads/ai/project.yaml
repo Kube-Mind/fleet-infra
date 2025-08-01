@@ -3,16 +3,16 @@ kind: AppProject
 metadata:
   name: workloads-ai
   namespace: argo-cd
-  labels:
-    app.kubernetes.io/instance: 'workloads-ai'
-    app.kubernetes.io/component: ai
-    app.kubernetes.io/part-of: workloads
-    app.kubernetes.io/managed-by: argo-cd
   annotations:
     argocd.argoproj.io/sync-wave: "-10"
     argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/workloads-ai
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  labels:
+    app.kubernetes.io/instance: 'workloads-ai'
+    app.kubernetes.io/component: ai
+    app.kubernetes.io/part-of: workloads
+    app.kubernetes.io/managed-by: argo-cd
 spec:
   description: Project for ai workloads applications
   sourceRepos:
