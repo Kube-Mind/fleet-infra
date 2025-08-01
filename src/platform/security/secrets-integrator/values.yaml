@@ -102,7 +102,7 @@ externalSecret:
 
     - name: "gitlab-runner-external-secret"
       namespaces:
-        - gitlab-runner-external-secret
+        - gitlab-runner
       secretStoreRef:
         name: vault
         kind: ClusterSecretStore
