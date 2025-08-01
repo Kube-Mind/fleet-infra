@@ -19,6 +19,11 @@ spec:
         elements:
         - name: openbao
           wave: 10
+          ignoreDifferences:
+            - group: admissionregistration.k8s.io
+              kind: MutatingWebhookConfiguration
+              jsonPointers:
+                - /webhooks/0/clientConfig/caBundle
         - name: secrets-integrator
           wave: 20
   template:
@@ -58,3 +63,9 @@ spec:
           - ServerSideApply=true
           - PruneLast=true
           - RespectIgnoreDifferences=true
+  templatePatch: |
+    {{- if .ignoreDifferences }}
+    spec:
+      ignoreDifferences:
+      {{- toYaml .ignoreDifferences | nindent 12 }}
+    {{- end }}
