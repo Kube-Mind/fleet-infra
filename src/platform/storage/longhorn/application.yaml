@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: '30'
+    argocd.argoproj.io/sync-wave: '20'
     argocd.argoproj.io/tracking-id: longhorn:argoproj.io/Application:argo-cd/longhorn-chart
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -38,6 +38,11 @@ spec:
         duration: 10s
         factor: 2
         maxDuration: 3m
+    ignoreDifferences:
+      - group: apiextensions.k8s.io
+        kind: CustomResourceDefinition
+        jqPathExpressions:
+          - .spec.preserveUnknownFields
     syncOptions:
       - CreateNamespace=true
       - ApplyOutOfSyncOnly=true
