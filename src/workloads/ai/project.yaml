@@ -6,8 +6,6 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "-10"
     argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/workloads-ai
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
   labels:
     app.kubernetes.io/instance: 'workloads-ai'
     app.kubernetes.io/component: ai
