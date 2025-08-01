@@ -18,6 +18,8 @@ spec:
   destinations:
     - namespace: 'argo-cd'
       server: '*'
+    - namespace: 'gitlab-runner'
+      server: '*'
     - namespace: 'openbao'
       server: '*'
     - namespace: 'secrets-integrator'
