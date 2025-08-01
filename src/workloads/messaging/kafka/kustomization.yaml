@@ -9,4 +9,4 @@ helmCharts:
   releaseName: kafka
   repo: https://charts.bitnami.com/bitnami
   valuesFile: values.yaml
-  version: 32.3.8
+  version: 32.3.10
