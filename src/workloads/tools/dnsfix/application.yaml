@@ -19,13 +19,13 @@ spec:
     - helm:
         valueFiles:
           - >-
-            $values/src/worloads/tools/dnsfix/values.yaml
+            $values/src/workloads/tools/dnsfix/values.yaml
       path: charts/dnsfix
       repoURL: https://gitlab.com/Kube-Mind/dnsfix.git
       targetRevision: HEAD
     - ref: values
       repoURL: https://github.com/Kube-Mind/fleet-infra.git
-      targetRevision: main
+      targetRevision: migration
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
