@@ -24,6 +24,10 @@ spec:
               kind: MutatingWebhookConfiguration
               jsonPointers:
                 - /webhooks/0/clientConfig/caBundle
+            - group: apps/v1
+              kind: StatefulSet
+              jsonPointers:
+                - spec/volumeClaimTemplates
         - name: secrets-integrator
           wave: 20
   template:
