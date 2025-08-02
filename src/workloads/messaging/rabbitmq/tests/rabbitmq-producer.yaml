@@ -32,6 +32,7 @@ spec:
             limits:
               cpu: "1.0"
               memory: 512M
+      restartPolicy: OnFailure # Added this line
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:

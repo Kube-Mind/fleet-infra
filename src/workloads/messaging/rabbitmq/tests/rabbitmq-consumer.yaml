@@ -1,4 +1,3 @@
-# RabbitMQ Consumer Job
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -33,6 +32,7 @@ spec:
             limits:
               cpu: "1.0"
               memory: 512M
+      restartPolicy: OnFailure # Added this line
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -41,4 +41,4 @@ spec:
                 matchExpressions:
                   - key: kubernetes.io/hostname
                     operator: In
-                    values: ["baldr"]
+                    values: ["odin"]
