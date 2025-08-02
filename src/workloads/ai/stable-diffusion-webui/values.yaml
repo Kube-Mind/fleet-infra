@@ -1,6 +1,4 @@
 enabled: true
-image:
-  tag: "0.1.0-f570fab0"
 
 # Allowed values
 # auto
