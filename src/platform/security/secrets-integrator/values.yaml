@@ -52,6 +52,25 @@ externalSecret:
             property: GITLAB_CLIENT_SECRET
           secretKey: GITLAB_CLIENT_SECRET
 
+    - name: "authentik-external-secret"
+      namespaces:
+        - authentik
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/part-of: argocd
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: AUTHENTIK_SECRET_KEY
+          secretKey: AUTHENTIK_SECRET_KEY
+
     - name: "dnsfix-external-secret"
       namespaces:
         - dnsfix
