@@ -49,6 +49,20 @@ This document serves as a reference for the migration of applications in our cus
 
 This document will be updated periodically to reflect changes in migration status and to provide any additional context or instructions related to the process.
 
+### prereq
+
+1. teardown cluster
+2. reboot nodes as needed
+
+### Order of execution
+
+1. Initialise k3s control plain nodes
+2. Initialise k3s worker nodes
+3. Install Cilium
+4. Install ArgoCD, Longhorn
+5. Update longhorn settings concerning mounts
+6. Install GitOps main application
+
 ## Update networking policy for jupyterlab
 
 see: https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/3202
