@@ -22,6 +22,8 @@ spec:
       server: '*'
     - namespace: 'rabbitmq'
       server: '*'
+    - namespace: 'rabbitmq-system'
+      server: '*'
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
