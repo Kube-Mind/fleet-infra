@@ -1,41 +1,43 @@
-apiVersion: v1
-kind: Pod
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: rabbitmq-producer
+  name: rabbitmq-producer-job
   namespace: rabbitmq
 spec:
-  containers:
-  - name: producer
-    image: python:3.10-slim
-    command: ["/bin/sh", "-c"]
-    args:
-      - |
-        pip install pika && \
-        python -c "
-        import pika, os, time
-        time.sleep(10)
-        creds = pika.PlainCredentials(os.environ['username'], os.environ['password'])
-        conn = pika.BlockingConnection(pika.ConnectionParameters(host='rabbitmq.rabbitmq.svc.cluster.local', credentials=creds))
-        ch = conn.channel()
-        ch.queue_declare(queue='testq')
-        ch.basic_publish(exchange='', routing_key='testq', body='hello')
-        conn.close()"
-    envFrom:
-    - secretRef:
-        name: rabbitmq-default-user
-    resources:
-      requests:
-        cpu: "0.5"
-        memory: 512M
-      limits:
-        cpu: "1.0"
-        memory: 512M
-  affinity:
-    nodeAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
-              - key: kubernetes.io/hostname
-                operator: In
-                values: ["odin"]
+  template:
+    spec:
+      containers:
+        - name: producer
+          image: python:3.10-slim
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              pip install pika && \
+              python -c "
+              import pika, os, time
+              time.sleep(10)
+              creds = pika.PlainCredentials(os.environ['username'], os.environ['password'])
+              conn = pika.BlockingConnection(pika.ConnectionParameters(host='rabbitmq.rabbitmq.svc.cluster.local', credentials=creds))
+              ch = conn.channel()
+              ch.queue_declare(queue='testq')
+              ch.basic_publish(exchange='', routing_key='testq', body='hello')
+              conn.close()"
+          envFrom:
+            - secretRef:
+                name: rabbitmq-default-user
+          resources:
+            requests:
+              cpu: "0.5"
+              memory: 512M
+            limits:
+              cpu: "1.0"
+              memory: 512M
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values: ["odin"]
