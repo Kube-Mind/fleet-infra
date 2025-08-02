@@ -7,6 +7,7 @@ include $(MAKE_PATH)/k8s.mk
 include $(MAKE_PATH)/gitops.mk
 
 # platform applications
+include $(MAKE_PATH)/authentik.mk
 include $(MAKE_PATH)/argo-cd.mk
 include $(MAKE_PATH)/bao.mk
 include $(MAKE_PATH)/cilium.mk

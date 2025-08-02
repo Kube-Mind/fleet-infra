@@ -1,12 +1,12 @@
 .PHONY: argocd-setup argocd-teardown argocd-proxy argocd-password argocd-login argocd-wait
 ARGOCD_NAMESPACE=argo-cd
-ARGOCD_VALUES=./src/projects/configurations/argo-cd.yaml
+ARGOCD_PATH=src/platform/core/argo-cd
 ARGOCD_PASSWORD=$$(kubectl -n $(ARGOCD_NAMESPACE) get secret argocd-initial-admin-secret -o yaml | grep -o 'password: .*' | sed -e s"/password\: //g" | base64 -d)
 argocd-setup:
-	$(call kustomize_apply,src/platform/core/argo-cd)
+	$(call kustomize_apply,$(ARGOCD_PATH))
 
 argocd-teardown:
-	$(call kustomize_delete,src/platform/core/argo-cd)
+	$(call kustomize_delete,$(ARGOCD_PATH))
 
 argocd-wait:
 	kubectl -n $(ARGOCD_NAMESPACE) wait -l app.kubernetes.io/name=argocd-server --for=condition=ready pod --timeout=360s

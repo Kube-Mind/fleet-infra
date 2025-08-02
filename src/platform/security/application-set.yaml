@@ -17,6 +17,9 @@ spec:
   generators:
     - list:
         elements:
+          - name: authentik
+            wave: 20
+
           - name: openbao
             wave: 10
             ignoreDifferences:
@@ -53,9 +56,6 @@ spec:
         namespace: '{{ .name }}'
         server: https://kubernetes.default.svc
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
         retry:
           limit: 1
           backoff:
