@@ -17,9 +17,6 @@ hub:
         - jesmigel
         - admin
       authenticator_class: gitlab
-    KubeSpawner:
-      extra_pod_config:
-        runtimeClassName: nvidia
 
     GitLabOAuthenticator:
       # the following are obtained from OS env vars
@@ -104,12 +101,31 @@ singleuser:
     - display_name: "Default: Shared, 2 CPU cores and 2GB RAM"
       description: "By selecting this choice, you will be assigned a environment that will run on a shared machine with CPU only."
       default: True
-    - display_name: "Dedicated, 2 CPU cores & 13GB RAM, 1 NVIDIA Tesla K80 GPU"
+    - display_name: "Dedicated, 2 CPU cores & 4GB RAM, 1 Random NVIDIA GPU"
       description: "By selecting this choice, you will be assigned a environment that will run on a dedicated machine with a single GPU, just for you."
       kubespawner_override:
         # image: consideratio/singleuser-gpu:v0.3.0
+        extra_pod_config:
+          runtimeClassName: nvidia
         extra_resource_limits:
           nvidia.com/gpu: "1"
+        mem_limit: 4G
+    - display_name: "Dedicated, 2 CPU cores & 4GB RAM, 1 NVIDIA RTX 4000 Ada generation GPU"
+      description: "By selecting this choice, you will be assigned a environment that will run on a dedicated machine with a single NVIDIA RTX 4000 Ada GPU, just for you."
+      kubespawner_override:
+        # image: consideratio/singleuser-gpu:v0.3.0
+        extra_pod_config:
+          runtimeClassName: nvidia
+        # extra_resource_limits:
+        #   nvidia.com/gpu: "1"
+        mem_limit: 4G
+        node_affinity_required:
+          required:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - turing
   storage:
     type: dynamic
     dynamic:
