@@ -9,3 +9,7 @@ resources:
 
   # RabbitMQ Cluster CR manifest (local or remote)
   - rabbitmq-cluster.yaml
+
+  # tests
+  - tests/rabbitmq-consumer.yaml
+  - tests/rabbitmq-producer.yaml
