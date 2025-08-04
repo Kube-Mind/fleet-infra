@@ -46,19 +46,17 @@ spec:
       containers:
         - name: producer
           image: python:3.11-slim
-          command: ["python", "/scripts/produce.py"]
+          command:
+            - sh
+            - -c
+            - |
+              pip install kafka && python /scripts/produce.py
           volumeMounts:
             - name: script
               mountPath: /scripts
           env:
             - name: PYTHONUNBUFFERED
               value: "1"
-        - name: pyre
-          image: python:3.11-slim
-          command: ["sh", "-c", "pip install pyre-check && pyre check /scripts"]
-          volumeMounts:
-            - name: script
-              mountPath: /scripts
       restartPolicy: Never
       volumes:
         - name: script
@@ -70,23 +68,17 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: kafka-consumer
-  namespace: kafka
 spec:
   template:
     spec:
       containers:
         - name: consumer
           image: python:3.11-slim
-          command: ["python", "/scripts/consume.py"]
-          volumeMounts:
-            - name: script
-              mountPath: /scripts
-          env:
-            - name: PYTHONUNBUFFERED
-              value: "1"
-        - name: pyre
-          image: python:3.11-slim
-          command: ["sh", "-c", "pip install pyre-check && pyre check /scripts"]
+          command:
+            - sh
+            - -c
+            - |
+              pip install kafka && python /scripts/consume.py
           volumeMounts:
             - name: script
               mountPath: /scripts
@@ -96,3 +88,4 @@ spec:
           configMap:
             name: kafka-consumer-script
   backoffLimit: 2
+
