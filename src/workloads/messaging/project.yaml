@@ -18,7 +18,9 @@ spec:
   sourceRepos:
     - 'https://github.com/Kube-Mind/fleet-infra.git'
   destinations:
-    - namespace: 'kafka'
+    - namespace: 'kafka-cluster'
+      server: '*'
+    - namespace: 'kafka-operator'
       server: '*'
     - namespace: 'rabbitmq'
       server: '*'
