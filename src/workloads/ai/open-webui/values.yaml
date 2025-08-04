@@ -448,7 +448,7 @@ sso:
     clientSecret: ""
     # -- Google OAuth client secret from existing secret
     # @section -- Google OAuth configuration
-    clientExistingSecret: ""
+    clientExistingSecret: "open-webui-external-secret"
     # -- Google OAuth client secret key from existing secret
     # @section -- Google OAuth configuration
     clientExistingSecretKey: ""
@@ -503,7 +503,7 @@ sso:
     clientSecret: ""
     # -- OICD client secret from existing secret
     # @section -- OIDC configuration
-    clientExistingSecret: ""
+    clientExistingSecret: "open-webui-external-secret"
     # -- OIDC client secret key from existing secret
     # @section -- OIDC configuration
     clientExistingSecretKey: ""
