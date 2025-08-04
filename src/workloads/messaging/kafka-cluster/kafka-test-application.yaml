@@ -3,13 +3,13 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kafka-producer-script
-  namespace: kafka-cluster
+  namespace: kafka
 data:
   produce.py: |
     import sys
     from kafka import KafkaProducer
 
-    producer = KafkaProducer(bootstrap_servers="kafka-cluster-kafka-bootstrap:9092")
+    producer = KafkaProducer(bootstrap_servers="kafka-kafka-bootstrap:9092")
     for msg in [b"hello", b"world", b"from", b"pyre"]:
         producer.send("test-topic", msg)
     producer.flush()
@@ -19,7 +19,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kafka-consumer-script
-  namespace: kafka-cluster
+  namespace: kafka
 data:
   consume.py: |
     import sys
@@ -27,7 +27,7 @@ data:
 
     consumer = KafkaConsumer(
         "test-topic",
-        bootstrap_servers="kafka-cluster-kafka-bootstrap:9092",
+        bootstrap_servers="kafka-kafka-bootstrap:9092",
         auto_offset_reset="earliest",
         consumer_timeout_ms=10000,
     )
@@ -39,7 +39,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: kafka-producer
-  namespace: kafka-cluster
+  namespace: kafka
 spec:
   template:
     spec:
@@ -68,7 +68,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: kafka-consumer
-  namespace: kafka-cluster
+  namespace: kafka
 spec:
   template:
     spec:

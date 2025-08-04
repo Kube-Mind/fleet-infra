@@ -59,8 +59,12 @@ spec:
           - PruneLast=true
           - RespectIgnoreDifferences=true
   templatePatch: |
-    {{- if .ignoreDifferences }}
     spec:
+    {{- if .namespace }}
+      destination:
+        namespace: '{{ .namespace }}'
+    {{- end }}
+    {{- if .ignoreDifferences }}
       ignoreDifferences:
       {{- toYaml .ignoreDifferences | nindent 12 }}
     {{- end }}
