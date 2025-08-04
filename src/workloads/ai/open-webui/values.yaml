@@ -428,7 +428,7 @@ sso:
   enableSignup: true
   # -- Allow logging into accounts that match email from OAuth provider (considered insecure)
   # @section -- SSO Configuration
-  mergeAccountsByEmail: false
+  mergeAccountsByEmail: true
   # -- Enable OAuth role management through access token roles claim
   # @section -- SSO Configuration
   enableRoleManagement: false
@@ -439,19 +439,19 @@ sso:
   google:
     # -- Enable Google OAuth
     # @section -- Google OAuth configuration
-    enabled: false
+    enabled: true
     # -- Google OAuth client ID
     # @section -- Google OAuth configuration
-    clientId: ""
+    clientId: "192893871369-f4loiuou8qq66busi7vlgtojcn707755"
     # -- Google OAuth client secret (ignored if clientExistingSecret is set)
     # @section -- Google OAuth configuration
     clientSecret: ""
     # -- Google OAuth client secret from existing secret
     # @section -- Google OAuth configuration
-    clientExistingSecret: ""
+    clientExistingSecret: "open-webui-external-secret"
     # -- Google OAuth client secret key from existing secret
     # @section -- Google OAuth configuration
-    clientExistingSecretKey: ""
+    clientExistingSecretKey: "GOOGLE_CLIENT_SECRET"
 
   microsoft:
     # -- Enable Microsoft OAuth
