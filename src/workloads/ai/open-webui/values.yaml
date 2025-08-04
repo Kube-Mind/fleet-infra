@@ -355,11 +355,11 @@ commonEnvVars: []
   #   value: "openai"
 
 # -- Env vars added from configmap or secret to the Open WebUI deployment. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: `extraEnvVars` will take precedence over the value from `extraEnvFrom`)
-extraEnvFrom:
+extraEnvFrom: []
   # - configMapRef:
   #     name: my-config
-  - secretRef:
-      name: open-webui-external-secret
+  # - secretRef:
+  #     name: open-webui-external-secret
 
 # -- Configure runtime class
 # ref: <https://kubernetes.io/docs/concepts/containers/runtime-class/>
@@ -442,7 +442,7 @@ sso:
     enabled: true
     # -- Google OAuth client ID
     # @section -- Google OAuth configuration
-    clientId: ""
+    clientId: "192893871369-f4loiuou8qq66busi7vlgtojcn707755.apps.googleusercontent.com"
     # -- Google OAuth client secret (ignored if clientExistingSecret is set)
     # @section -- Google OAuth configuration
     clientSecret: ""
@@ -497,7 +497,7 @@ sso:
     enabled: true
     # -- OIDC client ID
     # @section -- OIDC configuration
-    clientId: ""
+    clientId: "38a67a685cc0e09415c2fc48d53df079f7934151379a0308e9dbe6808e7af89a"
     # -- OIDC client secret (ignored if clientExistingSecret is set)
     # @section -- OIDC configuration
     clientSecret: ""
