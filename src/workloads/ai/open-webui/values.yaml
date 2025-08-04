@@ -348,17 +348,6 @@ extraEnvVars:
   #   value: "1"
   - name: OLLAMA_BASE_URL
     value: "http://ollama.ollama.svc.cluster.local:11434"
-  
-  - name: GOOGLE_CLIENT_ID
-    valueFrom:
-      secretRef:
-        name: open-webui-external-secret
-        key: GOOGLE_CLIENT_ID
-  - name: GITLAB_APPLICATION_ID
-    valueFrom:
-      secretRef:
-        name: open-webui-external-secret
-        key: GITLAB_APPLICATION_ID
 
 # -- Env vars added to the Open WebUI deployment, common across environments. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: environment variables defined in both `extraEnvVars` and `commonEnvVars` will result in a conflict. Avoid duplicates)
 commonEnvVars: []
