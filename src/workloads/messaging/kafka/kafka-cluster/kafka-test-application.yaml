@@ -9,7 +9,7 @@ data:
     import sys
     from kafka import KafkaProducer
 
-    producer = KafkaProducer(bootstrap_servers="kafka-kafka-bootstrap:9092")
+    producer = KafkaProducer(bootstrap_servers="kafka-cluster-kafka-bootstrap:9092")
     for msg in [b"hello", b"world", b"from", b"pyre"]:
         producer.send("test-topic", msg)
     producer.flush()
@@ -27,7 +27,7 @@ data:
 
     consumer = KafkaConsumer(
         "test-topic",
-        bootstrap_servers="kafka-kafka-bootstrap:9092",
+        bootstrap_servers="kafka-cluster-kafka-bootstrap:9092",
         auto_offset_reset="earliest",
         consumer_timeout_ms=10000,
     )
