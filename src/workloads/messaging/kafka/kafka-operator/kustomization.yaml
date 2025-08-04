@@ -3,11 +3,8 @@ kind: Kustomization
 
 helmCharts:
 - name: strimzi-kafka-operator
-  namespace: kafka-operator
+  namespace: kafka
   releaseName: kafka
   repo: https://strimzi.io/charts/
   valuesFile: values.yaml
   version: 0.47.0
-
-resources:
-- namespace.yaml
