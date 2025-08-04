@@ -44,35 +44,9 @@ spec:
       transaction.state.log.min.isr: 1
       default.replication.factor: 1
       min.insync.replicas: 1
-    metricsConfig:
-      type: jmxPrometheusExporter
-      valueFrom:
-        configMapKeyRef:
-          name: kafka-metrics
-          key: kafka-metrics-config.yml
   entityOperator:
     topicOperator: {}
     userOperator: {}
   kafkaExporter:
     topicRegex: ".*"
     groupRegex: ".*"
----
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: kafka-cluster
-  namespace: kafka
-  labels:
-    release: kube-prometheus-stack  # must match Helm release
-spec:
-  selector:
-    matchLabels:
-      strimzi.io/name: kafka-cluster-kafka-metrics
-  namespaceSelector:
-    matchNames:
-      - kafka
-  endpoints:
-    - port: tcp-prometheus
-      path: /metrics
-      interval: 30s
-      scrapeTimeout: 10s
