@@ -355,11 +355,11 @@ commonEnvVars: []
   #   value: "openai"
 
 # -- Env vars added from configmap or secret to the Open WebUI deployment. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: `extraEnvVars` will take precedence over the value from `extraEnvFrom`)
-extraEnvFrom: []
+extraEnvFrom:
   # - configMapRef:
   #     name: my-config
-  # - secretRef:
-  #     name: my-secret
+  - secretRef:
+      name: open-webui-external-secret
 
 # -- Configure runtime class
 # ref: <https://kubernetes.io/docs/concepts/containers/runtime-class/>
@@ -442,16 +442,16 @@ sso:
     enabled: true
     # -- Google OAuth client ID
     # @section -- Google OAuth configuration
-    clientId: "192893871369-f4loiuou8qq66busi7vlgtojcn707755.apps.googleusercontent.com"
+    clientId: ""
     # -- Google OAuth client secret (ignored if clientExistingSecret is set)
     # @section -- Google OAuth configuration
     clientSecret: ""
     # -- Google OAuth client secret from existing secret
     # @section -- Google OAuth configuration
-    clientExistingSecret: "open-webui-external-secret"
+    clientExistingSecret: ""
     # -- Google OAuth client secret key from existing secret
     # @section -- Google OAuth configuration
-    clientExistingSecretKey: "GOOGLE_CLIENT_SECRET"
+    clientExistingSecretKey: ""
 
   microsoft:
     # -- Enable Microsoft OAuth
@@ -490,22 +490,23 @@ sso:
     # @section -- GitHub OAuth configuration
     clientExistingSecretKey: ""
 
+  # TODO: replace GitLab with Authentik
   oidc:
     # -- Enable OIDC authentication
     # @section -- OIDC configuration
     enabled: true
     # -- OIDC client ID
     # @section -- OIDC configuration
-    clientId: "38a67a685cc0e09415c2fc48d53df079f7934151379a0308e9dbe6808e7af89a"
+    clientId: ""
     # -- OIDC client secret (ignored if clientExistingSecret is set)
     # @section -- OIDC configuration
     clientSecret: ""
     # -- OICD client secret from existing secret
     # @section -- OIDC configuration
-    clientExistingSecret: "open-webui-external-secret"
+    clientExistingSecret: ""
     # -- OIDC client secret key from existing secret
     # @section -- OIDC configuration
-    clientExistingSecretKey: "GITLAB_CLIENT_SECRET"
+    clientExistingSecretKey: ""
     # -- OIDC provider well known URL
     # @section -- OIDC configuration
     providerUrl: "https://gitlab.com/.well-known/openid-configuration"

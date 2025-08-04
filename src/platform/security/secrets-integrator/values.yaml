@@ -242,8 +242,15 @@ externalSecret:
             decodingStrategy: None
             key: workloads/ai/open-webui
             metadataPolicy: None
+            property: GITLAB_APPLICATION_ID
+          secretKey: OAUTH_CLIENT_ID
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: workloads/ai/open-webui
+            metadataPolicy: None
             property: GITLAB_CLIENT_SECRET
-          secretKey: GITLAB_CLIENT_SECRET
+          secretKey: OAUTH_CLIENT_SECRET
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
