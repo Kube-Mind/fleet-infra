@@ -451,7 +451,7 @@ sso:
     clientExistingSecret: "open-webui-external-secret"
     # -- Google OAuth client secret key from existing secret
     # @section -- Google OAuth configuration
-    clientExistingSecretKey: ""
+    clientExistingSecretKey: "GOOGLE_CLIENT_SECRET"
 
   microsoft:
     # -- Enable Microsoft OAuth
@@ -506,7 +506,7 @@ sso:
     clientExistingSecret: "open-webui-external-secret"
     # -- OIDC client secret key from existing secret
     # @section -- OIDC configuration
-    clientExistingSecretKey: ""
+    clientExistingSecretKey: "OAUTH_CLIENT_SECRET"
     # -- OIDC provider well known URL
     # @section -- OIDC configuration
     providerUrl: "https://gitlab.com/.well-known/openid-configuration"
