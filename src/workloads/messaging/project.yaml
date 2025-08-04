@@ -18,6 +18,8 @@ spec:
   sourceRepos:
     - 'https://github.com/Kube-Mind/fleet-infra.git'
   destinations:
+    - namespace: 'argo-cd'
+      server: '*'
     - namespace: 'kafka'
       server: '*'
     - namespace: 'rabbitmq'
