@@ -348,6 +348,17 @@ extraEnvVars:
   #   value: "1"
   - name: OLLAMA_BASE_URL
     value: "http://ollama.ollama.svc.cluster.local:11434"
+  
+  - name: GOOGLE_CLIENT_ID
+    valueFrom:
+      secretRef:
+        name: open-webui-external-secret
+        key: GOOGLE_CLIENT_ID
+  - name: GITLAB_APPLICATION_ID
+    valueFrom:
+      secretRef:
+        name: open-webui-external-secret
+        key: GITLAB_APPLICATION_ID
 
 # -- Env vars added to the Open WebUI deployment, common across environments. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: environment variables defined in both `extraEnvVars` and `commonEnvVars` will result in a conflict. Avoid duplicates)
 commonEnvVars: []
@@ -442,7 +453,7 @@ sso:
     enabled: true
     # -- Google OAuth client ID
     # @section -- Google OAuth configuration
-    clientId: "192893871369-f4loiuou8qq66busi7vlgtojcn707755.apps.googleusercontent.com"
+    clientId: ""
     # -- Google OAuth client secret (ignored if clientExistingSecret is set)
     # @section -- Google OAuth configuration
     clientSecret: ""
@@ -496,7 +507,7 @@ sso:
     enabled: true
     # -- OIDC client ID
     # @section -- OIDC configuration
-    clientId: "38a67a685cc0e09415c2fc48d53df079f7934151379a0308e9dbe6808e7af89a"
+    clientId: ""
     # -- OIDC client secret (ignored if clientExistingSecret is set)
     # @section -- OIDC configuration
     clientSecret: ""
