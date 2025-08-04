@@ -50,7 +50,7 @@ spec:
             - sh
             - -c
             - |
-              pip install kafka && python /scripts/produce.py
+              pip install kafka-python && python /scripts/produce.py
           volumeMounts:
             - name: script
               mountPath: /scripts
@@ -78,7 +78,7 @@ spec:
             - sh
             - -c
             - |
-              pip install kafka && python /scripts/consume.py
+              pip install kafka-python && python /scripts/consume.py
           volumeMounts:
             - name: script
               mountPath: /scripts
