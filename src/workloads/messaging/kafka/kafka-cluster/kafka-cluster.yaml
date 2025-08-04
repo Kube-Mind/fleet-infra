@@ -56,3 +56,23 @@ spec:
   kafkaExporter:
     topicRegex: ".*"
     groupRegex: ".*"
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kafka-cluster
+  namespace: kafka
+  labels:
+    release: kube-prometheus-stack  # must match Helm release
+spec:
+  selector:
+    matchLabels:
+      strimzi.io/name: kafka-cluster-kafka-metrics
+  namespaceSelector:
+    matchNames:
+      - kafka
+  endpoints:
+    - port: tcp-prometheus
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 10s
