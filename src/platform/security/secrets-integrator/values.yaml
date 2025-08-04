@@ -244,6 +244,20 @@ externalSecret:
             metadataPolicy: None
             property: GITLAB_CLIENT_SECRET
           secretKey: GITLAB_CLIENT_SECRET
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: workloads/ai/open-webui
+            metadataPolicy: None
+            property: GOOGLE_CLIENT_ID
+          secretKey: GOOGLE_CLIENT_ID
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: workloads/ai/open-webui
+            metadataPolicy: None
+            property: GOOGLE_CLIENT_SECRET
+          secretKey: GOOGLE_CLIENT_SECRET
 
     - name: "rabbitmq-external-secret"
       namespaces:
