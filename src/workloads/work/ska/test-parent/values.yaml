@@ -40,7 +40,10 @@ ska-pst:
         memory: 3200Mi
 
     primaryVolumeMount:
-      type: nfss1
+      type: nfs
 
   # LMC
   telescope: SKA-low
+
+bootstrapMount:
+  enabled: false
