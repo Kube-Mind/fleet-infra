@@ -1,59 +1,47 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: workloads
+  name: ska
   namespace: argo-cd
+  labels:
+    app.kubernetes.io/instance: ska
+    app.kubernetes.io/part-of: work
+    app.kubernetes.io/managed-by: argo-cd
   annotations:
     argocd.argoproj.io/sync-wave: '0'
-    argocd.argoproj.io/tracking-id: default:argoproj.io/Application:argo-cd/workloads
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-  labels:
-    app.kubernetes.io/instance: workloads
-    app.kubernetes.io/part-of: main
-    app.kubernetes.io/managed-by: argo-cd
+    argocd.argoproj.io/tracking-id: work:argoproj.io/Application:argo-cd/ska
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
     - list:
         elements:
-        - name: ai
-          wave: 100
-        - name: ci
-          wave: 100
-        - name: messaging
-          wave: 100
-        - name: tools
-          wave: 100
-        - name: work
-          wave: 100
+        - name: dependencies
+          wave: 50
+        - name: dev-env
+          wave: 60
   template:
     metadata:
-      name: 'workloads-{{ .name }}'
+      name: 'ska-{{ .name }}'
+      namespace: 'argo-cd'
       annotations:
-        argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/{{ .name }}
+        argocd.argoproj.io/tracking-id: work:argoproj.io/Application:argo-cd/ska-{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"
-      finalizers:
-        - resources-finalizer.argocd.argoproj.io
       labels:
         app.kubernetes.io/instance: '{{ .name }}'
         app.kubernetes.io/component: '{{ .name }}'
-        app.kubernetes.io/part-of: workloads
+        app.kubernetes.io/part-of: work
     spec:
-      project: workloads
+      project: work
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
-        targetRevision: HEAD
-        path: 'src/workloads/{{ .name }}'
+        targetRevision: main
+        path: 'src/projects/configurations/work/ska/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:
-        namespace: 'workloads-{{ .name }}'
+        namespace: '{{ .name }}'
         server: https://kubernetes.default.svc
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
         retry:
           limit: 1
           backoff:
