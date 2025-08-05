@@ -94,12 +94,3 @@ main-setup:
 
 main-teardown:
 	kubectl delete -f src/application.yaml
-
-.PHONY: test-setup test-teardown
-test-setup:
-_TEST_PATH = src/platform/security
-
-test-setup:
-	$(call kustomize_apply,$(_TEST_PATH))
-test-teardown:
-	$(call kustomize_delete,$(_TEST_PATH))
