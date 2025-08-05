@@ -389,7 +389,9 @@ logs:
         # -- Set default mode for fields.headers
         defaultmode: drop  # @schema enum:[keep, drop, redact]; default: drop
         names: {}
-
+entryPoints:
+  metrics:
+    address: ":9100"
 metrics:
   # -- Enable metrics for internal resources. Default: false
   addInternals: false
