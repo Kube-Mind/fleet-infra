@@ -400,11 +400,11 @@ metrics:
     # -- Entry point used to expose metrics.
     entryPoint: metrics
     # -- Enable metrics on entry points. Default: true
-    addEntryPointsLabels:  # @schema type:[boolean, null]
+    addEntryPointsLabels: true # @schema type:[boolean, null]
     # -- Enable metrics on routers. Default: false
-    addRoutersLabels:  # @schema type:[boolean, null]
+    addRoutersLabels: true # @schema type:[boolean, null]
     # -- Enable metrics on services. Default: true
-    addServicesLabels:  # @schema type:[boolean, null]
+    addServicesLabels: true # @schema type:[boolean, null]
     # -- Buckets for latency metrics. Default="0.1,0.3,1.2,5.0"
     buckets: ""
     # -- When manualRouting is true, it disables the default internal router in
