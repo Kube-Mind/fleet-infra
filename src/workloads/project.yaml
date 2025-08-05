@@ -27,6 +27,8 @@ spec:
       server: '*'
     - namespace: 'workloads-tools'
       server: '*'
+    - namespace: 'workloads-work'
+      server: '*'
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
