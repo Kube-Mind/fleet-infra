@@ -13,6 +13,14 @@ ska-pst:
     - effect: NoSchedule
       key: skao.int/dedicated
       value: "pst"
+    - effect: NoExecute	
+      key: node.kubernetes.io/not-ready	
+      operator: Exists	
+      tolerationSeconds: 300	
+    - effect: NoExecute	
+      key: node.kubernetes.io/unreachable	
+      operator: Exists	
+      tolerationSeconds: 300
 
   core:
     runtimeClassName: nvidia
