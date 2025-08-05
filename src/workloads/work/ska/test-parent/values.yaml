@@ -44,6 +44,3 @@ ska-pst:
 
   # LMC
   telescope: SKA-low
-
-bootstrapMount:
-  enabled: false
