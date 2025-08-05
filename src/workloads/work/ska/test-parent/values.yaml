@@ -1,0 +1,49 @@
+image:
+  registry: &SkaPstRepository "registry.gitlab.com/ska-telescope/pst/ska-pst"
+
+
+ska-pst:
+  image:
+    registry: *SkaPstRepository
+
+  tolerations:
+    - effect: NoExecute
+      key: nvidia.com/gpu
+      value: "true"
+    - effect: NoSchedule
+      key: skao.int/dedicated
+      value: "pst"
+
+  core:
+    runtimeClassName: nvidia
+
+    applications:
+      dsp_ft:
+        image: ska-pst-dsp
+        command: ["bash"]
+        args:
+          - "-c"
+          - "ska_pst_dsp_ft -d ${PST_DSP_MOUNT} -g 0 -c ${DSP_FT_MGMT_PORT}"
+
+    nodeSelector:
+      kubernetes.io/hostname: turing
+
+    nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - "turing"
+
+    resources:
+      limits:
+        memory: 3200Mi
+
+    primaryVolumeMount:
+      type: nfss1
+
+  # LMC
+  telescope: SKA-low
+
+bootstrapMount:
+  enabled: true

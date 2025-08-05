@@ -20,6 +20,8 @@ spec:
           wave: 50
         - name: dev-env
           wave: 60
+        - name: test-parent
+          wave: 60
   template:
     metadata:
       name: 'ska-{{ .name }}'

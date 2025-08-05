@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: workloads-work:argoproj.io/Application:argo-cd/ska-test-parent-chart
+    argocd.argoproj.io/sync-wave: '30'
+  labels:
+    app.kubernetes.io/instance: ska-test-parent-chart
+    app.kubernetes.io/component: ska-test-parent-chart
+    app.kubernetes.io/part-of: workloads-work
+  name: ska-test-parent-chart
+  namespace: argo-cd
+spec:
+  destination:
+    namespace: ska
+    server: https://kubernetes.default.svc
+  project: workloads-work
+  sources:
+    - helm:
+        valueFiles:
+          - >-
+            $values/src/workloads/work/ska/test-parent/values.yaml
+      path: charts/test-parent
+      repoURL: https://gitlab.com/ska-telescope/pst/ska-pst.git
+      targetRevision: HEAD
+    - ref: values
+      repoURL: https://github.com/Kube-Mind/fleet-infra.git
+      targetRevision: HEAD
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - ServerSideApply=true
+      - PruneLast=true
+      - RespectIgnoreDifferences=true
