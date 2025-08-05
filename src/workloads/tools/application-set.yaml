@@ -27,6 +27,7 @@ spec:
                   - /data/hub.config.ConfigurableHTTPProxy.auth_token
                   - /data/hub.config.CryptKeeper.keys
                   - /data/hub.config.JupyterHub.cookie_secret
+                  - /data/values.yaml
               - group: ''
                 kind: Secret
                 name: harbor-registry-htpasswd
