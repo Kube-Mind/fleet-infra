@@ -17,6 +17,7 @@ spec:
   project: workloads-work
   sources:
     - helm:
+        releaseName: test
         valueFiles:
           - >-
             $values/src/workloads/work/ska/test-parent/values.yaml
