@@ -32,14 +32,14 @@ spec:
         app.kubernetes.io/component: '{{ .name }}'
         app.kubernetes.io/part-of: work
     spec:
-      project: work
+      project: workloads-work
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
         targetRevision: main
         path: 'src/projects/configurations/work/ska/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:
-        namespace: '{{ .name }}'
+        namespace: ska
         server: https://kubernetes.default.svc
       syncPolicy:
         retry:
