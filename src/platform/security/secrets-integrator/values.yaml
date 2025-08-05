@@ -5,7 +5,8 @@ externalSecret:
         vault.hashicorp.com/role: bao-admin
       provider:
         vault:
-          server: "https://bao.jcan.dev"
+          # server: "https://bao.jcan.dev"
+          server: "http://openbao.openbao.svc.cluster.local:8200"
           path: "kv"
           # Version is the Vault KV secret engine version.
           # This can be either "v1" or "v2", defaults to "v2"
