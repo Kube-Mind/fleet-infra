@@ -46,4 +46,4 @@ ska-pst:
   telescope: SKA-low
 
 bootstrapMount:
-  enabled: true
+  enabled: false
