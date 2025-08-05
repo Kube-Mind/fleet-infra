@@ -5,6 +5,7 @@ image:
 ska-pst:
   image:
     registry: *SkaPstRepository
+  fullnameOverride: ska-pst
 
   tolerations:
     - effect: NoExecute
