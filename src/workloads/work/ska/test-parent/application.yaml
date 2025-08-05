@@ -2,13 +2,13 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-    argocd.argoproj.io/tracking-id: workloads-work:argoproj.io/Application:argo-cd/ska-test-parent-chart
+    argocd.argoproj.io/tracking-id: workloads-work:argoproj.io/Application:argo-cd/ska-pst-test-parent
     argocd.argoproj.io/sync-wave: '30'
   labels:
-    app.kubernetes.io/instance: ska-test-parent-chart
-    app.kubernetes.io/component: ska-test-parent-chart
+    app.kubernetes.io/instance: ska-pst-test-parent
+    app.kubernetes.io/component: ska-pst-test-parent
     app.kubernetes.io/part-of: workloads-work
-  name: ska-test-parent-chart
+  name: ska-pst-test-parent
   namespace: argo-cd
 spec:
   destination:
