@@ -9,9 +9,10 @@ hubble:
   ui:
     enabled: true
   metrics:
-    - dns
-    - drop
-    - tcp
-    - flow
-    - icmp
-    - http # This enables L7 visibility for HTTP
+    enabled:
+      - dns
+      - drop
+      - tcp
+      - flow
+      - icmp
+      - http # This enables L7 visibility for HTTP
