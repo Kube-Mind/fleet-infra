@@ -18,6 +18,7 @@ spec:
   sourceRepos:
     - 'https://github.com/Kube-Mind/fleet-infra.git'
     - 'https://gitlab.com/ska-telescope/pst/ska-pst.git'
+    - 'https://github.com/fourier-space-au/pft.git'
   destinations:
     - namespace: 'argo-cd'
       server: '*'
