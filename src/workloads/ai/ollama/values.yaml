@@ -337,7 +337,7 @@ persistentVolume:
   existingClaim: ""
 
   # -- Ollama server data Persistent Volume size
-  size: 100Gi
+  size: 200Gi
 
   # -- Ollama server data Persistent Volume Storage Class
   # If defined, storageClassName: <storageClass>
