@@ -305,7 +305,7 @@ externalSecret:
     #         property: regcred
     #       secretKey: config.json
 
-    - name: "pft-credentials"
+    - name: "pft-external-secret"
       namespaces:
         - argo-cd
       secretStoreRef:
@@ -320,47 +320,47 @@ externalSecret:
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
-            key: work/pft
+            key: workloads/work/pft
             metadataPolicy: None
             property: username
           secretKey: username
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
-            key: work/pft
+            key: workloads/work/pft
             metadataPolicy: None
             property: access-token
           secretKey: password
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
-            key: work/pft
+            key: workloads/work/pft
             metadataPolicy: None
             property: url
           secretKey: url
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
-            key: work/pft
+            key: workloads/work/pft
             metadataPolicy: None
             property: type
           secretKey: type
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
-            key: work/pft
+            key: workloads/work/pft
             metadataPolicy: None
             property: name
           secretKey: name
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
-            key: work/pft
+            key: workloads/work/pft
             metadataPolicy: None
             property: project
           secretKey: project
 
-    - name: "pft-regcred"
+    - name: "pft-external-secret-regcred"
       namespaces:
         - pft
       secretStoreRef:
@@ -376,7 +376,7 @@ externalSecret:
           remoteRef:
             conversionStrategy: Default	
             decodingStrategy: None
-            key: work/pft
+            key: workloads/work/pft
             metadataPolicy: None
             property: regcred
 
