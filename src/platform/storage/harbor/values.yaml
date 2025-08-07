@@ -19,7 +19,7 @@ expose:
     # The tls certificate can be generated manually or by cert manager
     # 3) none: configure no tls certificate for the ingress. If the default
     # tls certificate is configured in the ingress controller, choose this option
-    certSource: secret
+    certSource: none
     secret:
       # The name of secret which contains keys named:
       # "tls.crt" - the certificate
@@ -30,7 +30,6 @@ expose:
       kubernetes.io/ingress.class: traefik
       cert-manager.io/cluster-issuer: letsencrypt-prd
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      traefik.ingress.kubernetes.io/router.tls: "true"
       # note different ingress controllers may require a different ssl-redirect annotation
       # for Envoy, use ingress.kubernetes.io/force-ssl-redirect: "true" and remove the nginx lines below
     className: "traefik"
