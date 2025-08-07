@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - configs/traefik/middleware.yaml
-- configs/traefik/ingressroute.yaml
 - configs/traefik/serverstransport.yaml
 
 helmCharts:
