@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/instance: pft-rxmon
     app.kubernetes.io/component: pft-rxmon
     app.kubernetes.io/part-of: workloads-work
-  name: pft-rxmon
+  name: pft-rxmon-chart
   namespace: argo-cd
 spec:
   destination:
