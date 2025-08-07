@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: pft
+  namespace: argo-cd
+  labels:
+    app.kubernetes.io/instance: pft
+    app.kubernetes.io/part-of: work
+    app.kubernetes.io/managed-by: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: '0'
+    argocd.argoproj.io/tracking-id: work:argoproj.io/Application:argo-cd/pft
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - list:
+        elements:
+        - name: dependencies
+          wave: 50
+        - name: rxmon
+          wave: 60
+  template:
+    metadata:
+      name: 'pft-{{ .name }}'
+      namespace: 'argo-cd'
+      annotations:
+        argocd.argoproj.io/tracking-id: work:argoproj.io/Application:argo-cd/pft-{{ .name }}
+        argocd.argoproj.io/sync-wave: "{{ .wave }}"
+      labels:
+        app.kubernetes.io/instance: '{{ .name }}'
+        app.kubernetes.io/component: '{{ .name }}'
+        app.kubernetes.io/part-of: work
+    spec:
+      project: workloads-work
+      source:
+        repoURL: https://github.com/Kube-Mind/fleet-infra.git
+        targetRevision: main
+        path: 'src/workloads/work/pft/{{ .name }}'
+        kustomize: {} # Let Kustomize handle naming
+      destination:
+        namespace: pft
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        retry:
+          limit: 1
+          backoff:
+            duration: 10s
+            factor: 2
+            maxDuration: 3m
+        syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true
+          - ServerSideApply=true
+          - PruneLast=true
+          - RespectIgnoreDifferences=true
