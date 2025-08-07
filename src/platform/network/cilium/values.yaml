@@ -4,5 +4,7 @@ kubeProxyReplacement: true
 
 # -- Enable Hubble (true by default).
 hubble:
+  relay:
+    enabled: true
   ui:
     enabled: true
