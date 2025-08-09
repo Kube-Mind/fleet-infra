@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: authentik
 resources:
   - namespace.yaml
+  - blueprints
 
 helmCharts:
   - name: authentik
