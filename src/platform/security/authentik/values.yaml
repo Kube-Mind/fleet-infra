@@ -1,6 +1,6 @@
 server:
   ingress:
-    enabled: true
+    enabled: false
     hosts:
       - host: auth.jcan.dev
         paths:
