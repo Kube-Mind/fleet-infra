@@ -1,0 +1,17 @@
+---
+version: 1
+metadata:
+  name: Groups - Applications
+entries:
+  - id: argocd-admins
+    model: authentik_core.group
+    identifiers:
+      name: ArgoCD Admins
+    attrs:
+      name: ArgoCD Admins
+  - id: argocd-viewers
+    model: authentik_core.group
+    identifiers:
+      name: ArgoCD Viewers
+    attrs:
+      name: ArgoCD Viewers
