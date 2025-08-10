@@ -2,10 +2,10 @@
 
 SD_NAMESPACE=stable-diffusion-webui
 stable-diffusion-proxy:
-	kubectl -n $(SD_NAMESPACE) port-forward service/stable-diffusion-webui 7860:7860
+	kubectl -n $(SD_NAMESPACE) port-forward service/stable-diffusion-webui-git-chart 7860:7860
 
 stable-diffusion-logs:
 	kubectl -n $(SD_NAMESPACE) logs -f deployment.apps/stable-diffusion-webui
 
 stable-diffusion-shell:
-	kubectl -n $(SD_NAMESPACE) exec -ti deployment.apps/stable-diffusion-webui -- bash
+	kubectl -n $(SD_NAMESPACE) exec -ti deployment.apps/stable-diffusion-webui-git-chart -- bash
