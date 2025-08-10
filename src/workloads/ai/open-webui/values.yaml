@@ -203,9 +203,6 @@ ingress:
   # -- Use appropriate annotations for your Ingress controller, e.g., for NGINX:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prd
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
-    traefik.ingress.kubernetes.io/websocket: "true"
   #   # Example for GKE Ingress
   #   kubernetes.io/ingress.class: "gce"
   #   kubernetes.io/ingress.global-static-ip-name: "open-webui-external-ip"   #  you need to create this address in GCP console
