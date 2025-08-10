@@ -38,6 +38,8 @@ spec:
       server: '*'
     - namespace: 'pft'
       server: '*'
+    - namespace: 'rabbitmq'
+      server: '*'
     - namespace: 'secrets-integrator'
       server: '*'
   clusterResourceWhitelist:
