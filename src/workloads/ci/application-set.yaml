@@ -18,6 +18,8 @@ spec:
   generators:
     - list:
         elements:
+        - name: argo-workflows
+          wave: 10
         - name: github-runner
           wave: 10
         - name: gitlab-runner
