@@ -289,7 +289,7 @@ externalSecret:
             property: rabbitmq-erlang-cookie
           secretKey: rabbitmq-erlang-cookie
 
-    - name: "regcred"
+    - name: "regcred-external-secrets"
       namespaces:
         - stable-diffusion-webui
       secretStoreRef:

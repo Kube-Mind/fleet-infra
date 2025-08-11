@@ -19,7 +19,7 @@ affinity:
             - "turing"
 
 imagePullSecrets:
-  - regcred
+  - regcred-external-secrets
 
 models:
   links.txt: |
