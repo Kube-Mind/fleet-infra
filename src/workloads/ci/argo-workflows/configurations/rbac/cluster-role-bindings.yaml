@@ -10,5 +10,5 @@ subjects:
     namespace: argo
 roleRef:
   kind: ClusterRole
-  name: argo-workflows-admin
+  name: argo-workflows-admin-cluster
   apiGroup: rbac.authorization.k8s.io
