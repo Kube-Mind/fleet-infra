@@ -42,6 +42,8 @@ spec:
       server: '*'
     - namespace: 'secrets-integrator'
       server: '*'
+    - namespace: 'stable-diffusion-webui'
+      server: '*'
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'

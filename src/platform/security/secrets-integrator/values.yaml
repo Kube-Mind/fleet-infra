@@ -231,7 +231,7 @@ externalSecret:
             property: GITLAB_CALLBACK_URL
           secretKey: GITLAB_CALLBACK_URL
 
-    - name: open-webui-external-secret
+    - name: "open-webui-external-secret"
       namespaces:
         - open-webui
       secretStoreRef:
@@ -289,21 +289,20 @@ externalSecret:
             property: rabbitmq-erlang-cookie
           secretKey: rabbitmq-erlang-cookie
 
-    # - name: "docker-config"
-    #   namespaces:
-    #     - argo-workflows
-    #     - webhooks
-    #   secretStoreRef:
-    #     name: vault
-    #     kind: ClusterSecretStore
-    #   data:
-    #     - remoteRef:
-    #         conversionStrategy: Default
-    #         decodingStrategy: None
-    #         key: harbor/service
-    #         metadataPolicy: None
-    #         property: regcred
-    #       secretKey: config.json
+    - name: "regcred"
+      namespaces:
+        - stable-diffusion-webui
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/storage/harbor
+            metadataPolicy: None
+            property: regcred
+          secretKey: config.json
 
     - name: "pft-external-secret"
       namespaces:
