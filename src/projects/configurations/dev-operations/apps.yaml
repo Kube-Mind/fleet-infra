@@ -1,8 +1,0 @@
-spec:
-  project: dev-operations
-
-apps:
-  - name: traefik-runtime-configs
-    automated: false
-    installType: localKustomize
-    syncWave: "3.2"
