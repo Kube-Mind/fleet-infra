@@ -295,14 +295,19 @@ externalSecret:
       secretStoreRef:
         name: vault
         kind: ClusterSecretStore
+      template:
+        type: kubernetes.io/dockerconfigjson
+        data:
+          # workaround for helm to not render "<nil>" during rendering process in pre helm deployment
+          .dockerconfigjson: "{{ .base64Regcred | toString }}"
       data:
-        - remoteRef:
-            conversionStrategy: Default
+        - secretKey: base64Regcred
+          remoteRef:
+            conversionStrategy: Default	
             decodingStrategy: None
             key: platform/storage/harbor
             metadataPolicy: None
             property: regcred
-          secretKey: config.json
 
     - name: "pft-external-secret"
       namespaces:
