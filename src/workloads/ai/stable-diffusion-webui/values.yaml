@@ -6,7 +6,7 @@ enabled: true
 webuiConfig:
   image: comfy
   # cli_args for auto
-  cli_args: --fp32-vae --lowvram --disable-xformers --cuda-device 0 --verbose INFO
+  cli_args: --cuda-device 0 --verbose INFO
 
 affinity:
   nodeAffinity:
