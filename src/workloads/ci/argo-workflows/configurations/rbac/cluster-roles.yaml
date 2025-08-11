@@ -1,10 +1,15 @@
-# ClusterRole giving Argo-related permissions and supporting resources
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: argo-workflows-admin
+  namespace: argo-workflows
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: argo-workflows-admin-cluster
 rules:
-  # Argo Workflows CRDs
+  # --- Argo Workflows CRDs ---
   - apiGroups: ["argoproj.io"]
     resources:
       - workflows
@@ -12,6 +17,22 @@ rules:
       - cronworkflows
       - clusterworkflowtemplates
       - workfloweventbindings
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+
+  # --- Argo Events CRDs ---
+  - apiGroups: ["argoproj.io"]
+    resources:
+      - sensors
+      - eventbus
+      - gateways
+      - eventsources
     verbs:
       - get
       - list
