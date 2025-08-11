@@ -27,3 +27,25 @@ argocd-bootstrap: argocd-login
 		--repo https://gitlab.com/kube-mind/fleet-infra.git \
 		--path src/main  
 	argocd app sync main
+
+.PHONY: argowf-setup argowf-teardown argowf-proxy argowf-password argowf-login argowf-wait
+ARGOWF_NAMESPACE=argo-workflows
+ARGOWF_PATH=src/platform/core/argo-cd
+ARGOWF_PASSWORD=$$(kubectl -n $(ARGOWF_NAMESPACE) get secret argo-workflows-admin.service-account-token -o yaml | grep -o 'token: .*' | sed -e s"/token\: //g" | base64 -d)
+argowf-setup:
+	$(call kustomize_apply,$(ARGOWF_PATH))
+
+argowf-teardown:
+	$(call kustomize_delete,$(ARGOWF_PATH))
+
+argowf-wait:
+	kubectl -n $(ARGOWF_NAMESPACE) wait -l app.kubernetes.io/name=argo-workflows-server --for=condition=ready pod --timeout=360s
+
+argowf-proxy:
+	kubectl -n $(ARGOWF_NAMESPACE) port-forward svc/argo-workflows-server 2746:2746
+
+argowf-password:
+	@echo "ARGOWF_PASSWORD:\nBearer $(ARGOWF_PASSWORD)"
+
+argowf-login: argo-workflows-password
+	@argocd login 127.0.0.1:8080 --insecure --username="admin" --password="$(ARGO_PASSWORD)"
