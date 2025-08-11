@@ -1,0 +1,92 @@
+# ClusterRole giving Argo-related permissions and supporting resources
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: argo-workflows-admin
+rules:
+  # Argo Workflows CRDs
+  - apiGroups: ["argoproj.io"]
+    resources:
+      - workflows
+      - workflowtemplates
+      - cronworkflows
+      - clusterworkflowtemplates
+      - workfloweventbindings
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+
+  # Pods & exec (so workflows can create/inspect pods and exec if needed)
+  - apiGroups: [""]
+    resources:
+      - pods
+      - pods/exec
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+
+  # Jobs (for workflow steps that create Jobs)
+  - apiGroups: ["batch"]
+    resources:
+      - jobs
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+
+  # ConfigMaps & Secrets (for passing data, workflow templates, credentials)
+  - apiGroups: [""]
+    resources:
+      - configmaps
+      - secrets
+      - serviceaccounts
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+
+  # Event reading/creation (useful for diagnostics)
+  - apiGroups: [""]
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
+      - update
+      - get
+      - list
+      - watch
+
+  # RBAC-ish operations for managing rolebindings if admin needs to grant permissions
+  - apiGroups: ["rbac.authorization.k8s.io"]
+    resources:
+      - rolebindings
+      - roles
+      - clusterrolebindings
+      - clusterroles
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
