@@ -1,0 +1,64 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  namespace: argo-cd
+  name: argo-workflows
+  labels:
+    app.kubernetes.io/instance: ci
+    app.kubernetes.io/part-of: workloads
+    app.kubernetes.io/managed-by: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: '0'
+    argocd.argoproj.io/tracking-id: workloads-ci:argoproj.io/Application:argo-cd/argo-workflows
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+        - name: chart
+          wave: 40
+        - name: configurations
+          wave: 40
+  template:
+    metadata:
+      name: 'argo-workflows-{{ .name }}'
+      namespace: 'argo-workflows'
+      annotations:
+        argocd.argoproj.io/tracking-id: workloads-ci:argoproj.io/Application:argo-cd/{{ .name }}
+        argocd.argoproj.io/sync-wave: "{{ .wave }}"
+      labels:
+        app.kubernetes.io/instance: '{{ .name }}'
+        app.kubernetes.io/component: 'argo-workflows'
+        app.kubernetes.io/part-of: workloads-ci
+    spec:
+      project: workloads-ci
+      source:
+        repoURL: https://github.com/Kube-Mind/fleet-infra.git
+        targetRevision: HEAD
+        path: 'src/workloads/ci/argo-workflows/{{ .name }}'
+        kustomize: {} # Let Kustomize handle naming
+      destination:
+        namespace: 'argo-workflows'
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        retry:
+          limit: 1
+          backoff:
+            duration: 10s
+            factor: 2
+            maxDuration: 3m
+        syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true
+          - ServerSideApply=true
+          - PruneLast=true
+          - RespectIgnoreDifferences=true
+  templatePatch: |
+    {{- if .ignoreDifferences }}
+    spec:
+      ignoreDifferences:
+      {{- toYaml .ignoreDifferences | nindent 12 }}
+    {{- end }}

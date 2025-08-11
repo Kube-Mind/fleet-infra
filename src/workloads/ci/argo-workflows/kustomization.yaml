@@ -3,11 +3,4 @@ kind: Kustomization
 
 resources:
 - namespace.yaml
-
-helmCharts:
-- name: argo-workflows
-  namespace: argo-workflows
-  repo: https://argoproj.github.io/argo-helm
-  valuesFile: values.yaml
-  version: 0.45.21
-  includeCRDs: true
+- application-set.yaml

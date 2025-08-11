@@ -24,7 +24,7 @@ createAggregateRoles: true
 nameOverride:
 
 # -- String to fully override "argo-workflows.fullname" template
-fullnameOverride:
+fullnameOverride: "argo-workflows"
 
 # -- Override the namespace
 # @default -- `.Release.Namespace`
@@ -286,7 +286,7 @@ controller:
   # workflows. This controls where the service account and RBAC resources will
   # be created. Only valid when singleNamespace is false.
   workflowNamespaces:
-    - default
+    - argo-workflows
 
   instanceID:
     # -- Configures the controller to filter workflow submissions
