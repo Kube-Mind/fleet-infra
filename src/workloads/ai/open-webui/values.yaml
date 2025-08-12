@@ -226,7 +226,7 @@ ingress:
 
 persistence:
   enabled: true
-  size: 2Gi
+  size: 20Gi
   # -- Use existingClaim if you want to re-use an existing Open WebUI PVC instead of creating a new one
   existingClaim: ""
   # -- Subdirectory of Open WebUI PVC to mount. Useful if root directory is not empty.
