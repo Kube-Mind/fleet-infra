@@ -1,0 +1,10 @@
+steps:
+  - name: generate_image
+    type: http
+    url: http://comfyui.other-namespace.svc.cluster.local:8188/api/prompt
+    method: POST
+    body:
+      prompt: "{{ inputs.prompt }}"
+  - name: return_result
+    type: return
+    value: "{{ steps.generate_image.output }}"

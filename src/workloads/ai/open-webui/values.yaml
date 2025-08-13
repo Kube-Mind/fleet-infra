@@ -204,15 +204,7 @@ ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prd
     # WebSocket & connection handling for Traefik
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
-    traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
-    traefik.ingress.kubernetes.io/service.sticky.cookie.name: openwebui
-    traefik.ingress.kubernetes.io/service.sticky.cookie.secure: "true"
-    traefik.ingress.kubernetes.io/service.sticky.cookie.sameSite: none
-    traefik.ingress.kubernetes.io/service.sticky.cookie.httpOnly: "true"
-    # Optional: increase idle timeout for long-lived websocket streams
-    traefik.ingress.kubernetes.io/router.middlewares: open-webui@kubernetescrd
+    traefik.ingress.kubernetes.io/websocket: 'true'
   host: "chat.jcan.dev" # update to your real domain
   additionalHosts: []
   tls: true
