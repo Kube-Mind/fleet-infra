@@ -69,3 +69,6 @@ configMapData:
           - record: "*"
             proxy: true
           - record: "vpn"
+
+imagePullSecrets:
+  - name: regcred-external-secrets
