@@ -45,7 +45,7 @@ spec:
         - helm:
             valueFiles:
               - >-
-                $values/src/workloads/work/pft/values/{{ .name }}.yaml
+                $values/src/workloads/work/pft/rxmon/values/{{ .name }}.yaml
           path: charts/rxmon
           repoURL: https://github.com/fourier-space-au/pft.git
           targetRevision: implement-rxmon-cli
