@@ -1,0 +1,31 @@
+enabled: true
+
+image:
+  repository: ocr.jcan.dev/library/pft-pipeline
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "0.0.1"
+
+imagePullSecrets:
+- name: pft-external-secret-regcred
+
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - baldr
+
+config:
+  # The configuration for the rxmon application.
+  # This is a map of key-value pairs that will be used to configure the application.
+  # You can add any configuration options that your application supports.
+  # For example:
+  #   key1: value1
+  #   key2: value2
+  # If you need to pass sensitive information, consider using Kubernetes Secrets.
+  envSettings:
+    KAFKA_BROKER_FQDN: kafka-cluster-kafka-brokers.kafka.svc.cluster.local
