@@ -1,5 +1,7 @@
 enabled: true
 
+fullnameOverride: "rxmon-0"
+
 image:
   repository: ocr.jcan.dev/library/pft-pipeline
   pullPolicy: IfNotPresent
