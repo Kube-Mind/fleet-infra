@@ -18,7 +18,7 @@ entries:
   - id: argocd_provider
     model: authentik_providers_oauth2.oauth2provider
     identifiers:
-      name: k8s.pc-tips.se/argocd
+      name: auth.jcan.dev/argocd
     attrs:
       authorization_flow:
         !Find [
@@ -38,7 +38,7 @@ entries:
 
       client_type: confidential
       redirect_uris:
-        - url: https://argocd.pc-tips.se/auth/callback
+        - url: https://cd.jcan.dev/auth/callback
           matching_mode: strict
       client_id: !Env ARGOCD_CLIENT_ID
       client_secret: !Env ARGOCD_CLIENT_SECRET
