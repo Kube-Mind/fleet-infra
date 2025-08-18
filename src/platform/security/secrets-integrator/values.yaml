@@ -71,6 +71,20 @@ externalSecret:
             metadataPolicy: None
             property: AUTHENTIK_SECRET_KEY
           secretKey: AUTHENTIK_SECRET_KEY
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: ARGOCD_CLIENT_ID
+          secretKey: ARGOCD_CLIENT_ID
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: ARGOCD_CLIENT_SECRET
+          secretKey: ARGOCD_CLIENT_SECRET
 
     - name: "dnsfix-external-secret"
       namespaces:

@@ -1,11 +1,8 @@
 server:
   ingress:
-    enabled: true
+    enabled: false
     hosts:
-      - host: auth.jcan.dev
-        paths:
-          - path: /
-            pathType: Prefix
+      - auth.jcan.dev
     annotations:
       kubernetes.io/ingress.class: traefik
       cert-manager.io/cluster-issuer: letsencrypt-prd
