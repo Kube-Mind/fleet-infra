@@ -19,6 +19,6 @@ entries:
         - !Find [authentik_core.group, [name, "Grafana Admins"]]
         # membership in every user group
         - !Find [authentik_core.group, [name, "ArgoCD Viewers"]]
-        - !Find [authentik_core.group, [name, "Grafana Viewers"]]
+        - !Find [authentik_core.group, [name, "Grafana Users"]]
 
 

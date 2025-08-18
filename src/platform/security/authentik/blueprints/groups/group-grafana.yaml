@@ -10,9 +10,9 @@ entries:
       name: Grafana Admins
     attrs:
       name: Grafana Admins
-  - id: grafana-viewers
+  - id: grafana-users
     model: authentik_core.group
     identifiers:
-      name: Grafana Viewers
+      name: Grafana Users
     attrs:
-      name: Grafana Viewers
+      name: Grafana Users
