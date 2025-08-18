@@ -12,7 +12,7 @@ grafana:
 
     auth.basic:
       # disable HTTP Basic Authentication
-      enabled: true
+      enabled: false
 
     auth.gitlab:
       enabled: true
