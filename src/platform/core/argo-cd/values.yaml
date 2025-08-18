@@ -28,6 +28,9 @@ configs:
     # -- Create the argocd-cm configmap for [declarative setup]
     create: true
 
+    # -- The URL of the Argo CD server
+    url: https://cd.jcan.dev
+
     # -- Annotations to be added to argocd-cm configmap
     annotations: {}
 
@@ -79,6 +82,7 @@ configs:
               - openid
               - profile
               - email
+            getUserInfo: true
 
   # Argo CD configuration parameters
   ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/argocd-cmd-params-cm.yaml
