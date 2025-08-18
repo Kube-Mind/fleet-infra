@@ -67,7 +67,10 @@ configs:
             groups:
             - Kube-Mind
             useLoginAsID: false
-        - config:
+        - name: authentik
+          type: oidc
+          id: authentik
+          config:
             issuer: https://auth.jcan.dev/application/o/argocd/
             clientID: $dex.argocd-external-secret.ARGOCD_CLIENT_ID
             clientSecret: $dex.argocd-external-secret.ARGOCD_CLIENT_SECRET
@@ -76,9 +79,6 @@ configs:
               - openid
               - profile
               - email
-            name: authentik
-            type: oidc
-            id: authentik
 
   # Argo CD configuration parameters
   ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/argocd-cmd-params-cm.yaml
