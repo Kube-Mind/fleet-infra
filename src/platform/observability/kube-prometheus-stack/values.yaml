@@ -29,7 +29,7 @@ grafana:
       scopes: openid,email,profile
       
     auth.oauth_generic:
-      enabled: false
+      enabled: true
       name: Authentik
       client_id: $__env{GF_AUTH_AUTHENTIK_CLIENT_ID}
       client_secret: $__env{GF_AUTH_AUTHENTIK_CLIENT_SECRET}
