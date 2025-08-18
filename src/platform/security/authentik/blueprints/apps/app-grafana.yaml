@@ -17,25 +17,16 @@ entries:
     attrs:
       name: Grafana Users
   - id: grafana_provider
-    model: authentik_providers_oauth2.oauth2provider
+    model: authentik_providers_openidc.openidconnectprovider
     identifiers:
       name: auth.jcan.dev/grafana
     attrs:
       authorization_flow:
-        !Find [
-          authentik_flows.flow,
-          [slug, "default-provider-authorization-implicit-consent"],
-        ]
+        !Find [authentik_flows.flow, [slug, "default-provider-authorization-implicit-consent"]]
       signing_key:
-        !Find [
-          authentik_crypto.certificatekeypair,
-          [name, "authentik Self-signed Certificate"],
-        ]
+        !Find [authentik_crypto.certificatekeypair, [name, "authentik Self-signed Certificate"]]
       invalidation_flow:
-        !Find [
-          authentik_flows.flow,
-          [slug, "default-provider-invalidation-flow"],
-        ]
+        !Find [authentik_flows.flow, [slug, "default-provider-invalidation-flow"]]
 
       client_type: confidential
       redirect_uris:
@@ -50,18 +41,9 @@ entries:
 
       sub_mode: hashed_user_id
       property_mappings:
-        - !Find [
-            authentik_core.propertymapping,
-            [name, "authentik default OAuth Mapping: OpenID 'openid'"],
-          ]
-        - !Find [
-            authentik_core.propertymapping,
-            [name, "authentik default OAuth Mapping: OpenID 'profile'"],
-          ]
-        - !Find [
-            authentik_core.propertymapping,
-            [name, "OAuth mapping: OpenID 'email' with mailPrimaryAddress"],
-          ]
+        - !Find [authentik_core.propertymapping, [name, "authentik default OAuth Mapping: OpenID 'openid'"]]
+        - !Find [authentik_core.propertymapping, [name, "authentik default OAuth Mapping: OpenID 'profile'"]]
+        - !Find [authentik_core.propertymapping, [name, "OAuth mapping: OpenID 'email' with mailPrimaryAddress"]]
 
   - id: grafana_application
     model: authentik_core.application
