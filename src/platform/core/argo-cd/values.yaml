@@ -156,6 +156,12 @@ configs:
       p, role:argocd-admin, repositories, update, *, allow
       p, role:argocd-admin, repositories, delete, *, allow
       g, Kube-Mind, role:argocd-admin
+      g, ArgoCD Admins, role:admin
+      g, ArgoCD Viewers, role:readonly
+      g, ArgoCDAdmins, role:admin
+      g, ArgoCDViewers, role:readonly
+      g, argocd:admin, role:admin
+      g, argocd:read_all, role:readonly
     # Policy rules are in the form:
     #  p, subject, resource, action, object, effect
     # Role definitions and bindings are in the form:
