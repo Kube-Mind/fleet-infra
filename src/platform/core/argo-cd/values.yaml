@@ -72,8 +72,8 @@ configs:
           id: authentik
           config:
             issuer: https://auth.jcan.dev/application/o/argocd/
-            clientID: $dex.argocd-external-secret.ARGOCD_CLIENT_ID
-            clientSecret: $dex.argocd-external-secret.ARGOCD_CLIENT_SECRET
+            clientID: $argocd-external-secret.ARGOCD_CLIENT_ID
+            clientSecret: $argocd-external-secret.ARGOCD_CLIENT_SECRET
             insecureEnableGroups: true
             scopes:
               - openid
