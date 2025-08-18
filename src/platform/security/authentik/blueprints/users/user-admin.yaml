@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://goauthentik.io/blueprints/schema.json
+---
+version: 1
+metadata:
+  name: Users
+entries:
+  - id: user-admin
+    model: authentik_core.user
+    identifiers:
+      username: admin-user
+    attrs:
+      username: admin-user
+      name: Admin User
+      email: !Env AUTHENTIK_ADMIN_EMAIL
+      password: !Env AUTHENTIK_ADMIN_PASSWORD
+      groups:
+        # admin-level groups
+        - !Find [authentik_core.group, [name, "ArgoCD Admins"]]
+        # membership in every user group
+        - !Find [authentik_core.group, [name, "ArgoCD Viewers"]]
+
+

@@ -41,7 +41,7 @@ entries:
 
       client_type: confidential
       redirect_uris:
-        - url: https://cd.jcan.dev/auth/callback
+        - url: https://cd.jcan.dev/api/dex/callback
           matching_mode: strict
       client_id: !Env ARGOCD_CLIENT_ID
       client_secret: !Env ARGOCD_CLIENT_SECRET

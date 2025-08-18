@@ -8,7 +8,8 @@ generatorOptions:
 configMapGenerator:
   - name: authentik-blueprints
     files:
-      - flows-default-provider-authorization-one-time-consent.yaml
-      - groups.yaml
       - oauth-scopes.yaml
-      - ./apps/argo-cd.yaml
+      - ./apps/app-argo-cd.yaml
+      - ./groups/group-argo-cd.yaml
+      - ./flows/flow-default-provider-authorization-one-time-consent.yaml
+      - ./users/user-admin.yaml

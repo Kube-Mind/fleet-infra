@@ -85,6 +85,24 @@ externalSecret:
             metadataPolicy: None
             property: AUTHENTIK_SECRET_KEY
           secretKey: AUTHENTIK_SECRET_KEY
+
+        # USERS
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: AUTHENTIK_ADMIN_EMAIL
+          secretKey: AUTHENTIK_ADMIN_EMAIL
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: AUTHENTIK_ADMIN_PASSWORD
+          secretKey: AUTHENTIK_ADMIN_PASSWORD
+
+        # APPLICATIONS
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
