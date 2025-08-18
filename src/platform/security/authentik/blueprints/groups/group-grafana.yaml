@@ -2,17 +2,17 @@
 ---
 version: 1
 metadata:
-  name: Application Group - ArgoCD
+  name: Application Group - Grafana
 entries:
-  - id: argocd-admins
+  - id: grafana-admins
     model: authentik_core.group
     identifiers:
-      name: ArgoCD Admins
+      name: Grafana Admins
     attrs:
-      name: ArgoCD Admins
-  - id: argocd-viewers
+      name: Grafana Admins
+  - id: grafana-viewers
     model: authentik_core.group
     identifiers:
-      name: ArgoCD Viewers
+      name: Grafana Viewers
     attrs:
-      name: ArgoCD Viewers
+      name: Grafana Viewers

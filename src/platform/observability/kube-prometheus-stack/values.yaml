@@ -28,25 +28,21 @@ grafana:
       
     auth.oauth_generic:
       enabled: true
-      # go directly to SSO! 🎉 (hint: `/login?disableAutoLogin`)
+      name: Authentik
+      client_id: $__env{GF_AUTH_AUTHENTIK_CLIENT_ID}
+      client_secret: $__env{GF_AUTH_AUTHENTIK_CLIENT_SECRET}
+      scopes: openid profile email
+      auth_url: https://auth.jcan.dev/application/o/grafana/authorize/
+      token_url: https://auth.jcan.dev/application/o/grafana/token/
+      api_url: https://auth.jcan.dev/application/o/grafana/userinfo/
+      login_attribute_path: preferred_username
+      groups_attribute_path: groups
+      name_attribute_path: name
+      email_attribute_path: email
+      role_attribute_path: contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Users') && 'Editor' || 'Viewer'
+      allow_sign_up: true
       auto_login: false
-
-      # there's about to be a 👻 JSON query, by setting this to strict,
-      # Grafana will reject logins if the expression errors
-      # (fail closed)
-      role_attribute_strict: true
-
-      # LDAP group -> Grafana role mapping:
-      # `grafana_admin` -> Grafana **Server** Admin
-      # `grafana_editor` -> Grafana Editor
-      # * -> Grafana Viewer
-      # role_attribute_path: contains(groups[*], 'grafana_admin') && 'GrafanaAdmin' || contains(groups[*], 'grafana_editor') && 'Editor' || 'Viewer'
-
-      # required for the above query ⬆️ to be able to map to Grafana **Server** Admin
-      allow_assign_grafana_admin: true
-      auth_url: https://gitlab.com/oauth/authorize
-      token_url: https://gitlab.com/oauth/token
-      api_url: https://gitlab.com/api/v4
+      use_pkce: true
 
     server:
       root_url: https://grafana.jcan.dev
@@ -54,13 +50,13 @@ grafana:
 
   datasources:
     datasources.yaml:
-      apiVersion: 1
-      datasources:
-      - name: kube-prometheus
-        type: prometheus
-        url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090/
-        access: proxy
-        isDefault: false
+      # apiVersion: 1
+      # datasources:
+      # - name: kube-prometheus
+      #   type: prometheus
+      #   url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090/
+      #   access: proxy
+      #   isDefault: false
   dashboards:
     default:
       # k8s-dashboard:

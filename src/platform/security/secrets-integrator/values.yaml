@@ -117,6 +117,20 @@ externalSecret:
             metadataPolicy: None
             property: ARGOCD_CLIENT_SECRET
           secretKey: ARGOCD_CLIENT_SECRET
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: GRAFANA_CLIENT_ID
+          secretKey: GRAFANA_CLIENT_ID
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: GRAFANA_CLIENT_SECRET
+          secretKey: GRAFANA_CLIENT_SECRET
 
     - name: "dnsfix-external-secret"
       namespaces:
@@ -212,17 +226,19 @@ externalSecret:
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
-            key: platform/observability/grafana
+            key: platform/security/authentik
             metadataPolicy: None
             property: GITLAB_APPLICATION_ID
-          secretKey: GF_AUTH_GENERIC_OAUTH_CLIENT_ID
+          secretKey: GF_AUTH_AUTHENTIK_CLIENT_ID
+          # GF_AUTH_GENERIC_OAUTH_CLIENT_ID
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
-            key: platform/observability/grafana
+            key: platform/security/authentik
             metadataPolicy: None
             property: GITLAB_CLIENT_SECRET
-          secretKey: GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
+          secretKey: GF_AUTH_AUTHENTIK_CLIENT_SECRET
+          # GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
 
     - name: "harbor-external-secret"
       namespaces:

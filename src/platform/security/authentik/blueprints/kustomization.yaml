@@ -11,5 +11,7 @@ configMapGenerator:
       - oauth-scopes.yaml
       - ./apps/app-argo-cd.yaml
       - ./groups/group-argo-cd.yaml
+      - ./apps/app-grafana.yaml
+      - ./groups/group-grafana.yaml
       - ./flows/flow-default-provider-authorization-one-time-consent.yaml
       - ./users/user-admin.yaml

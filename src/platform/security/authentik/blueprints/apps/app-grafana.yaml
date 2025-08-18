@@ -2,26 +2,24 @@
 ---
 version: 1
 metadata:
-  name: Apps - ArgoCD
+  name: Apps - Grafana
 entries:
-  - id: argocd-admin-group
+  - id: grafana-admin-group
     model: authentik_core.group
     identifiers:
-      name: ArgoCD Admins
+      name: Grafana Admins
     attrs:
-      name: ArgoCD Admins
-  
-  - id: argocd-viewer-group
+      name: Grafana Admins
+  - id: grafana-user-group
     model: authentik_core.group
     identifiers:
-      name: ArgoCD Viewers
+      name: Grafana Users
     attrs:
-      name: ArgoCD Viewers
-  
-  - id: argocd_provider
+      name: Grafana Users
+  - id: grafana_provider
     model: authentik_providers_oauth2.oauth2provider
     identifiers:
-      name: auth.jcan.dev/argocd
+      name: auth.jcan.dev/grafana
     attrs:
       authorization_flow:
         !Find [
@@ -41,12 +39,13 @@ entries:
 
       client_type: confidential
       redirect_uris:
-        - url: https://cd.jcan.dev/api/dex/callback
+        - url: https://grafana.jcan.dev/login/generic_oauth
           matching_mode: strict
-      client_id: !Env ARGOCD_CLIENT_ID
-      client_secret: !Env ARGOCD_CLIENT_SECRET
+      client_id: !Env GRAFANA_CLIENT_ID
+      client_secret: !Env GRAFANA_CLIENT_SECRET
+
       access_code_validity: minutes=1
-      access_token_validity: hours=1
+      access_token_validity: minutes=5
       refresh_token_validity: days=30
 
       sub_mode: hashed_user_id
@@ -64,28 +63,27 @@ entries:
             [name, "OAuth mapping: OpenID 'email' with mailPrimaryAddress"],
           ]
 
-  - id: argocd_application
+  - id: grafana_application
     model: authentik_core.application
     identifiers:
-      slug: argocd
+      slug: grafana
     attrs:
-      name: ArgoCD
-      group: Platform
-      meta_description: GitOps CD
-      icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/argo-cd.png
-      provider: !KeyOf argocd_provider
+      name: Grafana
+      group: Infrastructure
+      description: Observability Dashboards
+      icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/grafana.png
+      provider: !KeyOf grafana_provider
       policy_engine_mode: any
 
   - model: authentik_policies.policybinding
     identifiers:
-      target: !KeyOf argocd_application
-      group: !Find [authentik_core.group, [name, "ArgoCD Admins"]]
+      target: !KeyOf grafana_application
+      group: !Find [authentik_core.group, [name, "Grafana Users"]]
     attrs:
       order: 1
-  
   - model: authentik_policies.policybinding
     identifiers:
-      target: !KeyOf argocd_application
-      group: !Find [authentik_core.group, [name, "ArgoCD Viewers"]]
+      target: !KeyOf grafana_application
+      group: !Find [authentik_core.group, [name, "Grafana Admins"]]
     attrs:
       order: 2
