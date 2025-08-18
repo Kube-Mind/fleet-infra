@@ -228,7 +228,7 @@ externalSecret:
             decodingStrategy: None
             key: platform/security/authentik
             metadataPolicy: None
-            property: GITLAB_APPLICATION_ID
+            property: GRAFANA_CLIENT_ID
           secretKey: GF_AUTH_AUTHENTIK_CLIENT_ID
           # GF_AUTH_GENERIC_OAUTH_CLIENT_ID
         - remoteRef:
@@ -236,7 +236,7 @@ externalSecret:
             decodingStrategy: None
             key: platform/security/authentik
             metadataPolicy: None
-            property: GITLAB_CLIENT_SECRET
+            property: GRAFANA_CLIENT_SECRET
           secretKey: GF_AUTH_AUTHENTIK_CLIENT_SECRET
           # GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
 
