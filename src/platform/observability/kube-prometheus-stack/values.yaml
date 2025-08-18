@@ -15,7 +15,7 @@ grafana:
       enabled: true
 
     auth.gitlab:
-      enabled: false
+      enabled: true
       # go directly to SSO! (hint: `/login?disableAutoLogin`)
       # auto_login: false
       allow_sign_up: true
