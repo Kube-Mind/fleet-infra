@@ -27,7 +27,7 @@ grafana:
       scopes: openid,email,profile
       
     auth.oauth_generic:
-      enabled: false
+      enabled: true
       name: Authentik
       client_id: $__env{GF_AUTH_AUTHENTIK_CLIENT_ID}
       client_secret: $__env{GF_AUTH_AUTHENTIK_CLIENT_SECRET}
@@ -50,13 +50,13 @@ grafana:
 
   datasources:
     datasources.yaml:
-      # apiVersion: 1
-      # datasources:
-      # - name: kube-prometheus
-      #   type: prometheus
-      #   url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090/
-      #   access: proxy
-      #   isDefault: false
+      apiVersion: 1
+      datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090/
+        access: proxy
+        isDefault: false
   dashboards:
     default:
       # k8s-dashboard:
