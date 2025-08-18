@@ -1,7 +1,9 @@
 grafana:
   enabled: true
   adminPassword: null # enforce random password generation upon sync
-  envFromSecrets: grafana-external-secret
+  envFromSecrets:
+    - name: grafana-external-secret
+      optional: false
 
   grafana.ini:
     auth:
