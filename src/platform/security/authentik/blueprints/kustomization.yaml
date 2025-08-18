@@ -9,4 +9,5 @@ configMapGenerator:
   - name: authentik-blueprints
     files:
       - groups.yaml
+      - oauth-scopes.yaml
       - ./apps/argo-cd.yaml

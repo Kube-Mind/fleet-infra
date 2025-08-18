@@ -19,6 +19,13 @@ spec:
         elements:
           - name: authentik
             wave: 20
+            ignoreDifferences:
+              - group: ''
+                kind: Secret
+                name: authentik-postgresql
+                jsonPointers:
+                  - /data/password
+                  - /data/postgres-password
 
           - name: openbao
             wave: 10
