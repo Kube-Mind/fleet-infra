@@ -19,7 +19,7 @@ entries:
       name: Grafana Users
 
   - id: grafana_provider
-    model: authentik_providers_openidc.openidconnectprovider
+    model: authentik_providers_oauth2.oauth2provider
     identifiers:
       name: auth.jcan.dev/grafana
     attrs:
@@ -54,7 +54,7 @@ entries:
     attrs:
       name: Grafana
       group: Platform
-      description: Observability Dashboards
+      meta_description: Observability Dashboards
       icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/grafana.png
       provider: !KeyOf grafana_provider
       policy_engine_mode: any
