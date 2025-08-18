@@ -10,12 +10,14 @@ entries:
       name: ArgoCD Admins
     attrs:
       name: ArgoCD Admins
+  
   - id: argocd-viewer-group
     model: authentik_core.group
     identifiers:
       name: ArgoCD Viewers
     attrs:
       name: ArgoCD Viewers
+  
   - id: argocd_provider
     model: authentik_providers_oauth2.oauth2provider
     identifiers:
@@ -80,6 +82,7 @@ entries:
       group: !Find [authentik_core.group, [name, "ArgoCD Admins"]]
     attrs:
       order: 1
+  
   - model: authentik_policies.policybinding
     identifiers:
       target: !KeyOf argocd_application
