@@ -28,7 +28,7 @@ grafana:
       api_url: https://gitlab.com/api/v4/user
       scopes: openid,email,profile
       
-    auth.oauth_generic:
+    auth.generic_oauth:
       enabled: true
       name: Authentik
       client_id: $__env{GF_AUTH_AUTHENTIK_CLIENT_ID}
