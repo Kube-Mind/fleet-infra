@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/instance: secrets-integrator
     app.kubernetes.io/component: secrets-integrator
     app.kubernetes.io/part-of: platform-security
-  name: secrets-integrator-git-chart
+  name: secrets-integrator-chart
   namespace: argo-cd
 spec:
   destination:
