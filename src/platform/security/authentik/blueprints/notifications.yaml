@@ -32,10 +32,6 @@ entries:
         - !KeyOf transport
       severity: info
       group: !Find [authentik_core.group, [name, "authentik Admins"]]
-      # Event type filter: blueprint modifications
-      event_severity: info
-      verb: updated
-      model: authentik_blueprints.blueprintinstance
 
   - model: authentik_policies.policybinding
     identifiers:
