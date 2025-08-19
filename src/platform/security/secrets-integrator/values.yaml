@@ -85,6 +85,13 @@ externalSecret:
             metadataPolicy: None
             property: AUTHENTIK_SECRET_KEY
           secretKey: AUTHENTIK_SECRET_KEY
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: AUTHENTIK_NOTIFICATIONS_SLACK_WEBHOOK
+          secretKey: AUTHENTIK_NOTIFICATIONS_SLACK_WEBHOOK
 
         # USERS
         - remoteRef:
