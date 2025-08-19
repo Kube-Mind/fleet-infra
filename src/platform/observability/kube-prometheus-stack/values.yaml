@@ -53,12 +53,12 @@ grafana:
   datasources:
     datasources.yaml:
       apiVersion: 1
-      datasources:
-      - name: Prometheus
-        type: prometheus
-        url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090/
-        access: proxy
-        isDefault: false
+      datasources: []
+      # - name: Prometheus
+      #   type: prometheus
+      #   url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090/
+      #   access: proxy
+      #   isDefault: false
   dashboards:
     default:
       # k8s-dashboard:
