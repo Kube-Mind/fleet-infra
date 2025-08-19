@@ -31,11 +31,7 @@ entries:
       transports:
         - !KeyOf transport
       severity: info
-      group:
-        !Find [
-          authentik_core.group,
-          [name, "authentik Admins"]
-        ]
+      group: !Find [authentik_core.group, [name, "authentik Admins"]]
       # Event type filter: blueprint modifications
       event_severity: info
       verb: updated
