@@ -13,5 +13,7 @@ configMapGenerator:
       - ./groups/group-argo-cd.yaml
       - ./apps/app-grafana.yaml
       - ./groups/group-grafana.yaml
+      - ./apps/app-harbor.yaml
+      - ./groups/group-harbor.yaml
       - ./flows/flow-default-provider-authorization-one-time-consent.yaml
       - ./users/user-admin.yaml
