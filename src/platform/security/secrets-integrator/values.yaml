@@ -131,6 +131,20 @@ externalSecret:
             metadataPolicy: None
             property: GRAFANA_CLIENT_SECRET
           secretKey: GRAFANA_CLIENT_SECRET
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: HARBOR_CLIENT_ID
+          secretKey: HARBOR_CLIENT_ID
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: HARBOR_CLIENT_SECRET
+          secretKey: HARBOR_CLIENT_SECRET
 
     - name: "dnsfix-external-secret"
       namespaces:

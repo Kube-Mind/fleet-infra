@@ -17,8 +17,10 @@ entries:
         # admin-level groups
         - !Find [authentik_core.group, [name, "ArgoCD Admins"]]
         - !Find [authentik_core.group, [name, "Grafana Admins"]]
+        - !Find [authentik_core.group, [name, "Harbor Admins"]]
         # membership in every user group
         - !Find [authentik_core.group, [name, "ArgoCD Viewers"]]
         - !Find [authentik_core.group, [name, "Grafana Users"]]
+        - !Find [authentik_core.group, [name, "Harbor Users"]]
 
 

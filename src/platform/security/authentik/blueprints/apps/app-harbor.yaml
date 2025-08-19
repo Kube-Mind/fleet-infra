@@ -1,0 +1,91 @@
+# yaml-language-server: $schema=https://goauthentik.io/blueprints/schema.json
+---
+version: 1
+metadata:
+  name: Apps - Harbor
+entries:
+  - id: harbor-admin-group
+    model: authentik_core.group
+    identifiers:
+      name: Harbor Admins
+    attrs:
+      name: Harbor Admins
+  
+  - id: harbor-user-group
+    model: authentik_core.group
+    identifiers:
+      name: Harbor Users
+    attrs:
+      name: Harbor Users
+  
+  - id: harbor_provider
+    model: authentik_providers_oauth2.oauth2provider
+    identifiers:
+      name: auth.jcan.dev/harbor
+    attrs:
+      authorization_flow:
+        !Find [
+          authentik_flows.flow,
+          [slug, "default-provider-authorization-implicit-consent"],
+        ]
+      signing_key:
+        !Find [
+          authentik_crypto.certificatekeypair,
+          [name, "authentik Self-signed Certificate"],
+        ]
+      invalidation_flow:
+        !Find [
+          authentik_flows.flow,
+          [slug, "default-provider-invalidation-flow"],
+        ]
+    
+      client_type: confidential
+      redirect_uris:
+        - url: https://harbor.jcan.dev/callback
+          matching_mode: strict
+      client_id: !Env HARBOR_CLIENT_ID
+      client_secret: !Env HARBOR_CLIENT_SECRET
+      access_code_validity: minutes=1
+      access_token_validity: hours=1
+      refresh_token_validity: days=30
+
+      sub_mode: hashed_user_id
+      property_mappings:
+        - !Find [
+            authentik_core.propertymapping,
+            [name, "authentik default OAuth Mapping: OpenID 'openid'"],
+          ]
+        - !Find [
+            authentik_core.propertymapping,
+            [name, "authentik default OAuth Mapping: OpenID 'profile'"],
+          ]
+        - !Find [
+            authentik_core.propertymapping,
+            [name, "authentik default OAuth Mapping: OpenID 'email'"],
+          ]
+
+  - id: harbor_application
+    model: authentik_core.application
+    identifiers:
+      slug: harbor
+    attrs:
+      name: Harbor
+      group: Platform
+      meta_description: Container Registry Management
+      icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/harbor.png
+      provider: !KeyOf harbor_provider
+      policy_engine_mode: any
+  
+  - model: authentik_policies.policybinding
+    identifiers:
+      target: !KeyOf harbor_application
+      group: !Find [authentik_core.group, [name, "Harbor Admins"]]
+    attrs:
+      order: 1
+
+  - model: authentik_policies.policybinding
+    identifiers:
+      target: !KeyOf harbor_application
+      group: !Find [authentik_core.group, [name, "Harbor Viewers"]]
+    attrs:
+      order: 1

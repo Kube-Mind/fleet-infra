@@ -69,12 +69,12 @@ core:
     limits:
       cpu: 4000m
       memory: 4Gi
-  extraEnvVars:
-    - name: CONFIG_OVERWRITE_JSON
-      valueFrom:
-        secretKeyRef:
-          name: harbor-external-secret
-          key: CONFIG_OVERWRITE_JSON
+  extraEnvVars: []
+    # - name: CONFIG_OVERWRITE_JSON
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: harbor-external-secret
+    #       key: CONFIG_OVERWRITE_JSON
 
 database:
   affinity:

@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=https://goauthentik.io/blueprints/schema.json
+---
+version: 1
+metadata:
+  name: Application Group - Harbor
+entries:
+  - id: harbor-admins
+    model: authentik_core.group
+    identifiers:
+      name: Harbor Admins
+    attrs:
+      name: Harbor Admins
+  - id: harbor-users
+    model: authentik_core.group
+    identifiers:
+      name: Harbor Users
+    attrs:
+      name: Harbor Users
