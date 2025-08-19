@@ -83,6 +83,7 @@ entries:
       group: !Find [authentik_core.group, [name, "Grafana Users"]]
     attrs:
       order: 1
+  
   - model: authentik_policies.policybinding
     identifiers:
       target: !KeyOf grafana_application

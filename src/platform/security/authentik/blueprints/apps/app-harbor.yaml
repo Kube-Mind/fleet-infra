@@ -45,6 +45,7 @@ entries:
           matching_mode: strict
       client_id: !Env HARBOR_CLIENT_ID
       client_secret: !Env HARBOR_CLIENT_SECRET
+
       access_code_validity: minutes=1
       access_token_validity: hours=1
       refresh_token_validity: days=30
@@ -86,6 +87,6 @@ entries:
   - model: authentik_policies.policybinding
     identifiers:
       target: !KeyOf harbor_application
-      group: !Find [authentik_core.group, [name, "Harbor Viewers"]]
+      group: !Find [authentik_core.group, [name, "Harbor Users"]]
     attrs:
       order: 1
