@@ -41,7 +41,7 @@ entries:
     
       client_type: confidential
       redirect_uris:
-        - url: https://harbor.jcan.dev/c/oidc/callback
+        - url: https://ocr.jcan.dev/c/oidc/callback
           matching_mode: strict
       client_id: !Env HARBOR_CLIENT_ID
       client_secret: !Env HARBOR_CLIENT_SECRET
