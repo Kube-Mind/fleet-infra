@@ -271,7 +271,7 @@ externalSecret:
             decodingStrategy: Base64
             key: platform/storage/harbor
             metadataPolicy: None
-            property: CONFIG_OVERWRITE_JSON
+            property: SSO_AUTHENTIK_OVERWRITE_JSON
           secretKey: CONFIG_OVERWRITE_JSON
 
     - name: "jupyterhub-external-secret"
