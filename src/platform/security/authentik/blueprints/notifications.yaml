@@ -23,6 +23,24 @@ entries:
       severity: alert
       group: !Find [authentik_core.group, [name, "authentik Admins"]]
 
+  - id: blueprint-rule
+    model: authentik_events.notificationrule
+    identifiers:
+      name: slack-notify-blueprint-change
+    attrs:
+      transports:
+        - !KeyOf transport
+      severity: info
+      group:
+        !Find [
+          authentik_core.group,
+          [name, "authentik Admins"]
+        ]
+      # Event type filter: blueprint modifications
+      event_severity: info
+      verb: updated
+      model: authentik_blueprints.blueprintinstance
+
   - model: authentik_policies.policybinding
     identifiers:
       order: 0
@@ -52,3 +70,10 @@ entries:
           [name, "default-match-property-mapping-exception"],
         ]
       target: !KeyOf rule
+  
+  - model: authentik_policies.policybinding
+    identifiers:
+      order: 3
+      policy:
+        !Find [authentik_policies.policy, [name, "default-match-all"]]
+      target: !KeyOf blueprint-rule
