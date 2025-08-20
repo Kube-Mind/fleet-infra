@@ -1,0 +1,92 @@
+# yaml-language-server: $schema=https://goauthentik.io/blueprints/schema.json
+---
+version: 1
+metadata:
+  name: Apps - JupyterHub
+entries:
+  - id: jupyterhub-admin-group
+    model: authentik_core.group
+    identifiers:
+      name: JupyterHub Admins
+    attrs:
+      name: JupyterHub Admins
+  
+  - id: jupyterhub-user-group
+    model: authentik_core.group
+    identifiers:
+      name: JupyterHub Users
+    attrs:
+      name: JupyterHub Users
+  
+  - id: jupyterhub_provider
+    model: authentik_providers_oauth2.oauth2provider
+    identifiers:
+      name: auth.jcan.dev/jupyterhub
+    attrs:
+      authorization_flow:
+        !Find [
+          authentik_flows.flow,
+          [slug, "default-provider-authorization-implicit-consent"],
+        ]
+      signing_key:
+        !Find [
+          authentik_crypto.certificatekeypair,
+          [name, "authentik Self-signed Certificate"],
+        ]
+      invalidation_flow:
+        !Find [
+          authentik_flows.flow,
+          [slug, "default-provider-invalidation-flow"],
+        ]
+    
+      client_type: confidential
+      redirect_uris:
+        - url: https://jhub.jcan.dev/hub/oauth_callback
+          matching_mode: strict
+      client_id: !Env JUPYTERHUB_CLIENT_ID
+      client_secret: !Env JUPYTERHUB_CLIENT_SECRET
+
+      access_code_validity: minutes=1
+      access_token_validity: hours=1
+      refresh_token_validity: days=30
+
+      sub_mode: hashed_user_id
+      property_mappings:
+        - !Find [
+            authentik_core.propertymapping,
+            [name, "authentik default OAuth Mapping: OpenID 'openid'"],
+          ]
+        - !Find [
+            authentik_core.propertymapping,
+            [name, "authentik default OAuth Mapping: OpenID 'profile'"],
+          ]
+        - !Find [
+            authentik_core.propertymapping,
+            [name, "authentik default OAuth Mapping: OpenID 'email'"],
+          ]
+
+  - id: jupyterhub_application
+    model: authentik_core.application
+    identifiers:
+      slug: jupyterhub
+    attrs:
+      name: JupyterHub
+      group: Platform
+      meta_description: Container Registry Management
+      icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/jupyter.png
+      provider: !KeyOf jupyterhub_provider
+      policy_engine_mode: any
+  
+  - model: authentik_policies.policybinding
+    identifiers:
+      target: !KeyOf jupyterhub_application
+      group: !Find [authentik_core.group, [name, "JupyterHub Admins"]]
+    attrs:
+      order: 1
+
+  - model: authentik_policies.policybinding
+    identifiers:
+      target: !KeyOf jupyterhub_application
+      group: !Find [authentik_core.group, [name, "JupyterHub Users"]]
+    attrs:
+      order: 1

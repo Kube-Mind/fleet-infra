@@ -16,5 +16,7 @@ configMapGenerator:
       - ./groups/group-grafana.yaml
       - ./apps/app-harbor.yaml
       - ./groups/group-harbor.yaml
+      - ./apps/app-jupyterhub.yaml
+      - ./groups/group-jupyterhub.yaml
       - ./flows/flow-default-provider-authorization-one-time-consent.yaml
       - ./users/user-admin.yaml
