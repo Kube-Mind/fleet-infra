@@ -8,14 +8,14 @@ debug:
 
 hub:
   config:
-    Authenticator:
-      admin_users:
-      - jesmigel
+    # Authenticator:
+    #   admin_users:
+    #   - jesmigel
     JupyterHub:
       allow_named_servers: true
-      admin_users:
-        - jesmigel
-        - admin
+      # admin_users:
+      #   - jesmigel
+      #   - admin
       authenticator_class: generic-oauth
 
     # GenericOAuthenticator:
