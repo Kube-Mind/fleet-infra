@@ -17,6 +17,8 @@ hub:
         - jesmigel
         - admin
       authenticator_class: generic-oauth
+      # tell JupyterHub the canonical public URL
+      public_url: https://jhub.jcan.dev
 
     # GenericOAuthenticator:
     #   token_url: "https://auth.jcan.dev/application/o/token/"
