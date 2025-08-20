@@ -7,7 +7,6 @@ debug:
   enabled: true
 
 hub:
-  publicURL: https://jhub.jcan.dev
   config:
     Authenticator:
       admin_users:
@@ -36,7 +35,12 @@ hub:
       import os
       from oauthenticator.generic import GenericOAuthenticator
 
-      c.JupyterHub.authenticator_class = GenericOAuthenticator
+      class PatchedAuthenticator(GenericOAuthenticator):
+          @property
+          def oauth_callback_url(self):
+              return "https://jhub.jcan.dev/hub/oauth_callback"
+
+      c.JupyterHub.authenticator_class = PatchedAuthenticator
 
       c.GenericOAuthenticator.client_id = os.environ["OAUTH_CLIENT_ID"]
       c.GenericOAuthenticator.client_secret = os.environ["OAUTH_CLIENT_SECRET"]
