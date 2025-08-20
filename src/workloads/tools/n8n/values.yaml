@@ -16,7 +16,7 @@
 nameOverride:
 
 # default .Chart.Name or .Values.nameOverride
-fullnameOverride:
+fullnameOverride: "n8n"
 
 
 #
