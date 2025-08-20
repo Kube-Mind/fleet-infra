@@ -1,4 +1,4 @@
-fullnameOverride: ""
+fullnameOverride: "jupyterhub"
 nameOverride:
 
 enabled: true
