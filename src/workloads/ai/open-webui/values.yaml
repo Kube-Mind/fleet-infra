@@ -32,6 +32,29 @@ pipelines:
       value: "INFO"
     - name: STABLE_DIFFUSION_BASE_URL
       value: "http://stable-diffusion-webui-git-chart.stable-diffusion-webui.svc.cluster.local:7860"
+    # -- Example pipeline to pull and load on deployment startup, see current pipelines here: https://github.com/open-webui/pipelines/blob/main/examples
+    - name: PIPELINES_URLS
+      value: "https://github.com/open-webui/pipelines/blob/main/examples/filters/detoxify_filter_pipeline.py"
+    - name: PIPELINES_API_KEY
+      valueFrom:
+        secretKeyRef: 
+          name: open-webui-external-secret
+          key: PIPELINES_API_KEY
+    # -- Langfuse example, including values used in Langfuse filter to connect
+    # - name: PIPELINES_URLS
+    #   value: "https://github.com/open-webui/pipelines/blob/main/examples/filters/langfuse_filter_pipeline.py"  
+    # - name: LANGFUSE_PUBLIC_KEY
+    #   valueFrom:
+    #     secretKeyRef: 
+    #       name: langfuse-keys
+    #       key: public-key
+    # - name: LANGFUSE_SECRET_KEY
+    #   valueFrom:
+    #     secretKeyRef: 
+    #       name: langfuse-keys
+    #       key: secret-key
+    # - name: LANGFUSE_HOST
+    #   value: https://us.cloud.langfuse.com
 
 tika:
   # -- Automatically install Apache Tika to extend Open WebUI
@@ -321,8 +344,7 @@ enableOpenaiApi: true
 openaiBaseApiUrl: "http://open-webui-pipelines:9099/v1"
 
 # -- OpenAI base API URLs to use. Overwrites the value in openaiBaseApiUrl if set
-openaiBaseApiUrls:
-  []
+openaiBaseApiUrls: []
   # - "https://api.openai.com/v1"
   # - "https://api.company.openai.com/v1"
 
@@ -342,14 +364,15 @@ extraEnvVars:
   #       key: api-key
   # - name: OLLAMA_DEBUG
   #   value: "1"
+  - name: OPENAI_API_KEY
+    valueFrom:
+      secretKeyRef: 
+        name: open-webui-external-secret
+        key: PIPELINES_API_KEY
   - name: OLLAMA_BASE_URL
     value: "http://ollama.ollama.svc.cluster.local:11434"
   - name: PIPELINES_API_BASE_URL
     value: http://open-webui-pipelines:9099
-  - name: PIPELINES_URLS
-    value: |-
-      https://github.com/open-webui/pipelines/blob/main/examples/filters/detoxify_filter_pipeline.py,
-      https://github.com/open-webui/pipelines/blob/main/examples/stable-diffusion/sd_pipeline.py
 
 # -- Env vars added to the Open WebUI deployment, common across environments. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: environment variables defined in both `extraEnvVars` and `commonEnvVars` will result in a conflict. Avoid duplicates)
 commonEnvVars: []
