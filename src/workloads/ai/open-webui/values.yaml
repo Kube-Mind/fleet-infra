@@ -29,7 +29,13 @@ pipelines:
     - name: OLLAMA_BASE_URL
       value: "http://ollama.ollama.svc.cluster.local:11434"
     - name: PIPELINES_URLS
-      value: "https://github.com/open-webui/pipelines/blob/main/examples/filters/detoxify_filter_pipeline.py"
+      value: |-
+        https://github.com/open-webui/pipelines/blob/main/examples/filters/detoxify_filter_pipeline.py,
+        https://github.com/open-webui/pipelines/blob/main/examples/stable-diffusion/sd_pipeline.py
+    - name: PIPELINES_LOG_LEVEL
+      value: "INFO"
+    - name: STABLE_DIFFUSION_BASE_URL
+      value: "http://stable-diffusion-webui-git-chart.stable-diffusion-webui.svc.cluster.local:7860"
 
 tika:
   # -- Automatically install Apache Tika to extend Open WebUI
@@ -314,8 +320,9 @@ service:
 # -- Enables the use of OpenAI APIs
 enableOpenaiApi: true
 
-# -- OpenAI base API URL to use. Defaults to the Pipelines service endpoint when Pipelines are enabled, and "https://api.openai.com/v1" if Pipelines are not enabled and this value is blank
-openaiBaseApiUrl: "https://api.openai.com/v1"
+# -- OpenAI base API URL to use. Defaults to the Pipelines service endpoint when Pipelines are enabled, and "https://api.openai.com/v1".
+# if Pipelines are not enabled and this value is blank
+openaiBaseApiUrl: "http://open-webui-pipelines:9099/v1"
 
 # -- OpenAI base API URLs to use. Overwrites the value in openaiBaseApiUrl if set
 openaiBaseApiUrls:
