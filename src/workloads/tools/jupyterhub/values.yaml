@@ -16,61 +16,82 @@ hub:
       admin_users:
         - jesmigel
         - admin
-      authenticator_class: gitlab
+      authenticator_class: generic-oauth
 
-    GitLabOAuthenticator:
-      # the following are obtained from OS env vars
-      # - https://github.com/jupyterhub/oauthenticator/blob/main/oauthenticator/gitlab.py
-      # client_id: env:OAUTH_CLIENT_ID
-      # client_secret: env:OAUTH_CLIENT_SECRET
-      # oauth_callback_url: env:OAUTH_CALLBACK_URL
-      gitlab_url: https://gitlab.com
+    GenericOAuthenticator:
+      client_id: /etc/jupyterhub/secret/client-id
+      client_secret: /etc/jupyterhub/secret/client-secret
+      token_url: "https://authentik.example.com/application/o/token/"
+      authorize_url: "https://authentik.example.com/application/o/authorize/"
+      userdata_url: "https://authentik.example.com/application/o/userinfo/"
       scope:
-        - "read_api"
-        - "read_user"
-        - "openid"
-        - "profile"
-        - "email"
-      username_key: username
-      gitlab_group_whitelist: ["Kube-Mind"]
-      gitlab_project_id_whitelist: []
+        - openid
+        - email
+        - profile
+      login_service: "Authentik"
+      username_key: "preferred_username"
+      userdata_params: {"state": "state"}
 
-  extraConfig:
-    gitlab: |
-      c.KubeSpawner.cmd = ['jupyter-labhub']
+  extraVolumes:
+    - name: secret-volume
+      secret:
+        secretName: jhub-external-secret
 
-      async def pre_spawn_hook(spawner):
-        auth_state = await spawner.user.get_auth_state()
+  extraVolumeMounts:
+    - name: secret-volume
+      mountPath: /etc/jupyterhub/secret
+      readOnly: true
 
-        if not auth_state:
-            spawner.log.warning("No auth state for %s", spawner.user)
-            return
+    # authenticator_class: gitlab
+    # GitLabOAuthenticator:
+    #   # the following are obtained from OS env vars
+    #   # - https://github.com/jupyterhub/oauthenticator/blob/main/oauthenticator/gitlab.py
+    #   # client_id: env:OAUTH_CLIENT_ID
+    #   # client_secret: env:OAUTH_CLIENT_SECRET
+    #   # oauth_callback_url: env:OAUTH_CALLBACK_URL
+    #   gitlab_url: https://gitlab.com
+    #   scope:
+    #     - "read_api"
+    #     - "read_user"
+    #     - "openid"
+    #     - "profile"
+    #     - "email"
+    #   username_key: username
+    #   gitlab_group_whitelist: ["Kube-Mind"]
+    #   gitlab_project_id_whitelist: []
 
-        spawner.environment['GITLAB_ACCESS_TOKEN'] = auth_state['access_token']
-        spawner.environment['GITLAB_USER_LOGIN'] = auth_state['gitlab_user']['username']
-        spawner.environment['GITLAB_USER_ID'] = str(auth_state['gitlab_user']['id'])
-        spawner.environment['GITLAB_USER_EMAIL'] = auth_state['gitlab_user']['email']
-        spawner.environment['GITLAB_USER_NAME'] = auth_state['gitlab_user']['name']
+  # extraConfig:
+  #   gitlab: |
+  #     c.KubeSpawner.cmd = ['jupyter-labhub']
+  #     async def pre_spawn_hook(spawner):
+  #       auth_state = await spawner.user.get_auth_state()
+  #       if not auth_state:
+  #           spawner.log.warning("No auth state for %s", spawner.user)
+  #           return
+  #       spawner.environment['GITLAB_ACCESS_TOKEN'] = auth_state['access_token']
+  #       spawner.environment['GITLAB_USER_LOGIN'] = auth_state['gitlab_user']['username']
+  #       spawner.environment['GITLAB_USER_ID'] = str(auth_state['gitlab_user']['id'])
+  #       spawner.environment['GITLAB_USER_EMAIL'] = auth_state['gitlab_user']['email']
+  #       spawner.environment['GITLAB_USER_NAME'] = auth_state['gitlab_user']['name']
+  #     c.KubeSpawner.pre_spawn_hook = pre_spawn_hook
 
-      c.KubeSpawner.pre_spawn_hook = pre_spawn_hook
-
-  extraEnv:
-    GITLAB_HOST: https://gitlab.com
-    OAUTH_CLIENT_ID:
-      valueFrom:
-        secretKeyRef:
-          name: jupyterhub-external-secret
-          key: GITLAB_APPLICATION_ID
-    OAUTH_CLIENT_SECRET:
-      valueFrom:
-        secretKeyRef:
-          name: jupyterhub-external-secret
-          key: GITLAB_CLIENT_SECRET
-    OAUTH_CALLBACK_URL:
-      valueFrom:
-        secretKeyRef:
-          name: jupyterhub-external-secret
-          key: GITLAB_CALLBACK_URL
+  # extraEnv:
+  #   GITLAB_HOST: https://gitlab.com
+  #   OAUTH_CLIENT_ID:
+  #     valueFrom:
+  #       secretKeyRef:
+  #         name: jupyterhub-external-secret
+  #         key: GITLAB_APPLICATION_ID
+  #   OAUTH_CLIENT_SECRET:
+  #     valueFrom:
+  #       secretKeyRef:
+  #         name: jupyterhub-external-secret
+  #         key: GITLAB_CLIENT_SECRET
+  #   OAUTH_CALLBACK_URL:
+  #     valueFrom:
+  #       secretKeyRef:
+  #         name: jupyterhub-external-secret
+  #         key: GITLAB_CALLBACK_URL
 
   networkPolicy:
     egress:

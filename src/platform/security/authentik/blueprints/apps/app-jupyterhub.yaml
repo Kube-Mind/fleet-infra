@@ -71,7 +71,7 @@ entries:
       slug: jupyterhub
     attrs:
       name: JupyterHub
-      group: Platform
+      group: Workloads
       meta_description: Container Registry Management
       icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/jupyter.png
       provider: !KeyOf jupyterhub_provider

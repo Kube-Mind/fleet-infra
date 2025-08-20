@@ -18,9 +18,11 @@ entries:
         - !Find [authentik_core.group, [name, "ArgoCD Admins"]]
         - !Find [authentik_core.group, [name, "Grafana Admins"]]
         - !Find [authentik_core.group, [name, "Harbor Admins"]]
+        - !Find [authentik_core.group, [name, "JupyterHub Admins"]]
         # membership in every user group
         - !Find [authentik_core.group, [name, "ArgoCD Viewers"]]
         - !Find [authentik_core.group, [name, "Grafana Users"]]
         - !Find [authentik_core.group, [name, "Harbor Users"]]
+        - !Find [authentik_core.group, [name, "JupyterHub Users"]]
 
 

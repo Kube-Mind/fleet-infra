@@ -327,6 +327,20 @@ externalSecret:
             metadataPolicy: None
             property: GITLAB_CALLBACK_URL
           secretKey: GITLAB_CALLBACK_URL
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: JUPYTERHUB_CLIENT_ID
+          secretKey: client-id
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: JUPYTERHUB_CLIENT_SECRET
+          secretKey: client-secret
 
     - name: "open-webui-external-secret"
       namespaces:
