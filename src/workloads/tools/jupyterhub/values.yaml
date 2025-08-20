@@ -34,10 +34,29 @@ hub:
     00-authentik.py: |
       import os
       from oauthenticator.generic import GenericOAuthenticator
+      from tornado import gen
 
-      c.JupyterHub.authenticator_class = PatchedAuthenticator
+      # Dynamically map Authentik groups to JupyterHub roles
+      class GroupMappingAuthenticator(GenericOAuthenticator):
+          @gen.coroutine
+          def pre_spawn_start(self, user, spawner):
+              auth_state = yield user.get_auth_state()
+              if not auth_state:
+                  return
+              groups = auth_state.get("groups", [])
+              spawner.log.info("%s groups: %s", user.name, groups)
 
-      c.GenericOAuthenticator.oauth_callback_url = "https://jhub.jcan.dev/hub/oauth_callback"
+              # Promote users in "JupyterHub Admins" group to admin
+              if "JupyterHub Admins" in groups:
+                  user.admin = True
+
+              # Optionally, you could restrict spawn to members of "JupyterHub Users" only
+              if "JupyterHub Users" not in groups:
+                  raise Exception("Not authorized to spawn")
+
+      # Set the authenticator class
+      c.JupyterHub.authenticator_class = GroupMappingAuthenticator
+
       c.GenericOAuthenticator.client_id = os.environ["OAUTH_CLIENT_ID"]
       c.GenericOAuthenticator.client_secret = os.environ["OAUTH_CLIENT_SECRET"]
       c.GenericOAuthenticator.token_url = "https://auth.jcan.dev/application/o/token/"
@@ -47,6 +66,9 @@ hub:
       c.GenericOAuthenticator.scope = ["openid", "email", "profile"]
       c.GenericOAuthenticator.login_service = "Authentik"
       c.GenericOAuthenticator.username_key = "preferred_username"
+
+      # allow all Authentik users
+      c.Authenticator.whitelist = set()
 
     # authenticator_class: gitlab
     # GitLabOAuthenticator:
