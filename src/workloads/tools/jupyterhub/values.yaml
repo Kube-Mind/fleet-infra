@@ -1,4 +1,4 @@
-fullnameOverride: "jupyterhub"
+fullnameOverride: ""
 nameOverride:
 
 enabled: true
@@ -8,14 +8,14 @@ debug:
 
 hub:
   config:
-    # Authenticator:
-    #   admin_users:
-    #   - jesmigel
+    Authenticator:
+      admin_users:
+      - jesmigel
     JupyterHub:
       allow_named_servers: true
-      # admin_users:
-      #   - jesmigel
-      #   - admin
+      admin_users:
+        - jesmigel
+        - admin
       authenticator_class: generic-oauth
 
     # GenericOAuthenticator:
@@ -34,28 +34,8 @@ hub:
     00-authentik.py: |
       import os
       from oauthenticator.generic import GenericOAuthenticator
-      from tornado import gen
 
-      # Dynamically map Authentik groups to JupyterHub roles
-      class GroupMappingAuthenticator(GenericOAuthenticator):
-          @gen.coroutine
-          def pre_spawn_start(self, user, spawner):
-              auth_state = yield user.get_auth_state()
-              if not auth_state:
-                  return
-              groups = auth_state.get("groups", [])
-              spawner.log.info("%s groups: %s", user.name, groups)
-
-              # Promote users in "JupyterHub Admins" group to admin
-              if "JupyterHub Admins" in groups:
-                  user.admin = True
-
-              # Optionally, you could restrict spawn to members of "JupyterHub Users" only
-              if "JupyterHub Users" not in groups:
-                  raise Exception("Not authorized to spawn")
-
-      # Set the authenticator class
-      c.JupyterHub.authenticator_class = GroupMappingAuthenticator
+      c.JupyterHub.authenticator_class = GenericOAuthenticator
 
       c.GenericOAuthenticator.client_id = os.environ["OAUTH_CLIENT_ID"]
       c.GenericOAuthenticator.client_secret = os.environ["OAUTH_CLIENT_SECRET"]
@@ -67,8 +47,15 @@ hub:
       c.GenericOAuthenticator.login_service = "Authentik"
       c.GenericOAuthenticator.username_key = "preferred_username"
 
-      # allow all Authentik users
-      c.Authenticator.whitelist = set()
+      # enable group management
+      c.GenericOAuthenticator.manage_groups = True
+
+      # allow only users in these groups
+      c.GenericOAuthenticator.allowed_groups = ["JupyterHub Users", "JupyterHub Admins"]
+
+      # Users in these groups will be admins
+      c.GenericOAuthenticator.admin_groups = ["JupyterHub Admins"]
+
 
     # authenticator_class: gitlab
     # GitLabOAuthenticator:
