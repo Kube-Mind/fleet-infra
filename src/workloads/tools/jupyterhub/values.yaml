@@ -35,7 +35,7 @@ hub:
   extraVolumes:
     - name: secret-volume
       secret:
-        secretName: jhub-external-secret
+        secretName: jupyterhub-external-secret
 
   extraVolumeMounts:
     - name: secret-volume
