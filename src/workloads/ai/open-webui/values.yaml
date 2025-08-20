@@ -28,10 +28,6 @@ pipelines:
   extraEnvVars:
     - name: OLLAMA_BASE_URL
       value: "http://ollama.ollama.svc.cluster.local:11434"
-    - name: PIPELINES_URLS
-      value: |-
-        https://github.com/open-webui/pipelines/blob/main/examples/filters/detoxify_filter_pipeline.py,
-        https://github.com/open-webui/pipelines/blob/main/examples/stable-diffusion/sd_pipeline.py
     - name: PIPELINES_LOG_LEVEL
       value: "INFO"
     - name: STABLE_DIFFUSION_BASE_URL
@@ -350,6 +346,10 @@ extraEnvVars:
     value: "http://ollama.ollama.svc.cluster.local:11434"
   - name: PIPELINES_API_BASE_URL
     value: http://open-webui-pipelines:9099
+  - name: PIPELINES_URLS
+    value: |-
+      https://github.com/open-webui/pipelines/blob/main/examples/filters/detoxify_filter_pipeline.py,
+      https://github.com/open-webui/pipelines/blob/main/examples/stable-diffusion/sd_pipeline.py
 
 # -- Env vars added to the Open WebUI deployment, common across environments. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: environment variables defined in both `extraEnvVars` and `commonEnvVars` will result in a conflict. Avoid duplicates)
 commonEnvVars: []
