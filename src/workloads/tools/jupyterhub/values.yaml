@@ -7,7 +7,7 @@ debug:
   enabled: true
 
 hub:
-  public_url: https://jhub.jcan.dev
+  publicURL: https://jhub.jcan.dev
   config:
     Authenticator:
       admin_users:
