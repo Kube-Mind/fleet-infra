@@ -72,7 +72,7 @@ entries:
     attrs:
       name: JupyterHub
       group: Workloads
-      meta_description: Container Registry Management
+      meta_description: Jupyter notebook development environment
       icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/jupyter.png
       provider: !KeyOf jupyterhub_provider
       policy_engine_mode: any

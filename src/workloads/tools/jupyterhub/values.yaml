@@ -19,8 +19,6 @@ hub:
       authenticator_class: generic-oauth
 
     GenericOAuthenticator:
-      client_id: /etc/jupyterhub/secret/client-id
-      client_secret: /etc/jupyterhub/secret/client-secret
       token_url: "https://auth.jcan.dev/application/o/token/"
       authorize_url: "https://auth.jcan.dev/application/o/authorize/"
       userdata_url: "https://auth.jcan.dev/application/o/userinfo/"
@@ -31,16 +29,6 @@ hub:
       login_service: "Authentik"
       username_key: "preferred_username"
       userdata_params: {"state": "state"}
-
-  extraVolumes:
-    - name: secret-volume
-      secret:
-        secretName: jupyterhub-external-secret
-
-  extraVolumeMounts:
-    - name: secret-volume
-      mountPath: /etc/jupyterhub/secret
-      readOnly: true
 
     # authenticator_class: gitlab
     # GitLabOAuthenticator:
@@ -75,23 +63,25 @@ hub:
   #       spawner.environment['GITLAB_USER_NAME'] = auth_state['gitlab_user']['name']
   #     c.KubeSpawner.pre_spawn_hook = pre_spawn_hook
 
-  # extraEnv:
-  #   GITLAB_HOST: https://gitlab.com
-  #   OAUTH_CLIENT_ID:
-  #     valueFrom:
-  #       secretKeyRef:
-  #         name: jupyterhub-external-secret
-  #         key: GITLAB_APPLICATION_ID
-  #   OAUTH_CLIENT_SECRET:
-  #     valueFrom:
-  #       secretKeyRef:
-  #         name: jupyterhub-external-secret
-  #         key: GITLAB_CLIENT_SECRET
-  #   OAUTH_CALLBACK_URL:
-  #     valueFrom:
-  #       secretKeyRef:
-  #         name: jupyterhub-external-secret
-  #         key: GITLAB_CALLBACK_URL
+  extraEnv:
+    GITLAB_HOST: https://gitlab.com
+    OAUTH_CLIENT_ID:
+      valueFrom:
+        secretKeyRef:
+          name: jupyterhub-external-secret
+          key: JUPYTERHUB_CLIENT_ID
+          # key: GITLAB_APPLICATION_ID
+    OAUTH_CLIENT_SECRET:
+      valueFrom:
+        secretKeyRef:
+          name: jupyterhub-external-secret
+          key: JUPYTERHUB_CLIENT_SECRET
+          # key: GITLAB_CLIENT_SECRET
+    # OAUTH_CALLBACK_URL:
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: jupyterhub-external-secret
+    #       key: GITLAB_CALLBACK_URL
 
   networkPolicy:
     egress:

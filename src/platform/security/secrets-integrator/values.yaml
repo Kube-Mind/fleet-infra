@@ -333,14 +333,14 @@ externalSecret:
             key: platform/security/authentik
             metadataPolicy: None
             property: JUPYTERHUB_CLIENT_ID
-          secretKey: client-id
+          secretKey: JUPYTERHUB_CLIENT_ID
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
             key: platform/security/authentik
             metadataPolicy: None
             property: JUPYTERHUB_CLIENT_SECRET
-          secretKey: client-secret
+          secretKey: JUPYTERHUB_CLIENT_SECRET
 
     - name: "open-webui-external-secret"
       namespaces:
