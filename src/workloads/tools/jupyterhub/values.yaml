@@ -35,13 +35,9 @@ hub:
       import os
       from oauthenticator.generic import GenericOAuthenticator
 
-      class PatchedAuthenticator(GenericOAuthenticator):
-          @property
-          def oauth_callback_url(self):
-              return "https://jhub.jcan.dev/hub/oauth_callback"
-
       c.JupyterHub.authenticator_class = PatchedAuthenticator
 
+      c.GenericOAuthenticator.oauth_callback_url = "https://jhub.jcan.dev/hub/oauth_callback"
       c.GenericOAuthenticator.client_id = os.environ["OAUTH_CLIENT_ID"]
       c.GenericOAuthenticator.client_secret = os.environ["OAUTH_CLIENT_SECRET"]
       c.GenericOAuthenticator.token_url = "https://auth.jcan.dev/application/o/token/"
