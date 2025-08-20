@@ -21,9 +21,9 @@ hub:
     GenericOAuthenticator:
       client_id: /etc/jupyterhub/secret/client-id
       client_secret: /etc/jupyterhub/secret/client-secret
-      token_url: "https://authentik.example.com/application/o/token/"
-      authorize_url: "https://authentik.example.com/application/o/authorize/"
-      userdata_url: "https://authentik.example.com/application/o/userinfo/"
+      token_url: "https://auth.jcan.dev/application/o/token/"
+      authorize_url: "https://auth.jcan.dev/application/o/authorize/"
+      userdata_url: "https://auth.jcan.dev/application/o/userinfo/"
       scope:
         - openid
         - email
