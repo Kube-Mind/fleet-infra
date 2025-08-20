@@ -22,7 +22,7 @@ spec:
             ignoreDifferences:
               - group: ''
                 kind: Secret
-                name: hub
+                name: jupyterhub-hub
                 jsonPointers:
                   - /data/hub.config.ConfigurableHTTPProxy.auth_token
                   - /data/hub.config.CryptKeeper.keys
