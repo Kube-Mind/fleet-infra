@@ -19,6 +19,8 @@ hub:
       authenticator_class: generic-oauth
 
     GenericOAuthenticator:
+      client_id: ${OAUTH_CLIENT_ID}
+      client_secret: ${OAUTH_CLIENT_SECRET}
       token_url: "https://auth.jcan.dev/application/o/token/"
       authorize_url: "https://auth.jcan.dev/application/o/authorize/"
       userdata_url: "https://auth.jcan.dev/application/o/userinfo/"
