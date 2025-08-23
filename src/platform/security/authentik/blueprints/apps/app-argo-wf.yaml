@@ -1,0 +1,91 @@
+# yaml-language-server: $schema=https://goauthentik.io/blueprints/schema.json
+---
+version: 1
+metadata:
+  name: Apps - ArgoWF
+entries:
+  - id: argowf-admin-group
+    model: authentik_core.group
+    identifiers:
+      name: ArgoWF Admins
+    attrs:
+      name: ArgoWF Admins
+  
+  - id: argowf-viewer-group
+    model: authentik_core.group
+    identifiers:
+      name: ArgoWF Viewers
+    attrs:
+      name: ArgoWF Viewers
+  
+  - id: argowf_provider
+    model: authentik_providers_oauth2.oauth2provider
+    identifiers:
+      name: auth.jcan.dev/argowf
+    attrs:
+      authorization_flow:
+        !Find [
+          authentik_flows.flow,
+          [slug, "default-provider-authorization-implicit-consent"],
+        ]
+      signing_key:
+        !Find [
+          authentik_crypto.certificatekeypair,
+          [name, "authentik Self-signed Certificate"],
+        ]
+      invalidation_flow:
+        !Find [
+          authentik_flows.flow,
+          [slug, "default-provider-invalidation-flow"],
+        ]
+
+      client_type: confidential
+      redirect_uris:
+        - url: https://wf.jcan.dev/oauth2/callback
+          matching_mode: strict
+      client_id: !Env ARGOWF_CLIENT_ID
+      client_secret: !Env ARGOWF_CLIENT_SECRET
+      access_code_validity: minutes=1
+      access_token_validity: hours=1
+      refresh_token_validity: days=30
+
+      sub_mode: hashed_user_id
+      property_mappings:
+        - !Find [
+            authentik_core.propertymapping,
+            [name, "authentik default OAuth Mapping: OpenID 'openid'"],
+          ]
+        - !Find [
+            authentik_core.propertymapping,
+            [name, "authentik default OAuth Mapping: OpenID 'profile'"],
+          ]
+        - !Find [
+            authentik_core.propertymapping,
+            [name, "OAuth mapping: OpenID 'email' with mailPrimaryAddress"],
+          ]
+
+  - id: argowf_application
+    model: authentik_core.application
+    identifiers:
+      slug: argowf
+    attrs:
+      name: Argo Workflows
+      group: Workloads
+      meta_description: CI/CD Workflows
+      icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/argo-cd.png
+      provider: !KeyOf argowf_provider
+      policy_engine_mode: any
+
+  - model: authentik_policies.policybinding
+    identifiers:
+      target: !KeyOf argowf_application
+      group: !Find [authentik_core.group, [name, "ArgoWF Admins"]]
+    attrs:
+      order: 1
+  
+  - model: authentik_policies.policybinding
+    identifiers:
+      target: !KeyOf argowf_application
+      group: !Find [authentik_core.group, [name, "ArgoWF Viewers"]]
+    attrs:
+      order: 2

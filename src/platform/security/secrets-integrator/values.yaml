@@ -38,6 +38,20 @@ externalSecret:
             metadataPolicy: None
             property: regcred
           secretKey: config.json
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: ARGOWF_CLIENT_ID
+          secretKey: ARGOWF_CLIENT_ID
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: ARGOWF_CLIENT_SECRET
+          secretKey: ARGOWF_CLIENT_SECRET
     
     - name: "argocd-external-secret"
       namespaces:
@@ -143,6 +157,20 @@ externalSecret:
             metadataPolicy: None
             property: ARGOCD_CLIENT_SECRET
           secretKey: ARGOCD_CLIENT_SECRET
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: ARGOWF_CLIENT_ID
+          secretKey: ARGOWF_CLIENT_ID
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: ARGOWF_CLIENT_SECRET
+          secretKey: ARGOWF_CLIENT_SECRET
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None

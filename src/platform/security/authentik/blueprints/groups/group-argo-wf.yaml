@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=https://goauthentik.io/blueprints/schema.json
+---
+version: 1
+metadata:
+  name: Application Group - ArgoWF
+entries:
+  - id: argowf-admins
+    model: authentik_core.group
+    identifiers:
+      name: ArgoWF Admins
+    attrs:
+      name: ArgoWF Admins
+  - id: argowf-viewers
+    model: authentik_core.group
+    identifiers:
+      name: ArgoWF Viewers
+    attrs:
+      name: ArgoWF Viewers
