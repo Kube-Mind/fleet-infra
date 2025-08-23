@@ -78,10 +78,7 @@ workflow:
       # - name: my-service-account
       #   namespace: my-namespace
     # -- Additional rules for the service account that runs the workflows.
-    rules:
-      - apiGroups: [""]
-        resources: ["pods", "pods/log"]
-        verbs: ["get", "list", "watch"]
+    rules: []
 
 controller:
   image:
