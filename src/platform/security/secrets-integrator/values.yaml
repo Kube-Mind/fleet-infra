@@ -20,6 +20,25 @@ externalSecret:
               namespace: "secrets-integrator"
 
   externalSecrets:
+    - name: "argowf-external-secret"
+      namespaces:
+        - argo-workflows
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/part-of: argocd
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/storage/harbor
+            metadataPolicy: None
+            property: regcred
+          secretKey: config.json
+    
     - name: "argocd-external-secret"
       namespaces:
         - argo-cd
@@ -409,7 +428,6 @@ externalSecret:
 
     - name: "regcred-external-secrets"
       namespaces:
-        - argo-workflows
         - dnsfix
         - stable-diffusion-webui
       secretStoreRef:
