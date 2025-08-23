@@ -8,6 +8,9 @@ subjects:
   - kind: ServiceAccount
     name: argo-workflows-admin
     namespace: argo-workflows
+  - kind: Group
+    name: "ArgoWF Admins"   # Must match the group claim from Authentik
+    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: argo-workflows-admin-cluster
