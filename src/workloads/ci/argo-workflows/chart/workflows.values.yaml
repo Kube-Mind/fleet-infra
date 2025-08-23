@@ -755,14 +755,16 @@ server:
     # -- Scopes requested from the SSO ID provider
     ## The 'groups' scope requests group membership information, which is usually used for authorization decisions.
     scopes:
-      - groups
+      - openid
+      - profile
+      - email
     # -- Define how long your login is valid for (in hours)
     ## If omitted, defaults to 10h.
     sessionExpiry: ""
     # -- Alternate root URLs that can be included for some OIDC providers
     issuerAlias: ""
     # -- Override claim name for OIDC groups
-    customGroupClaimName: ""
+    customGroupClaimName: "ArgoWF Admins"
     # -- Specify the user info endpoint that contains the groups claim
     ## Configure this if your OIDC provider provides groups information only using the user-info endpoint (e.g. Okta)
     userInfoPath: ""
@@ -770,8 +772,8 @@ server:
     insecureSkipVerify: false
     # -- Filter the groups returned by the OIDC provider
     ## A logical "OR" is used between each regex in the list
-    filterGroupsRegex:
-      - "ArgoWF\ Admins"
+    filterGroupsRegex: []
+      # - "ArgoWF\ Admins"
       # - ".*argo-workflow.*"
 
   # -- Extra containers to be added to the server deployment
