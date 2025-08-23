@@ -62,7 +62,7 @@ workflow:
     # -- Annotations applied to created service account
     annotations: {}
     # -- Service account which is used to run workflows
-    name: "argo-workflows"
+    name: "default"
     # -- Secrets with credentials to pull images from a private registry. Same format as `.Values.images.pullSecrets`
     pullSecrets: []
   rbac:
