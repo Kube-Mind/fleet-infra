@@ -11,9 +11,9 @@ configMapGenerator:
       - notifications.yaml
       - oauth-scopes.yaml
       - ./apps/app-argo-cd.yaml
-      - ./apps/app-argo-wf.yaml
+      # - ./apps/app-argo-wf.yaml
       - ./groups/group-argo-cd.yaml
-      - ./groups/group-argo-wf.yaml
+      # - ./groups/group-argo-wf.yaml
       - ./apps/app-grafana.yaml
       - ./groups/group-grafana.yaml
       - ./apps/app-harbor.yaml
