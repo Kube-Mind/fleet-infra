@@ -53,16 +53,16 @@ singleNamespace: false
 
 workflow:
   # -- Deprecated; use controller.workflowNamespaces instead.
-  namespace:
+  # namespace:
   serviceAccount:
     # -- Specifies whether a service account should be created
-    create: false
+    create: true
     # -- Labels applied to created service account
     labels: {}
     # -- Annotations applied to created service account
     annotations: {}
     # -- Service account which is used to run workflows
-    name: "argo-workflow"
+    name: "argo-workflows"
     # -- Secrets with credentials to pull images from a private registry. Same format as `.Values.images.pullSecrets`
     pullSecrets: []
   rbac:
@@ -103,9 +103,9 @@ controller:
     # -- Allows controller to get, list, and watch certain k8s secrets
     secretWhitelist: []
     # -- Allows controller to get, list and watch all k8s secrets. Can only be used if secretWhitelist is empty.
-    accessAllSecrets: false
+    accessAllSecrets: true
     # -- Allows controller to create and update ConfigMaps. Enables memoization feature
-    writeConfigMaps: false
+    writeConfigMaps: true
 
   configMap:
     # -- Create a ConfigMap for the controller
