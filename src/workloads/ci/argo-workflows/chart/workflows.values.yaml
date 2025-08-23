@@ -770,8 +770,8 @@ server:
     insecureSkipVerify: false
     # -- Filter the groups returned by the OIDC provider
     ## A logical "OR" is used between each regex in the list
-    filterGroupsRegex: []
-      # - ".*argo-wf.*"
+    filterGroupsRegex:
+      - "ArgoWF Admins"
       # - ".*argo-workflow.*"
 
   # -- Extra containers to be added to the server deployment
