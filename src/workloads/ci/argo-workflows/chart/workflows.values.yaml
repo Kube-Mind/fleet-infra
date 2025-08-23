@@ -604,7 +604,7 @@ server:
   # -- Run the argo server in "secure" mode. Configure this value instead of `--secure` in extraArgs.
   ## See the following documentation for more details on secure mode:
   ## https://argo-workflows.readthedocs.io/en/stable/tls/
-  secure: true
+  secure: false
 
   # -- Extra environment variables to provide to the argo-server container
   extraEnv: []
@@ -618,6 +618,7 @@ server:
   ## Ref: https://argo-workflows.readthedocs.io/en/stable/argo-server-auth-mode/
   authModes:
     - "sso"
+    - "client"
 
   # -- Extra arguments to provide to the Argo server binary.
   ## Ref: https://argo-workflows.readthedocs.io/en/stable/argo-server/#options
