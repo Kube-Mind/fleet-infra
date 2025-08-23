@@ -409,6 +409,7 @@ externalSecret:
 
     - name: "regcred-external-secrets"
       namespaces:
+        - argo-workflows
         - dnsfix
         - stable-diffusion-webui
       secretStoreRef:
