@@ -742,7 +742,7 @@ server:
       # -- Key of a secret to retrieve the app OIDC client secret
       key: ARGOWF_CLIENT_SECRET
     # -- The OIDC redirect URL. Should be in the form <argo-root-url>/oauth2/callback.
-    redirectUrl: ""
+    redirectUrl: "https://wf.jcan.dev/oauth2/callback"
     rbac:
       # -- Adds ServiceAccount Policy to server (Cluster)Role.
       enabled: true
