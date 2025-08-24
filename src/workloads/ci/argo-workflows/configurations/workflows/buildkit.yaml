@@ -37,12 +37,12 @@ spec:
         value: https://github.com/argoproj/argo-workflows
       - name: branch
         value: main
-      - name: path
+      - name: dockerfile
         value: test/e2e/images/argosay/v2
       - name: image
         value: alexcollinsintuit/argosay:v2
       - name: context
-        value: "./"
+        value: "test/e2e/images/argosay/v2"
   entrypoint: main
   # We use a volume claim template so that we can have a shared workspace.
   volumeClaimTemplates:
@@ -69,8 +69,8 @@ spec:
             template: image
             arguments:
               parameters:
-                - name: path
-                  value: "{{workflow.parameters.path}}"
+                - name: dockerfile
+                  value: "{{workflow.parameters.dockerfile}}"
                 - name: image
                   value: "{{workflow.parameters.image}}"
                 - name: context
@@ -103,7 +103,7 @@ spec:
     - name: image
       inputs:
         parameters:
-          - name: path
+          - name: dockerfile
           - name: image
           - name: context
       # Mount the configuration so we can push the image.
@@ -124,7 +124,7 @@ spec:
             mountPath: /work
           - name: docker-config
             mountPath: /.docker
-        workingDir: /work/app/{{inputs.parameters.path}}
+        workingDir: /work/app/
         env:
           - name: BUILDKITD_FLAGS
             value: --oci-worker-no-process-sandbox
@@ -139,6 +139,6 @@ spec:
           - --local
           - context={{inputs.parameters.context}}
           - --local
-          - dockerfile=.
+          - dockerfile={{inputs.parameters.dockerfile}}
           - --output
           - type=image,name=ocr.jcan.dev/library/argosay,push=true

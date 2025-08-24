@@ -35,8 +35,8 @@ spec:
                       value: "{{inputs.parameters.repo}}"
                     - name: branch
                       value: "{{inputs.parameters.branch}}"
-                    - name: path
-                      value: "{{inputs.parameters.path}}"
+                    - name: dockerfile
+                      value: "{{inputs.parameters.dockerfile}}"
                     - name: image
                       value: "{{inputs.parameters.image}}"
                     - name: context
@@ -53,7 +53,7 @@ spec:
               dest: spec.arguments.parameters.1.value
             - src:
                 dependencyName: webhook-dep
-                dataKey: body.path
+                dataKey: body.dockerfile
               dest: spec.arguments.parameters.2.value
             - src:
                 dependencyName: webhook-dep
