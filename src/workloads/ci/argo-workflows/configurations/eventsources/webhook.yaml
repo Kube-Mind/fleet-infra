@@ -7,7 +7,7 @@ spec:
   service:
     ports:
       - port: 80      # Standard HTTP
-        targetPort: 8080   # Container port inside Argo EventSource pod
+        targetPort: 80   # Container port inside Argo EventSource pod
   webhook:
     webhook-buildkit:
       endpoint: /wf/webhooks/buildkit
