@@ -78,7 +78,10 @@ workflow:
       # - name: my-service-account
       #   namespace: my-namespace
     # -- Additional rules for the service account that runs the workflows.
-    rules: []
+    rules:
+      - apiGroups: ["argoproj.io"]
+        resources: ["workflowtemplates", "workflows"]
+        verbs: ["get", "list", "watch", "create", "update", "patch"]
 
 controller:
   image:
