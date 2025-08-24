@@ -42,7 +42,7 @@ spec:
       - name: dockerfile
         value: test/e2e/images/argosay/v2
       - name: image
-        value: alexcollinsintuit/argosay:v2
+        value: ocr.jcan.dev/library/argosay:0.0.1
       - name: context
         value: "test/e2e/images/argosay/v2"
   entrypoint: main
@@ -142,4 +142,4 @@ spec:
           - --local
           - dockerfile={{inputs.parameters.dockerfile}}
           - --output
-          - type=image,name=ocr.jcan.dev/library/argosay,push=true
+          - type=image,name={{inputs.parameters.image}},push=true
