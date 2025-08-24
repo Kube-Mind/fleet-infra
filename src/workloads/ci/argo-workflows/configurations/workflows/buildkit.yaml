@@ -111,6 +111,8 @@ spec:
         readinessProbe:
           exec:
             command: [ sh, -c, "buildctl debug workers" ]
+        securityContext:
+          privileged: true
         image: moby/buildkit:v0.9.3-rootless
         volumeMounts:
           - name: work
