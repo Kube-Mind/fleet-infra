@@ -41,6 +41,8 @@ spec:
         value: test/e2e/images/argosay/v2
       - name: image
         value: alexcollinsintuit/argosay:v2
+      - name: context
+        value: "./"
   entrypoint: main
   # We use a volume claim template so that we can have a shared workspace.
   volumeClaimTemplates:
@@ -71,6 +73,8 @@ spec:
                   value: "{{workflow.parameters.path}}"
                 - name: image
                   value: "{{workflow.parameters.image}}"
+                - name: context
+                  value: "{{workflow.parameters.context}}"
             depends: "clone"
 
     - name: clone
@@ -101,6 +105,7 @@ spec:
         parameters:
           - name: path
           - name: image
+          - name: context
       # Mount the configuration so we can push the image.
       # This should create the /.docker/config.json file.
       volumes:
@@ -132,7 +137,7 @@ spec:
           - --frontend
           - dockerfile.v0
           - --local
-          - context=.
+          - context={{inputs.parameters.context}}
           - --local
           - dockerfile=.
           - --output

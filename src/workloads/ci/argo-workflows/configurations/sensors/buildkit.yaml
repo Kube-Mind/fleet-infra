@@ -39,6 +39,8 @@ spec:
                       value: "{{inputs.parameters.path}}"
                     - name: image
                       value: "{{inputs.parameters.image}}"
+                    - name: context
+                      value: "{{inputs.parameters.context}}"
                 entrypoint: main
           parameters:
             - src:
@@ -57,3 +59,7 @@ spec:
                 dependencyName: webhook-dep
                 dataKey: body.image
               dest: spec.arguments.parameters.3.value
+            - src:
+                dependencyName: webhook-dep
+                dataKey: body.context
+              dest: spec.arguments.parameters.4.value
