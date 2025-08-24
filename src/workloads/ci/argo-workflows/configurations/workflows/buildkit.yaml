@@ -50,7 +50,7 @@ spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
-            storage: 64Mi
+            storage: 1Gi
   templates:
     - name: main
       dag:
