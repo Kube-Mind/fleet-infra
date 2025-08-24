@@ -94,7 +94,7 @@ spec:
           - "{{inputs.parameters.branch}}"
           - --single-branch
           - "{{inputs.parameters.repo}}"
-          - .
+          - app
     
     - name: image
       inputs:
