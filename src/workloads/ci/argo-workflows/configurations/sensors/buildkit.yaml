@@ -21,9 +21,11 @@ spec:
               apiVersion: argoproj.io/v1alpha1
               kind: WorkflowTemplate
               metadata:
-                name: buildkit
+                generateName: webhook-buildkit-
                 namespace: argo-workflows
               spec:
+                workflowTemplateRef:
+                  name: buildkit
                 arguments:
                   parameters:
                     # Pull dynamic values from the incoming event payload
