@@ -26,6 +26,8 @@ spec:
               metadata:
                 generateName: buildkit-
                 namespace: argo-workflows
+                annotations:
+                  argocd.argoproj.io/tracking-id: argo-workflows-configurations:argoproj.io/WorkflowTemplate:argo-workflows/buildkit
               spec:
                 workflowTemplateRef:
                   name: buildkit
