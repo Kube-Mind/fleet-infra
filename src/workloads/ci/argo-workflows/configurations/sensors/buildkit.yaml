@@ -33,11 +33,28 @@ spec:
                   parameters:
                     # Pull dynamic values from the incoming event payload
                     - name: repo
-                      value: "{{.Event.body.repo}}"
+                      value: ""
                     - name: branch
-                      value: "{{.Event.body.branch}}"
+                      value: ""
                     - name: path
-                      value: "{{.Event.body.path}}"
+                      value: ""
                     - name: image
-                      value: "{{.Event.body.image}}"
+                      value: ""
                 entrypoint: main
+  parameters:
+    - src:
+        dependencyName: webhook-dep
+        dataKey: body.repo
+      dest: spec.triggers.0.source.resource.spec.arguments.parameters.0.value
+    - src:
+        dependencyName: webhook-dep
+        dataKey: body.branch
+      dest: spec.triggers.0.source.resource.spec.arguments.parameters.1.value
+    - src:
+        dependencyName: webhook-dep
+        dataKey: body.path
+      dest: spec.triggers.0.source.resource.spec.arguments.parameters.2.value
+    - src:
+        dependencyName: webhook-dep
+        dataKey: body.image
+      dest: spec.triggers.0.source.resource.spec.arguments.parameters.3.value
