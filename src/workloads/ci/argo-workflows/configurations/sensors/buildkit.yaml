@@ -45,16 +45,16 @@ spec:
     - src:
         dependencyName: webhook-dep
         dataKey: body.repo
-      dest: spec.triggers.0.source.resource.spec.arguments.parameters.0.value
+      dest: spec.arguments.parameters.0.value
     - src:
         dependencyName: webhook-dep
         dataKey: body.branch
-      dest: spec.triggers.0.source.resource.spec.arguments.parameters.1.value
+      dest: spec.arguments.parameters.1.value
     - src:
         dependencyName: webhook-dep
         dataKey: body.path
-      dest: spec.triggers.0.source.resource.spec.arguments.parameters.2.value
+      dest: spec.arguments.parameters.2.value
     - src:
         dependencyName: webhook-dep
         dataKey: body.image
-      dest: spec.triggers.0.source.resource.spec.arguments.parameters.3.value
+      dest: spec.arguments.parameters.3.value
