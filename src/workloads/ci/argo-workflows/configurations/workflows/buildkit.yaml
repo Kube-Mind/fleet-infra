@@ -30,6 +30,8 @@ kind: WorkflowTemplate
 metadata:
   name: buildkit
   namespace: argo-workflows
+  annotations:
+    argocd.argoproj.io/tracking-id: argo-workflows-configurations:argoproj.io/WorkflowTemplate:argo-workflows/buildkit
 spec:
   arguments:
     parameters:
@@ -92,8 +94,7 @@ spec:
         # --depth, --branch, and --single-branch options
         args:
           - clone
-          - --depth
-          - "1"
+          - --recursive
           - --branch
           - "{{inputs.parameters.branch}}"
           - --single-branch
