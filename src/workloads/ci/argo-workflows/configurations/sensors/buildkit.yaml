@@ -31,30 +31,29 @@ spec:
                   name: buildkit
                 arguments:
                   parameters:
-                    # Pull dynamic values from the incoming event payload
                     - name: repo
-                      value: ""
+                      value: "{{inputs.parameters.repo}}"
                     - name: branch
-                      value: ""
+                      value: "{{inputs.parameters.branch}}"
                     - name: path
-                      value: ""
+                      value: "{{inputs.parameters.path}}"
                     - name: image
-                      value: ""
+                      value: "{{inputs.parameters.image}}"
                 entrypoint: main
-  parameters:
-    - src:
-        dependencyName: webhook-dep
-        dataKey: body.repo
-      dest: spec.arguments.parameters.0.value
-    - src:
-        dependencyName: webhook-dep
-        dataKey: body.branch
-      dest: spec.arguments.parameters.1.value
-    - src:
-        dependencyName: webhook-dep
-        dataKey: body.path
-      dest: spec.arguments.parameters.2.value
-    - src:
-        dependencyName: webhook-dep
-        dataKey: body.image
-      dest: spec.arguments.parameters.3.value
+          parameters:
+            - src:
+                dependencyName: webhook-dep
+                dataKey: body.repo
+              dest: spec.arguments.parameters.0.value
+            - src:
+                dependencyName: webhook-dep
+                dataKey: body.branch
+              dest: spec.arguments.parameters.1.value
+            - src:
+                dependencyName: webhook-dep
+                dataKey: body.path
+              dest: spec.arguments.parameters.2.value
+            - src:
+                dependencyName: webhook-dep
+                dataKey: body.image
+              dest: spec.arguments.parameters.3.value
