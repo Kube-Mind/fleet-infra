@@ -11,17 +11,20 @@ spec:
   triggers:
     - template:
         name: buildkit-trigger
-        k8s:
+        argoWorkflow:
           group: argoproj.io
           version: v1alpha1
-          resource: workflowtemplates
-          operation: create
+          resource: Workflow
+          operation: submit
+          metadata:
+            generateName: webhook-buildkit-
+            namespace: argo-workflows
           source:
             resource:
               apiVersion: argoproj.io/v1alpha1
-              kind: WorkflowTemplate
+              kind: Workflow
               metadata:
-                generateName: webhook-buildkit-
+                generateName: buildkit-
                 namespace: argo-workflows
               spec:
                 workflowTemplateRef:
