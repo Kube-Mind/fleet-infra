@@ -666,11 +666,11 @@ server:
     # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
     pathType: Prefix
     # -- Additional ingress paths
-    extraPaths: []
-      # - path: /*
-      #   backend:
-      #     serviceName: ssl-redirect
-      #     servicePort: use-annotation
+    extraPaths:
+      - path: /wf/*
+        backend:
+          serviceName: webhook-eventsource-svc
+          servicePort: 80
       ## for Kubernetes >=1.19 (when "networking.k8s.io/v1" is used)
       # - path: /*
       #   pathType: Prefix

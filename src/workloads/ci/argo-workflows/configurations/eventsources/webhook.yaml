@@ -10,7 +10,7 @@ spec:
         targetPort: 8080   # Container port inside Argo EventSource pod
   webhook:
     webhook-buildkit:
-      endpoint: /build-image
+      endpoint: /wf/webhooks/buildkit
       method: POST
       port: "80"
       # If using HTTPS ingress, Argo EventSource automatically handles TLS termination at ingress
