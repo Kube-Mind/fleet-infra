@@ -63,6 +63,9 @@ spec:
         namespace: '{{ .name }}'
         server: https://kubernetes.default.svc
       syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
         retry:
           limit: 1
           backoff:
