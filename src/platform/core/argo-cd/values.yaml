@@ -47,7 +47,7 @@ configs:
 
     # -- Enable local admin user
     ## Ref: https://argo-cd.readthedocs.io/en/latest/faq/#how-to-disable-admin-user
-    admin.enabled: false
+    admin.enabled: true
 
     kustomize.buildOptions: --enable-helm
     statusbadge.enabled: true
