@@ -5,7 +5,7 @@ IPV4        ?= 10.1.1.14
 API_SERVER_IP ?= 10.1.1.14
 TOKEN       ?= `ssh cloudy@$(API_SERVER_IP) sudo -S cat /var/lib/rancher/k3s/server/node-token`
 SSH_OPTS    ?= -o StrictHostKeyChecking=no
-.PHONY: echo-token join-control-plane join-worker init-controller label-workers
+.PHONY: echo-token join-control-plane join-worker init-controller
 
 init-controller:
 	@echo "Initializing controller node at $(IPV4)..."
@@ -36,12 +36,17 @@ join-worker:
 	ssh $(SSH_OPTS) $(IPV4) 'sudo curl -sfL https://get.k3s.io | sh -s - agent \
 	--token "$(TOKEN)" --server "https://$(API_SERVER_IP):6443" --bind-address=$(IPV4)'
 
-# kubectl label node  baldr  k3s-upgrade=true
-# kubectl label node  fenrir k3s-upgrade=true
-# kubectl label node  loki   k3s-upgrade=true
-# kubectl label node  odin   k3s-upgrade=true
-# kubectl label node  tyr    k3s-upgrade=true
+.PHONY: label-workers label-upgrade
+
 label-workers:
 	kubectl label node  baldr node-role.kubernetes.io/worker=true
 	kubectl label node  odin  node-role.kubernetes.io/worker=true
 	kubectl label node  turing  node-role.kubernetes.io/worker=true
+
+label-upgrade:
+	kubectl label node  baldr  k3s-upgrade=true
+	kubectl label node  fenrir k3s-upgrade=true
+	kubectl label node  loki   k3s-upgrade=true
+	kubectl label node  odin   k3s-upgrade=true
+	kubectl label node  tyr    k3s-upgrade=true
+	kubectl label node  turing k3s-upgrade=true
