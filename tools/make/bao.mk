@@ -1,6 +1,13 @@
 .PHONY: bao-shell bao-unseal bao-login
 
 OPENBAO_NAMESPACE=openbao
+OPENBAO_PATH=src/platform/security/openbao
+bao-setup:
+	$(call kustomize_apply,$(OPENBAO_PATH))
+
+bao-teardown:
+	$(call kustomize_delete,$(OPENBAO_PATH))
+
 bao-shell:
 	kubectl -n $(OPENBAO_NAMESPACE) exec -ti pod/openbao-0 -- sh
 
