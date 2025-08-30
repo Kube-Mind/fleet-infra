@@ -60,7 +60,12 @@ spec:
                 - '.spec.volumeClaimTemplates[].apiVersion'
                 - '.spec.volumeClaimTemplates[].kind'
           - name: longhorn
-            wave: 10
+            wave: 20
+            ignoreDifferences:
+              - group: apiextensions.k8s.io
+                kind: CustomResourceDefinition
+                jqPathExpressions:
+                  - .spec.preserveUnknownFields
           - name: nfs-provisioner
             wave: 10
   template:
