@@ -19,6 +19,8 @@ spec:
   destinations:
     - namespace: 'argo-cd'
       server: '*'
+    - namespace: 'sd-comfyui'
+      server: '*'
     - namespace: 'stable-diffusion-webui'
       server: '*'
     - namespace: 'ollama'

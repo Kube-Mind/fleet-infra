@@ -1,0 +1,95 @@
+# Default values for sd-comfyui.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: ocr.jcan.dev/library/comfyui
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+comfyui:
+  cli_args: "--cuda-device 0 --verbose DEBUG --fast"
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+extraEnvVars: []
+  # - name: ENV_VAR_NAME
+  #   value: ENV_VAR_VALUE
+  # - name: ENV_VAR_NAME_FROM_SECRET
+  #     valueFrom:
+  #       secretKeyRef:
+  #         name: secret-name
+  #         key: secret-key
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 4
+    memory: 32Gi
+  requests:
+    cpu: 4
+    memory: 32Gi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+# Additional volumes on the output Deployment definition.
+volumes: []
+# - name: foo
+#   secret:
+#     secretName: mysecret
+#     optional: false
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts:
+  - name: sd-models
+    path: /stable-diffusion/comfyui/models
+  - name: sd-output
+    path: /stable-diffusion/comfyui/output
+
+volumeClaimTemplates:
+  - metadata:
+      name: sd-models
+    storageSize: 100Gi
+  - metadata:
+      name: sd-output
+    storageSize: 50Gi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

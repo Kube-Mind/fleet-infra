@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: workloads-ai:argoproj.io/Application:argo-cd/stable-diffusion-webui
+    argocd.argoproj.io/sync-wave: '30'
+  labels:
+    app.kubernetes.io/instance: stable-diffusion-webui
+    app.kubernetes.io/component: stable-diffusion-webui
+    app.kubernetes.io/part-of: workloads-ai
+  name: stable-diffusion-webui-git-chart
+  namespace: argo-cd
+spec:
+  destination:
+    namespace: stable-diffusion-webui
+    server: https://kubernetes.default.svc
+  project: workloads-ai
+  sources:
+    - helm:
+        valueFiles:
+          - >-
+            $values/src/workloads/ai/stable-diffusion-webui/values.yaml
+      path: helm/sd-comfyui
+      repoURL: https://github.com/Kube-Mind/stable-diffusion-webui.git
+      targetRevision: HEAD
+    - ref: values
+      repoURL: https://github.com/Kube-Mind/fleet-infra.git
+      targetRevision: HEAD
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - ServerSideApply=true
+      - PruneLast=true
+      - RespectIgnoreDifferences=true

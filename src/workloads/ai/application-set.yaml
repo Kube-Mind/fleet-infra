@@ -18,6 +18,8 @@ spec:
   generators:
     - list:
         elements:
+          - name: sd-comfyui
+            wave: 30
           - name: stable-diffusion-webui
             wave: 30
           - name: ollama
