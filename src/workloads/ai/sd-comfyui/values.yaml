@@ -57,9 +57,11 @@ resources:
   limits:
     cpu: 4
     memory: 32Gi
+    nvidia.com/gpu: '1'
   requests:
     cpu: 4
     memory: 32Gi
+    nvidia.com/gpu: '1'
 
 autoscaling:
   enabled: false
@@ -94,4 +96,12 @@ nodeSelector: {}
 
 tolerations: []
 
-affinity: {}
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - "turing"
