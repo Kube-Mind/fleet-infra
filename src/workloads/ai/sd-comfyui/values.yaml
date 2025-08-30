@@ -77,9 +77,9 @@ volumes: []
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
   - name: sd-models
-    mountPath: /stable-diffusion/models
+    mountPath: /stable-diffusion/resources/comfyui/models
   - name: sd-output
-    mountPath: /stable-diffusion/output
+    mountPath: /stable-diffusion/resources/comfyui/output
 
 volumeClaimTemplates:
   - metadata:
