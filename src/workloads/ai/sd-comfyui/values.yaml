@@ -88,9 +88,13 @@ volumeClaimTemplates:
   - metadata:
       name: sd-models
     storageSize: 100Gi
+    storageClassName: local-storage
+    volumeName: sd-comfyui-models-pv
   - metadata:
       name: sd-output
     storageSize: 50Gi
+    storageClassName: local-storage
+    volumeName: sd-comfyui-output-pv
 
 nodeSelector: {}
 
