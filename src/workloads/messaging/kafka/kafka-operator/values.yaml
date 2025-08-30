@@ -1,6 +1,3 @@
-strimziOverrides:
-  kubeEntityOwnerKind: "Namespace"
-
 resources:
   limits:
     memory: 2Gi
