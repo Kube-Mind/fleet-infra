@@ -4,6 +4,7 @@ version: 1
 metadata:
   name: Notifications
 entries:
+  # Transport: Slack
   - id: transport
     model: authentik_events.notificationtransport
     identifiers:
@@ -13,42 +14,68 @@ entries:
       webhook_url: !Env AUTHENTIK_NOTIFICATIONS_SLACK_WEBHOOK
       send_once: true
 
-  - id: rule
+  # Rule for Blueprint Events
+  - id: rule_blueprints
     model: authentik_events.notificationrule
     identifiers:
-      name: slack-notify-exception-configuration-error
+      name: slack-notify-blueprints
+    attrs:
+      transports:
+        - !KeyOf transport
+      severity: info
+      event_severity: any
+      event_group: blueprint
+
+  # Rule for Authentication Events (specific admin groups)
+  - id: rule_auth_admins
+    model: authentik_events.notificationrule
+    identifiers:
+      name: slack-notify-auth-admins
     attrs:
       transports:
         - !KeyOf transport
       severity: alert
-      group: !Find [authentik_core.group, [name, "authentik Admins"]]
+      event_severity: any
+      event_group: authentication
+      groups:
+        - !Find [authentik_core.group, [name, "Argo CD Admins"]]
+        - !Find [authentik_core.group, [name, "ArgoWF Admins"]]
+        - !Find [authentik_core.group, [name, "authentik Admins"]]
 
+  # Policy bindings (reuse defaults)
   - model: authentik_policies.policybinding
     identifiers:
       order: 0
-      policy:
-        !Find [
-          authentik_policies.policy,
-          [name, "default-match-configuration-error"],
-        ]
-      target: !KeyOf rule
+      policy: !Find [authentik_policies.policy, [name, "default-match-configuration-error"]]
+      target: !KeyOf rule_blueprints
 
   - model: authentik_policies.policybinding
     identifiers:
       order: 1
-      policy:
-        !Find [
-          authentik_policies.policy,
-          [name, "default-match-policy-exception"],
-        ]
-      target: !KeyOf rule
+      policy: !Find [authentik_policies.policy, [name, "default-match-policy-exception"]]
+      target: !KeyOf rule_blueprints
 
   - model: authentik_policies.policybinding
     identifiers:
       order: 2
-      policy:
-        !Find [
-          authentik_policies.policy,
-          [name, "default-match-property-mapping-exception"],
-        ]
-      target: !KeyOf rule
+      policy: !Find [authentik_policies.policy, [name, "default-match-property-mapping-exception"]]
+      target: !KeyOf rule_blueprints
+
+  # Bind same default exception handling to authentication rule
+  - model: authentik_policies.policybinding
+    identifiers:
+      order: 0
+      policy: !Find [authentik_policies.policy, [name, "default-match-configuration-error"]]
+      target: !KeyOf rule_auth_admins
+
+  - model: authentik_policies.policybinding
+    identifiers:
+      order: 1
+      policy: !Find [authentik_policies.policy, [name, "default-match-policy-exception"]]
+      target: !KeyOf rule_auth_admins
+
+  - model: authentik_policies.policybinding
+    identifiers:
+      order: 2
+      policy: !Find [authentik_policies.policy, [name, "default-match-property-mapping-exception"]]
+      target: !KeyOf rule_auth_admins
