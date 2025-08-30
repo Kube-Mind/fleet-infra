@@ -2,7 +2,7 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: sd-comfyui-models-pv
+  name: sd-comfyui-output-pv
   labels:
     app.kubernetes.io/instance: sd-comfyui
     app.kubernetes.io/component: sd-comfyui
