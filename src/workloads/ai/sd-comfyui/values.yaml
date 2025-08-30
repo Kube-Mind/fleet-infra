@@ -17,6 +17,8 @@ fullnameOverride: ""
 comfyui:
   cli_args: "--cuda-device 0 --verbose DEBUG --fast"
 
+runtimeClassName: "nvidia"
+
 podAnnotations: {}
 podLabels: {}
 
