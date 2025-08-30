@@ -457,7 +457,6 @@ externalSecret:
     - name: "regcred-external-secrets"
       namespaces:
         - dnsfix
-        - stable-diffusion-webui
       secretStoreRef:
         name: vault
         kind: ClusterSecretStore
