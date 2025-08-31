@@ -21,19 +21,19 @@ entries:
       name: slack-notify-blueprints
     attrs:
       transports:
-        - !Reference [authentik_events.notificationtransport, [name, "Slack"]]
+        - !KeyOf transport
       severity: info
       event_severity: any
       event_group: blueprint
 
-  # Rule for Authentication Events (specific admin groups)
+  # Rule for Authentication Events
   - id: rule_auth_admins
     model: authentik_events.notificationrule
     identifiers:
       name: slack-notify-auth-admins
     attrs:
       transports:
-        - !Reference [authentik_events.notificationtransport, [name, "Slack"]]
+        - !KeyOf transport
       severity: alert
       event_severity: any
       event_group: authentication
@@ -42,40 +42,39 @@ entries:
         - !Find [authentik_core.group, [name, "ArgoWF Admins"]]
         - !Find [authentik_core.group, [name, "authentik Admins"]]
 
-  # Policy bindings (reuse defaults)
+  # Policy bindings
   - model: authentik_policies.policybinding
     identifiers:
       order: 0
       policy: !Find [authentik_policies.policy, [name, "default-match-configuration-error"]]
-      target: !Reference [authentik_events.notificationrule, [name, "slack-notify-blueprints"]]
+      target: !KeyOf rule_blueprints
 
   - model: authentik_policies.policybinding
     identifiers:
       order: 1
       policy: !Find [authentik_policies.policy, [name, "default-match-policy-exception"]]
-      target: !Reference [authentik_events.notificationrule, [name, "slack-notify-blueprints"]]
+      target: !KeyOf rule_blueprints
 
   - model: authentik_policies.policybinding
     identifiers:
       order: 2
       policy: !Find [authentik_policies.policy, [name, "default-match-property-mapping-exception"]]
-      target: !Reference [authentik_events.notificationrule, [name, "slack-notify-blueprints"]]
+      target: !KeyOf rule_blueprints
 
-  # Bind same default exception handling to authentication rule
   - model: authentik_policies.policybinding
     identifiers:
       order: 0
       policy: !Find [authentik_policies.policy, [name, "default-match-configuration-error"]]
-      target: !Reference [authentik_events.notificationrule, [name, "slack-notify-auth-admins"]]
+      target: !KeyOf rule_auth_admins
 
   - model: authentik_policies.policybinding
     identifiers:
       order: 1
       policy: !Find [authentik_policies.policy, [name, "default-match-policy-exception"]]
-      target: !Reference [authentik_events.notificationrule, [name, "slack-notify-auth-admins"]]
+      target: !KeyOf rule_auth_admins
 
   - model: authentik_policies.policybinding
     identifiers:
       order: 2
       policy: !Find [authentik_policies.policy, [name, "default-match-property-mapping-exception"]]
-      target: !Reference [authentik_events.notificationrule, [name, "slack-notify-auth-admins"]]
+      target: !KeyOf rule_auth_admins
