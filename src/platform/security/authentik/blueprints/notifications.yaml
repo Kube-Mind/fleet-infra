@@ -52,3 +52,26 @@ entries:
           [name, "default-match-property-mapping-exception"],
         ]
       target: !KeyOf rule
+
+  # --- New Section: Authentication Success Notifications ---
+
+  # Rule: Notify on all successful authentications
+  - id: rule_auth_success
+    model: authentik_events.notificationrule
+    identifiers:
+      name: slack-notify-auth-success
+    attrs:
+      transports:
+        - !KeyOf transport
+      severity: notice
+      event_severity: any
+      event_group: authentication
+      actions:
+        - authentication.succeeded
+
+  # Bind a default "always match" policy so the rule is active
+  - model: authentik_policies.policybinding
+    identifiers:
+      order: 0
+      policy: !Find [authentik_policies.policy, [name, "default-match-all"]]
+      target: !KeyOf rule_auth_success
