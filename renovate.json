@@ -71,7 +71,7 @@
       ],
       "depNameTemplate": "k3s-upgrade",
       "datasourceTemplate": "github-tags",
-      "registryUrlTemplate": "https://github.com/k3s-io/k3s-upgrade"
+      "registryUrlTemplate": "k3s-io/k3s-upgrade"
     }
   ]
 }
