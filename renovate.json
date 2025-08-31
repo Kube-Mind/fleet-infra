@@ -15,12 +15,16 @@
     "managerFilePatterns": ["**/values.yaml"]
   },
   "enabledManagers": [
-    "kustomize", "helm-values"
+    "kustomize",
+    "helm-values",
+    "regex"
   ],
   "packageRules": [
     {
       "matchManagers": [
-        "kustomize", "helm-values"
+        "kustomize",
+        "helm-values",
+        "regex"
       ],
       "groupName": "chore(deps): update helm charts and oci"
     }
