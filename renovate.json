@@ -65,7 +65,7 @@
     },
     {
       "customType": "regex",
-      "managerFilePatterns": ["plans/*.yaml"],
+      "managerFilePatterns": ["**/plans/agent.yaml", "**/plans/server.yaml"],
       "matchStrings": [
         "version:\\s*(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+\\+k3s[0-9]+)"
       ],
