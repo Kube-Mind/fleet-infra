@@ -4,6 +4,7 @@ version: 1
 metadata:
   name: Notifications
 entries:
+  # Transport: Slack
   - id: transport
     model: authentik_events.notificationtransport
     identifiers:
@@ -13,6 +14,7 @@ entries:
       webhook_url: !Env AUTHENTIK_NOTIFICATIONS_SLACK_WEBHOOK
       send_once: true
 
+  # Rule: Exception / Configuration Errors
   - id: rule
     model: authentik_events.notificationrule
     identifiers:
@@ -23,39 +25,27 @@ entries:
       severity: alert
       group: !Find [authentik_core.group, [name, "authentik Admins"]]
 
+  # Policy bindings (for exception notifications)
   - model: authentik_policies.policybinding
     identifiers:
       order: 0
-      policy:
-        !Find [
-          authentik_policies.policy,
-          [name, "default-match-configuration-error"],
-        ]
+      policy: !Find [authentik_policies.policy, [name, "default-match-configuration-error"]]
       target: !KeyOf rule
 
   - model: authentik_policies.policybinding
     identifiers:
       order: 1
-      policy:
-        !Find [
-          authentik_policies.policy,
-          [name, "default-match-policy-exception"],
-        ]
+      policy: !Find [authentik_policies.policy, [name, "default-match-policy-exception"]]
       target: !KeyOf rule
 
   - model: authentik_policies.policybinding
     identifiers:
       order: 2
-      policy:
-        !Find [
-          authentik_policies.policy,
-          [name, "default-match-property-mapping-exception"],
-        ]
+      policy: !Find [authentik_policies.policy, [name, "default-match-property-mapping-exception"]]
       target: !KeyOf rule
 
   # --- New Section: Authentication Success Notifications ---
 
-  # Rule: Notify on all successful authentications
   - id: rule_auth_success
     model: authentik_events.notificationrule
     identifiers:
@@ -66,10 +56,7 @@ entries:
       severity: notice
       event_severity: any
       event_group: authentication
-      actions:
-        - authentication.succeeded
 
-  # Bind a default "always match" policy so the rule is active
   - model: authentik_policies.policybinding
     identifiers:
       order: 3
