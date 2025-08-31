@@ -69,9 +69,8 @@
       "matchStrings": [
         "version:\\s*(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+\\+k3s[0-9]+)"
       ],
-      "depNameTemplate": "k3s-upgrade",
-      "datasourceTemplate": "github-tags",
-      "registryUrlTemplate": "k3s-io/k3s-upgrade"
+      "depNameTemplate": "k3s-io/k3s-upgrade",
+      "datasourceTemplate": "github-tags"
     }
   ]
 }
