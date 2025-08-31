@@ -72,6 +72,6 @@ entries:
   # Bind a default "always match" policy so the rule is active
   - model: authentik_policies.policybinding
     identifiers:
-      order: 0
+      order: 3
       policy: !Find [authentik_policies.policy, [name, "default-match-all"]]
       target: !KeyOf rule_auth_success
