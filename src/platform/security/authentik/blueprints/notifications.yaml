@@ -22,7 +22,7 @@ entries:
     attrs:
       transports:
         - !KeyOf transport
-      severity: info
+      severity: notice            # fixed: "info" → "notice"
       event_severity: any
       event_group: blueprint
 
@@ -42,7 +42,7 @@ entries:
         - !Find [authentik_core.group, [name, "ArgoWF Admins"]]
         - !Find [authentik_core.group, [name, "authentik Admins"]]
 
-  # Policy bindings
+  # Policy bindings (blueprint rule)
   - model: authentik_policies.policybinding
     identifiers:
       order: 0
@@ -61,6 +61,7 @@ entries:
       policy: !Find [authentik_policies.policy, [name, "default-match-property-mapping-exception"]]
       target: !KeyOf rule_blueprints
 
+  # Policy bindings (auth admin rule)
   - model: authentik_policies.policybinding
     identifiers:
       order: 0
