@@ -52,15 +52,15 @@ grafana:
       root_url: https://grafana.jcan.dev
       serve_from_sub_path: false
 
-  # datasources:
-  #   datasources.yaml:
-  #     apiVersion: 1
-  #     datasources: []
-  #     # - name: Prometheus
-  #     #   type: prometheus
-  #     #   url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090/
-  #     #   access: proxy
-  #     #   isDefault: false
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources: []
+      # - name: Prometheus
+      #   type: prometheus
+      #   url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090/
+      #   access: proxy
+      #   isDefault: false
 
   dashboards:
     default:
