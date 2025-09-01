@@ -67,11 +67,11 @@ grafana:
       k8s-dashboard:
         gnetId: 15661
         revision: 2
-        datasource: "-- Prometheus --"
+        datasource: "-- prometheus --"
       dcgm-exporter:
         gnetId: 22515
         revision: 1
-        datasource: "-- Prometheus --"
+        datasource: "-- prometheus --"
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
