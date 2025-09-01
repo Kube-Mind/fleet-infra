@@ -45,8 +45,8 @@ The `platform-network` group configures Kubernetes networking infrastructure, in
 
 | Component | Status | Description |
 |-----------|--------|-------------|
-| **dnsfix** | ![dnsfix](https://cd.jcan.dev/api/badge?name=dnsfix&revision=true&showAppName=true) | Applies DNS patches and workarounds to ensure reliable name resolution within the cluster. |
 | **cilium** | ![cilium](https://cd.jcan.dev/api/badge?name=cilium&revision=true&showAppName=true) | [Cilium](https://cilium.io/) is a high-performance CNI plugin providing networking, observability, and security policies. |
+| **dnsfix** | ![dnsfix](https://cd.jcan.dev/api/badge?name=dnsfix&revision=true&showAppName=true) | Applies DNS patches and workarounds to ensure reliable name resolution within the cluster. |
 | **letsencrypt** | ![letsencrypt](https://cd.jcan.dev/api/badge?name=letsencrypt&revision=true&showAppName=true) | Configures ACME issuers to enable automatic TLS certificates via cert-manager. |
 | **metallb** | ![metallb](https://cd.jcan.dev/api/badge?name=metallb&revision=true&showAppName=true) | [MetalLB](https://metallb.universe.tf/) provides a load balancer implementation for bare-metal clusters. |
 | **traefik** | ![traefik](https://cd.jcan.dev/api/badge?name=traefik&revision=true&showAppName=true) | [Traefik](https://traefik.io/) is an ingress controller and edge router for routing HTTP/S traffic. |
