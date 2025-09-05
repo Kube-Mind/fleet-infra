@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
 - project.yaml
-- application-set.yaml
+# - application-set.yaml
