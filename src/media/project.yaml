@@ -1,33 +1,25 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: workloads
+  name: media
   namespace: argo-cd
   annotations:
     argocd.argoproj.io/sync-wave: "-10"
-    argocd.argoproj.io/tracking-id: main:argoproj.io/Application:argo-cd/workloads
+    argocd.argoproj.io/tracking-id: main:argoproj.io/Application:argo-cd/media
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    app.kubernetes.io/instance: 'workloads'
+    app.kubernetes.io/instance: 'media'
     app.kubernetes.io/part-of: main
     app.kubernetes.io/managed-by: argo-cd
 spec:
-  description: Project for workloads applications
+  description: Project for media applications
   sourceRepos:
     - 'https://github.com/Kube-Mind/fleet-infra.git'
   destinations:
     - namespace: 'argo-cd'
       server: '*'
-    - namespace: 'workloads-ai'
-      server: '*'
-    - namespace: 'workloads-ci'
-      server: '*'
-    - namespace: 'workloads-messaging'
-      server: '*'
-    - namespace: 'workloads-tools'
-      server: '*'
-    - namespace: 'workloads-work'
+    - namespace: 'media-storage'
       server: '*'
   clusterResourceWhitelist:
     - group: '*'
