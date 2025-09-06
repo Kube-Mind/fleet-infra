@@ -7,6 +7,13 @@ tolerations:
   - key: node-role.kubernetes.io/etcd
     operator: Exists
     effect: NoExecute
+
+envoy:
+  tolerations:
+    - key: node-role.kubernetes.io/etcd
+      operator: Exists
+      effect: NoExecute
+
 hubble:
   relay:
     enabled: false
