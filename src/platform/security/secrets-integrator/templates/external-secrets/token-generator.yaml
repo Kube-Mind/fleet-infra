@@ -25,7 +25,7 @@ spec:
               args:
                 - -c
                 - 'kubectl delete secret --ignore-not-found=true bao-admin'
-              image: bitnami/kubectl:1.17.4
+              image: '{{ .Values.kubectl.image }}:{{ .Values.kubectl.tag }}'
               imagePullPolicy: IfNotPresent
               name: vault-token-secrets-cleanup
           containers:
@@ -34,7 +34,7 @@ spec:
               args:
                 - -c
                 - 'kubectl create secret generic bao-admin --from-file=token=/vault/secrets/token'
-              image: 'bitnami/kubectl:1.17.4'
+              image: '{{ .Values.kubectl.image }}:{{ .Values.kubectl.tag }}'
               imagePullPolicy: IfNotPresent
               name: bao-admin
           restartPolicy: Never

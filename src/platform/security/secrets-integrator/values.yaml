@@ -549,3 +549,6 @@ externalSecret:
             metadataPolicy: None
             property: regcred
 
+kubectl:
+  image: rancher/kubectl
+  tag: :v1.34.0-amd64
