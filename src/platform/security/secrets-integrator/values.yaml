@@ -551,4 +551,4 @@ externalSecret:
 
 kubectl:
   image: rancher/kubectl
-  tag: :v1.34.0-amd64
+  tag: v1.34.0-amd64
