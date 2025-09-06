@@ -21,19 +21,24 @@ spec:
         spec:
           initContainers:
             - command:
-                - bash
+                - kubectl
               args:
-                - -c
-                - 'kubectl delete secret --ignore-not-found=true bao-admin'
+                - delete
+                - secret
+                - --ignore-not-found=true
+                - bao-admin
               image: '{{ .Values.kubectl.image }}:{{ .Values.kubectl.tag }}'
               imagePullPolicy: IfNotPresent
               name: vault-token-secrets-cleanup
           containers:
             - command:
-                - bash
+                - kubectl
               args:
-                - -c
-                - 'kubectl create secret generic bao-admin --from-file=token=/vault/secrets/token'
+                - create
+                - secret
+                - generic
+                - bao-admin
+                - --from-file=token=/vault/secrets/token
               image: '{{ .Values.kubectl.image }}:{{ .Values.kubectl.tag }}'
               imagePullPolicy: IfNotPresent
               name: bao-admin
