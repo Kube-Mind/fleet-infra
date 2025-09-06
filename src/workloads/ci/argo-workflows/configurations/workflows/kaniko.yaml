@@ -88,7 +88,7 @@ spec:
           - name: docker-config
             mountPath: /kaniko/.docker
         args:
-          - --dockerfile={{inputs.parameters.dockerfile}}
+          - --dockerfile={{inputs.parameters.dockerfile}}/Dockerfile
           - --context=/work/app/{{inputs.parameters.context}}
           - --destination={{inputs.parameters.image}}
           - --cache=true
