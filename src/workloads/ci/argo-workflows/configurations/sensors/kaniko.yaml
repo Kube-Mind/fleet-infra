@@ -1,0 +1,67 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: kaniko-sensor
+  namespace: argo-workflows
+spec:
+  dependencies:
+    - name: webhook-dep
+      eventSourceName: webhook
+      eventName: webhook-kaniko
+  triggers:
+    - template:
+        name: kaniko-trigger
+        argoWorkflow:
+          group: argoproj.io
+          version: v1alpha1
+          resource: Workflow
+          operation: submit
+          metadata:
+            generateName: webhook-kaniko-
+            namespace: argo-workflows
+          source:
+            resource:
+              apiVersion: argoproj.io/v1alpha1
+              kind: Workflow
+              metadata:
+                generateName: kaniko-
+                namespace: argo-workflows
+                annotations:
+                  argocd.argoproj.io/tracking-id: argo-workflows-configurations:argoproj.io/WorkflowTemplate:argo-workflows/kaniko
+              spec:
+                workflowTemplateRef:
+                  name: kaniko
+                arguments:
+                  parameters:
+                    - name: repo
+                      value: "{{inputs.parameters.repo}}"
+                    - name: branch
+                      value: "{{inputs.parameters.branch}}"
+                    - name: dockerfile
+                      value: "{{inputs.parameters.dockerfile}}"
+                    - name: image
+                      value: "{{inputs.parameters.image}}"
+                    - name: context
+                      value: "{{inputs.parameters.context}}"
+                entrypoint: main
+          parameters:
+            - src:
+                dependencyName: webhook-dep
+                dataKey: body.repo
+              dest: spec.arguments.parameters.0.value
+            - src:
+                dependencyName: webhook-dep
+                dataKey: body.branch
+              dest: spec.arguments.parameters.1.value
+            - src:
+                dependencyName: webhook-dep
+                dataKey: body.dockerfile
+              dest: spec.arguments.parameters.2.value
+            - src:
+                dependencyName: webhook-dep
+                dataKey: body.image
+              dest: spec.arguments.parameters.3.value
+            - src:
+                dependencyName: webhook-dep
+                dataKey: body.context
+              dest: spec.arguments.parameters.4.value

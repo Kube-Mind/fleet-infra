@@ -13,4 +13,8 @@ spec:
       endpoint: /wf/webhooks/buildkit
       method: POST
       port: "80"
+    webhook-kaniko:
+      endpoint: /wf/webhooks/kaniko
+      method: POST
+      port: "80"
       # If using HTTPS ingress, Argo EventSource automatically handles TLS termination at ingress
