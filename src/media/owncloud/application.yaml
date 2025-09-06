@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: media-owncloud:argoproj.io/Application:argo-cd/owncloud-chart
+    argocd.argoproj.io/sync-wave: '30'
+  labels:
+    app.kubernetes.io/instance: owncloud
+    app.kubernetes.io/component: owncloud
+    app.kubernetes.io/part-of: media-owncloud
+  name: owncloud-chart
+  namespace: argo-cd
+spec:
+  destination:
+    namespace: owncloud
+    server: https://kubernetes.default.svc
+  project: media
+  sources:
+    - helm:
+        valueFiles:
+          - >-
+            $values/src/media/owncloud/values.yaml
+      path: charts/ocis
+      repoURL: https://github.com/owncloud/ocis-charts.git
+      targetRevision: HEAD
+    - ref: values
+      repoURL: https://github.com/Kube-Mind/fleet-infra.git
+      targetRevision: HEAD
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - ServerSideApply=true
+      - PruneLast=true
+      - RespectIgnoreDifferences=true

@@ -19,7 +19,7 @@ spec:
   destinations:
     - namespace: 'argo-cd'
       server: '*'
-    - namespace: 'media-storage'
+    - namespace: 'owncloud'
       server: '*'
   clusterResourceWhitelist:
     - group: '*'
