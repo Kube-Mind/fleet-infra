@@ -88,6 +88,12 @@ spec:
             secretName: argowf-external-secret
       container:
         image: gcr.io/kaniko-project/executor:v1.23.2
+        securityContext:
+          privileged: true
+        resources:
+          requests:
+            memory: "8Gi"
+            cpu: "8"
         workingDir: /work/app/
         volumeMounts:
           - name: work
