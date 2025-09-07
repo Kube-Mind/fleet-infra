@@ -16,6 +16,7 @@ spec:
   description: Project for media applications
   sourceRepos:
     - 'https://github.com/Kube-Mind/fleet-infra.git'
+    - https://github.com/owncloud/ocis-charts.git
   destinations:
     - namespace: 'argo-cd'
       server: '*'
