@@ -4,11 +4,3 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - application.yaml
-
-helmCharts:
-- name: jupyterhub
-  namespace: jupyterhub
-  repo: https://jupyterhub.github.io/helm-chart
-  valuesFile: values.yaml
-  version: 4.2.0
-  includeCRDs: true
