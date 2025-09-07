@@ -1560,21 +1560,22 @@ ingress:
   # required: true
   # @schema
   # -- Enables the Ingress.
-  enabled: false
+  enabled: true
   # @schema
   # type: [string, null]
   # required: false
   # @schema
   # -- Ingress class to use.
   # Uses the default ingress class if not set.
-  ingressClassName:
+  ingressClassName: traefik
   # @schema
   # $ref: schema/templates.json#/annotationsTemplate
   # @schema
   # -- Ingress annotations.
-  annotations: {}
+  annotations:
   # @schema
   # $ref: schema/templates.json#/labelsTemplate
+  cert-manager.io/cluster-issuer: letsencrypt-dev
   # @schema
   # -- Labels for the ingress.
   labels: {}
