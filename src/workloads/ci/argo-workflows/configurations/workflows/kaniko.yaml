@@ -24,6 +24,13 @@ spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
+            storage: 1Gi
+    - metadata:
+        name: build
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
             storage: 32Gi
   templates:
     - name: main
@@ -85,6 +92,8 @@ spec:
         volumeMounts:
           - name: work
             mountPath: /work
+          - name: build
+            mountPath: /kaniko/stages
           - name: docker-config
             mountPath: /kaniko/.docker
         args:
