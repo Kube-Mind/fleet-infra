@@ -1575,7 +1575,7 @@ ingress:
   annotations:
   # @schema
   # $ref: schema/templates.json#/labelsTemplate
-  cert-manager.io/cluster-issuer: letsencrypt-dev
+    cert-manager.io/cluster-issuer: letsencrypt-dev
   # @schema
   # -- Labels for the ingress.
   labels: {}
