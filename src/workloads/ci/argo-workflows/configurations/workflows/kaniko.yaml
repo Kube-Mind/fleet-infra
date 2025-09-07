@@ -91,4 +91,4 @@ spec:
           - --dockerfile={{inputs.parameters.dockerfile}}/Dockerfile
           - --context=/work/app/{{inputs.parameters.context}}
           - --destination={{inputs.parameters.image}}
-          - --cache=true
+          - --no-cache
