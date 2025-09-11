@@ -50,3 +50,49 @@ spec:
   kafkaExporter:
     topicRegex: ".*"
     groupRegex: ".*"
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaNodePool
+metadata:
+  name: auth-nodepool
+  namespace: kafka
+  labels:
+    strimzi.io/cluster: kafka-cluster
+spec:
+  replicas: 1
+  roles:
+    - controller
+    - broker
+  storage:
+    type: jbod
+    volumes:
+      - id: 0
+        size: 100Gi
+        type: persistent-claim
+        deleteClaim: false
+  authentication:
+    type: scram-sha-512
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: demo-user
+  namespace: kafka
+  labels:
+    strimzi.io/cluster: kafka-cluster
+spec:
+  authentication:
+    type: scram-sha-512
+  authorization:
+    type: simple
+    acls:
+      - resource:
+          type: topic
+          name: "*"
+          patternType: literal
+        operation: Read
+      - resource:
+          type: topic
+          name: "*"
+          patternType: literal
+        operation: Write
