@@ -213,6 +213,20 @@ externalSecret:
             metadataPolicy: None
             property: JUPYTERHUB_CLIENT_SECRET
           secretKey: JUPYTERHUB_CLIENT_SECRET
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: OWNCLOUD_CLIENT_ID
+          secretKey: OWNCLOUD_CLIENT_ID
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: OWNCLOUD_CLIENT_SECRET
+          secretKey: OWNCLOUD_CLIENT_SECRET
 
     - name: "dnsfix-external-secret"
       namespaces:
@@ -431,6 +445,33 @@ externalSecret:
             metadataPolicy: None
             property: PIPELINES_API_KEY
           secretKey: PIPELINES_API_KEY
+
+    - name: "owncloud-external-secret"
+      namespaces:
+        - owncloud
+      secretStoreRef:
+        name: vault
+        kind: ClusterSecretStore
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/part-of: argocd
+            argocd.argoproj.io/secret-type: repository
+      data:
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: OWNCLOUD_CLIENT_ID
+          secretKey: OWNCLOUD_CLIENT_ID
+        - remoteRef:
+            conversionStrategy: Default
+            decodingStrategy: None
+            key: platform/security/authentik
+            metadataPolicy: None
+            property: OWNCLOUD_CLIENT_SECRET
+          secretKey: OWNCLOUD_CLIENT_SECRET
 
     - name: "rabbitmq-external-secret"
       namespaces:

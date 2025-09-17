@@ -1,0 +1,91 @@
+# yaml-language-server: $schema=https://goauthentik.io/blueprints/schema.json
+---
+version: 1
+metadata:
+  name: Apps - OwnCloud
+entries:
+  - id: owncloud-admin-group
+    model: authentik_core.group
+    identifiers:
+      name: OwnCloud Admins
+    attrs:
+      name: OwnCloud Admins
+  
+  - id: owncloud-viewer-group
+    model: authentik_core.group
+    identifiers:
+      name: OwnCloud Viewers
+    attrs:
+      name: OwnCloud Viewers
+  
+  - id: owncloud_provider
+    model: authentik_providers_oauth2.oauth2provider
+    identifiers:
+      name: auth.jcan.dev/owncloud
+    attrs:
+      authorization_flow:
+        !Find [
+          authentik_flows.flow,
+          [slug, "default-provider-authorization-implicit-consent"],
+        ]
+      signing_key:
+        !Find [
+          authentik_crypto.certificatekeypair,
+          [name, "authentik Self-signed Certificate"],
+        ]
+      invalidation_flow:
+        !Find [
+          authentik_flows.flow,
+          [slug, "default-provider-invalidation-flow"],
+        ]
+
+      client_type: confidential
+      redirect_uris:
+        - url: https://owncloud.jcan.dev/apps/openidconnect/redirect
+          matching_mode: strict
+      client_id: !Env OWNCLOUD_CLIENT_ID
+      client_secret: !Env OWNCLOUD_CLIENT_SECRET
+      access_code_validity: minutes=1
+      access_token_validity: hours=1
+      refresh_token_validity: days=30
+
+      sub_mode: hashed_user_id
+      property_mappings:
+        - !Find [
+            authentik_core.propertymapping,
+            [name, "authentik default OAuth Mapping: OpenID 'openid'"],
+          ]
+        - !Find [
+            authentik_core.propertymapping,
+            [name, "authentik default OAuth Mapping: OpenID 'profile'"],
+          ]
+        - !Find [
+            authentik_core.propertymapping,
+            [name, "OAuth mapping: OpenID 'email' with mailPrimaryAddress"],
+          ]
+
+  - id: owncloud_application
+    model: authentik_core.application
+    identifiers:
+      slug: owncloud
+    attrs:
+      name: OwnCloud
+      group: Media
+      meta_description: Cloud Storage
+      icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/owncloud.png
+      provider: !KeyOf owncloud_provider
+      policy_engine_mode: any
+
+  - model: authentik_policies.policybinding
+    identifiers:
+      target: !KeyOf owncloud_application
+      group: !Find [authentik_core.group, [name, "OwnCloud Admins"]]
+    attrs:
+      order: 1
+  
+  - model: authentik_policies.policybinding
+    identifiers:
+      target: !KeyOf owncloud_application
+      group: !Find [authentik_core.group, [name, "OwnCloud Viewers"]]
+    attrs:
+      order: 2

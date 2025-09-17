@@ -38,6 +38,8 @@ spec:
       server: '*'
     - namespace: 'open-webui'
       server: '*'
+    - namespace: 'owncloud'
+      server: '*'
     - namespace: 'pft'
       server: '*'
     - namespace: 'rabbitmq'

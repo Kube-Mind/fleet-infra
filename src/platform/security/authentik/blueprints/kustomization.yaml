@@ -20,5 +20,7 @@ configMapGenerator:
       - ./groups/group-harbor.yaml
       - ./apps/app-jupyterhub.yaml
       - ./groups/group-jupyterhub.yaml
+      - ./apps/app-owncloud.yaml
+      - ./groups/group-owncloud.yaml
       - ./flows/flow-default-provider-authorization-one-time-consent.yaml
       - ./users/user-admin.yaml
