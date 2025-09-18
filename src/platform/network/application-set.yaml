@@ -22,6 +22,20 @@ spec:
             wave: 30
           - name: cilium
             wave: -20
+            ignoreDifferences:
+              - group: ''
+                kind: Secret
+                name: cilium-ca
+                jsonPointers:
+                  - /data/ca.crt
+                  - /data/ca.key
+              - group: ''
+                kind: Secret
+                name: hubble-server-certs
+                jsonPointers:
+                  - /data/a.crt
+                  - /data/tls.crt
+                  - /data/tls.key
           - name: letsencrypt
             wave: 10
           - name: metallb
@@ -66,3 +80,9 @@ spec:
           - ServerSideApply=true
           - PruneLast=true
           - RespectIgnoreDifferences=true
+  templatePatch: |
+    {{- if .ignoreDifferences }}
+    spec:
+      ignoreDifferences:
+      {{- toYaml .ignoreDifferences | nindent 12 }}
+    {{- end }}
