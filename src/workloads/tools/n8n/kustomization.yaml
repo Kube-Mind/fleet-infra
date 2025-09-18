@@ -9,5 +9,5 @@ helmCharts:
   namespace: n8n
   repo: oci://8gears.container-registry.com/library
   valuesFile: values.yaml
-  version: 1.0.14
+  version: 1.0.15
   includeCRDs: true
