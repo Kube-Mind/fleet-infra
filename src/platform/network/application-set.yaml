@@ -32,7 +32,7 @@ spec:
                 kind: Secret
                 name: hubble-server-certs
                 jsonPointers:
-                  - /data/a.crt
+                  - /data/ca.crt
                   - /data/tls.crt
                   - /data/tls.key
           - name: letsencrypt
