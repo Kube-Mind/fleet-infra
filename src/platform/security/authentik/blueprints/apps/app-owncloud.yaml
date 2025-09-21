@@ -19,7 +19,7 @@ entries:
       name: OwnCloud Viewers
 
   - id: owncloud_provider
-    model: authentik_providers_oidc.oidcprovider
+    model: authentik_providers_oauth2.oauth2provider   # ✅ fix: use oauth2provider
     identifiers:
       name: auth.jcan.dev/owncloud
     attrs:
@@ -38,7 +38,6 @@ entries:
 
       client_type: confidential
       redirect_uris:
-        # oCIS web client expects these redirect URIs
         - url: https://owncloud.jcan.dev/
           matching_mode: strict
         - url: https://owncloud.jcan.dev/oidc-callback.html
