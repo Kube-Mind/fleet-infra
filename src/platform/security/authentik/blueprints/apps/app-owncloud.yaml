@@ -2,7 +2,7 @@
 ---
 version: 1
 metadata:
-  name: Apps - OwnCloud Infinite Scale
+  name: Apps - OwnCloud
 entries:
   - id: owncloud-admin-group
     model: authentik_core.group
@@ -10,39 +10,38 @@ entries:
       name: OwnCloud Admins
     attrs:
       name: OwnCloud Admins
-
+  
   - id: owncloud-viewer-group
     model: authentik_core.group
     identifiers:
       name: OwnCloud Viewers
     attrs:
       name: OwnCloud Viewers
-
+  
   - id: owncloud_provider
-    model: authentik_providers_oauth2.oauth2provider   # ✅ fix: use oauth2provider
+    model: authentik_providers_oauth2.oauth2provider
     identifiers:
       name: auth.jcan.dev/owncloud
     attrs:
-      authorization_flow: !Find [
-        authentik_flows.flow,
-        [slug, "default-provider-authorization-implicit-consent"],
-      ]
-      signing_key: !Find [
-        authentik_crypto.certificatekeypair,
-        [name, "authentik Self-signed Certificate"],
-      ]
-      invalidation_flow: !Find [
-        authentik_flows.flow,
-        [slug, "default-provider-invalidation-flow"],
-      ]
+      authorization_flow:
+        !Find [
+          authentik_flows.flow,
+          [slug, "default-provider-authorization-implicit-consent"],
+        ]
+      signing_key:
+        !Find [
+          authentik_crypto.certificatekeypair,
+          [name, "authentik Self-signed Certificate"],
+        ]
+      invalidation_flow:
+        !Find [
+          authentik_flows.flow,
+          [slug, "default-provider-invalidation-flow"],
+        ]
 
       client_type: confidential
       redirect_uris:
-        - url: https://owncloud.jcan.dev/
-          matching_mode: strict
-        - url: https://owncloud.jcan.dev/oidc-callback.html
-          matching_mode: strict
-        - url: https://owncloud.jcan.dev/oidc-silent-redirect.html
+        - url: https://owncloud.jcan.dev/apps/openidconnect/redirect
           matching_mode: strict
       client_id: !Env OWNCLOUD_CLIENT_ID
       client_secret: !Env OWNCLOUD_CLIENT_SECRET
@@ -64,19 +63,15 @@ entries:
             authentik_core.propertymapping,
             [name, "OAuth mapping: OpenID 'email' with mailPrimaryAddress"],
           ]
-        - !Find [
-            authentik_core.propertymapping,
-            [name, "authentik default OAuth Mapping: OpenID 'groups'"],
-          ]
 
   - id: owncloud_application
     model: authentik_core.application
     identifiers:
       slug: owncloud
     attrs:
-      name: OwnCloud Infinite Scale
+      name: OwnCloud
       group: Media
-      meta_description: Cloud Storage
+      meta_description: Cloud
       icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/owncloud.png
       provider: !KeyOf owncloud_provider
       policy_engine_mode: any
@@ -87,7 +82,7 @@ entries:
       group: !Find [authentik_core.group, [name, "OwnCloud Admins"]]
     attrs:
       order: 1
-
+  
   - model: authentik_policies.policybinding
     identifiers:
       target: !KeyOf owncloud_application
