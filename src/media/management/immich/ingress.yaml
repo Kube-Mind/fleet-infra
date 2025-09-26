@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: immich-ingress
+  namespace: immich
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-dev
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: immich.jcan.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: immich-server
+                port:
+                  number: 2283
+  tls:
+    - hosts:
+        - immich.jcan.dev
+      secretName: immich-tls

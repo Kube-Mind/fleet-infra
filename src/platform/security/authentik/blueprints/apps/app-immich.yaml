@@ -41,7 +41,11 @@ entries:
 
       client_type: confidential
       redirect_uris:
-        - url: https://cd.jcan.dev/api/dex/callback
+        - url: https://immich.jcan.dev/auth/login
+          matching_mode: strict
+        - url: https://immich.jcan.dev/user-settings
+          matching_mode: strict
+        - url: app.immich:///oauth-callback
           matching_mode: strict
       client_id: !Env IMMICH_CLIENT_ID
       client_secret: !Env IMMICH_CLIENT_SECRET
