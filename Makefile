@@ -18,3 +18,6 @@ include $(MAKE_PATH)/longhorn.mk
 include $(MAKE_PATH)/password.mk
 include $(MAKE_PATH)/stable-diffusion.mk
 include $(MAKE_PATH)/traefik.mk
+
+# private helpers
+include privateRules.mk

@@ -85,6 +85,25 @@ workloads-setup:
 workloads-teardown:
 	$(call kustomize_delete,$(_WORKLOADS_PATH))
 
+# MEDIA APPLICATIONS
+.PHONY: media-owncloud-setup media-owncloud-teardown
+_MEDIA_OWNCLOUD_PATH = src/media/owncloud/
+
+media-owncloud-setup:
+	$(call kustomize_apply,$(_MEDIA_OWNCLOUD_PATH))
+
+media-owncloud-teardown:
+	$(call kustomize_delete,$(_MEDIA_OWNCLOUD_PATH))
+
+.PHONY: media-setup media-teardown
+_MEDIA_PATH = src/media/
+
+media-setup:
+	$(call kustomize_apply,$(_MEDIA_PATH))
+
+media-teardown:
+	$(call kustomize_delete,$(_MEDIA_PATH))
+
 # MAIN ArgoCD application
 .PHONY: main-setup main-teardown
 _MAIN_PATH = src/
