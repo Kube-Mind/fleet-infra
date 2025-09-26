@@ -31,7 +31,7 @@ entries:
         - !Find [authentik_core.group, [name, "JupyterHub Users"]]
         - !Find [authentik_core.group, [name, "OwnCloud Users"]]
   
-  - id: user-admin-backup
+  - id: cess-hime
     model: authentik_core.user
     identifiers:
       username: cess-hime
