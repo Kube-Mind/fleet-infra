@@ -8,3 +8,4 @@ resources:
 - immich-redis
 - immich-machine-learning
 - immich-server
+- ingress.yaml
