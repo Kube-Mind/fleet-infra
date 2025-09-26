@@ -8,3 +8,5 @@ data:
   UPLOAD_LOCATION: "/data"
   DB_DATABASE_NAME: "immichdb"
   DB_USERNAME: "immichuser"
+  DB_HOSTNAME: "immich-postgres.immich.svc.cluster.local"
+  REDIS_HOSTNAME: "immich-redis.svc.cluster.local"
