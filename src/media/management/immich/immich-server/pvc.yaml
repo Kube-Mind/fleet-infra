@@ -1,4 +1,4 @@
-##pvc.yaml
+---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -11,3 +11,14 @@ spec:
     requests:
       storage: 100Gi
   storageClassName: longhorn
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: immich-uploads-pvc
+  namespace: immich
+spec:
+  accessModes: [ "ReadWriteOnce" ]
+  resources:
+    requests:
+      storage: 20Gi
