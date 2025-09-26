@@ -23,6 +23,9 @@ spec:
                 name: immich-env
             - secretRef:
                 name: immich-external-secret
+          env:
+            - name: IMMICH_CONFIG_FILE
+              value: /config/immich-config.yaml
           volumeMounts:
             - name: uploads
               mountPath: /data
