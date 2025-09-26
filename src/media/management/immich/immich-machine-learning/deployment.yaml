@@ -20,6 +20,13 @@ spec:
           envFrom:
             - configMapRef:
                 name: immich-env
+          resources:
+            requests:
+              cpu: 1000m
+              memory: 2Gi
+            limits:
+              cpu: 4000m
+              memory: 6Gi
           volumeMounts:
             - name: model-cache
               mountPath: /cache
