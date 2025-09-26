@@ -2,17 +2,17 @@
 ---
 version: 1
 metadata:
-  name: Application Group - OwnCloud
+  name: Application Group - Immich
 entries:
-  - id: owncloud-admins
+  - id: immich-admins
     model: authentik_core.group
     identifiers:
-      name: OwnCloud Admins
+      name: Immich Admins
     attrs:
-      name: OwnCloud Admins
-  - id: owncloud-users
+      name: Immich Admins
+  - id: immich-users
     model: authentik_core.group
     identifiers:
-      name: OwnCloud Users
+      name: Immich Users
     attrs:
-      name: OwnCloud Users
+      name: Immich Users

@@ -30,6 +30,8 @@ spec:
       server: '*'
     - namespace: 'harbor'
       server: '*'
+    - namespace: 'immich'
+      server: '*'
     - namespace: 'jupyterhub'
       server: '*'
     - namespace: 'kube-prometheus-stack'

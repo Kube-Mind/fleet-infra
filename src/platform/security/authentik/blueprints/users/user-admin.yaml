@@ -19,6 +19,7 @@ entries:
         - !Find [authentik_core.group, [name, "ArgoWF Admins"]]
         - !Find [authentik_core.group, [name, "Grafana Admins"]]
         - !Find [authentik_core.group, [name, "Harbor Admins"]]
+        - !Find [authentik_core.group, [name, "Immich Admins"]]
         - !Find [authentik_core.group, [name, "JupyterHub Admins"]]
         - !Find [authentik_core.group, [name, "OwnCloud Admins"]]
         # membership in every user group
@@ -26,7 +27,8 @@ entries:
         - !Find [authentik_core.group, [name, "ArgoWF Viewers"]]
         - !Find [authentik_core.group, [name, "Grafana Users"]]
         - !Find [authentik_core.group, [name, "Harbor Users"]]
+        - !Find [authentik_core.group, [name, "Immich Users"]]
         - !Find [authentik_core.group, [name, "JupyterHub Users"]]
-        - !Find [authentik_core.group, [name, "OwnCloud Viewers"]]
+        - !Find [authentik_core.group, [name, "OwnCloud Users"]]
 
 

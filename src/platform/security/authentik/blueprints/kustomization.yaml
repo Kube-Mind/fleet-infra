@@ -11,13 +11,15 @@ configMapGenerator:
       - notifications.yaml
       - oauth-scopes.yaml
       - ./apps/app-argo-cd.yaml
-      - ./apps/app-argo-wf.yaml
       - ./groups/group-argo-cd.yaml
+      - ./apps/app-argo-wf.yaml
       - ./groups/group-argo-wf.yaml
       - ./apps/app-grafana.yaml
       - ./groups/group-grafana.yaml
       - ./apps/app-harbor.yaml
       - ./groups/group-harbor.yaml
+      - ./apps/app-immich.yaml
+      - ./groups/group-immich.yaml
       - ./apps/app-jupyterhub.yaml
       - ./groups/group-jupyterhub.yaml
       - ./apps/app-owncloud.yaml

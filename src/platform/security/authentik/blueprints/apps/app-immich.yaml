@@ -2,26 +2,26 @@
 ---
 version: 1
 metadata:
-  name: Apps - OwnCloud
+  name: Apps - Immich
 entries:
-  - id: owncloud-admin-group
+  - id: immich-admin-group
     model: authentik_core.group
     identifiers:
-      name: OwnCloud Admins
+      name: Immich Admins
     attrs:
-      name: OwnCloud Admins
+      name: Immich Admins
   
-  - id: owncloud-viewer-group
+  - id: immich-viewer-group
     model: authentik_core.group
     identifiers:
-      name: OwnCloud Users
+      name: Immich Users
     attrs:
-      name: OwnCloud Users
+      name: Immich Users
   
-  - id: owncloud_provider
+  - id: immich_provider
     model: authentik_providers_oauth2.oauth2provider
     identifiers:
-      name: auth.jcan.dev/owncloud
+      name: auth.jcan.dev/immich
     attrs:
       authorization_flow:
         !Find [
@@ -41,10 +41,10 @@ entries:
 
       client_type: confidential
       redirect_uris:
-        - url: https://owncloud.jcan.dev/apps/openidconnect/redirect
+        - url: https://cd.jcan.dev/api/dex/callback
           matching_mode: strict
-      client_id: !Env OWNCLOUD_CLIENT_ID
-      client_secret: !Env OWNCLOUD_CLIENT_SECRET
+      client_id: !Env IMMICH_CLIENT_ID
+      client_secret: !Env IMMICH_CLIENT_SECRET
       access_code_validity: minutes=1
       access_token_validity: hours=1
       refresh_token_validity: days=30
@@ -64,28 +64,28 @@ entries:
             [name, "OAuth mapping: OpenID 'email' with mailPrimaryAddress"],
           ]
 
-  - id: owncloud_application
+  - id: immich_application
     model: authentik_core.application
     identifiers:
-      slug: owncloud
+      slug: immich
     attrs:
-      name: OwnCloud
+      name: Immich
       group: Media
-      meta_description: Cloud
-      icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/owncloud.png
-      provider: !KeyOf owncloud_provider
+      meta_description: Photo and video management solution
+      icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/immich.png
+      provider: !KeyOf immich_provider
       policy_engine_mode: any
 
   - model: authentik_policies.policybinding
     identifiers:
-      target: !KeyOf owncloud_application
-      group: !Find [authentik_core.group, [name, "OwnCloud Admins"]]
+      target: !KeyOf immich_application
+      group: !Find [authentik_core.group, [name, "Immich Admins"]]
     attrs:
       order: 1
   
   - model: authentik_policies.policybinding
     identifiers:
-      target: !KeyOf owncloud_application
-      group: !Find [authentik_core.group, [name, "OwnCloud Users"]]
+      target: !KeyOf immich_application
+      group: !Find [authentik_core.group, [name, "Immich Users"]]
     attrs:
       order: 2
