@@ -382,6 +382,7 @@ externalSecret:
           labels:
             app.kubernetes.io/part-of: argocd
         data:
+          DB_PASSWORD: "{{ .IMMICH_DB_PASSWORD }}"
           immich-config.yaml: |
                 ffmpeg:
                   accel: disabled
@@ -526,7 +527,7 @@ externalSecret:
             key: media/management/immich
             metadataPolicy: None
             property: IMMICH_DB_PASSWORD
-          secretKey: DB_PASSWORD
+          secretKey: IMMICH_DB_PASSWORD
         - remoteRef:
             conversionStrategy: Default
             decodingStrategy: None
