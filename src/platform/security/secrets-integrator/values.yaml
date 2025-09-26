@@ -377,6 +377,7 @@ externalSecret:
         name: vault
         kind: ClusterSecretStore
       template:
+        engineVersion: v2
         metadata:
           labels:
             app.kubernetes.io/part-of: argocd
