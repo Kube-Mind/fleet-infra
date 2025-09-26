@@ -30,5 +30,31 @@ entries:
         - !Find [authentik_core.group, [name, "Immich Users"]]
         - !Find [authentik_core.group, [name, "JupyterHub Users"]]
         - !Find [authentik_core.group, [name, "OwnCloud Users"]]
+  - id: cess-hime
+    model: authentik_core.user
+    identifiers:
+      username: cess-hime
+    attrs:
+      username: cess-hime
+      name: Backup Admin User
+      email: !Env AUTHENTIK_BACKUP_ADMIN_EMAIL
+      password: !Env AUTHENTIK_BACKUP_ADMIN_PASSWORD
+      groups:
+        # admin-level groups
+        - !Find [authentik_core.group, [name, "ArgoCD Admins"]]
+        - !Find [authentik_core.group, [name, "ArgoWF Admins"]]
+        - !Find [authentik_core.group, [name, "Grafana Admins"]]
+        - !Find [authentik_core.group, [name, "Harbor Admins"]]
+        - !Find [authentik_core.group, [name, "Immich Admins"]]
+        - !Find [authentik_core.group, [name, "JupyterHub Admins"]]
+        - !Find [authentik_core.group, [name, "OwnCloud Admins"]]
+        # membership in every user group
+        - !Find [authentik_core.group, [name, "ArgoCD Viewers"]]
+        - !Find [authentik_core.group, [name, "ArgoWF Viewers"]]
+        - !Find [authentik_core.group, [name, "Grafana Users"]]
+        - !Find [authentik_core.group, [name, "Harbor Users"]]
+        - !Find [authentik_core.group, [name, "Immich Users"]]
+        - !Find [authentik_core.group, [name, "JupyterHub Users"]]
+        - !Find [authentik_core.group, [name, "OwnCloud Users"]]
 
 
