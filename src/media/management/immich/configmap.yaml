@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: immich-env
+  namespace: immich
+data:
+  UPLOAD_LOCATION: "/data"
+  DB_DATABASE_NAME: "immichdb"
+  DB_USERNAME: "immichuser"

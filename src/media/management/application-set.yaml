@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: media
+  name: media-management
   namespace: argo-cd
   annotations:
     argocd.argoproj.io/sync-wave: '0'
-    argocd.argoproj.io/tracking-id: default:argoproj.io/Application:argo-cd/media
+    argocd.argoproj.io/tracking-id: media:argoproj.io/Application:argo-cd/management
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    app.kubernetes.io/instance: media
-    app.kubernetes.io/part-of: main
+    app.kubernetes.io/instance: management
+    app.kubernetes.io/part-of: media
     app.kubernetes.io/managed-by: argo-cd
 spec:
   goTemplate: true
@@ -18,34 +18,33 @@ spec:
   generators:
     - list:
         elements:
-        - name: management
-          wave: 100
+          - name: immich
+            wave: 30
+          - name: owncloud
+            wave: 30
   template:
     metadata:
-      name: 'media-{{ .name }}'
+      name: '{{ .name }}'
       annotations:
-        argocd.argoproj.io/tracking-id: media:argoproj.io/Application:argo-cd/{{ .name }}
+        argocd.argoproj.io/tracking-id: media-management:argoproj.io/Application:argo-cd/{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"
       finalizers:
         - resources-finalizer.argocd.argoproj.io
       labels:
         app.kubernetes.io/instance: '{{ .name }}'
         app.kubernetes.io/component: '{{ .name }}'
-        app.kubernetes.io/part-of: media
+        app.kubernetes.io/part-of: media-management
     spec:
-      project: media
+      project: media-management
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
         targetRevision: HEAD
-        path: 'src/media/{{ .name }}'
+        path: 'src/media/management/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:
-        namespace: 'media-{{ .name }}'
+        namespace: '{{ .name }}'
         server: https://kubernetes.default.svc
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
         retry:
           limit: 1
           backoff:
