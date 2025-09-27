@@ -32,6 +32,12 @@
         "custom.regex"
       ],
       "groupName": "chore(deps): update helm charts and oci"
+    },
+    {
+      "matchFileNames": [
+        "src/platform/core/system-upgrade/**"
+      ],
+      "groupName": "chore(deps): system-upgrade"
     }
   ],
   "customManagers": [
