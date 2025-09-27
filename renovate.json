@@ -35,35 +35,12 @@
     },
     {
       "matchFileNames": [
-        "src/platform/core/system-upgrade/**"
+        "src/platform/core/system-upgrade-plans/**"
       ],
-      "groupName": "chore(deps): system-upgrade"
+      "groupName": "chore(deps): system-upgrade-plans"
     }
   ],
   "customManagers": [
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "**/apps.yaml"
-      ],
-      "matchStrings": [
-        "(?s)chartName:\\s(?<chartName>\\S+)\\s+installType:\\shelm\\s+repoURL:\\s(?<repoURL>\\S+)\\s+targetRevision:\\s(?<currentValue>\\S+)"
-      ],
-      "depNameTemplate": "{{{ chartName }}}",
-      "registryUrlTemplate": "{{{ repoURL }}}",
-      "datasourceTemplate": "helm"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "**/apps.yaml"
-      ],
-      "matchStrings": [
-        "(?s)chartName:\\s(?<chartName>\\S+)\\s+installType:\\soci\\s+repoURL:\\s(?<repoURL>\\S+)\\s+targetRevision:\\s(?<currentValue>\\S+)"
-      ],
-      "depNameTemplate": "{{{ repoURL }}}/{{{ chartName }}}",
-      "datasourceTemplate": "docker"
-    },
     {
       "customType": "regex",
       "managerFilePatterns": [
