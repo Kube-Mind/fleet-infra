@@ -26,3 +26,9 @@ node-feature-discovery:
       - key: node-role.kubernetes.io/etcd
         operator: Exists
         effect: NoExecute
+
+validator:
+  plugin:
+    env:	
+      - name: WITH_WORKLOAD	
+        value: 'false'
