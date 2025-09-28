@@ -24,3 +24,18 @@ service:
   ui:
     type: NodePort
     nodePort: 31412
+
+defaultBackupStore:
+  backupTarget: 'nfs://nfs.local:/volume4/snapshots/longhorn'
+  pollInterval: 180
+
+persistence:
+  defaultClass: true
+  defaultClassReplicaCount: 3
+  reclaimPolicy: Retain
+  defaultFsType: ext4
+  snapshotMaxCount: 60
+  defaultDataLocality: best-effort
+
+longhornDriver:
+  priorityClass: system-cluster-critical
