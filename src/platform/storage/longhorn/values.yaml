@@ -26,7 +26,7 @@ service:
     nodePort: 31412
 
 defaultBackupStore:
-  backupTarget: 'nfs://nfs.local:/volume4/snapshots/longhorn'
+  backupTarget: 'nfs://192.168.1.192:/volume4/snapshots/longhorn'
   pollInterval: 180
 
 persistence:
