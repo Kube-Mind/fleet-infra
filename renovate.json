@@ -31,13 +31,21 @@
         "helm-values",
         "custom.regex"
       ],
-      "groupName": "chore(deps): update helm charts and oci"
+      "matchFileNames": [
+        "src/workloads/**"
+      ],
+      "groupName": "chore(deps): update workloads helm charts and oci"
     },
     {
-      "matchFileNames": [
-        "src/platform/core/system-upgrade-plans/**"
+      "matchManagers": [
+        "kustomize",
+        "helm-values",
+        "custom.regex"
       ],
-      "groupName": "chore(deps): system-upgrade-plans"
+      "matchFileNames": [
+        "src/media/**"
+      ],
+      "groupName": "chore(deps): update media helm charts and oci"
     }
   ],
   "customManagers": [
