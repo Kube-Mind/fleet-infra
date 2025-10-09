@@ -3,7 +3,7 @@ apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
 metadata:
   name: backup-regular
-  namespace: longhorn-system
+  namespace: longhorn
 spec:
   cron: "0 */4 * * *"   # Every 4 hours (12AM, 4AM, 8AM, 12PM, 4PM, 8PM)
   task: "backup"
@@ -19,7 +19,7 @@ apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
 metadata:
   name: snapshot-cleanup
-  namespace: longhorn-system
+  namespace: longhorn
 spec:
   cron: "15 */6 * * *"
   task: "snapshot-cleanup"
