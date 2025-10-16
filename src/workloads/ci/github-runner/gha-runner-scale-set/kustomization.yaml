@@ -7,5 +7,5 @@ helmCharts:
   namespace: github-runner
   repo: oci://ghcr.io/actions/actions-runner-controller-charts
   valuesFile: values.yaml
-  version: 0.12.1
+  version: 0.13.0
   includeCRDs: true
