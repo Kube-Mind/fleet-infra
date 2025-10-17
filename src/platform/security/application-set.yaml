@@ -26,10 +26,12 @@ spec:
                 jsonPointers:
                   - /data/password
                   - /data/postgres-password
-              - group: ''
-                kind: PersistentVolumeClaim
+              - group: apps
+                kind: StatefulSet
                 jqPathExpressions:
-                - '.metadata.creationTimestamp'
+                - '.spec.volumeClaimTemplates[].apiVersion'
+                - '.spec.volumeClaimTemplates[].kind'
+                - '.spec.volumeClaimTemplates[].metadata.creationTimestamp'
 
           - name: openbao
             wave: 10
@@ -43,10 +45,7 @@ spec:
                 jqPathExpressions:
                 - '.spec.volumeClaimTemplates[].apiVersion'
                 - '.spec.volumeClaimTemplates[].kind'
-              - group: ''
-                kind: PersistentVolumeClaim
-                jqPathExpressions:
-                - '.metadata.creationTimestamp'
+                - '.spec.volumeClaimTemplates[].metadata.creationTimestamp'
 
           - name: secrets-integrator
             wave: 20
