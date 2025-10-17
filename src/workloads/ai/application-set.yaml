@@ -14,12 +14,16 @@ metadata:
     app.kubernetes.io/managed-by: argo-cd
 spec:
   goTemplate: true
-  goTemplateOptions: ["missingkey=error"]
   generators:
     - list:
         elements:
           - name: sd-comfyui
             wave: 30
+            ignoreDifferences:
+            - group: apps
+              kind: StatefulSet
+              jqPathExpressions:
+              - '.spec.volumeClaimTemplates[]'
           - name: ollama
             wave: 30
           - name: open-webui
@@ -59,3 +63,9 @@ spec:
           - ServerSideApply=true
           - PruneLast=true
           - RespectIgnoreDifferences=true
+  templatePatch: |
+    {{- if .ignoreDifferences }}
+    spec:
+      ignoreDifferences:
+      {{- toYaml .ignoreDifferences | nindent 12 }}
+    {{- end }}
