@@ -29,9 +29,7 @@ spec:
               - group: apps
                 kind: StatefulSet
                 jqPathExpressions:
-                - '.spec.volumeClaimTemplates[].apiVersion'
-                - '.spec.volumeClaimTemplates[].kind'
-                - '.spec.volumeClaimTemplates[].metadata.creationTimestamp'
+                - '.spec.volumeClaimTemplates[]'
 
           - name: openbao
             wave: 10
@@ -43,9 +41,7 @@ spec:
               - group: apps
                 kind: StatefulSet
                 jqPathExpressions:
-                - '.spec.volumeClaimTemplates[].apiVersion'
-                - '.spec.volumeClaimTemplates[].kind'
-                - '.spec.volumeClaimTemplates[].metadata.creationTimestamp'
+                - '.spec.volumeClaimTemplates[]'
 
           - name: secrets-integrator
             wave: 20
