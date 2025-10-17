@@ -26,6 +26,10 @@ spec:
                 jsonPointers:
                   - /data/password
                   - /data/postgres-password
+              - group: ''
+                kind: PersistentVolumeClaim
+                jqPathExpressions:
+                - '.metadata.creationTimestamp'
 
           - name: openbao
             wave: 10
