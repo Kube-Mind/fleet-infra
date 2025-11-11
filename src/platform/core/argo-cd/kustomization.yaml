@@ -9,4 +9,4 @@ helmCharts:
   namespace: argo-cd
   repo: https://argoproj.github.io/argo-helm
   valuesFile: values.yaml
-  version: 9.1.0
+  version: 9.1.1
