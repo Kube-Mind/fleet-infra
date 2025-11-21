@@ -10,4 +10,4 @@ helmCharts:
   releaseName: kafka
   repo: https://strimzi.io/charts/
   valuesFile: values.yaml
-  version: 0.48.0
+  version: 0.49.0
