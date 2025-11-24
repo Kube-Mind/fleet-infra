@@ -26,6 +26,9 @@ spec:
     args: ["prepare", "k3s-server"]
   drain:
     force: true
-    skipWaitForDeleteTimeout: 60 # 1.18+ (honor pod disruption budgets up to 60 seconds per pod then moves on)
+    skipWaitForDeleteTimeout: 60
+    skipWaitForEvictionTimeout: 30   # <–– after 30s, PDBs are ignored
+    evictLocalStoragePods: true
+    ignoreDaemonSets: true
   upgrade:
     image: rancher/k3s-upgrade
