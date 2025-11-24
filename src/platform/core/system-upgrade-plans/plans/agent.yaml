@@ -26,9 +26,8 @@ spec:
     args: ["prepare", "k3s-server"]
   drain:
     force: true
+    disableEviction: true     # <--- this bypasses all PDB constraints
     skipWaitForDeleteTimeout: 60
-    skipWaitForEvictionTimeout: 30   # <–– after 30s, PDBs are ignored
-    evictLocalStoragePods: true
     ignoreDaemonSets: true
   upgrade:
     image: rancher/k3s-upgrade
