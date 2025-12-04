@@ -10,5 +10,5 @@ helmCharts:
   releaseName: nvidia-operator
   repo: https://helm.ngc.nvidia.com/nvidia
   valuesFile: values.yaml
-  version: v25.3.4
+  version: v25.10.1
   includeCRDs: true
