@@ -39,8 +39,9 @@ spec:
                   - .spec.template.metadata.annotations."checksum/auth-token"
                   - .spec.template.metadata.annotations."checksum/secret"
 
-          - name: n8n
-            wave: 20
+          # TODO: re-enable n8n once we have a plan for handling its sensitive data
+          # - name: n8n
+          #   wave: 20
 
   template:
     metadata:
