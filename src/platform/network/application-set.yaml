@@ -57,7 +57,7 @@ spec:
       project: platform-network
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
-        targetRevision: HEAD
+        targetRevision: main
         path: 'src/platform/network/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:
