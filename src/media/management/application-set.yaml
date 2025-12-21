@@ -21,8 +21,8 @@ spec:
           - name: immich
             wave: 30
           # TODO: re-enable owncloud once we have a plan for handling its sensitive data
-          - name: owncloud
-            wave: 30
+          # - name: owncloud
+          #   wave: 30
   template:
     metadata:
       name: '{{ .name }}'
