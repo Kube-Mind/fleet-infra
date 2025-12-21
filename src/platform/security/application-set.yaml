@@ -60,7 +60,7 @@ spec:
       project: platform-security
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
-        targetRevision: HEAD
+        targetRevision: main
         path: 'src/platform/security/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:

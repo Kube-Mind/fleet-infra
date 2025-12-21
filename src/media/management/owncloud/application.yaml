@@ -22,10 +22,10 @@ spec:
             $values/src/media/owncloud/values.yaml
       path: charts/ocis
       repoURL: https://github.com/owncloud/ocis-charts.git
-      targetRevision: HEAD
+      targetRevision: main
     - ref: values
       repoURL: https://github.com/Kube-Mind/fleet-infra.git
-      targetRevision: HEAD
+      targetRevision: main
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

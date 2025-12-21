@@ -23,10 +23,10 @@ spec:
             $values/src/workloads/work/ska/test-parent/values.yaml
       path: charts/test-parent
       repoURL: https://gitlab.com/ska-telescope/pst/ska-pst.git
-      targetRevision: HEAD
+      targetRevision: main
     - ref: values
       repoURL: https://github.com/Kube-Mind/fleet-infra.git
-      targetRevision: HEAD
+      targetRevision: main
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

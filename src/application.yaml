@@ -17,7 +17,7 @@ spec:
   project: default
   sources:
     - repoURL: https://github.com/Kube-Mind/fleet-infra.git
-      targetRevision: HEAD
+      targetRevision: main
       path: src/
       kustomize: {}
   syncPolicy:

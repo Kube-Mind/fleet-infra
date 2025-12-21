@@ -34,7 +34,7 @@ spec:
       project: workloads-ci
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
-        targetRevision: HEAD
+        targetRevision: main
         path: 'src/workloads/ci/argo-workflows/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:

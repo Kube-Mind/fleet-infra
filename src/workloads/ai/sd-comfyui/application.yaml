@@ -22,10 +22,10 @@ spec:
             $values/src/workloads/ai/sd-comfyui/values.yaml
       path: helm/sd-comfyui
       repoURL: https://github.com/Kube-Mind/stable-diffusion-webui.git
-      targetRevision: HEAD
+      targetRevision: main
     - ref: values
       repoURL: https://github.com/Kube-Mind/fleet-infra.git
-      targetRevision: HEAD
+      targetRevision: main
   ignoreDifferences:
     - group: apps
       kind: StatefulSet

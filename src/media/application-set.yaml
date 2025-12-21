@@ -36,7 +36,7 @@ spec:
       project: media
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
-        targetRevision: HEAD
+        targetRevision: main
         path: 'src/media/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:

@@ -38,7 +38,7 @@ spec:
       project: workloads-work
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
-        targetRevision: HEAD
+        targetRevision: main
         path: 'src/workloads/work/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:

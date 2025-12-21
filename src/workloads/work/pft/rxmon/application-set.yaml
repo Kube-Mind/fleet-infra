@@ -51,7 +51,7 @@ spec:
           targetRevision: implement-rxmon-cli
         - ref: values
           repoURL: https://github.com/Kube-Mind/fleet-infra.git
-          targetRevision: HEAD
+          targetRevision: main
       syncPolicy:
         retry:
           limit: 1
