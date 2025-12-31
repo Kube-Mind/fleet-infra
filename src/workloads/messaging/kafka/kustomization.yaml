@@ -3,4 +3,5 @@ kind: Kustomization
 
 resources:
 - namespace.yaml
-- application-set.yaml
+- kafka-cluster.yaml
+- kafka-test-application.yaml

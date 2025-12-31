@@ -1,2 +1,0 @@
-strimziOverrides:
-  kubeEntityOwnerKind: "Namespace"
