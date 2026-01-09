@@ -13,7 +13,7 @@ helmCharts:
   releaseName: traefik
   repo: https://traefik.github.io/charts
   valuesFile: traefik-crds.values.yaml
-  version: 1.13.0
+  version: 1.13.1
 
 resources:
 - namespace.yaml
