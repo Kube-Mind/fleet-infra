@@ -6,12 +6,12 @@ helmCharts:
   namespace: argo-workflows
   repo: https://argoproj.github.io/argo-helm
   valuesFile: workflows.values.yaml
-  version: 0.47.0
+  version: 0.47.1
   includeCRDs: true
 
 - name: argo-events
   namespace: argo-workflows
   repo: https://argoproj.github.io/argo-helm
   valuesFile: events.values.yaml
-  version: 2.4.19
+  version: 2.4.20
   includeCRDs: true
