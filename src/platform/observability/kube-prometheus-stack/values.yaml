@@ -98,7 +98,6 @@ grafana:
     ingressClassName: traefik
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prd
-      external-dns.alpha.kubernetes.io/hostname: grafana.jcan.dev
     hosts:
     - grafana.jcan.dev
     tls:
