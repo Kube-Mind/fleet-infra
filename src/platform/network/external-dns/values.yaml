@@ -140,7 +140,9 @@ txtSuffix:  # @schema type:[string, null]; default: null
 
 # -- Limit possible target zones by domain suffixes.
 domainFilters:
-  - '*.jcan.dev'
+  - '*'
+  - 'jcan.dev'
+  - 'vpn'
 
 # -- Intentionally exclude domains from being managed.
 excludeDomains: []
