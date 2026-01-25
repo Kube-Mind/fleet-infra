@@ -18,10 +18,6 @@ spec:
   destinations:
     - namespace: 'authentik'
       server: '*'
-    - namespace: 'argo-cd'
-      server: '*'
-    - namespace: 'argo-workflows'
-      server: '*'
     - namespace: 'openbao'
       server: '*'
     - namespace: 'pft'
