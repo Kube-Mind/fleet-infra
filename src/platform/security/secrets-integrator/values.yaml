@@ -364,26 +364,6 @@ externalSecret:
           secretKey: GF_AUTH_AUTHENTIK_CLIENT_SECRET
           # GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
 
-    - name: "regcred-external-secrets"
-      namespaces:
-        - dnsfix
-      secretStoreRef:
-        name: vault
-        kind: ClusterSecretStore
-      template:
-        type: kubernetes.io/dockerconfigjson
-        data:
-          # workaround for helm to not render "<nil>" during rendering process in pre helm deployment
-          .dockerconfigjson: "{{ .base64Regcred | toString }}"
-      data:
-        - secretKey: base64Regcred
-          remoteRef:
-            conversionStrategy: Default	
-            decodingStrategy: None
-            key: platform/storage/harbor
-            metadataPolicy: None
-            property: regcred
-
     - name: "pft-external-secret"
       namespaces:
         - argo-cd

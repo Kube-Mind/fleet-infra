@@ -22,8 +22,6 @@ spec:
       server: '*'
     - namespace: 'argo-workflows'
       server: '*'
-    - namespace: 'dnsfix'
-      server: '*'
     - namespace: 'github-runner'
       server: '*'
     - namespace: 'gitlab-runner'
