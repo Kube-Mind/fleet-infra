@@ -121,7 +121,7 @@ gatewayNamespace:  # @schema type:[string, null]; default: null
 # -- _Kubernetes_ resources to monitor for DNS entries.
 sources:
   - service
-  - ingress
+#  - ingress
 
 # -- How DNS records are synchronized between sources and providers; available values are `create-only`, `sync`, & `upsert-only`.
 policy: upsert-only  # @schema enum:[create-only, sync, upsert-only]; type:string; default: "upsert-only"
@@ -162,11 +162,6 @@ provider:  # @schema type: [object, string]
   name: cloudflare
 
 env:
-  - name: CF_API_TOKEN
-    valueFrom:
-      secretKeyRef:
-        name: external-dns-external-secret
-        key: CF_API_TOKEN
   - name: CF_API_KEY
     valueFrom:
       secretKeyRef:
@@ -180,8 +175,7 @@ env:
 
 # -- Extra arguments to provide to _ExternalDNS_.
 # An array or map can be used, with maps allowing for value overrides; maps also support slice values to use the same arg multiple times.
-extraArgs: # @schema type: [array, null, object]; item: string; uniqueItems: true
-  - --source=service
+extraArgs: {} # @schema type: [array, null, object]; item: string; uniqueItems: true
 
 # -- (bool) No effect - reserved for use in sub-charting.
 enabled: true # @schema type: [boolean, null]; description: No effect - reserved for use in sub-charting
