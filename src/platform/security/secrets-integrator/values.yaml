@@ -100,43 +100,6 @@ externalSecret:
             property: ARGOCD_CLIENT_SECRET
           secretKey: ARGOCD_CLIENT_SECRET
 
-    - name: "github-runner-external-secret"
-      namespaces:
-        - github-runner
-      secretStoreRef:
-        name: vault
-        kind: ClusterSecretStore
-      data:
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: workloads/ci/github-runner
-            metadataPolicy: None
-            property: github_token
-          secretKey: github_token
-
-    - name: "gitlab-runner-external-secret"
-      namespaces:
-        - gitlab-runner
-      secretStoreRef:
-        name: vault
-        kind: ClusterSecretStore
-      data:
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: workloads/ci/gitlab-runner
-            metadataPolicy: None
-            property: runner-registration-token
-          secretKey: runner-registration-token
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: workloads/ci/gitlab-runner
-            metadataPolicy: None
-            property: runner-token
-          secretKey: runner-token
-
     - name: "pft-external-secret"
       namespaces:
         - argo-cd
