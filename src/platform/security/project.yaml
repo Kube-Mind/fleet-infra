@@ -16,8 +16,6 @@ spec:
   sourceRepos:
     - 'https://github.com/Kube-Mind/fleet-infra.git'
   destinations:
-    - namespace: 'authentik'
-      server: '*'
     - namespace: 'argo-cd'
       server: '*'
     - namespace: 'argo-workflows'
