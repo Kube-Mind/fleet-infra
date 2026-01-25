@@ -64,14 +64,14 @@ grafana:
 
   dashboards:
     default:
-      k8s-dashboard:
-        gnetId: 15661
-        revision: 2
-        datasource: Prometheus
-      dcgm-exporter:
-        gnetId: 22515
-        revision: 1
-        datasource: Prometheus
+    #  k8s-dashboard:
+    #    gnetId: 15661
+    #    revision: 2
+    #    datasource: "-- Prometheus --"
+    #  dcgm-exporter:
+    #    gnetId: 22515
+    #    revision: 1
+    #    datasource: "-- Prometheus --"
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
@@ -82,7 +82,6 @@ grafana:
           type: file
           disableDeletion: false
           editable: true
-          updateIntervalSeconds: 10
           options:
             path: /var/lib/grafana/dashboards/default
 
