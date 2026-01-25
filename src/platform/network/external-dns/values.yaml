@@ -101,7 +101,7 @@ serviceMonitor:
   targetLabels: []
 
 # -- Log level.
-logLevel: info  # @schema enum:[panic, debug, info, warning, error, fatal]; type:string; default: "info"
+logLevel: debug  # @schema enum:[panic, debug, info, warning, error, fatal]; type:string; default: "info"
 
 # -- Log format.
 logFormat: json  # @schema enum:["text", "json"]; type:string; default: "text"
@@ -142,6 +142,7 @@ txtSuffix:  # @schema type:[string, null]; default: null
 domainFilters:
   - '*'
   - 'jcan.dev'
+  - 'vpn'
 
 # -- Intentionally exclude domains from being managed.
 excludeDomains: []
