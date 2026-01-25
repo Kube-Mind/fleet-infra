@@ -20,11 +20,7 @@ spec:
       server: '*'
     - namespace: 'openbao'
       server: '*'
-    - namespace: 'pft'
-      server: '*'
     - namespace: 'secrets-integrator'
-      server: '*'
-    - namespace: 'stable-diffusion-webui'
       server: '*'
   clusterResourceWhitelist:
     - group: '*'
