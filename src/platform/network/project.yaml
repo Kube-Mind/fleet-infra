@@ -21,6 +21,8 @@ spec:
       server: '*'
     - namespace: 'dnsfix'
       server: '*'
+    - namespace: 'external-dns'
+      server: '*'
     - namespace: 'cilium'
       server: '*'
     - namespace: 'cilium-secrets'
@@ -30,6 +32,8 @@ spec:
     - namespace: 'metallb'
       server: '*'
     - namespace: 'traefik'
+      server: '*'
+    - namespace: 'secrets-integrator'
       server: '*'
   clusterResourceWhitelist:
     - group: '*'
