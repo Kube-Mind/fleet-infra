@@ -1,6 +1,10 @@
 grafana:
   enabled: true
   
+  service:
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: grafana.jcan.dev
+
   # enforce random password generation upon sync
   adminPassword: null
   envFromSecrets:
@@ -98,7 +102,6 @@ grafana:
     ingressClassName: traefik
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prd
-      external-dns.alpha.kubernetes.io/hostname: grafana.jcan.dev
     hosts:
     - grafana.jcan.dev
     tls:
