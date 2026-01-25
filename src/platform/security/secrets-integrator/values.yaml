@@ -604,48 +604,48 @@ externalSecret:
             property: JUPYTERHUB_CLIENT_SECRET
           secretKey: JUPYTERHUB_CLIENT_SECRET
 
-    - name: "open-webui-external-secret"
-      namespaces:
-        - open-webui
-      secretStoreRef:
-        name: vault
-        kind: ClusterSecretStore
-      data:
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: workloads/ai/open-webui
-            metadataPolicy: None
-            property: GITLAB_APPLICATION_ID
-          secretKey: OAUTH_CLIENT_ID
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: workloads/ai/open-webui
-            metadataPolicy: None
-            property: GITLAB_CLIENT_SECRET
-          secretKey: OAUTH_CLIENT_SECRET
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: workloads/ai/open-webui
-            metadataPolicy: None
-            property: GOOGLE_CLIENT_ID
-          secretKey: GOOGLE_CLIENT_ID
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: workloads/ai/open-webui
-            metadataPolicy: None
-            property: GOOGLE_CLIENT_SECRET
-          secretKey: GOOGLE_CLIENT_SECRET
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: workloads/ai/open-webui
-            metadataPolicy: None
-            property: PIPELINES_API_KEY
-          secretKey: PIPELINES_API_KEY
+    #- name: "open-webui-external-secret"
+    #  namespaces:
+    #    - open-webui
+    #  secretStoreRef:
+    #    name: vault
+    #    kind: ClusterSecretStore
+    #  data:
+    #    - remoteRef:
+    #        conversionStrategy: Default
+    #        decodingStrategy: None
+    #        key: workloads/ai/open-webui
+    #        metadataPolicy: None
+    #        property: GITLAB_APPLICATION_ID
+    #      secretKey: OAUTH_CLIENT_ID
+    #    - remoteRef:
+    #        conversionStrategy: Default
+    #        decodingStrategy: None
+    #        key: workloads/ai/open-webui
+    #        metadataPolicy: None
+    #        property: GITLAB_CLIENT_SECRET
+    #      secretKey: OAUTH_CLIENT_SECRET
+    #    - remoteRef:
+    #        conversionStrategy: Default
+    #        decodingStrategy: None
+    #        key: workloads/ai/open-webui
+    #        metadataPolicy: None
+    #        property: GOOGLE_CLIENT_ID
+    #      secretKey: GOOGLE_CLIENT_ID
+    #    - remoteRef:
+    #        conversionStrategy: Default
+    #        decodingStrategy: None
+    #        key: workloads/ai/open-webui
+    #        metadataPolicy: None
+    #        property: GOOGLE_CLIENT_SECRET
+    #      secretKey: GOOGLE_CLIENT_SECRET
+    #    - remoteRef:
+    #        conversionStrategy: Default
+    #        decodingStrategy: None
+    #        key: workloads/ai/open-webui
+    #        metadataPolicy: None
+    #        property: PIPELINES_API_KEY
+    #      secretKey: PIPELINES_API_KEY
 
     # - name: "owncloud-external-secret"
     #   namespaces:
@@ -673,28 +673,6 @@ externalSecret:
     #         metadataPolicy: None
     #         property: OWNCLOUD_CLIENT_SECRET
     #       secretKey: OWNCLOUD_CLIENT_SECRET
-
-    # - name: "rabbitmq-external-secret"
-    #   namespaces:
-    #     - rabbitmq
-    #   secretStoreRef:
-    #     name: vault
-    #     kind: ClusterSecretStore
-    #   data:
-    #     - remoteRef:
-    #         conversionStrategy: Default
-    #         decodingStrategy: None
-    #         key: workloads/messaging/rabbitmq
-    #         metadataPolicy: None
-    #         property: rabbitmq-password
-    #       secretKey: rabbitmq-password
-    #     - remoteRef:
-    #         conversionStrategy: Default
-    #         decodingStrategy: None
-    #         key: workloads/messaging/rabbitmq
-    #         metadataPolicy: None
-    #         property: rabbitmq-erlang-cookie
-    #       secretKey: rabbitmq-erlang-cookie
 
     - name: "regcred-external-secrets"
       namespaces:
