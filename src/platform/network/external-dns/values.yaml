@@ -133,7 +133,7 @@ registry: txt  # @schema enum:[txt, aws-sd, dynamodb, noop]; default: "txt"
 txtOwnerId:  # @schema type:[string, null]; default: null
 # -- (string) Specify a prefix for the domain names of TXT records created for the `txt` registry.
 # Mutually exclusive with `txtSuffix`.
-txtPrefix: txt-a # @schema type:[string, null]; default: null
+txtPrefix: txt # @schema type:[string, null]; default: null
 # -- (string) Specify a suffix for the domain names of TXT records created for the `txt` registry.
 # Mutually exclusive with `txtPrefix`.
 txtSuffix:  # @schema type:[string, null]; default: null
