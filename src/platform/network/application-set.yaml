@@ -19,6 +19,8 @@ spec:
         elements:
           - name: dnsfix
             wave: 30
+          - name: external-dns
+            wave: 30
           - name: cilium
             wave: -20
             ignoreDifferences:
