@@ -30,8 +30,6 @@ spec:
       server: '*'
     - namespace: 'harbor'
       server: '*'
-    - namespace: 'immich'
-      server: '*'
     - namespace: 'kube-prometheus-stack'
       server: '*'
     - namespace: 'openbao'
