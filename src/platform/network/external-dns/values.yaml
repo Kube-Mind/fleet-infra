@@ -133,7 +133,7 @@ registry: txt  # @schema enum:[txt, aws-sd, dynamodb, noop]; default: "txt"
 txtOwnerId:  # @schema type:[string, null]; default: null
 # -- (string) Specify a prefix for the domain names of TXT records created for the `txt` registry.
 # Mutually exclusive with `txtSuffix`.
-txtPrefix: txt # @schema type:[string, null]; default: null
+txtPrefix: # @schema type:[string, null]; default: null
 # -- (string) Specify a suffix for the domain names of TXT records created for the `txt` registry.
 # Mutually exclusive with `txtPrefix`.
 txtSuffix:  # @schema type:[string, null]; default: null
@@ -180,9 +180,7 @@ env:
 
 # -- Extra arguments to provide to _ExternalDNS_.
 # An array or map can be used, with maps allowing for value overrides; maps also support slice values to use the same arg multiple times.
-extraArgs:  # @schema type: [array, null, object]; item: string; uniqueItems: true
-  - --zone-id-filter=6aacaf4b857d91e0b54436470bbd6bd9
-  - --cloudflare-proxied
+extraArgs: {}  # @schema type: [array, null, object]; item: string; uniqueItems: true
 
 # -- (bool) No effect - reserved for use in sub-charting.
 enabled: true # @schema type: [boolean, null]; description: No effect - reserved for use in sub-charting
