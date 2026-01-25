@@ -612,11 +612,6 @@ tracing:  # @schema additionalProperties: false
         # -- When set to true, the TLS connection accepts any certificate presented by the server regardless of the hostnames it covers.
         insecureSkipVerify: false
 
-# -- Global command arguments to be passed to all traefik's pods
-globalArguments:
-  - "--global.checknewversion"
-  - "--global.sendanonymoususage"
-
 # -- Additional arguments to be passed at Traefik's binary
 # See [CLI Reference](https://docs.traefik.io/reference/static-configuration/cli/)
 # Use curly braces to pass values: `helm install --set="additionalArguments={--providers.kubernetesingress.ingressclass=traefik-internal,--log.level=DEBUG}"`
@@ -669,12 +664,6 @@ ports:
     protocol: TCP
     # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
     nodePort: 30080 # @schema type:[integer, null]; minimum:0
-    redirections:
-      # -- Port Redirections
-      # Added in 2.2, one can make permanent redirects via entrypoints.
-      # Same sets of parameters: to, scheme, permanent and priority.
-      # https://docs.traefik.io/routing/entrypoints/#redirection
-      entryPoint: {}
     forwardedHeaders:
       # -- Trust forwarded headers information (X-Forwarded-*).
       trustedIPs: []
@@ -748,14 +737,6 @@ ports:
       options: ""
       certResolver: ""
       domains: []
-    # -- One can apply Middlewares on an entrypoint
-    # https://doc.traefik.io/traefik/middlewares/overview/
-    # https://doc.traefik.io/traefik/routing/entrypoints/#middlewares
-    # -- /!\ It introduces here a link between your static configuration and your dynamic configuration /!\
-    # It follows the provider naming convention: https://doc.traefik.io/traefik/providers/overview/#provider-namespace
-    #   - namespace-name1@kubernetescrd
-    #   - namespace-name2@kubernetescrd
-    middlewares: []
   metrics:
     # -- When using hostNetwork, use another port to avoid conflict with node exporter:
     # https://github.com/prometheus/prometheus/wiki/Default-port-allocations
