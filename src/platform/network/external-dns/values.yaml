@@ -169,6 +169,16 @@ env:
       secretKeyRef:
         name: external-dns-external-secret
         key: CF_API_TOKEN
+  - name: CF_API_KEY
+    valueFrom:
+      secretKeyRef:
+        name: external-dns-external-secret
+        key: CF_API_KEY
+  - name: CF_API_EMAIL
+    valueFrom:
+      secretKeyRef:
+        name: external-dns-external-secret
+        key: CF_API_EMAIL
 
 # -- Extra arguments to provide to _ExternalDNS_.
 # An array or map can be used, with maps allowing for value overrides; maps also support slice values to use the same arg multiple times.
