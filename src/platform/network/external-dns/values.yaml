@@ -175,7 +175,8 @@ env:
 
 # -- Extra arguments to provide to _ExternalDNS_.
 # An array or map can be used, with maps allowing for value overrides; maps also support slice values to use the same arg multiple times.
-extraArgs: {} # @schema type: [array, null, object]; item: string; uniqueItems: true
+extraArgs: # @schema type: [array, null, object]; item: string; uniqueItems: true
+- --cloudflare-proxied
 
 # -- (bool) No effect - reserved for use in sub-charting.
 enabled: true # @schema type: [boolean, null]; description: No effect - reserved for use in sub-charting
