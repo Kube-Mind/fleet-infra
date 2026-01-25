@@ -28,8 +28,6 @@ spec:
       server: '*'
     - namespace: 'gitlab-runner'
       server: '*'
-    - namespace: 'harbor'
-      server: '*'
     - namespace: 'kube-prometheus-stack'
       server: '*'
     - namespace: 'openbao'
