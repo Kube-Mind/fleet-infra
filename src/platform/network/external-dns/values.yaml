@@ -120,8 +120,8 @@ gatewayNamespace:  # @schema type:[string, null]; default: null
 
 # -- _Kubernetes_ resources to monitor for DNS entries.
 sources:
-  - service
-#  - ingress
+#  - service
+  - ingress
 
 # -- How DNS records are synchronized between sources and providers; available values are `create-only`, `sync`, & `upsert-only`.
 policy: upsert-only  # @schema enum:[create-only, sync, upsert-only]; type:string; default: "upsert-only"
