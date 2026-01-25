@@ -325,44 +325,6 @@ externalSecret:
             metadataPolicy: None
             property: runner-token
           secretKey: runner-token
-  
-    - name: "grafana-external-secret"
-      namespaces:
-        - kube-prometheus-stack
-      secretStoreRef:
-        name: vault
-        kind: ClusterSecretStore
-      data:
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: platform/observability/grafana
-            metadataPolicy: None
-            property: GITLAB_APPLICATION_ID
-          secretKey: GF_AUTH_GITLAB_CLIENT_ID
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: platform/observability/grafana
-            metadataPolicy: None
-            property: GITLAB_CLIENT_SECRET
-          secretKey: GF_AUTH_GITLAB_CLIENT_SECRET
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: platform/security/authentik
-            metadataPolicy: None
-            property: GRAFANA_CLIENT_ID
-          secretKey: GF_AUTH_AUTHENTIK_CLIENT_ID
-          # GF_AUTH_GENERIC_OAUTH_CLIENT_ID
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: platform/security/authentik
-            metadataPolicy: None
-            property: GRAFANA_CLIENT_SECRET
-          secretKey: GF_AUTH_AUTHENTIK_CLIENT_SECRET
-          # GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
 
     - name: "pft-external-secret"
       namespaces:

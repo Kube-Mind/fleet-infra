@@ -26,8 +26,6 @@ spec:
       server: '*'
     - namespace: 'gitlab-runner'
       server: '*'
-    - namespace: 'kube-prometheus-stack'
-      server: '*'
     - namespace: 'openbao'
       server: '*'
     - namespace: 'pft'
