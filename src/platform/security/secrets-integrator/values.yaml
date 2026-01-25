@@ -674,27 +674,27 @@ externalSecret:
     #         property: OWNCLOUD_CLIENT_SECRET
     #       secretKey: OWNCLOUD_CLIENT_SECRET
 
-    - name: "rabbitmq-external-secret"
-      namespaces:
-        - rabbitmq
-      secretStoreRef:
-        name: vault
-        kind: ClusterSecretStore
-      data:
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: workloads/messaging/rabbitmq
-            metadataPolicy: None
-            property: rabbitmq-password
-          secretKey: rabbitmq-password
-        - remoteRef:
-            conversionStrategy: Default
-            decodingStrategy: None
-            key: workloads/messaging/rabbitmq
-            metadataPolicy: None
-            property: rabbitmq-erlang-cookie
-          secretKey: rabbitmq-erlang-cookie
+    # - name: "rabbitmq-external-secret"
+    #   namespaces:
+    #     - rabbitmq
+    #   secretStoreRef:
+    #     name: vault
+    #     kind: ClusterSecretStore
+    #   data:
+    #     - remoteRef:
+    #         conversionStrategy: Default
+    #         decodingStrategy: None
+    #         key: workloads/messaging/rabbitmq
+    #         metadataPolicy: None
+    #         property: rabbitmq-password
+    #       secretKey: rabbitmq-password
+    #     - remoteRef:
+    #         conversionStrategy: Default
+    #         decodingStrategy: None
+    #         key: workloads/messaging/rabbitmq
+    #         metadataPolicy: None
+    #         property: rabbitmq-erlang-cookie
+    #       secretKey: rabbitmq-erlang-cookie
 
     - name: "regcred-external-secrets"
       namespaces:

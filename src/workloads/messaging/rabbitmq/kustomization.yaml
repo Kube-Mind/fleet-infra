@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
+  - external-secret.yaml
   
   # RabbitMQ Operator deployment manifests (replace URL with the correct version)
   - https://github.com/rabbitmq/cluster-operator/releases/download/v2.15.0/cluster-operator.yml
