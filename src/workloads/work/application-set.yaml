@@ -18,8 +18,8 @@ spec:
   generators:
     - list:
         elements:
-        - name: pft
-          wave: 50
+        # - name: pft
+        #   wave: 50
         - name: ska
           wave: 50
   template:
