@@ -15,7 +15,9 @@ spec:
   description: Project for security platform applications
   sourceRepos:
     - 'https://github.com/Kube-Mind/fleet-infra.git'
-  destinations:
+  destinations:  
+    - namespace: 'argo-cd'
+      server: '*'
     - namespace: 'authentik'
       server: '*'
     - namespace: 'openbao'
