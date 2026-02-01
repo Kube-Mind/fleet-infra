@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - external-secret.yaml
-- grafana-dashboards/kustomization.yaml
+- grafana-dashboards
 
 helmCharts:
 - name: kube-prometheus-stack
