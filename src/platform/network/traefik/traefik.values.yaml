@@ -390,7 +390,7 @@ logs:
 
 metrics:
   # -- Enable metrics for internal resources. Default: false
-  addInternals: false
+  addInternals: true
 
   ## Prometheus is enabled by default.
   ## It can be disabled by setting "prometheus: null"
