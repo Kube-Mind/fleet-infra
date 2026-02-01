@@ -85,46 +85,8 @@ runners:
   ## Active if runners.config is empty or null
   configPath: ""
 
-  ## Which executor should be used
-  ##
-  # executor: kubernetes
-
-  ## DEPRECATED: Specify whether the runner should be locked to a specific project: true, false.
-  ##
-  ## ref: https://docs.gitlab.com/ee/ci/runners/new_creation_workflow.html
-  ##
-  # locked: true
-
-  ## DEPRECATED: Specify the tags associated with the runner. Comma-separated list of tags.
-  ##
-  ## ref: https://docs.gitlab.com/ee/ci/runners/new_creation_workflow.html
-  ##
-  # tags: ""
-
-  ## Specify the name for the runner.
-  ##
-  # name: ""
-
-  ## DEPRECATED: Specify the maximum timeout (in seconds) that will be set for job when using this Runner
-  ##
-  ## ref: https://docs.gitlab.com/ee/ci/runners/new_creation_workflow.html
-  ##
-  # maximumTimeout: ""
-
-  ## DEPRECATED: Specify if jobs without tags should be run.
-  ##
-  ## ref: https://docs.gitlab.com/ee/ci/runners/new_creation_workflow.html
-  ##
-  # runUntagged: true
-
-  ## DEPRECATED: Specify whether the runner should only run protected branches.
-  ##
-  ## ref: https://docs.gitlab.com/ee/ci/runners/new_creation_workflow.html
-  ##
-  # protected: true
 
   ## The name of the secret containing runner-token and runner-registration-token
-  # TODO: @jesmigel
   secret: gitlab-runner-external-secret
 
   ## Distributed runners caching
