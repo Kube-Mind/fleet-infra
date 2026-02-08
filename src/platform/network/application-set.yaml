@@ -19,24 +19,24 @@ spec:
         elements:
           - name: dnsfix
             wave: 30
-          # - name: external-dns # Disabled until we can test further
-          #   wave: 30
-          # - name: cilium
-          #   wave: -20
-          #   ignoreDifferences:
-          #     - group: ''
-          #       kind: Secret
-          #       name: cilium-ca
-          #       jsonPointers:
-          #         - /data/ca.crt
-          #         - /data/ca.key
-          #     - group: ''
-          #       kind: Secret
-          #       name: hubble-server-certs
-          #       jsonPointers:
-          #         - /data/ca.crt
-          #         - /data/tls.crt
-          #         - /data/tls.key
+          - name: external-dns # Disabled until we can test further
+            wave: 30
+          - name: cilium
+            wave: -20
+            ignoreDifferences:
+              - group: ''
+                kind: Secret
+                name: cilium-ca
+                jsonPointers:
+                  - /data/ca.crt
+                  - /data/ca.key
+              - group: ''
+                kind: Secret
+                name: hubble-server-certs
+                jsonPointers:
+                  - /data/ca.crt
+                  - /data/tls.crt
+                  - /data/tls.key
           - name: letsencrypt
             wave: 10
           - name: metallb
