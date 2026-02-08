@@ -39,8 +39,8 @@ spec:
                   - /data/tls.key
           - name: letsencrypt
             wave: 10
-          - name: metallb
-            wave: -10
+          # - name: metallb
+          #   wave: -10
           - name: traefik
             wave: 10
   template:
