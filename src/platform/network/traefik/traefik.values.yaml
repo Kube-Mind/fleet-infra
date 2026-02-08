@@ -689,7 +689,7 @@ ports:
     ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
     # asDefault: true
     port: 8443
-    hostPort: 443 # @schema type:[integer, null]; minimum:0
+    hostPort:  # @schema type:[integer, null]; minimum:0
     containerPort:  # @schema type:[integer, null]; minimum:0
     expose:
       default: true
