@@ -8,10 +8,10 @@ ipam:
     clusterPoolIPv4PodCIDRList: ["10.42.0.0/16"]
 
 # ref: https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
-# tolerations:
-#   - key: node-role.kubernetes.io/etcd
-#     operator: Exists
-#     effect: NoExecute
+tolerations:
+  - key: node-role.kubernetes.io/etcd
+    operator: Exists
+    effect: NoSchedule
 # 
 # envoy:
 #   tolerations:
