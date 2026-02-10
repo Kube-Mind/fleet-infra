@@ -11,3 +11,5 @@ helmCharts:
 
 resources:
 - namespace.yaml
+- announcement-policy.yaml
+- ip-pool.yaml
