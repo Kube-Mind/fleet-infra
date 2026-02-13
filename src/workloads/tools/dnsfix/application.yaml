@@ -2,24 +2,24 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-    argocd.argoproj.io/tracking-id: platform-network:argoproj.io/Application:argo-cd/dnsfix
+    argocd.argoproj.io/tracking-id: workloads-tools:argoproj.io/Application:argo-cd/dnsfix
     argocd.argoproj.io/sync-wave: '30'
   labels:
     app.kubernetes.io/instance: dnsfix
     app.kubernetes.io/component: dnsfix
-    app.kubernetes.io/part-of: platform-network
+    app.kubernetes.io/part-of: workloads-tools
   name: dnsfix-chart
   namespace: argo-cd
 spec:
   destination:
     namespace: dnsfix
     server: https://kubernetes.default.svc
-  project: platform-network
+  project: workloads-tools
   sources:
     - helm:
         valueFiles:
           - >-
-            $values/src/platform/network/dnsfix/values.yaml
+            $values/src/workloads/tools/dnsfix/values.yaml
       path: charts/dnsfix
       repoURL: https://gitlab.com/Kube-Mind/dnsfix.git
       targetRevision: main
