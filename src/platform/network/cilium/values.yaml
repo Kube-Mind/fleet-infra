@@ -1,40 +1,38 @@
 k8sServiceHost: 172.16.1.14
 k8sServicePort: 6443
-kubeProxyReplacement: true
 
-gatewayAPI:
-  enabled: true
+# --- CRITICAL SAFETY SETTINGS ---
+kubeProxyReplacement: false
+hostFirewall:
+  enabled: false
 
-# Network Policy Audit Mode - Log violations without blocking
-# policyAuditMode: true
+# --- CNI ---
+cni:
+  exclusive: true
 
-# ref: https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
-# tolerations:
-#   - key: node-role.kubernetes.io/control-plane
-#     operator: Exists
-#     effect: NoSchedule
-#   - key: node-role.kubernetes.io/etcd
-#     operator: Exists
-#     effect: NoExecute
+# Explicit node IP detection
+nodePort:
+  enabled: false
 
-# envoy:
-#   tolerations:
-#     - key: node-role.kubernetes.io/control-plane
-#       operator: Exists
-#       effect: NoSchedule
-#     - key: node-role.kubernetes.io/etcd
-#       operator: Exists
-#       effect: NoExecute
+# Avoid host-routing complexity
+bpf:
+  hostRouting: false
 
+# MTU (9000 jumbo - 50 vxlan overhead)
+mtu: 8950
+
+# IPAM
+ipam:
+  mode: cluster-pool
+  operator:
+    clusterPoolIPv4PodCIDRList:
+      - "10.0.0.0/16"
+    clusterPoolIPv4MaskSize: 24
+
+# Disable bandwidth manager for now (less complexity)
+bandwidthManager:
+  enabled: false
+
+# Observability optional
 hubble:
-  relay:
-    enabled: false
-  ui:
-    enabled: false
-  
-      # - dns
-      # - drop
-      # - tcp
-      # - flow
-      # - icmp
-      # - http # This enables L7 visibility for HTTP
+  enabled: false
