@@ -17,8 +17,6 @@ spec:
   generators:
     - list:
         elements:
-          - name: dnsfix
-            wave: 30
           # - name: external-dns # Disabled until we can test further
           #   wave: 30
           - name: cilium
