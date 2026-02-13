@@ -20,6 +20,8 @@ spec:
   destinations:
     - namespace: 'argo-cd'
       server: '*'
+    - namespace: 'dnsfix'
+      server: '*'
     - namespace: 'jupyterhub'
       server: '*'
     - namespace: 'n8n'
