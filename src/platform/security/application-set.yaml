@@ -30,7 +30,8 @@ spec:
                 kind: StatefulSet
                 jqPathExpressions:
                 - '.spec.volumeClaimTemplates[]'
-
+          - name: external-secrets
+            wave: 10
           - name: openbao
             wave: 10
             ignoreDifferences:

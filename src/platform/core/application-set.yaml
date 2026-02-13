@@ -21,8 +21,6 @@ spec:
           wave: 0
         - name: cert-manager
           wave: 10
-        - name: external-secrets
-          wave: 10
         - name: nvidia-operator
           wave: 10
           ignoreDifferences:
