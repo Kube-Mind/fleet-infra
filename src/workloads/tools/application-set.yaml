@@ -17,6 +17,8 @@ spec:
   generators:
     - list:
         elements:
+          - name: dnsfix
+            wave: 30
           - name: jupyterhub
             wave: 20
             ignoreDifferences:
