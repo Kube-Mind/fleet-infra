@@ -377,7 +377,7 @@ affinity:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - turing
+                - franky
 
   # -- Pod affinity
   podAffinity: {}
