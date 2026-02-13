@@ -1,17 +1,12 @@
+k8sServiceHost: 172.16.1.14
 k8sServicePort: 6443
 kubeProxyReplacement: true
-
-l2announcements:
-  enabled: true
-
-externalIPs:
-  enabled: true
 
 gatewayAPI:
   enabled: true
 
 # Network Policy Audit Mode - Log violations without blocking
-policyAuditMode: true
+# policyAuditMode: true
 
 # ref: https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
 # tolerations:
