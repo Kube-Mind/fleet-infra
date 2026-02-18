@@ -15,7 +15,7 @@ spec:
       services:
         - name: immich-server
           port: 2283
-          serversTransport: disable-http2
+          serversTransport: immich-transport
 ---
 apiVersion: traefik.io/v1alpha1
 kind: ServersTransport
