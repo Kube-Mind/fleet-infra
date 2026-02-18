@@ -6,7 +6,7 @@ metadata:
   namespace: immich
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-dev
-    traefik.ingress.kubernetes.io/router.middlewares: immich-immich-upload@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: immich-upload@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
