@@ -16,6 +16,8 @@ spec:
         - name: immich-server
           port: 2283
           serversTransport: immich-transport
+  tls:
+    certResolver: letsencrypt
 ---
 apiVersion: traefik.io/v1alpha1
 kind: ServersTransport
