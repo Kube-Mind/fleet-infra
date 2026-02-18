@@ -1,0 +1,13 @@
+# immich-middleware.yaml
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: immich-upload
+  namespace: immich
+spec:
+  buffering:
+    maxRequestBodyBytes: 0              # 0 = unlimited (or set > image size)
+    memRequestBodyBytes: 10485760       # 10MB in memory, rest in temp file
+    maxResponseBodyBytes: 0             # unlimited response size
+    memResponseBodyBytes: 10485760
+    retryExpression: "IsNetworkError()" # only retry for network-level issues
