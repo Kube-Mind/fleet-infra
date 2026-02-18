@@ -24,6 +24,8 @@ spec:
             - secretRef:
                 name: immich-external-secret
           env:
+            - name: NODE_OPTIONS
+              value: "--max-old-space-size=4096"
             - name: IMMICH_CONFIG_FILE
               value: /config/immich-config.yaml
           resources:
