@@ -35,7 +35,7 @@ metadata:
 spec:
   buffering:
     maxRequestBodyBytes: 0              # 0 = unlimited (or set > image size)
-    memRequestBodyBytes: 2097152       # 10MB in memory, rest in temp file
+    memRequestBodyBytes: 20971520       # 10MB in memory, rest in temp file
     maxResponseBodyBytes: 0             # unlimited response size
-    memResponseBodyBytes: 2097152
+    memResponseBodyBytes: 20971520
     retryExpression: "IsNetworkError() && Attempts() <= 2" # only retry for network-level issues
