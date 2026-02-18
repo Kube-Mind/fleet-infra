@@ -10,4 +10,4 @@ resources:
 - immich-machine-learning
 - immich-server
 - ingress.yaml
-- traefik-middleware.yaml
+- middleware.yaml

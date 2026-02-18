@@ -15,7 +15,15 @@ spec:
       services:
         - name: immich-server
           port: 2283
-          scheme: http
+          serversTransport: disable-http2
+---
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: immich-transport
+  namespace: immich
+spec:
+  disableHTTP2: true
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
