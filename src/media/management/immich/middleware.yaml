@@ -6,7 +6,7 @@ metadata:
   namespace: immich
 spec:
   entryPoints:
-    - websecure
+    - web
   routes:
     - match: Host(`immich.jcan.dev`)
       kind: Rule
