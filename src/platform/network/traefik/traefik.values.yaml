@@ -648,7 +648,7 @@ ports:
     # https://doc.traefik.io/traefik/routing/entrypoints/#transport
     transport:
       respondingTimeouts:
-        readTimeout: 3600s  # 360s @schema type:[string, integer, null]
+        readTimeout: 0s  # 360s @schema type:[string, integer, null]
         writeTimeout: "0" # 360s @schema type:[string, integer, null]
         idleTimeout: "0"  # 180s @schema type:[string, integer, null]
       lifeCycle:
@@ -695,7 +695,7 @@ ports:
     # -- See [upstream documentation](https://doc.traefik.io/traefik/routing/entrypoints/#transport)
     transport:
       respondingTimeouts:
-        readTimeout: 3600s  # 360s @schema type:[string, integer, null]
+        readTimeout: 0s  # 360s @schema type:[string, integer, null]
         writeTimeout: "0" # 360s @schema type:[string, integer, null]
         idleTimeout: "0"  # 180s @schema type:[string, integer, null]
       lifeCycle:
