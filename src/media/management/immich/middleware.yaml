@@ -26,8 +26,6 @@ metadata:
   namespace: immich
 spec:
   disableHTTP2: true
-  respondingTimeouts:
-        readTimeout: 0
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
