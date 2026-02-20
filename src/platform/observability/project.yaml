@@ -18,6 +18,8 @@ spec:
   destinations:
     - namespace: 'kube-prometheus-stack'
       server: '*'
+    - namespace: 'loki'
+      server: '*'
     - namespace: 'kube-system'
       server: '*'
   clusterResourceWhitelist:

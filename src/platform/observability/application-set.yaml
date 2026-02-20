@@ -28,6 +28,8 @@ spec:
                 jsonPointers:
                   - /data/admin-password
                   - /data/ldap-toml
+          - name: loki
+            wave: 20
   template:
     metadata:
       name: '{{ .name }}'
