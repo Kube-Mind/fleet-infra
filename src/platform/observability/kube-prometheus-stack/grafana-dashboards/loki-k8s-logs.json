@@ -1,271 +1,401 @@
 {
-  "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": {
-          "uid": "-- Grafana --"
-        },
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "target": {
-          "limit": 100,
-          "matchAny": false,
-          "tags": [],
-          "type": "dashboard"
-        },
-        "type": "dashboard"
-      }
-    ]
+  "apiVersion": "dashboard.grafana.app/v2beta1",
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "o6-BGgnnk",
+    "namespace": "default",
+    "uid": "w4yUi2EUL3zCStQyMSUXUXsInbihmNlfoQZ4Ckmf7CIX",
+    "resourceVersion": "1",
+    "generation": 1,
+    "creationTimestamp": "2026-02-20T01:57:59Z",
+    "labels": {
+      "grafana.app/deprecatedInternalID": "34"
+    },
+    "annotations": {
+      "grafana.app/createdBy": "user:efdrn7ypxyh34f",
+      "grafana.app/updatedBy": "user:efdrn7ypxyh34f",
+      "grafana.app/updatedTimestamp": "2026-02-20T01:57:59Z"
+    }
   },
-  "description": "Logs collected from Kubernetes, stored in Loki",
-  "editable": true,
-  "fiscalYearStartMonth": 0,
-  "graphTooltip": 0,
-  "id": 37,
-  "links": [],
-  "panels": [
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "afdrgaccinoxsa"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "bars",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+  "spec": {
+    "annotations": [
+      {
+        "kind": "AnnotationQuery",
+        "spec": {
+          "builtIn": true,
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "query": {
+            "datasource": {
+              "name": "-- Grafana --"
             },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
+            "group": "grafana",
+            "kind": "DataQuery",
+            "spec": {
+              "limit": 100,
+              "matchAny": false,
+              "tags": [],
+              "type": "dashboard"
             },
-            "showPoints": "auto",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
+            "version": "v0"
+          }
+        }
+      }
+    ],
+    "cursorSync": "Off",
+    "description": "Logs collected from Kubernetes, stored in Loki",
+    "editable": true,
+    "elements": {
+      "panel-2": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "ffdrn97m3rf28d"
+                      },
+                      "group": "loki",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "{namespace=~\"$namespace\", stream=~\"$stream\", container =~\"$container\"} |= \"$query\""
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
             }
           },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
+          "description": "Logs from services running in Kubernetes",
+          "id": 2,
+          "links": [],
+          "title": "",
+          "vizConfig": {
+            "group": "logs",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
               },
-              {
-                "color": "red",
-                "value": 80
+              "options": {
+                "dedupStrategy": "none",
+                "enableInfiniteScrolling": false,
+                "enableLogDetails": true,
+                "prettifyLogMessage": false,
+                "showCommonLabels": false,
+                "showControls": false,
+                "showLabels": false,
+                "showTime": false,
+                "sortOrder": "Descending",
+                "wrapLogMessage": false
               }
-            ]
+            },
+            "version": "12.3.3"
           }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 24,
-        "x": 0,
-        "y": 0
-      },
-      "id": 4,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
         }
       },
-      "pluginVersion": "12.3.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "afdrgaccinoxsa"
+      "panel-4": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "ffdrn97m3rf28d"
+                      },
+                      "group": "loki",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "sum(count_over_time({namespace=~\"$namespace\", stream=~\"$stream\", container =~\"$container\"} |= \"$query\" [$__interval]))",
+                        "instant": false,
+                        "legendFormat": "Log count",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
           },
-          "expr": "sum(count_over_time({namespace=~\"$namespace\", stream=~\"$stream\", container =~\"$container\"} |= \"$query\" [$__interval]))",
-          "instant": false,
-          "legendFormat": "Log count",
-          "range": true,
-          "refId": "A"
+          "description": "",
+          "id": 4,
+          "links": [],
+          "title": "",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "bars",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": false
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              }
+            },
+            "version": "12.3.3"
+          }
         }
-      ],
-      "title": "",
-      "type": "timeseries"
+      }
     },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "afdrgaccinoxsa"
-      },
-      "description": "Logs from services running in Kubernetes",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 25,
-        "w": 24,
-        "x": 0,
-        "y": 4
-      },
-      "id": 2,
-      "options": {
-        "dedupStrategy": "none",
-        "enableInfiniteScrolling": false,
-        "enableLogDetails": true,
-        "prettifyLogMessage": false,
-        "showCommonLabels": false,
-        "showControls": false,
-        "showLabels": false,
-        "showTime": false,
-        "sortOrder": "Descending",
-        "wrapLogMessage": false
-      },
-      "pluginVersion": "12.3.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "afdrgaccinoxsa"
-          },
-          "expr": "{namespace=~\"$namespace\", stream=~\"$stream\", container =~\"$container\"} |= \"$query\"",
-          "refId": "A"
-        }
-      ],
-      "title": "",
-      "type": "logs"
-    }
-  ],
-  "preload": false,
-  "refresh": "",
-  "schemaVersion": 42,
-  "tags": [],
-  "templating": {
-    "list": [
-      {
-        "current": {
-          "text": "",
-          "value": ""
-        },
-        "description": "String to search for",
-        "label": "Search Query",
-        "name": "query",
-        "options": [
+    "layout": {
+      "kind": "GridLayout",
+      "spec": {
+        "items": [
           {
-            "selected": true,
+            "kind": "GridLayoutItem",
+            "spec": {
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-4"
+              },
+              "height": 4,
+              "width": 24,
+              "x": 0,
+              "y": 0
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-2"
+              },
+              "height": 25,
+              "width": 24,
+              "x": 0,
+              "y": 4
+            }
+          }
+        ]
+      }
+    },
+    "links": [],
+    "liveNow": false,
+    "preload": false,
+    "tags": [],
+    "timeSettings": {
+      "autoRefresh": "",
+      "autoRefreshIntervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "fiscalYearStartMonth": 0,
+      "from": "now-6h",
+      "hideTimepicker": false,
+      "timezone": "",
+      "to": "now"
+    },
+    "title": "Loki Kubernetes Logs",
+    "variables": [
+      {
+        "kind": "TextVariable",
+        "spec": {
+          "current": {
             "text": "",
             "value": ""
-          }
-        ],
-        "query": "",
-        "type": "textbox"
+          },
+          "description": "String to search for",
+          "hide": "dontHide",
+          "label": "Search Query",
+          "name": "query",
+          "query": "",
+          "skipUrlSync": false
+        }
       },
       {
-        "allValue": ".+",
-        "current": {
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": "afdrgaccinoxsa",
-        "definition": "label_values(namespace)",
-        "includeAll": true,
-        "multi": true,
-        "name": "namespace",
-        "options": [],
-        "query": "label_values(namespace)",
-        "refresh": 1,
-        "regex": "",
-        "type": "query"
+        "kind": "QueryVariable",
+        "spec": {
+          "allValue": ".+",
+          "allowCustomValue": true,
+          "current": {
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
+          },
+          "definition": "label_values(namespace)",
+          "hide": "dontHide",
+          "includeAll": true,
+          "multi": true,
+          "name": "namespace",
+          "options": [],
+          "query": {
+            "group": "grafana",
+            "kind": "DataQuery",
+            "spec": {
+              "__legacyStringValue": "label_values(namespace)"
+            },
+            "version": "v0"
+          },
+          "refresh": "onDashboardLoad",
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": "disabled"
+        }
       },
       {
-        "allValue": ".+",
-        "current": {
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": "afdrgaccinoxsa",
-        "definition": "label_values(stream)",
-        "includeAll": true,
-        "multi": true,
-        "name": "stream",
-        "options": [],
-        "query": "label_values(stream)",
-        "refresh": 1,
-        "regex": "",
-        "type": "query"
+        "kind": "QueryVariable",
+        "spec": {
+          "allValue": ".+",
+          "allowCustomValue": true,
+          "current": {
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
+          },
+          "definition": "label_values(stream)",
+          "hide": "dontHide",
+          "includeAll": true,
+          "multi": true,
+          "name": "stream",
+          "options": [],
+          "query": {
+            "group": "grafana",
+            "kind": "DataQuery",
+            "spec": {
+              "__legacyStringValue": "label_values(stream)"
+            },
+            "version": "v0"
+          },
+          "refresh": "onDashboardLoad",
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": "disabled"
+        }
       },
       {
-        "allValue": ".+",
-        "current": {
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": "afdrgaccinoxsa",
-        "definition": "label_values(container)",
-        "includeAll": true,
-        "multi": true,
-        "name": "container",
-        "options": [],
-        "query": "label_values(container)",
-        "refresh": 1,
-        "regex": "",
-        "type": "query"
+        "kind": "QueryVariable",
+        "spec": {
+          "allValue": ".+",
+          "allowCustomValue": true,
+          "current": {
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
+          },
+          "definition": "label_values(container)",
+          "hide": "dontHide",
+          "includeAll": true,
+          "multi": true,
+          "name": "container",
+          "options": [],
+          "query": {
+            "group": "grafana",
+            "kind": "DataQuery",
+            "spec": {
+              "__legacyStringValue": "label_values(container)"
+            },
+            "version": "v0"
+          },
+          "refresh": "onDashboardLoad",
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": "disabled"
+        }
       }
     ]
   },
-  "time": {
-    "from": "now-6h",
-    "to": "now"
-  },
-  "timepicker": {},
-  "timezone": "",
-  "title": "Loki Kubernetes Logs",
-  "uid": "o6-BGgnnk",
-  "version": 1
+  "status": {}
 }
