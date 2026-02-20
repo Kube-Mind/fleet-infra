@@ -6,10 +6,6 @@ loki:
   commonConfig:
     replication_factor: 1
 
-  server:
-    http_listen_port: 3100
-
-  # ---- Storage (filesystem on Longhorn PVC) ----
   storage:
     type: filesystem
 
@@ -19,7 +15,7 @@ loki:
 
   schemaConfig:
     configs:
-      - from: 2024-01-01
+      - from: 2026-01-01
         store: tsdb
         object_store: filesystem
         schema: v13
@@ -27,31 +23,16 @@ loki:
           prefix: loki_index_
           period: 24h
 
-  # ---- Retention (important for Longhorn capacity) ----
   limits_config:
-    retention_period: 168h        # 7 days
+    retention_period: 168h
 
   compactor:
     working_directory: /var/loki/compactor
-    shared_store: filesystem
     retention_enabled: true
 
-  # Optional but recommended for stability
-  ingester:
-    chunk_encoding: snappy
-
-# ---- Single binary instance ----
 singleBinary:
   replicas: 1
 
-  resources:
-    requests:
-      cpu: 200m
-      memory: 512Mi
-    limits:
-      memory: 1Gi
-
-# ---- Persistence via Longhorn ----
 persistence:
   enabled: true
   storageClassName: longhorn
@@ -59,7 +40,6 @@ persistence:
     - ReadWriteOnce
   size: 50Gi
 
-# Disable distributed components (important for filesystem mode)
 backend:
   replicas: 0
 read:
@@ -69,11 +49,9 @@ write:
 gateway:
   enabled: false
 
-# Service settings (ClusterIP for in-cluster access)
 service:
   type: ClusterIP
   port: 3100
 
-# Optional: monitoring integration if using kube-prometheus-stack
 serviceMonitor:
   enabled: true
