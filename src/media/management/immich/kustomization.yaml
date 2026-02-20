@@ -9,5 +9,5 @@ resources:
 - immich-redis
 - immich-machine-learning
 - immich-server
-- middleware.yaml
+# - middleware.yaml
 - ingress.yaml
