@@ -76,10 +76,10 @@ grafana:
           type: prometheus
           url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090/
           access: proxy
-        - name: Loki
-          type: loki
-          url: http://loki.loki.svc.cluster.local:3100/
-          access: proxy
+        # - name: Loki
+        #   type: loki
+        #   url: http://loki.loki.svc.cluster.local:3100/
+        #   access: proxy
 
   # dashboards:
   #   default:

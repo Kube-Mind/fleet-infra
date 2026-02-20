@@ -12,4 +12,3 @@ configMapGenerator:
     files:
       - dcgm-exporter.json
       - k8s-dashboard.json
-      - loki-k8s-logs.json
