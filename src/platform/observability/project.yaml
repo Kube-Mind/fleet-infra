@@ -20,6 +20,8 @@ spec:
       server: '*'
     - namespace: 'loki'
       server: '*'
+    - namespace: 'promtail'
+      server: '*'
     - namespace: 'kube-system'
       server: '*'
   clusterResourceWhitelist:

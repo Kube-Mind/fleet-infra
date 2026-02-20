@@ -29,6 +29,8 @@ spec:
                   - /data/admin-password
                   - /data/ldap-toml
           - name: loki
+            wave: 30
+          - name: promtail
             wave: 20
   template:
     metadata:
