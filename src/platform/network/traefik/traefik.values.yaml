@@ -1,12 +1,5 @@
-# Default values for Traefik
 # This is a YAML-formatted file.
 # Declare variables to be passed into templates
-
-image:  # @schema additionalProperties: false
-  # -- Traefik image host registry
-  registry: docker.io
-  # -- Traefik image repository
-  repository: traefik
 
 # -- Add additional label to all resources
 commonLabels: {}
@@ -184,7 +177,7 @@ gatewayClass:  # @schema additionalProperties: false
 ingressRoute:
   dashboard:
     # -- Create an IngressRoute for the dashboard
-    enabled: false
+    enabled: true
     # -- Additional ingressRoute annotations (e.g. for kubernetes.io/ingress.class)
     annotations: {}
     # -- Additional ingressRoute labels (e.g. for filtering IngressRoute by custom labels)
@@ -624,14 +617,14 @@ ports:
   web:
     ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
     # asDefault: true
-    port: 8000
+    port: 80
     # hostPort: 8000
     # containerPort: 8000
     expose:
       default: true
     exposedPort: 80
     ## -- Different target traefik port on the cluster, useful for IP type LB
-    targetPort:  # @schema type:[string, integer, null]; minimum:0
+    targetPort: 80  # @schema type:[string, integer, null]; minimum:0
     # The port protocol (TCP/UDP)
     protocol: TCP
     # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
@@ -659,14 +652,14 @@ ports:
   websecure:
     ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
     # asDefault: true
-    port: 8443
+    port: 443
     hostPort:  # @schema type:[integer, null]; minimum:0
     containerPort:  # @schema type:[integer, null]; minimum:0
     expose:
       default: true
     exposedPort: 443
     ## -- Different target traefik port on the cluster, useful for IP type LB
-    targetPort:  # @schema type:[string, integer, null]; minimum:0
+    targetPort: 443 # @schema type:[string, integer, null]; minimum:0
     ## -- The port protocol (TCP/UDP)
     protocol: TCP
     # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
@@ -1072,35 +1065,3 @@ hub:
         traceParent: ""
         # -- Name of the header that will contain the tracestate copy.
         traceState: ""
-
-# -- Required for OCI Marketplace integration.
-# See https://docs.public.content.oci.oraclecloud.com/en-us/iaas/Content/Marketplace/understanding-helm-charts.htm
-oci_meta:
-  # -- Enable specific values for Oracle Cloud Infrastructure
-  enabled: false
-    # -- It needs to be an ocir repo
-  repo: traefik
-  images:
-    proxy:
-      image: traefik
-      tag: latest
-    hub:
-      image: traefik-hub
-      tag: latest
-
-# -- Required for Azure Marketplace integration.
-# See https://learn.microsoft.com/en-us/partner-center/marketplace-offers/azure-container-technical-assets-kubernetes?tabs=linux,linux2#update-the-helm-chart
-global:
-  azure:
-    # -- Enable specific values for Azure Marketplace
-    enabled: false
-    images:
-      proxy:
-        image: traefik
-        tag: latest
-        registry: docker.io/library
-      hub:
-        image: traefik-hub
-        tag: latest
-        registry: ghcr.io/traefik
-
