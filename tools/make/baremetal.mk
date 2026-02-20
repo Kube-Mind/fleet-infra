@@ -28,3 +28,4 @@ clean-stale-volumes:
 		| select(.status.state=="detached" and .status.robustness=="unknown") \
 		| .metadata.name' \
 		| xargs -r kubectl -n longhorn delete volume
+		

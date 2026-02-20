@@ -8,6 +8,9 @@ bao-setup:
 bao-teardown:
 	$(call kustomize_delete,$(OPENBAO_PATH))
 
+bao-init:
+	kubectl -n $(OPENBAO_NAMESPACE) exec -ti pod/openbao-0 -- sh -c 'bao operator init -format yaml'
+
 bao-shell:
 	kubectl -n $(OPENBAO_NAMESPACE) exec -ti pod/openbao-0 -- sh
 
