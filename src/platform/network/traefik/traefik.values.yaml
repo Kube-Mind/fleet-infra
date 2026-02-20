@@ -797,13 +797,13 @@ persistence:
 # -- Certificates resolvers configuration.
 # Ref: https://doc.traefik.io/traefik/https/acme/#certificate-resolvers
 # See EXAMPLES.md for more details.
-certificatesResolvers:
-  letsencrypt:
-    acme:
-      email: jesmigel.developer@gmail.com
-      storage: /data/acme.json
-      httpChallenge:
-        entryPoint: web
+# certificatesResolvers:
+#   letsencrypt:
+#     acme:
+#       email: jesmigel.developer@gmail.com
+#       storage: /data/acme.json
+#       httpChallenge:
+#         entryPoint: web
 
 # -- If hostNetwork is true, runs traefik in the host network namespace
 # To prevent unschedulable pods due to port collisions, if hostNetwork=true
