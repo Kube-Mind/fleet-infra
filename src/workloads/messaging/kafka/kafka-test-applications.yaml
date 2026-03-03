@@ -50,9 +50,10 @@ spec:
           image: python:3.11-slim
           command:
             - sh
-            - -c
-            - |
-              pip install kafka-python && python /scripts/produce.py
+            # - -c
+            # - |
+            #   pip install kafka-python && python /scripts/produce.py
+          tty: true
           volumeMounts:
             - name: script
               mountPath: /scripts
