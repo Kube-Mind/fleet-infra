@@ -49,7 +49,7 @@ configs:
     ## Ref: https://argo-cd.readthedocs.io/en/latest/faq/#how-to-disable-admin-user
     ## toggles user pass authentication form
     # NOTE: disabled when authentik is active
-    # admin.enabled: true
+    admin.enabled: false
 
     kustomize.buildOptions: --enable-helm
     statusbadge.enabled: true
