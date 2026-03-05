@@ -1,7 +1,7 @@
 k8sServiceHost: 172.16.1.14
 k8sServicePort: 6443
 
-namespace: cilium
+namespaceOverride: cilium
 
 # --- CRITICAL SAFETY SETTINGS ---
 kubeProxyReplacement: false
