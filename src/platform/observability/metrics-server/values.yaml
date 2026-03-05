@@ -16,15 +16,15 @@ serviceAccount:
 rbac:
   create: true
 
-# args:
-#   # K3s kubelets often use self-signed certs
-#   - --kubelet-insecure-tls
-#   # Ensure communication over InternalIP (compatible with Cilium host routing)
-#   - --kubelet-preferred-address-types=InternalIP
-#   # scrape interval
-#   - --metric-resolution=15s
-#   # cert directory for temporary self-signed certs
-#   - --cert-dir=/tmp
+args:
+  # K3s kubelets often use self-signed certs
+  - --kubelet-insecure-tls
+  # Ensure communication over InternalIP (compatible with Cilium host routing)
+  - --kubelet-preferred-address-types=InternalIP
+  # scrape interval
+  - --metric-resolution=15s
+  # cert directory for temporary self-signed certs
+  - --cert-dir=/tmp
 
 resources:
   requests:
