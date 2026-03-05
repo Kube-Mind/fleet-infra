@@ -6,6 +6,9 @@ kubeProxyReplacement: false
 hostFirewall:
   enabled: false
 
+hostServices:
+  enabled: true
+
 # --- CNI ---
 cni:
   exclusive: true
