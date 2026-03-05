@@ -17,17 +17,15 @@ rbac:
   create: true
 
 args:
-  - --kubelet-insecure-tls       # skips verifying kubelet TLS certificates
+  - --kubelet-insecure-tls
   - --kubelet-preferred-address-types=InternalIP,Hostname,ExternalIP
-  - --metric-resolution=15s      # adjust collection frequency
-  - --requestheader-username=system:metrics-server
-  - --requestheader-client-ca-file=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+  - --metric-resolution=15s
 
 # defaultArgs can include:
 defaultArgs:
   - --authentication-kubeconfig=/etc/kubernetes/kubelet.conf
-  - --kubelet-certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
   - --authorization-kubeconfig=/etc/kubernetes/kubelet.conf
+  - --kubelet-certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 
 resources:
   requests:
