@@ -14,7 +14,7 @@ rbac:
   create: true
 
 hostNetwork:
-  enabled: true   # simplifies networking for k3s
+  enabled: false   # simplifies networking for k3s
 
 args:
   - --kubelet-insecure-tls
