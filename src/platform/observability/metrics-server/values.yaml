@@ -66,15 +66,6 @@ tolerations:
 nodeSelector:
   kubernetes.io/os: linux
 
-# EmptyDir for temporary cert storage
-extraVolumes:
-  - name: tmp-dir
-    emptyDir: {}
-
-extraVolumeMounts:
-  - name: tmp-dir
-    mountPath: /tmp
-
 securityContext:
   runAsNonRoot: true
   runAsUser: 1000
