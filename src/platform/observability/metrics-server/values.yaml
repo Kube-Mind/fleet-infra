@@ -16,14 +16,15 @@ serviceAccount:
 rbac:
   create: true
 
-args:
-  - --kubelet-preferred-address-types=InternalIP,Hostname,ExternalIP
-  - --metric-resolution=15s
+hostNetwork:
+  enabled: true   # avoids issues with certificate generation and simplifies node communication
 
-defaultArgs:
+args:
+  - --kubelet-insecure-tls                     # skip TLS verification (required in k3s)
+  - --kubelet-preferred-address-types=InternalIP,Hostname
+  - --metric-resolution=15s                    # collection frequency
   - --authentication-kubeconfig=/etc/kubernetes/kubelet.conf
   - --authorization-kubeconfig=/etc/kubernetes/kubelet.conf
-  - --kubelet-certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 
 resources:
   requests:
