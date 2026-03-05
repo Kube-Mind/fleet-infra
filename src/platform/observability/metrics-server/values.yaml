@@ -6,9 +6,6 @@ replicaCount: 1
 
 namespace: metrics-server
 
-image:
-  repository: k8s.gcr.io/metrics-server/metrics-server
-
 serviceAccount:
   create: true
   name: metrics-server
@@ -17,14 +14,12 @@ rbac:
   create: true
 
 hostNetwork:
-  enabled: true   # avoids issues with certificate generation and simplifies node communication
+  enabled: true   # simplifies networking for k3s
 
 args:
-  - --kubelet-insecure-tls                     # skip TLS verification (required in k3s)
+  - --kubelet-insecure-tls                     # skip TLS verification
   - --kubelet-preferred-address-types=InternalIP,Hostname
   - --metric-resolution=15s                    # collection frequency
-  - --authentication-kubeconfig=/etc/kubernetes/kubelet.conf
-  - --authorization-kubeconfig=/etc/kubernetes/kubelet.conf
 
 resources:
   requests:
@@ -54,9 +49,6 @@ readinessProbe:
   periodSeconds: 2
   failureThreshold: 3
 
-hostNetwork:
-  enabled: false
-
 tolerations:
   - key: "CriticalAddonsOnly"
     operator: "Exists"
@@ -71,7 +63,6 @@ securityContext:
   runAsUser: 1000
   allowPrivilegeEscalation: false
 
-# optional: enable metrics-server service as ClusterIP
 service:
   type: ClusterIP
   port: 443
