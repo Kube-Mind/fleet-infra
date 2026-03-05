@@ -1,8 +1,6 @@
 k8sServiceHost: 172.16.1.14
 k8sServicePort: 6443
 
-namespaceOverride: cilium
-
 # --- CRITICAL SAFETY SETTINGS ---
 kubeProxyReplacement: false
 hostFirewall:
@@ -19,9 +17,8 @@ cni:
 nodePort:
   enabled: false
 
-# Avoid host-routing complexity
 bpf:
-  hostRouting: false
+  hostRouting: true
 
 # MTU (9000 jumbo - 50 vxlan overhead)
 mtu: 8950
