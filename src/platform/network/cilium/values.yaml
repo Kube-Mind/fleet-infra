@@ -9,6 +9,8 @@ hostFirewall:
 hostServices:
   enabled: true
 
+policyAuditMode: true
+
 # --- CNI ---
 cni:
   exclusive: true
