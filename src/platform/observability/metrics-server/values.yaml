@@ -25,9 +25,9 @@ args:
 
 # defaultArgs can include:
 defaultArgs:
-  --authentication-kubeconfig=/etc/kubernetes/kubelet.conf
-  --kubelet-certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-  --authorization-kubeconfig=/etc/kubernetes/kubelet.conf
+  - --authentication-kubeconfig=/etc/kubernetes/kubelet.conf
+  - --kubelet-certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+  - --authorization-kubeconfig=/etc/kubernetes/kubelet.conf
 
 resources:
   requests:
