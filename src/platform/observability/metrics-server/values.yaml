@@ -54,7 +54,8 @@ readinessProbe:
   periodSeconds: 2
   failureThreshold: 3
 
-hostNetwork: false
+hostNetwork:
+  enabled: false
 
 tolerations:
   - key: "CriticalAddonsOnly"
