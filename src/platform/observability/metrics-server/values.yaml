@@ -1,0 +1,85 @@
+# metrics-server-values.yaml
+# Helm values for metrics-server in k3s + Cilium environment
+# Namespace: metrics-server
+
+replicaCount: 1
+
+namespace: metrics-server
+
+image:
+  repository: k8s.gcr.io/metrics-server/metrics-server
+
+serviceAccount:
+  create: true
+  name: metrics-server
+
+rbac:
+  create: true
+
+# args:
+#   # K3s kubelets often use self-signed certs
+#   - --kubelet-insecure-tls
+#   # Ensure communication over InternalIP (compatible with Cilium host routing)
+#   - --kubelet-preferred-address-types=InternalIP
+#   # scrape interval
+#   - --metric-resolution=15s
+#   # cert directory for temporary self-signed certs
+#   - --cert-dir=/tmp
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 70Mi
+  limits:
+    cpu: 200m
+    memory: 150Mi
+
+livenessProbe:
+  httpGet:
+    path: /livez
+    port: 4443
+    scheme: HTTPS
+  initialDelaySeconds: 60
+  timeoutSeconds: 1
+  periodSeconds: 10
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /readyz
+    port: 4443
+    scheme: HTTPS
+  initialDelaySeconds: 0
+  timeoutSeconds: 1
+  periodSeconds: 2
+  failureThreshold: 3
+
+hostNetwork: false
+
+tolerations:
+  - key: "CriticalAddonsOnly"
+    operator: "Exists"
+  - key: "node-role.kubernetes.io/control-plane"
+    operator: "Exists"
+
+nodeSelector:
+  kubernetes.io/os: linux
+
+# EmptyDir for temporary cert storage
+extraVolumes:
+  - name: tmp-dir
+    emptyDir: {}
+
+extraVolumeMounts:
+  - name: tmp-dir
+    mountPath: /tmp
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  allowPrivilegeEscalation: false
+
+# optional: enable metrics-server service as ClusterIP
+service:
+  type: ClusterIP
+  port: 443

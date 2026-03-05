@@ -30,6 +30,8 @@ spec:
                   - /data/ldap-toml
           - name: loki
             wave: 30
+          - name: metrics-server
+            wave: 10
           - name: promtail
             wave: 20
   template:
