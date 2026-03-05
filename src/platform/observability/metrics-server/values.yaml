@@ -17,14 +17,17 @@ rbac:
   create: true
 
 args:
-  # K3s kubelets often use self-signed certs
-  - --kubelet-insecure-tls
-  # Ensure communication over InternalIP (compatible with Cilium host routing)
-  - --kubelet-preferred-address-types=InternalIP
-  # scrape interval
-  - --metric-resolution=15s
-  # cert directory for temporary self-signed certs
-  - --cert-dir=/tmp
+  - --kubelet-insecure-tls       # skips verifying kubelet TLS certificates
+  - --kubelet-preferred-address-types=InternalIP,Hostname,ExternalIP
+  - --metric-resolution=15s      # adjust collection frequency
+  - --requestheader-username=system:metrics-server
+  - --requestheader-client-ca-file=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+
+# defaultArgs can include:
+defaultArgs:
+  --authentication-kubeconfig=/etc/kubernetes/kubelet.conf
+  --kubelet-certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+  --authorization-kubeconfig=/etc/kubernetes/kubelet.conf
 
 resources:
   requests:
