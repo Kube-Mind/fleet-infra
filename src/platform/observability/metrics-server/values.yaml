@@ -14,12 +14,12 @@ rbac:
   create: true
 
 hostNetwork:
-  enabled: false   # simplifies networking for k3s
+  enabled: true   # simplifies networking for k3s
 
 args:
-  - --kubelet-insecure-tls                     # skip TLS verification
+  - --kubelet-insecure-tls
   - --kubelet-preferred-address-types=InternalIP,Hostname
-  - --metric-resolution=15s                    # collection frequency
+  - --metric-resolution=15s
 
 resources:
   requests:
