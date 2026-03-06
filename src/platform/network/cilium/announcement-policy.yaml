@@ -1,8 +1,27 @@
+---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumL2AnnouncementPolicy
 metadata:
   name: default-l2-announcement-policy
-  namespace: cilium
+  namespace: kube-system
 spec:
   externalIPs: true
   loadBalancerIPs: true
+---
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "allow-metrics-server"
+  namespace: kube-system
+spec:
+  endpointSelector:
+    matchLabels:
+      k8s-app: metrics-server
+  egress:
+  - toEntities:
+    - host
+    - pod
+    toPorts:
+    - ports:
+      - port: "10250"
+        protocol: TCP
