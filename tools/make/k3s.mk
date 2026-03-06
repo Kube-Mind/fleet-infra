@@ -48,13 +48,15 @@ control-plane-join:
 	ssh $(SSH_OPTS) $(IPV4) 'sudo curl -sfL https://get.k3s.io | \
 	K3S_URL=https://$(API_SERVER_IP):6443 \
 	K3S_TOKEN=$(TOKEN) \
+	INSTALL_K3S_VERSION=v1.34.3+k3s3 \
 	sh -s - server \
-	--flannel-backend=none \
+	--flannel-backend none \
 	--disable-network-policy \
 	--disable servicelb \
-	--disable-network-policy \
 	--disable traefik \
-	--node-ip=$(IPV4) \
+	--disable metrics-server \
+	--node-ip $(IPV4) \
+	--node-external-ip $(IPV4) \
 	--bind-address $(IPV4)'
 
 # NOTE: TOKEN must be manually provided
