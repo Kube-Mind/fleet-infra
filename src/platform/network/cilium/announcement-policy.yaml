@@ -7,22 +7,3 @@ metadata:
 spec:
   externalIPs: true
   loadBalancerIPs: true
----
-apiVersion: "cilium.io/v2"
-kind: CiliumNetworkPolicy
-metadata:
-  name: "allow-metrics-server"
-  namespace: kube-system
-spec:
-  endpointSelector:
-    matchLabels:
-      k8s-app: metrics-server
-  egress:
-  - toEntities:
-    - all
-    toPorts:
-    - ports:
-      - port: "10250"
-        protocol: TCP
-      - port: "443"
-        protocol: TCP
