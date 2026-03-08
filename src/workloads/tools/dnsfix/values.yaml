@@ -71,4 +71,4 @@ configMapData:
           - record: "vpn"
 
 imagePullSecrets:
-  - name: regcred-external-secrets
+  - name: regcred-external-secret
