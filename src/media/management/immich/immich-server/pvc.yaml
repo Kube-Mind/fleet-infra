@@ -5,7 +5,8 @@ metadata:
   name: immich-uploads-pvc
   namespace: immich
 spec:
-  accessModes: [ "ReadWriteOnce" ]
+  accessModes: [ "ReadWriteMany" ]
   resources:
     requests:
       storage: 500Gi
+  volumeName: pvc-c43525e7-d949-4d5a-8328-3b35bd55e707
