@@ -21,14 +21,14 @@ spec:
           wave: 0
         - name: cert-manager
           wave: 10
-        - name: nvidia-operator
-          wave: 10
-          ignoreDifferences:
-            - group: nvidia.com
-              kind: ClusterPolicy
-              name: cluster-policy
-              jsonPointers:
-                - /spec/migManager/config/name
+        # - name: nvidia-operator
+        #   wave: 10
+        #   ignoreDifferences:
+        #     - group: nvidia.com
+        #       kind: ClusterPolicy
+        #       name: cluster-policy
+        #       jsonPointers:
+        #         - /spec/migManager/config/name
         - name: system-upgrade
           wave: 10
         - name: system-upgrade-plans
