@@ -13,8 +13,8 @@ jobs:
     runs-on:
       group: homelab
       labels: ghar-scale-set
-    # container:
-    #   image: ocr.jcan.dev/dh/node:20-alpine
+    container:
+      image: ocr.jcan.dev/dh/node:20-alpine
     steps:
       - name: Post to Slack
         uses: slackapi/slack-github-action@v2.1.1
