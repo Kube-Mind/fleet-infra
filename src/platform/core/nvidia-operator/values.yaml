@@ -32,3 +32,15 @@ validator:
     env:	
       - name: WITH_WORKLOAD	
         value: 'false'
+
+dcgmExporter:
+
+  enabled: true
+
+  # Needed for kube-prometheus-stack
+  serviceMonitor:
+    enabled: true
+    interval: 15s
+    honorLabels: true
+    additionalLabels:
+      release: kube-prometheus-stack
