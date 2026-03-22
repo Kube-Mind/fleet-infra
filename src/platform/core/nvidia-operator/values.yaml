@@ -34,7 +34,6 @@ validator:
         value: 'false'
 
 dcgmExporter:
-
   enabled: true
 
   # Needed for kube-prometheus-stack
@@ -44,3 +43,21 @@ dcgmExporter:
     honorLabels: true
     additionalLabels:
       release: kube-prometheus-stack
+
+  # Better for Prometheus scraping per-node
+  service:
+    internalTrafficPolicy: Local
+
+  # Needed on baremetal / k3s for GPU metrics
+  hostPID: true
+
+  # Avoid profiling errors on mixed GPUs / consumer GPUs
+  env:
+    - name: DCGM_EXPORTER_DISABLE_PROFILING
+      value: "true"
+
+    - name: DCGM_EXPORTER_KUBERNETES
+      value: "true"
+
+    - name: DCGM_EXPORTER_COLLECTORS
+      value: /etc/dcgm-exporter/default-counters.csv
