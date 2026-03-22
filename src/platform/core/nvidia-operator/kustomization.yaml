@@ -9,6 +9,12 @@ helmCharts:
   namespace: nvidia-operator
   releaseName: nvidia-operator
   repo: https://helm.ngc.nvidia.com/nvidia
-  valuesFile: values.yaml
+  valuesFile: values.gpu-operator.yaml
   version: v26.3.0
   includeCRDs: true
+- name: dcgm-exporter
+  namespace: nvidia-operator
+  releaseName: dcgm-exporter
+  repo: https://nvidia.github.io/dcgm-exporter/helm-charts
+  valuesFile: values.dcgm-exporter.yaml
+  version: 4.8.1
