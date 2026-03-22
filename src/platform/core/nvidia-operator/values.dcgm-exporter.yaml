@@ -7,3 +7,8 @@ affinity:
               operator: Exists
 
 runtimeClassName: "nvidia"
+
+securityContext:
+  capabilities:
+    add:
+      - SYS_ADMIN
