@@ -1,1 +1,7 @@
-enabled: true
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: nvidia-gpu
+          operator: Exists
