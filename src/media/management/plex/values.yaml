@@ -132,7 +132,7 @@ initContainer:
     registry: index.docker.io
     repository: alpine
     # -- If unset use latest
-    tag: "3.22"
+    tag: "3.23"
     sha: ""
     pullPolicy: IfNotPresent
 
@@ -190,7 +190,7 @@ rclone:
     registry: index.docker.io
     repository: rclone/rclone
     # -- If unset use latest
-    tag: 1.70.3
+    tag: 1.73.2
     sha: ""
     pullPolicy: IfNotPresent
 
