@@ -5,3 +5,5 @@ affinity:
         - matchExpressions:
             - key: "nvidia.com/gpu.present"
               operator: Exists
+
+runtimeClassName: "nvidia"
