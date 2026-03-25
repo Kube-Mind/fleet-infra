@@ -22,6 +22,8 @@ spec:
       server: '*'
     - namespace: 'external-secrets'
       server: '*'
+    - namespace: 'neuvector'
+      server: '*'
     - namespace: 'openbao'
       server: '*'
     - namespace: 'secrets-integrator'
