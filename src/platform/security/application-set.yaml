@@ -32,6 +32,8 @@ spec:
                 - '.spec.volumeClaimTemplates[]'
           - name: external-secrets
             wave: 10
+          - name: neuvector
+            wave: 10
           - name: openbao
             wave: 10
             ignoreDifferences:
