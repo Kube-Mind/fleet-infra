@@ -47,7 +47,7 @@ spec:
     spec:
       containers:
         - name: producer
-          image: python:3.11-slim
+          image: python:3.14-slim
           command:
             - sh
             - -c
@@ -77,7 +77,7 @@ spec:
     spec:
       containers:
         - name: consumer
-          image: python:3.11-slim
+          image: python:3.14-slim
           command:
             - sh
             - -c
