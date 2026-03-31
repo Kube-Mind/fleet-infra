@@ -55,6 +55,19 @@
       ],
       "groupName": "chore(deps): update media helm charts and oci",
       "automerge": true
+    },
+    {
+      "matchManagers": [
+        "kustomize",
+        "helm-values",
+        "kubernetes",
+        "custom.regex"
+      ],
+      "matchFileNames": [
+        "src/workloads/work/**"
+      ],
+      "groupName": "chore(deps): update work helm charts and oci",
+      "automerge": true
     }
   ],
   "customManagers": [
