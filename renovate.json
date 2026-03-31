@@ -22,8 +22,15 @@
   "enabledManagers": [
     "kustomize",
     "helm-values",
+    "kubernetes",
     "custom.regex"
   ],
+  "kubernetes": {
+    "managerFilePatterns": [
+      "**/*.yaml",
+      "**/*.yml"
+    ]
+  },
   "packageRules": [
     {
       "matchManagers": [
