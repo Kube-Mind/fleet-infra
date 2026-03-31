@@ -119,7 +119,7 @@ spec:
             command: [ sh, -c, "buildctl debug workers" ]
         securityContext:
           privileged: true
-        image: moby/buildkit:v0.9.3-rootless
+        image: moby/buildkit:v0.28.1-rootless
         volumeMounts:
           - name: work
             mountPath: /work
