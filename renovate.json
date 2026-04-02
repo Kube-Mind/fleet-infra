@@ -51,7 +51,9 @@
         "custom.regex"
       ],
       "matchFileNames": [
-        "src/media/**"
+        "src/media/management/immich/immich-redis/deployment.yaml",
+        "src/media/management/immich/immich-machine-learning/deployment.yaml",
+        "src/media/management/immich/immich-server/deployment.yaml"
       ],
       "groupName": "chore(deps): update media helm charts and oci",
       "automerge": true
