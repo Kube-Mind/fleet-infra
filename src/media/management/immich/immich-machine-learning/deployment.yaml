@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: immich-ml
-          image: ghcr.io/immich-app/immich-machine-learning:v2.7.3
+          image: ghcr.io/immich-app/immich-machine-learning:v2.7.4
           envFrom:
             - configMapRef:
                 name: immich-env
