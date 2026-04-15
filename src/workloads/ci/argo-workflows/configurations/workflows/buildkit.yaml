@@ -55,6 +55,7 @@ spec:
         resources:
           requests:
             storage: 32Gi
+        storageClassName: longhorn-static
   templates:
     - name: main
       dag:
