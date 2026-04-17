@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ollama-proxy
+  namespace: ollama
+  labels:
+    app: ollama-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ollama-proxy
+  template:
+    metadata:
+      labels:
+        app: ollama-proxy
+    spec:
+      containers:
+        - name: ollama-proxy
+          image: ocr.jcan.dev/private/ollama-proxy:0.1.0
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+          volumeMounts:
+            - name: dev-net-tun
+              mountPath: /dev/net/tun
+          env:
+            - name: TROPIC_API_URL
+              value: "https://api.tropic.bot"
+            - name: TROPIC_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ollama-proxy-external-secret
+                  key: tropic-api-key
+            - name: OLLAMA_SERVICE
+              value: "ollama.ollama.svc.cluster.local"
+            - name: OLLAMA_PORT
+              value: "11434"
+            - name: SERVICE_NAME
+              value: "ollama-proxy"
+      imagePullSecrets:
+        - name: regcred-external-secret
+      volumes:
+        - name: dev-net-tun
+          hostPath:
+            path: /dev/net/tun
+            type: CharDevice
