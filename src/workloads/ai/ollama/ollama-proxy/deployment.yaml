@@ -26,14 +26,16 @@ spec:
           volumeMounts:
             - name: dev-net-tun
               mountPath: /dev/net/tun
+          commands: ["sh"]
+          tty: true
           env:
             - name: TROPIC_API_URL
               value: "https://api.tropic.bot"
-            - name: TROPIC_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: ollama-proxy-external-secret
-                  key: tropic-api-key
+            # - name: TROPIC_API_KEY
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: ollama-proxy-external-secret
+            #       key: tropic-api-key
             - name: OLLAMA_SERVICE
               value: "ollama.ollama.svc.cluster.local"
             - name: OLLAMA_PORT
