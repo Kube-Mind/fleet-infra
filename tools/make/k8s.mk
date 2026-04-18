@@ -8,7 +8,10 @@ test-teardown:
 	$(call kustomize_delete,$(_TEST_PATH))
 
 define kustomize_apply
-	kustomize build --enable-helm $(1) | kubectl apply -f -
+	echo "Applying kustomization in $(1)"
+	# --server-side is required by the following applications
+	# - argo-cd
+	kustomize build --enable-helm $(1) | kubectl apply --server-side -f -
 endef
 
 define kustomize_delete
