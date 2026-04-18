@@ -28,7 +28,7 @@ spec:
               mountPath: /dev/net/tun
           env:
             - name: TROPIC_API_URL
-              value: "https://api.tropic.bot"
+              value: "https://api.tropic.bot/api"
             - name: TROPIC_API_KEY
               valueFrom:
                 secretKeyRef:
