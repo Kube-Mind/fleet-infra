@@ -26,8 +26,6 @@ spec:
           volumeMounts:
             - name: dev-net-tun
               mountPath: /dev/net/tun
-          # command: ["sh"]
-          # tty: true
           env:
             - name: TROPIC_API_URL
               value: "https://api.tropic.bot"
