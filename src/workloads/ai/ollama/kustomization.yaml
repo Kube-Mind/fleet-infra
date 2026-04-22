@@ -10,4 +10,4 @@ helmCharts:
   releaseName: ollama
   repo: https://helm.otwld.com/
   valuesFile: values.yaml
-  version: 1.54.0
+  version: 1.55.0
