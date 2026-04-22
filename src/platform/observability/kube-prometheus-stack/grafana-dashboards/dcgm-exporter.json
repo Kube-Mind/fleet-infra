@@ -77,7 +77,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "12.4.2",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -150,7 +150,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "12.4.2",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -252,7 +252,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.4.2",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
@@ -373,14 +373,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.2",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "DCGM_FI_DEV_POWER_USAGE{Hostname=~\"$host\", gpu=~\"$gpu\"}",
+          "expr": "avg by (Hostname,host_ip, UUID) (DCGM_FI_DEV_POWER_USAGE{Hostname=~\"$host\", gpu=~\"$gpu\"})",
           "interval": "",
           "legendFormat": "{{Hostname}} - GPU {{gpu}}",
           "range": true,
@@ -450,7 +450,20 @@
           },
           "unit": "decmbytes"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "mbytes"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -479,14 +492,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.2",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "DCGM_FI_DEV_FB_USED{Hostname=~\"$host\", gpu=~\"$gpu\"}",
+          "expr": "avg by (Hostname,host_ip, gpu, UUID) (DCGM_FI_DEV_FB_USED{Hostname=~\"$host\", gpu=~\"$gpu\"})",
           "interval": "",
           "legendFormat": "{{Hostname}} - GPU {{gpu}}",
           "range": true,
@@ -587,14 +600,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.2",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "DCGM_FI_DEV_FB_USED{Hostname=~\"$host\", gpu=~\"$gpu\"} / (DCGM_FI_DEV_FB_USED{Hostname=~\"$host\", gpu=~\"$gpu\"} + DCGM_FI_DEV_FB_FREE{Hostname=~\"$host\", gpu=~\"$gpu\"})",
+          "expr": "avg by (Hostname,host_ip, gpu)  (DCGM_FI_DEV_FB_USED{Hostname=~\"$host\", gpu=~\"$gpu\"}) / (avg by (Hostname,host_ip, gpu) (DCGM_FI_DEV_FB_USED{Hostname=~\"$host\", gpu=~\"$gpu\"}) + avg by (Hostname,host_ip, gpu) (DCGM_FI_DEV_FB_FREE{Hostname=~\"$host\", gpu=~\"$gpu\"}))",
           "interval": "",
           "legendFormat": "{{Hostname}} - GPU {{gpu}}",
           "range": true,
@@ -695,14 +708,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.2",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$host\", gpu=~\"$gpu\"}",
+          "expr": "avg by (Hostname, gpu, UUID) (DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$host\", gpu=~\"$gpu\"})",
           "interval": "",
           "legendFormat": "{{Hostname}} - GPU {{gpu}}",
           "range": true,
@@ -803,14 +816,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.2",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "DCGM_FI_PROF_PIPE_TENSOR_ACTIVE{Hostname=~\"$host\", gpu=~\"$gpu\"}",
+          "expr": "avg by (Hostname, gpu, UUID) (DCGM_FI_PROF_PIPE_TENSOR_ACTIVE{Hostname=~\"$host\", gpu=~\"$gpu\"})",
           "interval": "",
           "legendFormat": "{{Hostname}} - GPU {{gpu}}",
           "range": true,
@@ -909,14 +922,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.2",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "DCGM_FI_DEV_GPU_TEMP{Hostname=~\"$host\", gpu=~\"$gpu\"}",
+          "expr": "avg by (Hostname, gpu, UUID) (DCGM_FI_DEV_GPU_TEMP{Hostname=~\"$host\", gpu=~\"$gpu\"})",
           "instant": false,
           "interval": "",
           "legendFormat": "{{Hostname}} - GPU {{gpu}}",
@@ -1015,14 +1028,14 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.4.2",
+      "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "DCGM_FI_DEV_SM_CLOCK{Hostname=~\"$host\", gpu=~\"$gpu\"} * 1000000",
+          "expr": "avg by (Hostname, gpu, UUID) (DCGM_FI_DEV_SM_CLOCK{Hostname=~\"$host\", gpu=~\"$gpu\"} * 1000000)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,

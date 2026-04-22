@@ -860,6 +860,491 @@
     {
       "datasource": {
         "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Monitoring and displaying NVIDIA driver versions, chip types, GPU card health status, etc.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "GPU Card Status"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "from": 0,
+                      "result": {
+                        "color": "green",
+                        "index": 0,
+                        "text": "OK"
+                      },
+                      "to": 8
+                    },
+                    "type": "range"
+                  },
+                  {
+                    "options": {
+                      "match": "null+nan",
+                      "result": {
+                        "color": "red",
+                        "index": 1,
+                        "text": "Error"
+                      }
+                    },
+                    "type": "special"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Chip Type"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 253
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Hostname"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Host IP"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NVIDIA Driver Version"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Memory Clock Frequency"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "rothz"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "shades"
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 123
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SM Clock Frequency"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "rothz"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "GPU Total Memory"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "mbytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "GPU Memory Usage"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percentunit"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "lcd",
+                  "type": "gauge"
+                }
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "max",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "GPU Temperature"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "celsius"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "lcd",
+                  "type": "gauge",
+                  "valueDisplayMode": "text"
+                }
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "max",
+                "value": 100
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      "id": 81,
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "GPU Card Status"
+          }
+        ]
+      },
+      "pluginVersion": "12.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"}) by (Hostname)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg by (Hostname,modelName,host_ip,DCGM_FI_DRIVER_VERSION) (DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"} * on (pod) group_left (host_ip) kube_pod_info)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "label_replace(kube_node_info{node=~\"$hostname\"},\"Hostname\",\"$1\",\"node\",\"(.*)\")",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(avg by (Hostname,host_ip,uuid) (DCGM_FI_DEV_FB_USED{Hostname=~\"$hostname\"}) + avg by (Hostname,host_ip,uuid) (DCGM_FI_DEV_FB_FREE{Hostname=~\"$hostname\"}))",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "CPU Utilization",
+          "range": false,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg by (Hostname,host_ip,uuid) (DCGM_FI_DEV_FB_USED{Hostname=~\"$hostname\"}) / (avg by (Hostname,host_ip,uuid) (DCGM_FI_DEV_FB_USED{Hostname=~\"$hostname\"}) + avg by (Hostname,host_ip,uuid) (DCGM_FI_DEV_FB_FREE{Hostname=~\"$hostname\"}))",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "Memory Usage",
+          "range": false,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg by (Hostname) (DCGM_FI_DEV_MEM_CLOCK{Hostname=~\"$hostname\"}*1000000)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "Memory Clock Frequency",
+          "range": false,
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg by (Hostname) (DCGM_FI_DEV_SM_CLOCK{Hostname=~\"$hostname\"}*1000000)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "SM Clock Frequency",
+          "range": false,
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg by (Hostname,host_ip,uuid) (DCGM_FI_DEV_GPU_TEMP{Hostname=~\"$hostname\"})",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "H"
+        }
+      ],
+      "title": "GPU Compute Card Health Status & Version Information Overview",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "Hostname",
+                "Value #A",
+                "DCGM_FI_DRIVER_VERSION",
+                "host_ip",
+                "modelName",
+                "Value #D",
+                "Value #E",
+                "Value #F",
+                "Value #G",
+                "Value #H"
+              ]
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "DCGM_FI_DRIVER_VERSION": 2,
+              "Hostname": 0,
+              "Value #A": 4,
+              "Value #D": 9,
+              "Value #E": 10,
+              "Value #F": 5,
+              "Value #G": 6,
+              "host_ip": 1,
+              "kernel_version": 7,
+              "modelName": 3,
+              "os_image": 8
+            },
+            "renameByName": {
+              "DCGM_FI_DRIVER_VERSION": "NVIDIA Driver Version",
+              "Hostname": "Hostname",
+              "Value #A": "GPU Card Status",
+              "Value #D": "GPU Total Memory",
+              "Value #E": "GPU Memory Usage",
+              "Value #F": "Memory Clock Frequency",
+              "Value #G": "SM Clock Frequency",
+              "Value #H": "GPU Temperature",
+              "host_ip": "Host IP",
+              "kernel_version": "Kernel",
+              "modelName": "Chip Type",
+              "os_image": "Operating System Version",
+              "release": "Kernel"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
         "uid": "${idc}"
       },
       "description": "Monitoring and displaying NVIDIA driver versions, chip types, GPU card health status, etc.",
@@ -1069,7 +1554,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "CPU Usage"
+              "options": "CPU Utilization"
             },
             "properties": [
               {
@@ -1088,6 +1573,14 @@
                 "value": {
                   "mode": "continuous-GrYlRd"
                 }
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "max",
+                "value": 100
               }
             ]
           },
@@ -1113,60 +1606,14 @@
               {
                 "id": "unit",
                 "value": "percentunit"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Memory Clock Frequency"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "rothz"
               },
               {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "color-text"
-                }
+                "id": "min",
+                "value": 0
               },
               {
-                "id": "color",
-                "value": {
-                  "fixedColor": "yellow",
-                  "mode": "shades"
-                }
-              },
-              {
-                "id": "custom.width",
-                "value": 123
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "SM Clock Frequency"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "rothz"
-              },
-              {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "color-text"
-                }
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "yellow",
-                  "mode": "fixed"
-                }
+                "id": "max",
+                "value": 1
               }
             ]
           }
@@ -1176,9 +1623,9 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 20
       },
-      "id": 81,
+      "id": 85,
       "options": {
         "cellHeight": "sm",
         "showHeader": true,
@@ -1212,7 +1659,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by (Hostname,modelName,host_ip,DCGM_FI_DRIVER_VERSION) (DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"} * on (pod) group_left (host_ip) kube_pod_info)",
+          "expr": "avg by (Hostname,modelName,host_ip,DCGM_FI_DRIVER_VERSION) (DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"} * on (pod) group_left (host_ip) kube_pod_info)",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -1302,16 +1749,11 @@
             "include": {
               "names": [
                 "Hostname",
-                "Value #A",
-                "DCGM_FI_DRIVER_VERSION",
                 "host_ip",
-                "modelName",
                 "kernel_version",
                 "os_image",
                 "Value #D",
-                "Value #E",
-                "Value #F",
-                "Value #G"
+                "Value #E"
               ]
             }
           }
@@ -1406,7 +1848,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 27
       },
       "id": 77,
       "interval": "$interval",
@@ -1445,7 +1887,7 @@
             "uid": "${idc}"
           },
           "editorMode": "code",
-          "expr": "avg by (Hostname,host_ip) (DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"} * on (pod) group_left (host_ip) kube_pod_info) ",
+          "expr": "avg by (Hostname,host_ip) (DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"} ) ",
           "instant": false,
           "legendFormat": "{{host_ip}}",
           "range": true,
@@ -1508,30 +1950,6 @@
                 "id": "color",
                 "value": {
                   "mode": "continuous-GrYlRd"
-                }
-              },
-              {
-                "id": "custom.width"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "总GPU资源"
-            },
-            "properties": [
-              {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "color-background"
-                }
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "blue",
-                  "mode": "fixed"
                 }
               },
               {
@@ -1618,167 +2036,14 @@
                 }
               }
             ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Allocated GPU Resources (External Business)"
-            },
-            "properties": [
-              {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "color-background"
-                }
-              },
-              {
-                "id": "mappings",
-                "value": [
-                  {
-                    "options": {
-                      "match": "null+nan",
-                      "result": {
-                        "color": "transparent",
-                        "index": 0
-                      }
-                    },
-                    "type": "special"
-                  }
-                ]
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#0f4fb0",
-                  "mode": "fixed"
-                }
-              },
-              {
-                "id": "custom.width"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Used GPU Resources (External Business)"
-            },
-            "properties": [
-              {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "color-background"
-                }
-              },
-              {
-                "id": "mappings",
-                "value": [
-                  {
-                    "options": {
-                      "match": "null+nan",
-                      "result": {
-                        "color": "transparent",
-                        "index": 1
-                      }
-                    },
-                    "type": "special"
-                  }
-                ]
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#8038a4",
-                  "mode": "fixed"
-                }
-              },
-              {
-                "id": "custom.width"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Allocated GPU Resources (Internal Business)"
-            },
-            "properties": [
-              {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "color-background"
-                }
-              },
-              {
-                "id": "mappings",
-                "value": [
-                  {
-                    "options": {
-                      "match": "null+nan",
-                      "result": {
-                        "color": "transparent",
-                        "index": 1
-                      }
-                    },
-                    "type": "special"
-                  }
-                ]
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#9f6933",
-                  "mode": "fixed"
-                }
-              },
-              {
-                "id": "custom.width"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Allocated GPU Resources (Internal Business)"
-            },
-            "properties": [
-              {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "color-background"
-                }
-              },
-              {
-                "id": "mappings",
-                "value": [
-                  {
-                    "options": {
-                      "match": "null+nan",
-                      "result": {
-                        "color": "transparent",
-                        "index": 1
-                      }
-                    },
-                    "type": "special"
-                  }
-                ]
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#1c8c0d",
-                  "mode": "fixed"
-                }
-              }
-            ]
           }
         ]
       },
       "gridPos": {
-        "h": 9,
+        "h": 6,
         "w": 24,
         "x": 0,
-        "y": 28
+        "y": 35
       },
       "id": 72,
       "options": {
@@ -1814,7 +2079,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "count(DCGM_FI_DEV_GPU_UTIL{exported_pod!=\"\",Hostname=~\"$hostname\"}) by (Hostname)",
+          "expr": "count(\n  DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"} \n  * on (pod) group_left(exported_pod) \n  kube_pod_info{pod!=\"\"}\n) by (Hostname)",
           "format": "table",
           "instant": true,
           "legendFormat": "Allocated GPU Resources",
@@ -1828,68 +2093,12 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "count(avg_over_time(DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"}[1m])>0) by (Hostname)",
+          "expr": "sum by (Hostname) (avg_over_time(DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"}[1m]) > bool 0)",
           "format": "table",
           "instant": true,
           "legendFormat": "Used GPU Resources",
           "range": false,
           "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${idc}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "count(DCGM_FI_DEV_GPU_UTIL{exported_pod!=\"\",Hostname=~\"$hostname\",exported_namespace=~\"$namespace\"}) by (Hostname)",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "Allocated GPU Resources (External Business)",
-          "range": false,
-          "refId": "D"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${idc}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "count(avg_over_time(DCGM_FI_DEV_GPU_UTIL{exported_pod!=\"\",Hostname=~\"$hostname\",exported_namespace=~\"$namespace\"}[1m])>0) by (Hostname)",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "Used GPU Resources (External Business)",
-          "range": false,
-          "refId": "E"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${idc}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "count(DCGM_FI_DEV_GPU_UTIL{exported_pod!=\"\",Hostname=~\"$hostname\",exported_namespace!~\"$namespace\"}) by (Hostname)",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "Allocated GPU Resources (Internal Business)",
-          "range": false,
-          "refId": "F"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${idc}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "count(avg_over_time(DCGM_FI_DEV_GPU_UTIL{exported_pod!=\"\",Hostname=~\"$hostname\",exported_namespace!~\"$namespace\"}[1m])>0) by (Hostname)",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "Allocated GPU Resources (Internal Business)",
-          "range": false,
-          "refId": "G"
         }
       ],
       "title": "Host Allocated GPU Card Details (Node Level)",
@@ -2036,7 +2245,7 @@
         "h": 11,
         "w": 12,
         "x": 0,
-        "y": 37
+        "y": 41
       },
       "id": 48,
       "options": {
@@ -2217,7 +2426,7 @@
             "properties": [
               {
                 "id": "unit",
-                "value": "percent"
+                "value": "percentunit"
               },
               {
                 "id": "decimals",
@@ -2226,6 +2435,7 @@
               {
                 "id": "custom.cellOptions",
                 "value": {
+                  "mode": "lcd",
                   "type": "gauge"
                 }
               },
@@ -2234,6 +2444,14 @@
                 "value": {
                   "mode": "continuous-GrYlRd"
                 }
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "max",
+                "value": 1
               }
             ]
           },
@@ -2271,7 +2489,7 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 37
+        "y": 41
       },
       "id": 66,
       "options": {
@@ -2288,7 +2506,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "DCGM_FI_DEV_GPU_UTIL{exported_pod!=\"\",Hostname=~\"$hostname\",exported_namespace=~\"$namespace\"} * on (pod) group_left(host_ip) kube_pod_info",
+          "expr": "sum by (Hostname, namespace, pod) (\n  DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"} \n  * on (pod) group_left(namespace) \n  kube_pod_info{namespace=~\"$namespace\"}\n)",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -2302,7 +2520,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "(DCGM_FI_DEV_FB_USED{exported_pod!=\"\",Hostname=~\"$hostname\",exported_namespace=~\"$namespace\"}/(DCGM_FI_DEV_FB_USED{exported_pod!=\"\",Hostname=~\"$hostname\",exported_namespace=~\"$namespace\"}+DCGM_FI_DEV_FB_FREE{exported_pod!=\"\",Hostname=~\"$hostname\",exported_namespace=~\"$namespace\"})) * 100",
+          "expr": "(\n  sum by (Hostname, namespace) (\n    DCGM_FI_DEV_FB_USED{Hostname=~\"$hostname\"} \n    * on (pod) group_left(namespace) \n    kube_pod_info{namespace=~\"$namespace\"}\n  )\n  / \n  sum by (Hostname, namespace) (\n    (DCGM_FI_DEV_FB_USED{Hostname=~\"$hostname\"} + DCGM_FI_DEV_FB_FREE{Hostname=~\"$hostname\"}) \n    * on (pod) group_left(namespace) \n    kube_pod_info{namespace=~\"$namespace\"}\n  )\n) * 100",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -2408,7 +2626,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 48
+        "y": 52
       },
       "id": 78,
       "options": {
@@ -2496,7 +2714,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 48
+        "y": 52
       },
       "id": 79,
       "options": {
@@ -2714,6 +2932,6 @@
   "timezone": "browser",
   "title": "AI Intelligent Computing - GPU Resource Monitoring Overview",
   "uid": "gpu-resource-monitoring-overview",
-  "version": 2,
+  "version": 5,
   "weekStart": ""
 }
