@@ -933,6 +933,10 @@
                     "type": "special"
                   }
                 ]
+              },
+              {
+                "id": "custom.width",
+                "value": 174
               }
             ]
           },
@@ -979,6 +983,10 @@
                   "fixedColor": "blue",
                   "mode": "fixed"
                 }
+              },
+              {
+                "id": "custom.width",
+                "value": 151
               }
             ]
           },
@@ -1000,6 +1008,10 @@
                   "fixedColor": "blue",
                   "mode": "fixed"
                 }
+              },
+              {
+                "id": "custom.width",
+                "value": 126
               }
             ]
           },
@@ -1021,6 +1033,10 @@
                   "fixedColor": "orange",
                   "mode": "fixed"
                 }
+              },
+              {
+                "id": "custom.width",
+                "value": 171
               }
             ]
           },
@@ -1049,7 +1065,7 @@
               },
               {
                 "id": "custom.width",
-                "value": 123
+                "value": 209
               }
             ]
           },
@@ -1075,6 +1091,10 @@
                   "fixedColor": "yellow",
                   "mode": "fixed"
                 }
+              },
+              {
+                "id": "custom.width",
+                "value": 213
               }
             ]
           },
@@ -1087,6 +1107,10 @@
               {
                 "id": "unit",
                 "value": "mbytes"
+              },
+              {
+                "id": "custom.width",
+                "value": 170
               }
             ]
           },
@@ -1512,7 +1536,7 @@
               },
               {
                 "id": "custom.width",
-                "value": 177
+                "value": 385
               }
             ]
           },
@@ -1546,6 +1570,10 @@
               {
                 "id": "max",
                 "value": 1
+              },
+              {
+                "id": "custom.width",
+                "value": 386
               }
             ]
           },
@@ -1574,6 +1602,70 @@
               {
                 "id": "max",
                 "value": 100
+              },
+              {
+                "id": "custom.width",
+                "value": 359
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Allocated GPU resources"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-GrYlRd"
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 189
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Utilised GPU resources"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-RdYlGr"
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 169
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Total GPU resources"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 155
               }
             ]
           }
@@ -1581,7 +1673,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 12,
+        "w": 24,
         "x": 0,
         "y": 20
       },
@@ -1681,6 +1773,48 @@
           "legendFormat": "Memory Clock Frequency",
           "range": false,
           "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"} * on (pod) group_left(host_ip) kube_pod_info) by (Hostname,host_ip)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(\n  DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"} \n  * on (pod) group_left(exported_pod) \n  kube_pod_info{pod!=\"\"}\n) by (Hostname)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (Hostname) (avg_over_time(DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"}[1m]) > bool 0)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "I"
         }
       ],
       "title": "GPU Compute Card Host Status & Version Information Overview",
@@ -1700,7 +1834,10 @@
                 "os_image",
                 "Value #D",
                 "Value #E",
-                "Value #F"
+                "Value #F",
+                "Value #G",
+                "Value #H",
+                "Value #I"
               ]
             }
           }
@@ -1726,7 +1863,9 @@
               "Value #D": "CPU Utilization",
               "Value #E": "Memory Usage",
               "Value #F": "Host Temperature",
-              "Value #G": "SM Clock Frequency",
+              "Value #G": "Total GPU resources",
+              "Value #H": "Allocated GPU resources",
+              "Value #I": "Utilised GPU resources",
               "host_ip": "Host IP",
               "kernel_version": "Kernel",
               "modelName": "Chip Type",
@@ -1741,23 +1880,46 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${idc}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "blue",
-            "mode": "fixed"
+            "mode": "palette-classic"
           },
           "custom": {
-            "align": "center",
-            "cellOptions": {
-              "type": "color-text"
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
             },
-            "footer": {
-              "reducers": []
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
             },
-            "inspect": false
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -1772,234 +1934,53 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "watt"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Allocated GPU Resources"
-            },
-            "properties": [
-              {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "color-background"
-                }
-              },
-              {
-                "id": "color",
-                "value": {
-                  "mode": "continuous-GrYlRd"
-                }
-              },
-              {
-                "id": "custom.width"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Used GPU Resources"
-            },
-            "properties": [
-              {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "color-background"
-                }
-              },
-              {
-                "id": "color",
-                "value": {
-                  "mode": "continuous-GrYlRd"
-                }
-              },
-              {
-                "id": "mappings",
-                "value": [
-                  {
-                    "options": {
-                      "match": "null+nan",
-                      "result": {
-                        "index": 0,
-                        "text": "0"
-                      }
-                    },
-                    "type": "special"
-                  }
-                ]
-              },
-              {
-                "id": "custom.width"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Hostname"
-            },
-            "properties": [
-              {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "color-text"
-                }
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "blue",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Host IP"
-            },
-            "properties": [
-              {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "color-text"
-                }
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "blue",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 12,
-        "x": 12,
-        "y": 20
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 26
       },
-      "id": 72,
+      "id": 86,
       "options": {
-        "cellHeight": "sm",
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": false,
-            "displayName": "Host IP"
-          }
-        ]
+        "legend": {
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "pluginVersion": "12.4.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${idc}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
-          "exemplar": false,
-          "expr": "count(DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"} * on (pod) group_left(host_ip) kube_pod_info) by (Hostname,host_ip)",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "总GPU资源",
-          "range": false,
+          "expr": "avg by (Hostname,host_ip, gpu, modelName, UUID) (DCGM_FI_DEV_POWER_USAGE{Hostname=~\"$hostname\"})",
+          "instant": false,
+          "legendFormat": "{{Hostname}} - GPU {{gpu}} - {{ modelName }}",
+          "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${idc}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "count(\n  DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"} \n  * on (pod) group_left(exported_pod) \n  kube_pod_info{pod!=\"\"}\n) by (Hostname)",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "Allocated GPU Resources",
-          "range": false,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${idc}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (Hostname) (avg_over_time(DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"}[1m]) > bool 0)",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "Used GPU Resources",
-          "range": false,
-          "refId": "C"
         }
       ],
-      "title": "Host Allocated GPU Card Details (Node Level)",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Time": false
-            },
-            "includeByName": {},
-            "indexByName": {
-              "Hostname": 1,
-              "Time": 0,
-              "Value #A": 3,
-              "Value #B": 4,
-              "Value #C": 5,
-              "Value #D": 6,
-              "Value #E": 7,
-              "Value #F": 8,
-              "Value #G": 9,
-              "host_ip": 2
-            },
-            "renameByName": {
-              "Hostname": "Hostname",
-              "Value #A": "Total GPU Resources",
-              "Value #B": "Allocated GPU Resources",
-              "Value #C": "Used GPU Resources",
-              "Value #D": "Allocated GPU Resources (External Business)",
-              "Value #E": "Used GPU Resources (External Business)",
-              "Value #F": "Allocated GPU Resources (Internal Business)",
-              "Value #G": "Allocated GPU Resources (Internal Business)",
-              "host_ip": "Host IP"
-            }
-          }
-        },
-        {
-          "id": "filterFieldsByName",
-          "options": {
-            "include": {
-              "names": [
-                "Hostname",
-                "Host IP",
-                "Total GPU Resources",
-                "Allocated GPU Resources",
-                "Used GPU Resources",
-                "Allocated GPU Resources (External Business)",
-                "Used GPU Resources (External Business)",
-                "Allocated GPU Resources (Internal Business)",
-                "Allocated GPU Resources (Internal Business)"
-              ]
-            }
-          }
-        }
-      ],
-      "type": "table"
+      "title": "GPU Power Usage",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -2054,7 +2035,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 34
       },
       "id": 77,
       "interval": "$interval",
@@ -2093,7 +2074,7 @@
             "uid": "${idc}"
           },
           "editorMode": "code",
-          "expr": "avg by (Hostname,host_ip) (DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"} ) ",
+          "expr": "sum by (Hostname,host_ip) (DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"} ) ",
           "instant": false,
           "legendFormat": "{{host_ip}}",
           "range": true,
@@ -2188,7 +2169,7 @@
         "h": 11,
         "w": 12,
         "x": 0,
-        "y": 34
+        "y": 42
       },
       "id": 48,
       "options": {
@@ -2432,7 +2413,7 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 34
+        "y": 42
       },
       "id": 66,
       "options": {
@@ -2569,7 +2550,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 45
+        "y": 53
       },
       "id": 78,
       "options": {
@@ -2657,7 +2638,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 45
+        "y": 53
       },
       "id": 79,
       "options": {
@@ -2875,6 +2856,6 @@
   "timezone": "browser",
   "title": "AI Intelligent Computing - GPU Resource Monitoring Overview",
   "uid": "gpu-resource-monitoring-overview",
-  "version": 6,
+  "version": 7,
   "weekStart": ""
 }
