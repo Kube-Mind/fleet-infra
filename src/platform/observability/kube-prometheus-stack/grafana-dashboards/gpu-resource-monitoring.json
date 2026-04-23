@@ -1536,7 +1536,7 @@
               },
               {
                 "id": "custom.width",
-                "value": 385
+                "value": 163
               }
             ]
           },
@@ -1573,7 +1573,7 @@
               },
               {
                 "id": "custom.width",
-                "value": 386
+                "value": 149
               }
             ]
           },
@@ -1605,7 +1605,7 @@
               },
               {
                 "id": "custom.width",
-                "value": 359
+                "value": 162
               }
             ]
           },
@@ -1940,7 +1940,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 6,
         "w": 24,
         "x": 0,
         "y": 26
@@ -2035,7 +2035,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 32
       },
       "id": 77,
       "interval": "$interval",
@@ -2169,7 +2169,7 @@
         "h": 11,
         "w": 12,
         "x": 0,
-        "y": 42
+        "y": 40
       },
       "id": 48,
       "options": {
@@ -2350,7 +2350,7 @@
             "properties": [
               {
                 "id": "unit",
-                "value": "percentunit"
+                "value": "percent"
               },
               {
                 "id": "decimals",
@@ -2413,7 +2413,7 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 42
+        "y": 40
       },
       "id": 66,
       "options": {
@@ -2430,7 +2430,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by (Hostname, namespace, pod) (\n  DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"} \n  * on (pod) group_left(namespace) \n  kube_pod_info{namespace=~\"$namespace\"}\n)",
+          "expr": "avg by (Hostname, namespace, pod) (\n  DCGM_FI_DEV_GPU_UTIL{Hostname=~\"$hostname\"} \n  * on (pod) group_left(namespace) \n  kube_pod_info{namespace=~\"$namespace\"}\n)",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -2444,7 +2444,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "(\n  sum by (Hostname, namespace) (\n    DCGM_FI_DEV_FB_USED{Hostname=~\"$hostname\"} \n    * on (pod) group_left(namespace) \n    kube_pod_info{namespace=~\"$namespace\"}\n  )\n  / \n  sum by (Hostname, namespace) (\n    (DCGM_FI_DEV_FB_USED{Hostname=~\"$hostname\"} + DCGM_FI_DEV_FB_FREE{Hostname=~\"$hostname\"}) \n    * on (pod) group_left(namespace) \n    kube_pod_info{namespace=~\"$namespace\"}\n  )\n) * 100",
+          "expr": "(\n  avg by (Hostname, namespace) (\n    DCGM_FI_DEV_FB_USED{Hostname=~\"$hostname\"} \n    * on (pod) group_left(namespace) \n    kube_pod_info{namespace=~\"$namespace\"}\n  )\n  / \n  avg by (Hostname, namespace) (\n    (DCGM_FI_DEV_FB_USED{Hostname=~\"$hostname\"} + DCGM_FI_DEV_FB_FREE{Hostname=~\"$hostname\"}) \n    * on (pod) group_left(namespace) \n    kube_pod_info{namespace=~\"$namespace\"}\n  )\n) * 100",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -2550,7 +2550,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 53
+        "y": 51
       },
       "id": 78,
       "options": {
@@ -2638,7 +2638,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 53
+        "y": 51
       },
       "id": 79,
       "options": {
@@ -2856,6 +2856,6 @@
   "timezone": "browser",
   "title": "AI Intelligent Computing - GPU Resource Monitoring Overview",
   "uid": "gpu-resource-monitoring-overview",
-  "version": 7,
+  "version": 8,
   "weekStart": ""
 }
