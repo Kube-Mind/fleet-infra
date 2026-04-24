@@ -17,7 +17,7 @@ platform-network-teardown:
 	$(call kustomize_delete,$(_PLATFORM_NETWORK_PATH))
 
 .PHONY: platform-observability-setup platform-observability-teardown
-_PLATFORM_OBSERVABILITY_PATH = src/platform/network
+_PLATFORM_OBSERVABILITY_PATH = src/platform/observability
 platform-observability-setup:
 	$(call kustomize_apply,$(_PLATFORM_OBSERVABILITY_PATH))
 
