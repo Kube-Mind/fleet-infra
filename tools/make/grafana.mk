@@ -6,5 +6,5 @@ grafana-password:
 	@echo $(GRAFANA_PASSWORD)
 grafana-shell:
 	kubectl -n $(GRAFANA_NAMESPACE) exec -it deploy/$(GRAFANA_NAMESPACE)-grafana -- /bin/sh
-grafana-proxy:
-	kubectl -n $(GRAFANA_NAMESPACE) port-forward svc/$(GRAFANA_NAMESPACE)-grafana 8080:80
+grafana-proxy: grafana-password
+	kubectl -n $(GRAFANA_NAMESPACE) port-forward svc/$(GRAFANA_NAMESPACE)-grafana 3000:3000
