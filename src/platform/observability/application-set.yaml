@@ -29,7 +29,7 @@ spec:
                   - /data/admin-password
                   - /data/ldap-toml
           - name: loki
-            wave: 30
+            wave: 20
           # - name: metrics-server
           #   wave: 10
           - name: promtail
