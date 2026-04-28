@@ -11,6 +11,6 @@ configMapGenerator:
   - name: grafana-dashboards
     files:
       - dcgm-exporter.json
-      - gpu-resource-monitoring.json
+      # - gpu-resource-monitoring.json
       - k8s-dashboard.json
       - loki-k8s-logs.json
