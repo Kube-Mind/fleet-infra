@@ -3478,6 +3478,7 @@
     "to": "now"
   },
   "title": "AI Intelligent Computing - GPU Resource Monitoring Overview",
+  "uid": "gpu-resource-monitoring",
   "variables": [
     {
       "kind": "DatasourceVariable",
