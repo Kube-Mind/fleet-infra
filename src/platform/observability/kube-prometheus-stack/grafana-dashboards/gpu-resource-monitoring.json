@@ -3454,13 +3454,10 @@
   "liveNow": false,
   "preload": false,
   "tags": [
-    "A100",
-    "A800",
-    "H100",
-    "Intelligent Computing Center",
+    "RTX4000",
+    "GTX1650",
     "NVIDIA",
-    "GPU",
-    "kason"
+    "GPU"
   ],
   "timeSettings": {
     "autoRefresh": "10s",
