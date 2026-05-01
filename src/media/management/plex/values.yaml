@@ -190,7 +190,7 @@ rclone:
     registry: index.docker.io
     repository: rclone/rclone
     # -- If unset use latest
-    tag: 1.73.5
+    tag: 1.74.0
     sha: ""
     pullPolicy: IfNotPresent
 
