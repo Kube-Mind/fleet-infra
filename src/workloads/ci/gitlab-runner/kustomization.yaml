@@ -10,5 +10,5 @@ helmCharts:
   namespace: gitlab-runner
   repo: https://charts.gitlab.io
   valuesFile: values.yaml
-  version: 0.88.1
+  version: 0.88.2
   includeCRDs: true
