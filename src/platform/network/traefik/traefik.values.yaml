@@ -705,7 +705,7 @@ ports:
     ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
     asDefault:  # @schema type: [boolean, null]; default: null
     port: 8000
-    hostPort: 8000
+    hostPort: 30080
     # containerPort: 8000
     expose:
       default: true
@@ -763,7 +763,7 @@ ports:
     ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
     # asDefault: true
     port: 8443
-    hostPort:  443 # @schema type:[integer, null]; minimum:0
+    hostPort: # @schema type:[integer, null]; minimum:0
     containerPort:  # @schema type:[integer, null]; minimum:0
     expose:
       default: true
@@ -773,7 +773,7 @@ ports:
     ## -- The port protocol (TCP/UDP)
     protocol: TCP
     # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
-    nodePort:  # @schema type:[integer, null]; minimum:0
+    nodePort: 30443 # @schema type:[integer, null]; minimum:0
     # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#application-protocol)
     appProtocol:  # @schema type:[string, null]
     # -- See [upstream documentation](https://doc.traefik.io/traefik/reference/install-configuration/entrypoints/#allowacmebypass)
