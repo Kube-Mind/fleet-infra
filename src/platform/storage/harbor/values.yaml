@@ -99,7 +99,7 @@ database:
       initialDelaySeconds: 300
       periodSeconds: 100
       timeoutSeconds: 50
-      successThreshold: 10
+      successThreshold: 1
       failureThreshold: 60
       
     readinessProbe:
@@ -107,7 +107,7 @@ database:
       initialDelaySeconds: 50
       periodSeconds: 100
       timeoutSeconds: 50
-      successThreshold: 10
+      successThreshold: 1
       failureThreshold: 60
       
     startupProbe:
@@ -115,7 +115,7 @@ database:
       initialDelaySeconds: 50
       periodSeconds: 100
       timeoutSeconds: 50
-      successThreshold: 10
+      successThreshold: 1
       failureThreshold: 100
 
 jobservice:
