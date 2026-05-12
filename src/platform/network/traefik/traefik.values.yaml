@@ -808,10 +808,6 @@ hostNetwork: false
 rbac:  # @schema additionalProperties: false
   enabled: true
 
-# -- Enable to create a PodSecurityPolicy and assign it to the Service Account via RoleBinding or ClusterRoleBinding
-podSecurityPolicy:
-  enabled: false
-
 # -- The service account the pods will use to interact with the Kubernetes API
 serviceAccount:  # @schema additionalProperties: false
   # If set, an existing service account is used
@@ -918,9 +914,6 @@ hub:
       # -- When set to true, it will only accept paths and methods that are explicitly defined in its OpenAPI specification
       validateRequestMethodAndPath: false
 
-  experimental:
-    # -- Set to true in order to enable AI Gateway. Requires a valid license token.
-    aigateway: false
   providers:
     consulCatalogEnterprise:
       # -- Enable Consul Catalog Enterprise backend with default settings.
