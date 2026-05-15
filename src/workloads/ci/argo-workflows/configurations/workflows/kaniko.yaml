@@ -87,7 +87,7 @@ spec:
           secret:
             secretName: argowf-external-secret
       container:
-        image: ghcr.io/osscontainertools/kaniko:v1.27.4
+        image: ghcr.io/osscontainertools/kaniko:v1.27.5
         securityContext:
           privileged: true
         resources:
