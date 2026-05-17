@@ -37,4 +37,4 @@ bandwidthManager:
 
 # Observability optional
 hubble:
-  enabled: false
+  enabled: true
