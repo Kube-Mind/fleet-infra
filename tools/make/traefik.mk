@@ -8,3 +8,6 @@ traefik-setup:
 
 traefik-teardown:
 	$(call kustomize_delete,$(TRAEFIK_PATH))
+
+traefik-status:
+	kubectl -n $(TRAEFIK_NAMESPACE) get all
