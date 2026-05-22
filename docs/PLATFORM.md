@@ -15,7 +15,7 @@ The platform layer consists of core infrastructure components that provide a **s
 | Name | Status | Description |
 | ---- | ------ | ----------- |
 | [platform-core](./src/platform/core) | ![platform-core](https://cd.jcan.dev/api/badge?name=platform-core&revision=true&showAppName=true) | Installs critical cluster components such as Argo CD, ingress controllers, certificate managers, and other foundational tools. |
-| [platform-network](./src/platform/network) | ![platform-network](https://cd.jcan.dev/api/badge?name=platform-network&revision=true&showAppName=true) | Manages networking components including CNI plugins, MetalLB, Traefik ingress, and automatic DNS and TLS configuration. |
+| [platform-network](./src/platform/network) | ![platform-network](https://cd.jcan.dev/api/badge?name=platform-network&revision=true&showAppName=true) | Manages networking components including CNI plugins, Traefik ingress, and automatic DNS and TLS configuration. |
 | [platform-observability](./src/platform/observability) | ![platform-observability](https://cd.jcan.dev/api/badge?name=platform-observability&revision=true&showAppName=true) | Provides monitoring, logging, and alerting via Prometheus, Grafana, and related telemetry tools. |
 | [platform-security](./src/platform/security) | ![platform-security](https://cd.jcan.dev/api/badge?name=platform-security&revision=true&showAppName=true) | Deploys security tooling for authentication, secrets management, and policy enforcement. |
 | [platform-storage](./src/platform/storage) | ![platform-storage](https://cd.jcan.dev/api/badge?name=platform-storage&revision=true&showAppName=true) | Manages persistent storage provisioners, container registries, and CSI drivers for stateful workloads. |

@@ -24,7 +24,6 @@ This document serves as a reference for the migration of applications in our cus
 |   True   | external-secrets            | configurations/infra-management/external-secrets                      | platform/core/external-secrets                             |
 |   True   | k3s-upgrader                | configurations/infra-management/k3s-upgrader                          | platform/core/system-upgrade                               |
 |   True   | longhorn                    | configurations/infra-management/longhorn                              | platform/storage/longhorn                                  |
-|   True   | metallb                     | configurations/infra-management/metallb                               | platform/network/metallb                                   |
 |   True   | nfs-provisioner             | configurations/infra-management/nfs-provisioner                       | platform/storage/nfs-provisioner                           |
 |   True   | nvidia-operator             | configurations/infra-management/nvidia-operator                       | platform/core/nvidia-operator                              |
 |   True   | openbao                     | configurations/infra-management/openbao                               | platform/security/openbao                                  |
@@ -32,7 +31,6 @@ This document serves as a reference for the migration of applications in our cus
 |   True   | kube-prometheus-stack       | configurations/infra-monitoring/kube-prometheus-stack                 | platform/observability/kube-prometheus-stack               |
 |   True   | k3s-upgrader-plans          | configurations/infra-operations/k3s-upgrader-plans                    | platform/core/system-upgrade-plans                         |
 |   True   | letsencrypt                 | configurations/infra-operations/letsencrypt                           | platform/network/letsencrypt                               |
-|   True   | metallb-runtime-configs     | configurations/infra-operations/metallb-runtime-configs               | src/platform/network/metallb/configs                       |
 |   True   | secrets-integrator          | configurations/infra-operations/secrets-integrator                    |                                                            |
 |    N/A   | chartwatch                  | configurations/kmind-management/chartwatch                            |                                                            |
 |   True   | dnsfix                      | configurations/kmind-management/dnsfix                                | platform/network/dnsfix                                    |

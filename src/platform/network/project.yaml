@@ -28,8 +28,6 @@ spec:
       server: '*'
     - namespace: 'letsencrypt'
       server: '*'
-    - namespace: 'metallb'
-      server: '*'
     - namespace: 'traefik'
       server: '*'
     - namespace: 'secrets-integrator'
