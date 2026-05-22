@@ -55,6 +55,8 @@ spec:
           volumeMounts:
           - mountPath: /dev/net/tun
             name: dev-net-tun
+      imagePullSecrets:
+        - name: regcred-external-secret
       volumes:
       - name: dev-net-tun
         hostPath:
