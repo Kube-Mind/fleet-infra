@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: browserless-stack
+  namespace: ollama
+  labels:
+    app: browserless-stack
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: browserless-stack
+  template:
+    metadata:
+      labels:
+        app: browserless-stack
+    spec:
+      containers:
+        - name: browserless
+          image: ghcr.io/browserless/chromium:latest
+          env:
+          - name: TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: browserless-proxy-external-secret
+                key: BROWSERLESS_TOKEN
+          - name: CONCURRENT
+            value: "5"
+          - name: TIMEOUT
+            value: "60000"
+        - name: browserless-proxy
+          image: ocr.jcan.dev/private/browserles-proxy:0.1.0
+          securityContext:
+            capabilities:
+              add: ["NET_ADMIN"]
+          env:
+            - name: TROPIC_API_URL
+              value: "https://api.tropic.bot/api"
+            - name: TROPIC_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ollama-proxy-external-secret
+                  key: TROPIC_API_KEY
+            - name: TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: browserless-proxy-external-secret
+                  key: BROWSERLESS_TOKEN
+            - name: SERVICE_NAME
+              value: "browserless-proxy"
+            - name: BROWSERLESS_SERVICE
+              value: "127.0.0.1" # Changed to localhost because they share the network namespace
+            - name: BROWSERLESS_PORT
+              value: "3000"
+          volumeMounts:
+          - mountPath: /dev/net/tun
+            name: dev-net-tun
+      volumes:
+      - name: dev-net-tun
+        hostPath:
+          path: /dev/net/tun
+          type: CharDevice
