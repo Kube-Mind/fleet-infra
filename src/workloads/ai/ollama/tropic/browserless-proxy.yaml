@@ -54,8 +54,3 @@ spec:
               value: "3000"
       imagePullSecrets:
         - name: regcred-external-secret
-      volumes:
-      - name: dev-net-tun
-        hostPath:
-          path: /dev/net/tun
-          type: CharDevice
