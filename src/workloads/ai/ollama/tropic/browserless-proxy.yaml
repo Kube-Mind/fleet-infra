@@ -1,19 +1,20 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: browserless-stack
+  name: browserless
   namespace: ollama
   labels:
-    app: browserless-stack
+    app: browserless
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: browserless-stack
+      app: browserless
   template:
     metadata:
       labels:
-        app: browserless-stack
+        app: browserless
     spec:
       containers:
         - name: browserless
@@ -28,6 +29,27 @@ spec:
             value: "5"
           - name: TIMEOUT
             value: "60000"
+      imagePullSecrets:
+        - name: regcred-external-secret
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: browserless-proxy
+  namespace: ollama
+  labels:
+    app: browserless-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: browserless-proxy
+  template:
+    metadata:
+      labels:
+        app: browserless-proxy
+    spec:
+      containers:
         - name: browserless-proxy
           image: ocr.jcan.dev/private/browserles-proxy:0.1.0
           securityContext:
