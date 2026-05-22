@@ -30,6 +30,9 @@ spec:
             value: "60000"
         - name: browserless-proxy
           image: ocr.jcan.dev/private/browserles-proxy:0.1.0
+          securityContext:
+            capabilities:
+              add: ["NET_ADMIN"]
           env:
             - name: TROPIC_API_URL
               value: "https://api.tropic.bot/api"
