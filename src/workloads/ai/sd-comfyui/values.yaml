@@ -9,7 +9,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 image:
-  tag: "v0.3.54"
+  tag: "v0.22.2"
 
 comfyui:
   cli_args: "--cuda-device 0 --verbose DEBUG --fast"
