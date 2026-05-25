@@ -22,6 +22,8 @@ spec:
   destinations:
     - namespace: 'argo-cd'
       server: '*'
+    - namespace: 'ollama'
+      server: '*'
     - namespace: 'pft'
       server: '*'
     - namespace: 'ska'

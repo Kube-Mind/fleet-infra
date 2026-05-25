@@ -22,6 +22,8 @@ spec:
         #   wave: 50
         - name: ska
           wave: 50
+        - name: tropic
+          wave: 50
   template:
     metadata:
       name: '{{ .name }}'
