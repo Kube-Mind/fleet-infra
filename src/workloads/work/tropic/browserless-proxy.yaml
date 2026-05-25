@@ -32,6 +32,19 @@ spec:
       imagePullSecrets:
         - name: regcred-external-secret
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: browserless
+  namespace: ollama
+spec:
+  selector:
+    app: browserless
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
