@@ -65,7 +65,9 @@ spec:
             - name: kafka-data
               mountPath: /var/lib/kafka/data
   volumeClaimTemplates:
-    - metadata:
+    - apiVersion: v1	
+      kind: PersistentVolumeClaim	
+      metadata:
         name: kafka-data
       spec:
         accessModes: [ "ReadWriteOnce" ]
