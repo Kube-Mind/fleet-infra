@@ -42,7 +42,7 @@ spec:
             - name: KAFKA_PROCESS_ROLES
               value: "broker,controller"
             - name: KAFKA_CONTROLLER_QUORUM_VOTERS
-              value: "1@0.0.0.0:9093"
+              value: "1@kafka-0:9093"
             
             # Listeners setup
             - name: KAFKA_LISTENERS
