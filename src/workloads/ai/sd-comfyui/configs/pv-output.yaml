@@ -21,7 +21,7 @@ spec:
           - key: kubernetes.io/hostname
             operator: In
             values:
-              - "turing"
+              - "franky"
   persistentVolumeReclaimPolicy: Delete
   volumeMode: Filesystem
   storageClassName: local-storage
