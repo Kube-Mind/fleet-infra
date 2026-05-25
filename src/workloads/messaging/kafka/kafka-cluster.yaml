@@ -36,9 +36,6 @@ spec:
             - containerPort: 9092
             - containerPort: 9093
           env:
-            # Added a dummy cluster ID so KRaft can auto-format the storage directory on startup
-            - name: KAFKA_CLUSTER_ID
-              value: "dummy-cluster-id"
             - name: KAFKA_ADVERTISED_LISTENERS
               value: PLAINTEXT://kafka-0.kafka.kafka.svc.cluster.local:9092
             - name: KAFKA_AUTO_CREATE_TOPICS_ENABLE
