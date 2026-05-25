@@ -93,16 +93,17 @@ volumeClaimTemplates:
     storageClassName: local-storage
     volumeName: sd-comfyui-output-pv
 
-nodeSelector: {}
+nodeSelector:
+  nvidia.com/gpu.product: "NVIDIA-RTX-4000-Ada-Generation"
 
 tolerations: []
 
-affinity:
-  nodeAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-        - matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: In
-            values:
-            - "franky"
+# affinity:
+#   nodeAffinity:
+#     requiredDuringSchedulingIgnoredDuringExecution:
+#       nodeSelectorTerms:
+#         - matchExpressions:
+#           - key: nvidia.com/gpu.product
+#             operator: In
+#             values:
+#             - "NVIDIA-RTX-4000-Ada-Generation"
