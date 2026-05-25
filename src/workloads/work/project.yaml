@@ -28,6 +28,8 @@ spec:
       server: '*'
     - namespace: 'ska'
       server: '*'
+    - namespace: 'tropic'
+      server: '*'
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
