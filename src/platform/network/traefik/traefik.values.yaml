@@ -739,9 +739,9 @@ ports:
     # @default -- nil
     transport:
       respondingTimeouts:
-        readTimeout:   # @schema type:[string, integer, null]
-        writeTimeout:  # @schema type:[string, integer, null]
-        idleTimeout:   # @schema type:[string, integer, null]
+        readTimeout:  30m # @schema type:[string, integer, null]
+        writeTimeout: 30m # @schema type:[string, integer, null]
+        idleTimeout:  30m # @schema type:[string, integer, null]
       lifeCycle:
         requestAcceptGraceTimeout:  # @schema type:[string, integer, null]
         graceTimeOut:               # @schema type:[string, integer, null]
@@ -824,9 +824,9 @@ ports:
     # @default -- nil
     transport:
       respondingTimeouts:
-        readTimeout:   # @schema type:[string, integer, null]
-        writeTimeout:  # @schema type:[string, integer, null]
-        idleTimeout:   # @schema type:[string, integer, null]
+        readTimeout:  30m # @schema type:[string, integer, null]
+        writeTimeout: 30m # @schema type:[string, integer, null]
+        idleTimeout:  30m # @schema type:[string, integer, null]
       lifeCycle:
         requestAcceptGraceTimeout:  # @schema type:[string, integer, null]
         graceTimeOut:               # @schema type:[string, integer, null]
