@@ -1,0 +1,80 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client
+  namespace: contacts
+  labels:
+    app: contacts-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: contacts-client
+  template:
+    metadata:
+      labels:
+        app: contacts-client
+    spec:
+      serviceAccountName: contacts-client-waiter
+      containers:
+        - name: contacts-client
+          image: ocr.jcan.dev/library/talon/contacts-client:1.4.1
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: aws-iam-keys-contacts
+      initContainers:
+      - name: wait-for-configuration
+        image: "alpine/kubectl:latest"
+        imagePullPolicy: IfNotPresent
+        args:
+          - wait 
+          - -l 
+          - app=contacts-server 
+          - --for=condition=ready 
+          - pod 
+          - --timeout=360s
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: contacts-client-waiter
+  namespace: contacts
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: contacts-client-waiter
+  namespace: contacts
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: contacts-client-waiter
+  namespace: contacts
+subjects:
+  - kind: ServiceAccount
+    name: contacts-client-waiter
+    namespace: contacts
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: contacts-client-waiter
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client
+  namespace: contacts
+spec:
+  selector:
+    app: contacts-client
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 80

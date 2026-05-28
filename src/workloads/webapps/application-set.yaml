@@ -1,61 +1,47 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: workloads
+  name: workloads-webapps
   namespace: argo-cd
   annotations:
     argocd.argoproj.io/sync-wave: '0'
-    argocd.argoproj.io/tracking-id: default:argoproj.io/Application:argo-cd/workloads
+    argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/webapps
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   labels:
-    app.kubernetes.io/instance: workloads
-    app.kubernetes.io/part-of: main
+    app.kubernetes.io/instance: webapps
+    app.kubernetes.io/part-of: workloads
     app.kubernetes.io/managed-by: argo-cd
 spec:
   goTemplate: true
-  goTemplateOptions: ["missingkey=error"]
   generators:
     - list:
         elements:
-        - name: ai
-          wave: 100
-        - name: ci
-          wave: 100
-        - name: messaging
-          wave: 100
-        - name: tools
-          wave: 100
-        - name: webapps
-          wave: 100
-        - name: work
-          wave: 100
+          - name: contacts
+            wave: 30
   template:
     metadata:
-      name: 'workloads-{{ .name }}'
+      name: '{{ .name }}'
       annotations:
-        argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/{{ .name }}
+        argocd.argoproj.io/tracking-id: workloads-webapps:argoproj.io/Application:argo-cd/{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"
       finalizers:
         - resources-finalizer.argocd.argoproj.io
       labels:
         app.kubernetes.io/instance: '{{ .name }}'
         app.kubernetes.io/component: '{{ .name }}'
-        app.kubernetes.io/part-of: workloads
+        app.kubernetes.io/part-of: workloads-webapps
     spec:
-      project: workloads
+      project: workloads-webapps
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
         targetRevision: main
-        path: 'src/workloads/{{ .name }}'
+        path: 'src/workloads/webapps/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:
-        namespace: 'workloads-{{ .name }}'
+        namespace: '{{ .name }}'
         server: https://kubernetes.default.svc
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
         retry:
           limit: 1
           backoff:
@@ -68,3 +54,9 @@ spec:
           - ServerSideApply=true
           - PruneLast=true
           - RespectIgnoreDifferences=true
+  templatePatch: |
+    {{- if .ignoreDifferences }}
+    spec:
+      ignoreDifferences:
+      {{- toYaml .ignoreDifferences | nindent 12 }}
+    {{- end }}
