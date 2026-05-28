@@ -29,7 +29,7 @@ spec:
             - --timeout=360s
       containers:
         - name: server          
-          image: ocr.jcan.dev/library/talon/contacts-server:1.4.1
+          image: ocr.jcan.dev/library/talon/contacts-server:1.4.2
           ports:
             - containerPort: 3001
           env: 
