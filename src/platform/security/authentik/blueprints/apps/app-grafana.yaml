@@ -39,6 +39,10 @@ entries:
           [slug, "default-provider-invalidation-flow"],
         ]
 
+      grant_types:
+        - authorization_code
+        - refresh_token
+
       client_type: confidential
       redirect_uris:
         - url: https://grafana.jcan.dev/login/generic_oauth
