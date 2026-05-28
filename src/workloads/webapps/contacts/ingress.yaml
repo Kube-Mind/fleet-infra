@@ -1,0 +1,36 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: strip-contacts-prefix
+  namespace: contacts
+spec:
+  stripPrefix:
+    prefixes:
+      - /contacts
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: contacts-ingress
+  namespace: contacts
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prd
+    traefik.ingress.kubernetes.io/router.middlewares: contacts-strip-contacts-prefix@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: demo.jcan.dev
+      http:
+        paths:
+          - path: /contacts
+            pathType: Prefix
+            backend:
+              service:
+                name: contacts-client
+                port:
+                  number: 3000
+  tls:
+    - hosts:
+        - demo.jcan.dev
+      secretName: demo-tls
