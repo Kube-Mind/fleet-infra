@@ -42,7 +42,7 @@ spec:
           - name: JSON_BODY_LIMIT
             value: 10mb
       imagePullSecrets:
-        - name: aws-iam-keys-contacts
+        - name: regcred-external-secret
 ---
 apiVersion: v1
 kind: ServiceAccount

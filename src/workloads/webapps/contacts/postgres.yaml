@@ -29,7 +29,7 @@ spec:
           - name: POSTGRES_DB
             value: contacts
       imagePullSecrets:
-        - name: aws-iam-keys-contacts
+        - name: regcred-external-secret
 ---
 apiVersion: v1
 kind: Service

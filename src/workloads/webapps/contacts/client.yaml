@@ -23,7 +23,7 @@ spec:
           ports:
             - containerPort: 80
       imagePullSecrets:
-        - name: aws-iam-keys-contacts
+        - name: regcred-external-secret
       initContainers:
       - name: wait-for-configuration
         image: "alpine/kubectl:latest"
