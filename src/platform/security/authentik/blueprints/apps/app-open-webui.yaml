@@ -1,0 +1,91 @@
+# yaml-language-server: $schema=https://goauthentik.io/blueprints/schema.json
+---
+version: 1
+metadata:
+  name: Apps - Open WebUI
+entries:
+  - id: openwebui-admin-group
+    model: authentik_core.group
+    identifiers:
+      name: Open WebUI Admins
+    attrs:
+      name: Open WebUI Admins
+  
+  - id: openwebui-viewer-group
+    model: authentik_core.group
+    identifiers:
+      name: Open WebUI Viewers
+    attrs:
+      name: Open WebUI Viewers
+  
+  - id: openwebui_provider
+    model: authentik_providers_oauth2.oauth2provider
+    identifiers:
+      name: auth.jcan.dev/openwebui
+    attrs:
+      authorization_flow:
+        !Find [
+          authentik_flows.flow,
+          [slug, "default-provider-authorization-implicit-consent"],
+        ]
+      signing_key:
+        !Find [
+          authentik_crypto.certificatekeypair,
+          [name, "authentik Self-signed Certificate"],
+        ]
+      invalidation_flow:
+        !Find [
+          authentik_flows.flow,
+          [slug, "default-provider-invalidation-flow"],
+        ]
+
+      client_type: confidential
+      redirect_uris:
+        - url: https://cd.jcan.dev/api/dex/callback
+          matching_mode: strict
+      client_id: !Env ARGOCD_CLIENT_ID
+      client_secret: !Env ARGOCD_CLIENT_SECRET
+      access_code_validity: minutes=1
+      access_token_validity: hours=1
+      refresh_token_validity: days=30
+
+      sub_mode: hashed_user_id
+      property_mappings:
+        - !Find [
+            authentik_core.propertymapping,
+            [name, "authentik default OAuth Mapping: OpenID 'openid'"],
+          ]
+        - !Find [
+            authentik_core.propertymapping,
+            [name, "authentik default OAuth Mapping: OpenID 'profile'"],
+          ]
+        - !Find [
+            authentik_core.propertymapping,
+            [name, "OAuth mapping: OpenID 'email' with mailPrimaryAddress"],
+          ]
+
+  - id: openwebui_application
+    model: authentik_core.application
+    identifiers:
+      slug: openwebui
+    attrs:
+      name: OpenWebUI
+      group: Platform
+      meta_description: AI Chat interface
+      icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/open-webui.png
+      provider: !KeyOf openwebui_provider
+      policy_engine_mode: any
+
+  - model: authentik_policies.policybinding
+    identifiers:
+      target: !KeyOf openwebui_application
+      group: !Find [authentik_core.group, [name, "Open WebUI Admins"]]
+    attrs:
+      order: 1
+  
+  - model: authentik_policies.policybinding
+    identifiers:
+      target: !KeyOf openwebui_application
+      group: !Find [authentik_core.group, [name, "Open WebUI Viewers"]]
+    attrs:
+      order: 2

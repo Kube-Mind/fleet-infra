@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=https://goauthentik.io/blueprints/schema.json
+---
+version: 1
+metadata:
+  name: Application Group - Open WebUI
+entries:
+  - id: openwebui-admins
+    model: authentik_core.group
+    identifiers:
+      name: Open WebUI Admins
+    attrs:
+      name: Open WebUI Admins
+  - id: openwebui-viewers
+    model: authentik_core.group
+    identifiers:
+      name: Open WebUI Viewers
+    attrs:
+      name: Open WebUI Viewers
