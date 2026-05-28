@@ -2,21 +2,21 @@
 ---
 version: 1
 metadata:
-  name: Apps - Open WebUI
+  name: Apps - OpenWebUI
 entries:
   - id: openwebui-admin-group
     model: authentik_core.group
     identifiers:
-      name: Open WebUI Admins
+      name: OpenWebUI Admins
     attrs:
-      name: Open WebUI Admins
+      name: OpenWebUI Admins
   
   - id: openwebui-viewer-group
     model: authentik_core.group
     identifiers:
-      name: Open WebUI Viewers
+      name: OpenWebUI Viewers
     attrs:
-      name: Open WebUI Viewers
+      name: OpenWebUI Viewers
   
   - id: openwebui_provider
     model: authentik_providers_oauth2.oauth2provider
@@ -79,13 +79,13 @@ entries:
   - model: authentik_policies.policybinding
     identifiers:
       target: !KeyOf openwebui_application
-      group: !Find [authentik_core.group, [name, "Open WebUI Admins"]]
+      group: !Find [authentik_core.group, [name, "OpenWebUI Admins"]]
     attrs:
       order: 1
   
   - model: authentik_policies.policybinding
     identifiers:
       target: !KeyOf openwebui_application
-      group: !Find [authentik_core.group, [name, "Open WebUI Viewers"]]
+      group: !Find [authentik_core.group, [name, "OpenWebUI Viewers"]]
     attrs:
       order: 2

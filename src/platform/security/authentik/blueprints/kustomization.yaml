@@ -24,7 +24,7 @@ configMapGenerator:
       - ./groups/group-jupyterhub.yaml
       - ./apps/app-owncloud.yaml
       - ./groups/group-owncloud.yaml
-      - ./apps/app-open-webui.yaml
+      - ./apps/app-openwebui.yaml
       - ./groups/group-openwebui.yaml
       - ./flows/flow-default-provider-authorization-one-time-consent.yaml
       - ./users/user-admin.yaml

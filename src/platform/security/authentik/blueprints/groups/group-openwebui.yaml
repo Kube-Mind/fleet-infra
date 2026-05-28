@@ -2,17 +2,17 @@
 ---
 version: 1
 metadata:
-  name: Application Group - Open WebUI
+  name: Application Group - OpenWebUI
 entries:
   - id: openwebui-admins
     model: authentik_core.group
     identifiers:
-      name: Open WebUI Admins
+      name: OpenWebUI Admins
     attrs:
-      name: Open WebUI Admins
+      name: OpenWebUI Admins
   - id: openwebui-viewers
     model: authentik_core.group
     identifiers:
-      name: Open WebUI Viewers
+      name: OpenWebUI Viewers
     attrs:
-      name: Open WebUI Viewers
+      name: OpenWebUI Viewers

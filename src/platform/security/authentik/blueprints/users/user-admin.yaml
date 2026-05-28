@@ -51,7 +51,7 @@ entries:
         - !Find [authentik_core.group, [name, "Immich Admins"]]
         - !Find [authentik_core.group, [name, "JupyterHub Admins"]]
         - !Find [authentik_core.group, [name, "OwnCloud Admins"]]
-        - !Find [authentik_core.group, [name, "Open WebUI Admins"]]
+        - !Find [authentik_core.group, [name, "OpenWebUI Admins"]]
         # membership in every user group
         - !Find [authentik_core.group, [name, "ArgoCD Viewers"]]
         - !Find [authentik_core.group, [name, "ArgoWF Viewers"]]
@@ -60,6 +60,6 @@ entries:
         - !Find [authentik_core.group, [name, "Immich Users"]]
         - !Find [authentik_core.group, [name, "JupyterHub Users"]]
         - !Find [authentik_core.group, [name, "OwnCloud Users"]]
-        - !Find [authentik_core.group, [name, "Open WebUI Viewers"]]
+        - !Find [authentik_core.group, [name, "OpenWebUI Viewers"]]
 
 
