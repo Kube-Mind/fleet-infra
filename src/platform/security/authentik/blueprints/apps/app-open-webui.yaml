@@ -41,7 +41,7 @@ entries:
 
       client_type: confidential
       redirect_uris:
-        - url: https://cd.jcan.dev/api/dex/callback
+        - url: https://chat.jcan.dev/oauth/oidc/callback
           matching_mode: strict
       client_id: !Env OPENWEBUI_CLIENT_ID
       client_secret: !Env OPENWEBUI_CLIENT_SECRET
