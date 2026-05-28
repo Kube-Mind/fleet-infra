@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`ocr.jcan.dev`)
       kind: Rule
+      middlewares:
+        - name: harbor-buffering # Ensure this is listed here
+          namespace: harbor
       services:
         - name: harbor-core
           port: 80
