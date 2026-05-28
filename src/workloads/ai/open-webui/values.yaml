@@ -379,7 +379,7 @@ extraEnvVars:
   - name: ENABLE_LOGIN_FORM
     value: 'false'
   - name: OPENID_PROVIDER_URL
-    value: 'https://chat.jcan.dev/application/o/openwebui/.well-known/openid-configuration'
+    value: 'https://auth.jcan.dev/application/o/openwebui/.well-known/openid-configuration'
   - name: OPENID_REDIRECT_URI
     value: 'https://chat.jcan.dev/oauth/oidc/callback'
 
