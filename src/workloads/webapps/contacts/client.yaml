@@ -19,7 +19,7 @@ spec:
       serviceAccountName: contacts-client-waiter
       containers:
         - name: contacts-client
-          image: ocr.jcan.dev/library/talon/contacts-client:1.4.1
+          image: ocr.jcan.dev/library/talon/contacts-client:1.4.2
           ports:
             - containerPort: 80
       imagePullSecrets:
