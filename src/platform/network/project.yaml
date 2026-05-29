@@ -18,6 +18,8 @@ spec:
   destinations:
     - namespace: 'argo-cd'
       server: '*'
+    - namespace: 'cert-manager'
+      server: '*'
     - namespace: 'external-dns'
       server: '*'
     - namespace: 'cilium'
