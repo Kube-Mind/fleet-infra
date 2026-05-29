@@ -25,6 +25,62 @@ k8s-clean-orphans:
 		| .metadata.name' \
 		| xargs -r kubectl -n longhorn delete orphan
 
+.PHONY: k8s-clean-stale-pods
+k8s-clean-stale-pods:
+	@echo "Deleting pods with status: ContainerStatusUnknown..."
+	kubectl get pods -A -o json \
+		| jq -r '.items[] \
+			| select( \
+				.status.containerStatuses[]?.state.terminated.reason == "ContainerStatusUnknown" \
+			) | "kubectl delete pod -n \(.metadata.namespace) \(.metadata.name) --grace-period=0 --force" \
+			' \
+		| sh
+	@echo "Deleting pods with status: ImagePullBackOff..."
+	kubectl get pods -A -o json \
+		| jq -r '.items[] \
+			| select( \
+				.status.containerStatuses[]?.state.terminated.reason == "ImagePullBackOff" \
+			) | "kubectl delete pod -n \(.metadata.namespace) \(.metadata.name) --grace-period=0 --force" \
+			' \
+		| sh
+	@echo "Deleting pods with status: Error..."
+	kubectl get pods -A -o json \
+		| jq -r '.items[] \
+			| select( \
+				.status.containerStatuses[]?.state.terminated.reason == "Error" \
+			) | "kubectl delete pod -n \(.metadata.namespace) \(.metadata.name) --grace-period=0 --force" \
+			' \
+		| sh
+	@echo "Deleting pods with status: Unknown..."
+	kubectl get pods -A -o json \
+		| jq -r '.items[] \
+			| select( \
+				.status.containerStatuses[]?.state.terminated.reason == "Unknown" \
+			) | "kubectl delete pod -n \(.metadata.namespace) \(.metadata.name) --grace-period=0 --force" \
+			' \
+		| sh
+	@echo "Deleting pods with status: Unknown..."
+	kubectl get pods -A -o json \
+		| jq -r '.items[] \
+			| select( \
+				.status.containerStatuses[]?.state.terminated.reason == "Unknown" \
+			) | "kubectl delete pod -n \(.metadata.namespace) \(.metadata.name) --grace-period=0 --force" \
+			' \
+		| sh
+	@echo "Deleting pods with status: Completed..."
+	kubectl get pods -A -o json \
+		| jq -r '.items[] \
+			| select( \
+				.status.containerStatuses[]?.state.terminated.reason == "Completed" \
+			) | "kubectl delete pod -n \(.metadata.namespace) \(.metadata.name) --grace-period=0 --force" \
+			' \
+		| sh
+	@echo "Cleanup complete."
+
+.PHONY: k8s-watch-nodes
+k8s-watch-nodes:
+	watch kubectl get nodes
+
 .PHONY: k8s-test-setup k8s-test-teardown
 k8s-test-setup:
 _TEST_PATH = 
