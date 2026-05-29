@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: contacts-postgres
-          image: ocr.jcan.dev/library/talon/contacts-db:1.4.2-amd64
+          image: ocr.jcan.dev/library/talon/contacts-db:1.4.3-amd64
           ports:
             - containerPort: 5432
           env:
