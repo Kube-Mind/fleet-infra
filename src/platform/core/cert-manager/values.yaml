@@ -11,6 +11,5 @@ resources:
 
 featureGates: "ExperimentalGatewayAPISupport=true"
 
-controller:
-  extraArgs:
-    - --feature-gates=ExperimentalGatewayAPISupport=true
+extraArgs:
+  - --feature-gates=ExperimentalGatewayAPISupport=true
