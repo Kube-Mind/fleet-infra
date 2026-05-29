@@ -40,5 +40,12 @@ hubble:
   enabled: true
   relay:
     enabled: true
+    # Add these lines to fix your TLS issues
+    tls:
+      enabled: true
+      server:
+        enabled: true
+      client:
+        enabled: true
   ui:
     enabled: true
