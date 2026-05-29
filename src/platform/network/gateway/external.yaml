@@ -1,3 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: contacts-tls-cert
+  namespace: gateway
+spec:
+  secretName: contacts-tls-secret
+  issuerRef:
+    name: le-gw-prd
+    kind: ClusterIssuer
+  dnsNames:
+  - demo.jcan.dev
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
