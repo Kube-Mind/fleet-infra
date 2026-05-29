@@ -60,14 +60,11 @@ spec:
       name: cloudflare-issuer-account-key 
     # Add a single challenge solver, HTTP01 using nginx
     solvers: 
-    - http01:
-        # Use Gateway API instead of Ingress
-        gatewayHTTPRoute:
-          parentRefs:
-          - group: gateway.networking.k8s.io	
-            kind: Gateway	
-            name: external
-            namespace: gateway
+    - dns01:
+        cloudflare:
+          apiTokenSecretRef:
+            name: cloudflare-external-secret
+            key: CLOUDFLARE_API_TOKEN
 ---
 # Source: helm-cert-manager/templates/cluster-issuer.yaml
 apiVersion: cert-manager.io/v1
@@ -85,9 +82,9 @@ spec:
       # Secret resource that will be used to store the account's private key.
       name: cloudflare-issuer-account-key 
     # Add a single challenge solver, HTTP01 using nginx
-    solvers: 
+    solvers:
     - dns01:
         cloudflare:
           apiTokenSecretRef:
-            name: letsencrypt-external-secret
+            name: cloudflare-external-secret
             key: CLOUDFLARE_API_TOKEN
