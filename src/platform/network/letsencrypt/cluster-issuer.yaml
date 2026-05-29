@@ -57,12 +57,13 @@ spec:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       # Secret resource that will be used to store the account's private key.
-      name: letsencrypt-dev
+      name: le-gw-dev
     # Add a single challenge solver, HTTP01 using nginx
     solvers: 
-      - http01:
-          ingress:
-            ingressClassName: traefik
+    - http01:
+        # Use Gateway API instead of Ingress
+        gatewayHTTPRoute:
+          gatewayClassName: traefik
 ---
 # Source: helm-cert-manager/templates/cluster-issuer.yaml
 apiVersion: cert-manager.io/v1
@@ -78,7 +79,7 @@ spec:
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       # Secret resource that will be used to store the account's private key.
-      name: letsencrypt-prd
+      name: le-gw-prd
     # Add a single challenge solver, HTTP01 using nginx
     solvers: 
     - http01:
