@@ -39,6 +39,10 @@ entries:
           [slug, "default-provider-invalidation-flow"],
         ]
 
+      grant_types:
+        - authorization_code
+        - refresh_token
+  
       client_type: confidential
       redirect_uris:
         - url: https://cd.jcan.dev/api/dex/callback
@@ -51,18 +55,9 @@ entries:
 
       sub_mode: hashed_user_id
       property_mappings:
-        - !Find [
-            authentik_core.propertymapping,
-            [name, "authentik default OAuth Mapping: OpenID 'openid'"],
-          ]
-        - !Find [
-            authentik_core.propertymapping,
-            [name, "authentik default OAuth Mapping: OpenID 'profile'"],
-          ]
-        - !Find [
-            authentik_core.propertymapping,
-            [name, "OAuth mapping: OpenID 'email' with mailPrimaryAddress"],
-          ]
+        - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "openid"]]
+        - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "profile"]]
+        - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "email"]]
 
   - id: argocd_application
     model: authentik_core.application
