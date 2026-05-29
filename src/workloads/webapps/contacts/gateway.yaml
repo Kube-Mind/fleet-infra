@@ -44,7 +44,7 @@ spec:
   - backendRefs:
     - group: ''	
       kind: Service	
-      name: contacts # Your existing K8s Service
+      name: client # Your existing K8s Service
       port: 3000
       weight: 1	
     matches:	
