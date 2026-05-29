@@ -31,7 +31,7 @@ pipelines:
     - name: PIPELINES_LOG_LEVEL
       value: "INFO"
     - name: STABLE_DIFFUSION_BASE_URL
-      value: "http://stable-diffusion-webui-git-chart.stable-diffusion-webui.svc.cluster.local:7860"
+      value: "http://sd-comfyui-chart.sd-comfyui.svc.cluster.local"
     # -- Example pipeline to pull and load on deployment startup, see current pipelines here: https://github.com/open-webui/pipelines/blob/main/examples
     - name: PIPELINES_URLS
       value: "https://github.com/open-webui/pipelines/blob/main/examples/filters/detoxify_filter_pipeline.py"
@@ -70,95 +70,6 @@ websocket:
   # -- Enables websocket support in Open WebUI with env `ENABLE_WEBSOCKET_SUPPORT`
   # @section -- Websocket configuration
   enabled: true
-  # -- Specifies the websocket manager to use with env `WEBSOCKET_MANAGER`: redis (default)
-  # @section -- Websocket configuration
-  manager: redis
-  # -- Override the Redis URL for websocket communication. If empty, automatically generates URL based on release name. Template: `redis://[:<password>@]<hostname>:<port>/<db>`
-  # @section -- Websocket configuration
-  url: ""
-  # -- Name of an existing Kubernetes secret containing the Redis URL. When set, takes precedence over `websocket.url`
-  # @section -- Websocket configuration
-  existingSecret: ""
-  # -- Key within the existing secret that contains the Redis URL
-  # @section -- Websocket configuration
-  existingSecretKey: "redis-url"
-  # -- Node selector for websocket pods
-  # @section -- Websocket configuration
-  nodeSelector: {}
-  redis:
-    # -- Enable redis installation
-    # @section -- Websocket configuration
-    enabled: true
-    # -- Redis labels
-    # @section -- Websocket configuration
-    labels: {}
-    # -- Redis annotations
-    # @section -- Websocket configuration
-    annotations: {}
-    pods:
-      # -- Redis pod labels
-      # @section -- Websocket configuration
-      labels: {}
-      # -- Redis pod annotations
-      # @section -- Websocket configuration
-      annotations: {}
-    image:
-      # -- Redis image repository
-      # @section -- Websocket configuration
-      repository: redis
-      # -- Redis image tag
-      # @section -- Websocket configuration
-      tag: 7.4.2-alpine3.21
-      # -- Redis image pull policy
-      # @section -- Websocket configuration
-      pullPolicy: IfNotPresent
-    # -- Redis command (overrides default)
-    # @section -- Websocket configuration
-    command: []
-    # -- Redis arguments (overrides default)
-    # @section -- Websocket configuration
-    args: []
-    # -- Redis resources
-    # @section -- Websocket configuration
-    resources: {}
-    service:
-      # -- Redis container/target port
-      # @section -- Websocket configuration
-      containerPort: 6379
-      # -- Redis service type
-      # @section -- Websocket configuration
-      type: ClusterIP
-      # -- Redis service labels
-      # @section -- Websocket configuration
-      labels: {}
-      # -- Redis service annotations
-      # @section -- Websocket configuration
-      annotations: {}
-      # -- Redis service port name. Istio needs this to be something like `tcp-redis`
-      # @section -- Websocket configuration
-      portName: http
-      # -- Redis service port
-      # @section -- Websocket configuration
-      port: 6379
-      # -- Redis service node port. Valid only when type is `NodePort`
-      # @section -- Websocket configuration
-      nodePort: ""
-    # -- Redis tolerations for pod assignment
-    # @section -- Websocket configuration
-    tolerations: []
-    # -- Redis affinity for pod assignment
-    # @section -- Websocket configuration
-    affinity: {}
-    # -- Redis container security context (certain specs are not allowed on a pod level), if readOnlyRootFilesystem is true, an emtpyDir will be mounted on the redis container
-    # @section -- Websocket configuration
-    containerSecurityContext: {}
-      # readOnlyRootFilesystem: true
-      # runAsNonRoot: true
-    # -- Redis pod security context
-    # @section -- Websocket configuration
-    podSecurityContext: {}
-      # runAsUser: 999
-      # runAsGroup: 1000
 
 # -- Value of cluster domain
 clusterDomain: cluster.local
