@@ -17,7 +17,9 @@ spec:
     tls:
       mode: Terminate
       certificateRefs:
-      - name: contacts-tls-secret # cert-manager populates this secret
+      - group: ''	
+        kind: Secret	
+        name: contacts-tls-secret # cert-manager populates this secret
   - name: http
     protocol: HTTP
     port: 80
@@ -29,12 +31,16 @@ metadata:
   namespace: contacts
 spec:
   parentRefs:
-  - name: contacts-gateway
+  - group: gateway.networking.k8s.io	
+    kind: Gateway	
+    name: contacts-gateway
     namespace: contacts
     sectionName: https
   hostnames:
   - demo.jcan.dev
   rules:
   - backendRefs:
-    - name: contacts # Your existing K8s Service
+    - group: ''	
+      kind: Service	
+      name: contacts # Your existing K8s Service
       port: 3000
