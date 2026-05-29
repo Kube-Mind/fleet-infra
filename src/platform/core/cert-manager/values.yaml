@@ -9,5 +9,7 @@ resources:
     cpu: 200m
     memory: 256Mi
 
+featureGates: "ExperimentalGatewayAPISupport=true"
+
 config:
   enableGatewayAPI: true
