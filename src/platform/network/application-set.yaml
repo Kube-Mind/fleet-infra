@@ -37,10 +37,12 @@ spec:
                   - /data/tls.key
           - name: gateway-crd
             wave: 10
+          - name: gateway
+            wave: 15
           - name: letsencrypt
-            wave: 10
+            wave: 20
           - name: traefik
-            wave: 10
+            wave: 20
   template:
     metadata:
       name: '{{ .name }}'

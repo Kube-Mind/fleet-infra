@@ -7,5 +7,5 @@ resources:
 - postgres.yaml
 - server.yaml
 - client.yaml
-- gateway.yaml
+- http-route.yaml
 # - ingress.yaml

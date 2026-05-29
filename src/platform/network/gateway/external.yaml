@@ -2,8 +2,8 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: contacts-gateway
-  namespace: contacts # Adjust to your target namespace
+  name: external
+  namespace: gateway # Adjust to your target namespace
   annotations:
     # Link this Gateway to Traefik's internal EntryPoints
     gateway.traefik.io/entrypoints: web,websecure
@@ -25,28 +25,3 @@ spec:
   - name: http
     protocol: HTTP
     port: 8000
----
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
-metadata:
-  name: contacts-route
-  namespace: contacts
-spec:
-  parentRefs:
-  - group: gateway.networking.k8s.io	
-    kind: Gateway	
-    name: contacts-gateway
-    namespace: contacts
-  hostnames:
-  - demo.jcan.dev
-  rules:
-  - backendRefs:
-    - group: ''	
-      kind: Service	
-      name: client # Your existing K8s Service
-      port: 3000
-      weight: 1	
-    matches:	
-      - path:
-          type: PathPrefix	
-          value: /
