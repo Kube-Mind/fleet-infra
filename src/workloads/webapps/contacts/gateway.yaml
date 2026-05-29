@@ -8,7 +8,7 @@ metadata:
     # Link this Gateway to Traefik's internal EntryPoints
     gateway.traefik.io/entrypoints: web,websecure
     # This annotation triggers cert-manager to create a Certificate
-    cert-manager.io/cluster-issuer: "letsencrypt-prd"
+    cert-manager.io/cluster-issuer: "le-gw-prd"
 spec:
   gatewayClassName: traefik # Ensure this matches your Traefik GatewayClass
   listeners:
