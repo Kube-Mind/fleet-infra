@@ -16,6 +16,18 @@ spec:
     protocol: HTTPS
     port: 8443
     hostname: demo.jcan.dev
+    allowedRoutes:
+      namespaces:
+        from: All
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - group: ''	
+        kind: Secret	
+        name: contacts-tls-secret # cert-manager populates this secret
   - name: http
     protocol: HTTP
     port: 8000
+    allowedRoutes:
+      namespaces:
+        from: All
