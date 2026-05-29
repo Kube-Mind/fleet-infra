@@ -26,6 +26,8 @@ spec:
       server: '*'
     - namespace: 'gateway-crd'
       server: '*'
+    - namespace: 'gateway'
+      server: '*'
     - namespace: 'kube-system'
       server: '*'
     - namespace: 'letsencrypt'

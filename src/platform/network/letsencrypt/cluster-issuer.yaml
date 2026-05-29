@@ -64,7 +64,9 @@ spec:
         # Use Gateway API instead of Ingress
         gatewayHTTPRoute:
           parentRefs:
-          - name: external
+          - group: gateway.networking.k8s.io	
+            kind: Gateway	
+            name: external
             namespace: gateway
 ---
 # Source: helm-cert-manager/templates/cluster-issuer.yaml
@@ -88,5 +90,7 @@ spec:
         # Use Gateway API instead of Ingress
         gatewayHTTPRoute:
           parentRefs:
-          - name: external
+          - group: gateway.networking.k8s.io	
+            kind: Gateway	
+            name: external
             namespace: gateway
