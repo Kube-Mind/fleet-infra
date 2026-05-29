@@ -38,3 +38,7 @@ bandwidthManager:
 # Observability optional
 hubble:
   enabled: true
+  relay:
+    enabled: true
+  ui:
+    enabled: true
