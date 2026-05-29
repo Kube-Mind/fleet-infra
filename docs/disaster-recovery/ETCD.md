@@ -60,13 +60,7 @@ The Immediate solution os to directly tap in into the etcd configurations and ma
 
 ```bash
 # Install and validate ETCD client binary
-export ETCD_VER=v3.5.5
-curl -sL https://github.com/etcd-io/etcd/releases/download/${ETCD_VER}/etcd-${ETCD_VER}-linux-amd64.tar.gz \
-  -o /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
-
-## extract only etcdctl
-sudo tar -zxvf /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz \
-  --strip-components=1 -C /usr/local/bin etcd-${ETCD_VER}-linux-amd64/etcdctl
+apt update -y && apt install -y etcd-client
 
 ## verify it runs
 etcdctl version
