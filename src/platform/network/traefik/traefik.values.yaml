@@ -109,14 +109,13 @@ core:  # @schema additionalProperties: false
 
 gateway:
   # -- When providers.kubernetesGateway.enabled, deploy a default gateway
-  enabled: true
+  enabled: false
   # -- Set a custom name to gateway
   name: ""
   # -- By default, Gateway is created in the same `Namespace` as Traefik.
   namespace: ""
   # -- Additional gateway annotations (e.g. for cert-manager.io/issuer)
-  annotations:
-    cert-manager.io/cluster-issuer: "le-gw-prd"
+  annotations: {}
   # -- [Infrastructure](https://kubernetes.io/blog/2023/11/28/gateway-api-ga/#gateway-infrastructure-labels)
   infrastructure: {}
   # -- Configure this Gateway as a [Default Gateway](https://kubernetes.io/blog/2025/11/06/gateway-api-v1-4/#introducing-default-gateways)

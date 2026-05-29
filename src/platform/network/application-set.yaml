@@ -37,8 +37,8 @@ spec:
                   - /data/tls.key
           - name: gateway-crd
             wave: 10
-          # - name: gateway
-          #   wave: 15
+          - name: gateway
+            wave: 15
           - name: letsencrypt
             wave: 20
           - name: traefik
