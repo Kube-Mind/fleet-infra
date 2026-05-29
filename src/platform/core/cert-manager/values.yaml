@@ -9,7 +9,5 @@ resources:
     cpu: 200m
     memory: 256Mi
 
-featureGates: "ExperimentalGatewayAPISupport=true"
-
-extraArgs:
-  - --feature-gates=ExperimentalGatewayAPISupport=true
+config:
+  enableGatewayAPI: true
