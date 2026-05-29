@@ -290,6 +290,32 @@ providers:
     strictPrefixMatching: false
 
   # @schema additionalProperties: false
+  kubernetesGateway:
+    # -- Enable Traefik Gateway provider for Gateway API
+    enabled: true
+    # -- List of namespaces from which Gateway API routes are allowed to declare TraefikService backendRef references. Requires traefik v3.7.1+.
+    crossProviderNamespaces: []
+    # -- Toggles support for the Experimental Channel resources (Gateway API release channels documentation).
+    # This option currently enables support for TCPRoute and TLSRoute.
+    experimentalChannel: false
+    # -- Array of namespaces to watch. If left empty, Traefik watches all namespaces. kubernetesGateway provider requires ClusterRole and as a consequence `rbac.namespaced` is not supported.
+    namespaces: []
+    # -- A label selector can be defined to filter on specific GatewayClass objects only.
+    labelSelector: ""
+    # -- Defines whether to use Native Kubernetes load-balancing mode by default.
+    nativeLBByDefault: false
+    statusAddress:
+      # -- This IP will get copied to the Gateway status.addresses, and currently only supports one IP value (IPv4 or IPv6).
+      ip: ""
+      # -- This Hostname will get copied to the Gateway status.addresses.
+      hostname: ""
+      service:
+        # -- The Kubernetes service to copy status addresses from. When using third parties tools like External-DNS, this option can be used to copy the service loadbalancer.status (containing the service's endpoints IPs) to the gateways. Default to Service of this Chart.
+        enabled: true
+        name: ""
+        namespace: ""
+
+  # @schema additionalProperties: false
   file:
     # -- Create a file provider
     enabled: false
