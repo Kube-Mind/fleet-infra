@@ -115,7 +115,8 @@ gateway:
   # -- By default, Gateway is created in the same `Namespace` as Traefik.
   namespace: ""
   # -- Additional gateway annotations (e.g. for cert-manager.io/issuer)
-  annotations: {}
+  annotations:
+    cert-manager.io/cluster-issuer: "le-gw-prd"
   # -- [Infrastructure](https://kubernetes.io/blog/2023/11/28/gateway-api-ga/#gateway-infrastructure-labels)
   infrastructure: {}
   # -- Configure this Gateway as a [Default Gateway](https://kubernetes.io/blog/2025/11/06/gateway-api-v1-4/#introducing-default-gateways)
