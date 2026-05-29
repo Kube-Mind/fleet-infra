@@ -35,6 +35,8 @@ spec:
                   - /data/ca.crt
                   - /data/tls.crt
                   - /data/tls.key
+          - name: gateway-api
+            wave: 10
           - name: letsencrypt
             wave: 10
           - name: traefik
