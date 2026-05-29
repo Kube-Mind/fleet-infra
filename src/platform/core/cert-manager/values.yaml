@@ -10,3 +10,7 @@ resources:
     memory: 256Mi
 
 featureGates: "ExperimentalGatewayAPISupport=true"
+
+config:
+  gatewayAPI:
+    enable: true 
