@@ -8,5 +8,3 @@ resources:
   limits:
     cpu: 200m
     memory: 256Mi
-
-featureGates: "ExperimentalGatewayAPISupport=true"
