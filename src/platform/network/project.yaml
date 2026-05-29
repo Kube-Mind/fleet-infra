@@ -24,7 +24,7 @@ spec:
       server: '*'
     - namespace: 'cilium-secrets'
       server: '*'
-    - namespace: 'gateway-api'
+    - namespace: 'gateway-crd'
       server: '*'
     - namespace: 'kube-system'
       server: '*'
