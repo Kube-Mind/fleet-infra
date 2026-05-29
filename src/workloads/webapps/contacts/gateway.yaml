@@ -8,6 +8,7 @@ metadata:
     # This annotation triggers cert-manager to create a Certificate
     cert-manager.io/cluster-issuer: "letsencrypt-prd"
 spec:
+  gatewayClassName: traefik # Ensure this matches your Traefik GatewayClass
   listeners:
   - name: https
     protocol: HTTPS
