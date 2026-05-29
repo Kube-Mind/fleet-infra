@@ -294,8 +294,7 @@ providers:
     # -- Enable Traefik Gateway provider for Gateway API
     enabled: true
     # -- List of namespaces from which Gateway API routes are allowed to declare TraefikService backendRef references. Requires traefik v3.7.1+.
-    # This is often required for the controller to pick up the class
-    gatewayClassName: traefik
+
     crossProviderNamespaces: []
     # -- Toggles support for the Experimental Channel resources (Gateway API release channels documentation).
     # This option currently enables support for TCPRoute and TLSRoute.
