@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: contacts-tls-secret
   issuerRef:
-    name: le-gw-prd
+    name: le-cf-gw-prd
     kind: ClusterIssuer
   dnsNames:
   - demo.jcan.dev
