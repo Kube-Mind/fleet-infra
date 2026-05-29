@@ -292,7 +292,7 @@ providers:
   # @schema additionalProperties: false
   kubernetesGateway:
     # -- Enable Traefik Gateway provider for Gateway API
-    enabled: false
+    enabled: true
     # -- List of namespaces from which Gateway API routes are allowed to declare TraefikService backendRef references. Requires traefik v3.7.1+.
     crossProviderNamespaces: []
     # -- Toggles support for the Experimental Channel resources (Gateway API release channels documentation).
