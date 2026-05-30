@@ -28,7 +28,9 @@ control-plane-init:
 		--node-ip=$(API_SERVER_IP) \
 		--advertise-address=$(API_SERVER_IP) \
 		--flannel-backend=none \
-		--disable servicelb --disable-network-policy --disable traefik'
+		--disable=servicelb \
+		--disable=traefik \
+		--disable-network-policy'
 
 echo-token:
 	@echo "TOKEN: $(TOKEN)"
@@ -48,16 +50,14 @@ control-plane-join:
 	ssh $(SSH_OPTS) $(IPV4) 'sudo curl -sfL https://get.k3s.io | \
 	K3S_URL=https://$(API_SERVER_IP):6443 \
 	K3S_TOKEN=$(TOKEN) \
-	INSTALL_K3S_VERSION=v1.34.3+k3s3 \
 	sh -s - server \
-	--flannel-backend none \
-	--disable-network-policy \
-	--disable servicelb \
-	--disable traefik \
-	--disable metrics-server \
-	--node-ip $(IPV4) \
-	--node-external-ip $(IPV4) \
-	--bind-address $(IPV4)'
+	--bind-address=$(IPV4) \
+	--node-ip=$(IPV4) \
+	--advertise-address=$(IPV4) \
+	--flannel-backend=none \
+	--disable=servicelb \
+	--disable=traefik \
+	--disable-network-policy'
 
 # NOTE: TOKEN must be manually provided
 worker-join:
