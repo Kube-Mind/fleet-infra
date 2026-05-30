@@ -1,6 +1,5 @@
-k8sServiceHost: 172.16.1.14
-k8sServicePort: 6443
-devices: "enp2s0,enp3s0,enp7s0"
+k8sServiceHost: 127.0.0.1
+k8sServicePort: 6444
 # --- CRITICAL SAFETY SETTINGS ---
 # Enable eBPF-based Service load balancing
 kubeProxyReplacement: true 
@@ -36,10 +35,97 @@ ipam:
 bandwidthManager:
   enabled: false
 
-# Observability optional
+enableMulticast: false
+multicast:
+  enabled: false
+
+operator:
+  rollOutPods: true
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+
+# Roll out cilium agent pods automatically when ConfigMap is updated.
+rollOutCiliumPods: true
+agent: true
+agentConfig:
+  resources:
+    requests:
+      cpu: 500m
+      memory: 512Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+
+
+#debug:
+#  enabled: true
+
+# Increase rate limit when doing L2 announcements
+k8sClientRateLimit:
+  qps: 20
+  burst: 100
+
+l2announcements:
+  enabled: true
+
+externalIPs:
+  enabled: true
+
+#enableCiliumEndpointSlice: true
+
+loadBalancer:
+  # https://docs.cilium.io/en/stable/network/kubernetes/kubeproxy-free/#maglev-consistent-hashing
+  algorithm: maglev
+
+gatewayAPI:
+  enabled: false
+envoy:
+  securityContext:
+    capabilities:
+      keepCapNetBindService: true
+      envoy: [NET_ADMIN, PERFMON, BPF]
+  streamIdleTimeoutDurationSeconds: 0
+  idleTimeoutDurationSeconds: 60
+  connectTimeoutSeconds: 2
+  maxConnectionDurationSeconds: 0
+
 hubble:
+  peerService:
+    clusterDomain: cluster.local
   enabled: true
   relay:
     enabled: true
+    rollOutPods: true
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
   ui:
     enabled: true
+    rollOutPods: true
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+
+ingressController:
+  enabled: false
+
+# Network Policy Audit Mode - Log violations without blocking
+policyAuditMode: false
+
+# mTLS
+authentication:
+  enabled: false
