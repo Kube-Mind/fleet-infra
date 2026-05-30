@@ -37,22 +37,8 @@ bandwidthManager:
 
 # Observability optional
 hubble:
-  enabled: true
+  enabled: false
   relay:
-    enabled: true
-    # Add these lines to fix your TLS issues
-    tls:
-      enabled: true
-      # This forces the Helm chart to re-evaluate the secret creation
-      # instead of adopting the existing one
-      auto:
-        enabled: true
-      # By changing this or adding an annotation, we force a resource diff
-      certGen:
-        enabled: true
-      server:
-        enabled: true
-      client:
-        enabled: true
+    enabled: false
   ui:
-    enabled: true
+    enabled: false
