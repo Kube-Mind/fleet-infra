@@ -43,11 +43,13 @@ hubble:
     # Add these lines to fix your TLS issues
     tls:
       enabled: true
-      # This forces the chart to re-render the secret resources
-      # Increment this number if you need to rotate again in the future
+      # This forces the Helm chart to re-evaluate the secret creation
+      # instead of adopting the existing one
+      auto:
+        enabled: true
+      # By changing this or adding an annotation, we force a resource diff
       certGen:
-        extraAnnotations:
-          "helm.sh/hook": pre-install,pre-upgrade
+        enabled: true
       server:
         enabled: true
       client:
