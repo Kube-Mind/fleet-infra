@@ -92,10 +92,12 @@ k8s-test-teardown:
 
 define kustomize_apply
 	echo "Applying kustomization in $(1)"
-	# --server-side is required by the following applications
-	# - argo-cd
-	# --server-side breaks the following k8s manifest apply
 	kustomize build --enable-helm $(1) | kubectl apply -f -
+endef
+
+define kustomize_server_side_apply
+	echo "Applying server-side kustomization in $(1)"
+	kustomize build --enable-helm $(1) | kubectl apply --server-side -f -
 endef
 
 define kustomize_delete

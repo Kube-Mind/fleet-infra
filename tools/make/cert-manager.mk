@@ -1,4 +1,4 @@
-.PHONY: cert-manager-setup cert-manager-clean cert-manager-wait
+.PHONY: cert-manager-setup cert-manager-clean
 CERT_MANAGER_NAMESPACE=cert-manager
 CERT_MANAGER_PATH=./src/platform/core/cert-manager
 CERT_MANAGER_VALUES=$(CERT_MANAGER_PATH)/values.yaml
@@ -9,5 +9,3 @@ cert-manager-setup:
 cert-manager-clean:
 	$(call kustomize_delete,$(CERT_MANAGER_PATH))
 
-cert-manager-wait:
-	kubectl -n $(CERT_MANAGER_NAMESPACE) wait -l k8s-app=cert-manager --for=condition=ready pod --timeout=360s
