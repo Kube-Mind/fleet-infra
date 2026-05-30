@@ -1,0 +1,50 @@
+---
+# Source: secrets-integrator/templates/external-secrets/token-generator.yaml
+# Source: helm-bootstrap-external-secrets/templates/cornjob-token-generator.yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: token-generator
+  namespace: secrets-integrator
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      template:
+        metadata:
+          annotations:
+            vault.hashicorp.com/agent-pre-populate-only : "true"
+            vault.hashicorp.com/agent-inject: "true"
+            vault.hashicorp.com/agent-inject-token: "true"
+            vault.hashicorp.com/agent-run-as-user: "1001"
+            vault.hashicorp.com/role: "bao-admin"
+        spec:
+          initContainers:
+            - command:
+                - kubectl
+              args:
+                - delete
+                - secret
+                - --ignore-not-found=true
+                - bao-admin
+              image: 'rancher/kubectl:v1.34.0-amd64'
+              imagePullPolicy: IfNotPresent
+              name: vault-token-secrets-cleanup
+          containers:
+            - command:
+                - kubectl
+              args:
+                - create
+                - secret
+                - generic
+                - bao-admin
+                - --from-file=token=/vault/secrets/token
+              image: 'rancher/kubectl:v1.34.0-amd64'
+              imagePullPolicy: IfNotPresent
+              name: bao-admin
+          restartPolicy: Never
+          serviceAccountName: bao-admin
+  schedule: '1 * 1 * *'
+  successfulJobsHistoryLimit: 1

@@ -1,0 +1,36 @@
+---
+# Source: secrets-integrator/templates/external-secrets/rbac.yaml
+# Source: helm-bootstrap-external-secrets/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: bao-admin
+  namespace: secrets-integrator
+automountServiceAccountToken: true
+---
+# Source: secrets-integrator/templates/external-secrets/rbac.yaml
+# Source: helm-bootstrap-external-secrets/templates/role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: bao-admin
+  namespace: secrets-integrator
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["create", "get", "update", "delete", "list", "watch"]
+---
+# Source: secrets-integrator/templates/external-secrets/rbac.yaml
+# Source: helm-bootstrap-external-secrets/templates/rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: bao-admin
+  namespace: secrets-integrator
+subjects:
+- kind: ServiceAccount
+  name: bao-admin
+roleRef:
+  kind: Role
+  name: bao-admin
+  apiGroup: rbac.authorization.k8s.io
