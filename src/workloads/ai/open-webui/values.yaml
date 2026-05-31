@@ -155,9 +155,8 @@ ingress:
   class: "traefik"
   # -- Use appropriate annotations for your Ingress controller, e.g., for NGINX:
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prd
-    # WebSocket & connection handling for Traefik
-    traefik.ingress.kubernetes.io/websocket: 'true'
+    cert-manager.io/cluster-issuer: le-ing-prd
+    ingress.cilium.io/loadbalancer-mode: shared
   host: "chat.jcan.dev" # update to your real domain
   additionalHosts: []
   tls: true
