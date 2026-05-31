@@ -72,7 +72,7 @@ grafana:
           type: prometheus
           url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090/
           access: proxy
-          isDefault: true
+          isDefault: false
         - name: Alertmanager
           type: alertmanager
           url: http://kube-prometheus-stack-alertmanager.kube-prometheus-stack:9093/
