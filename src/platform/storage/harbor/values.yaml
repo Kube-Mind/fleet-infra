@@ -30,7 +30,6 @@ expose:
       cert-manager.io/cluster-issuer: le-ing-prd
       ingress.cilium.io/loadbalancer-mode: shared
       ingress.cilium.io/request-timeout: "0"
-      ingress.cilium.io/force-https: "enabled"
       ingress.kubernetes.io/ssl-redirect: 'false'
       nginx.ingress.kubernetes.io/proxy-body-size: '0'
       nginx.ingress.kubernetes.io/ssl-redirect: 'false'
