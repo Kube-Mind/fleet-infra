@@ -117,9 +117,10 @@ grafana:
 
   ingress:
     enabled: true
-    ingressClassName: traefik
+    ingressClassName: cilium
     annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-prd
+      cert-manager.io/cluster-issuer: le-ing-prd
+      ingress.cilium.io/loadbalancer-mode: shared
     hosts:
     - grafana.jcan.dev
     tls:
