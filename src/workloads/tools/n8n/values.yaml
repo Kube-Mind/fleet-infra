@@ -36,8 +36,7 @@ ingress:
   enabled: true
   annotations: 
     cert-manager.io/cluster-issuer: letsencrypt-prd
-  # define a custom ingress class Name, like "traefik" or "nginx"
-  className: "traefik"
+  className: "cilium"
   hosts:
     - host: n8n.jcan.dev
       paths: ["/"]
