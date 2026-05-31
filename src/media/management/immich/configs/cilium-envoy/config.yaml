@@ -1,0 +1,22 @@
+apiVersion: cilium.io/v2
+kind: CiliumEnvoyConfig
+metadata:
+  name: immich-timeouts
+  namespace: immich
+spec:
+  services:
+  - name: immich-server
+    namespace: immich
+  resources:
+  - "@type": type.googleapis.com/envoy.config.route.v3.RouteConfiguration
+    name: immich-routes
+    virtual_hosts:
+    - name: immich
+      domains:
+        - "immich.jcan.dev"
+      routes:
+        - match:
+            prefix: "/"
+          route:
+            cluster: immich
+            timeout: 0s
