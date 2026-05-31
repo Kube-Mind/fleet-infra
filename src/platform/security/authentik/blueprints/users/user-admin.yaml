@@ -4,12 +4,12 @@ version: 1
 metadata:
   name: Users
 entries:
-  - id: user-admin
+  - id: !Env AUTHENTIK_ADMIN_USERNAME
     model: authentik_core.user
     identifiers:
-      username: admin-user
+      username: !Env AUTHENTIK_ADMIN_USERNAME
     attrs:
-      username: admin-user
+      username: !Env AUTHENTIK_ADMIN_USERNAME
       name: Admin User
       email: !Env AUTHENTIK_ADMIN_EMAIL
       password: !Env AUTHENTIK_ADMIN_PASSWORD
