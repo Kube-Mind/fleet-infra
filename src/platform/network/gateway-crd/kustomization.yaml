@@ -1,7 +1,0 @@
-# infrastructure/gateway-api/kustomization.yaml
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-
-# Pull the standard install manifest directly from the official repo
-resources:
-  - https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.5.1/standard-install.yaml
