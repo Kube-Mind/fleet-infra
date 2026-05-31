@@ -68,16 +68,16 @@ grafana:
     datasources.yaml:
       apiVersion: 1
       datasources:
-        - name: Alertmanager
-          type: alertmanager
-          url: http://kube-prometheus-stack-alertmanager.kube-prometheus-stack:9093/
-          access: proxy
-          isDefault: false
         - name: Prometheus
           type: prometheus
           url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090/
           access: proxy
           isDefault: true
+        - name: Alertmanager
+          type: alertmanager
+          url: http://kube-prometheus-stack-alertmanager.kube-prometheus-stack:9093/
+          access: proxy
+          isDefault: false
         - name: Loki
           type: loki
           url: http://loki.loki.svc.cluster.local:3100/
