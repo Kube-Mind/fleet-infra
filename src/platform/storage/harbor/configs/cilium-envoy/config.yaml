@@ -1,0 +1,27 @@
+apiVersion: cilium.io/v2
+kind: CiliumEnvoyConfig
+metadata:
+  name: harbor-retry-policy
+  namespace: harbor
+spec:
+  services:
+  - name: harbor-service-name
+    namespace: harbor
+  resources:
+  - "@type": type.googleapis.com/envoy.config.route.v3.RouteConfiguration
+    name: harbor_route
+    virtual_hosts:
+    - name: harbor_vhost
+      domains: ["*"]
+      routes:
+      - match:
+          prefix: "/"
+        route:
+          cluster: harbor_cluster
+          # Equivalent to Traefik retryExpression: "IsNetworkError()"
+          retry_policy:
+            retry_on: "connect-failure,refused-stream,unavailable,cancelled,reset"
+            num_retries: 3
+            retry_back_off:
+              base_interval: 0.1s
+              max_interval: 1.0s

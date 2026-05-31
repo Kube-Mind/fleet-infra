@@ -27,13 +27,13 @@ expose:
       secretName: "helm-harbor-ingress"
   ingress:
     annotations:
-      kubernetes.io/ingress.class: traefik
-      cert-manager.io/cluster-issuer: letsencrypt-prd
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      traefik.ingress.kubernetes.io/router.middlewares: harbor-harbor-buffering@kubernetescrd
+      cert-manager.io/cluster-issuer: le-ing-prd
+      ingress.cilium.io/loadbalancer-mode: shared
+      ingress.cilium.io/request-timeout: "0"
+      ingress.cilium.io/force-https: "enabled"
       # note different ingress controllers may require a different ssl-redirect annotation
       # for Envoy, use ingress.kubernetes.io/force-ssl-redirect: "true" and remove the nginx lines below
-    className: "traefik"
+    className: "cilium"
     hosts:
       core: ocr.jcan.dev
       notary: notary.jcan.dev
@@ -139,6 +139,13 @@ registry:
     requests:
       memory: 4Gi
       cpu: 1000m
+  registry:
+    # Allows Docker/Containerd to push massive images in smaller chunks
+    # rather than one monolithic stream
+    custom_config:
+      storage:
+        redirect:
+          disable: false
   affinity: {}
 
 # The persistence is enabled by default and a default StorageClass
