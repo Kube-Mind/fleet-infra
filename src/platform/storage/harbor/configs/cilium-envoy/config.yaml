@@ -1,29 +1,22 @@
 apiVersion: cilium.io/v2
 kind: CiliumEnvoyConfig
 metadata:
-  name: harbor-retry-policy
+  name: harbor-timeouts
   namespace: harbor
 spec:
-  # This tells Cilium to apply this config to the Envoy pods 
-  # responsible for the Harbor services
   services:
   - name: harbor-core
     namespace: harbor
   resources:
   - "@type": type.googleapis.com/envoy.config.route.v3.RouteConfiguration
-    name: harbor_route
+    name: harbor-routes
     virtual_hosts:
-    - name: harbor_vhost
-      domains: ["*"]
+    - name: harbor
+      domains:
+        - "ocr.jcan.dev"
       routes:
-      - match:
-          prefix: "/"
-        route:
-          # This follows the pattern: io.cilium.k8s.service.namespace/service-name
-          cluster: harbor/harbor-core:80
-          retry_policy:
-            retry_on: "connect-failure,refused-stream,unavailable,cancelled,reset"
-            num_retries: 3
-            retry_back_off:
-              base_interval: 0.1s
-              max_interval: 1.0s
+        - match:
+            prefix: "/"
+          route:
+            cluster: harbor
+            timeout: 0s
