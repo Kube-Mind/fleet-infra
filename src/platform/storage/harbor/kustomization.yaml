@@ -3,9 +3,7 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - external-secret.yaml
-- configs/traefik/ingressroute.yaml
-- configs/traefik/middleware.yaml
-- configs/traefik/serverstransport.yaml
+- configs/cilium-envoy
 
 helmCharts:
 - name: harbor
