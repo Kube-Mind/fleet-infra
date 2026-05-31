@@ -4,8 +4,10 @@ metadata:
   name: harbor-retry-policy
   namespace: harbor
 spec:
+  # This tells Cilium to apply this config to the Envoy pods 
+  # responsible for the Harbor services
   services:
-  - name: harbor-service-name
+  - name: harbor-core
     namespace: harbor
   resources:
   - "@type": type.googleapis.com/envoy.config.route.v3.RouteConfiguration
@@ -17,8 +19,8 @@ spec:
       - match:
           prefix: "/"
         route:
-          cluster: harbor_cluster
-          # Equivalent to Traefik retryExpression: "IsNetworkError()"
+          # This follows the pattern: io.cilium.k8s.service.namespace/service-name
+          cluster: harbor/harbor-core:80
           retry_policy:
             retry_on: "connect-failure,refused-stream,unavailable,cancelled,reset"
             num_retries: 3
