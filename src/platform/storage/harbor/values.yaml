@@ -31,6 +31,9 @@ expose:
       ingress.cilium.io/loadbalancer-mode: shared
       ingress.cilium.io/request-timeout: "0"
       ingress.cilium.io/force-https: "enabled"
+      ingress.kubernetes.io/ssl-redirect: 'false'
+      nginx.ingress.kubernetes.io/proxy-body-size: '0'
+      nginx.ingress.kubernetes.io/ssl-redirect: 'false'
       # note different ingress controllers may require a different ssl-redirect annotation
       # for Envoy, use ingress.kubernetes.io/force-ssl-redirect: "true" and remove the nginx lines below
     className: "cilium"
