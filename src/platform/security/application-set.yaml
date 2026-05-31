@@ -32,15 +32,6 @@ spec:
                 - '.spec.volumeClaimTemplates[]'
           - name: external-secrets
             wave: 10
-          - name: neuvector
-            wave: 10
-            ignoreDifferences:
-              - group: coordination.k8s.io
-                kind: Lease
-                name: neuvector-cert-controller
-              - group: coordination.k8s.io
-                kind: Lease
-                name: neuvector-cert-upgrader
           - name: openbao
             wave: 10
             ignoreDifferences:
