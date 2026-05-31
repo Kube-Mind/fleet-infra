@@ -19,7 +19,7 @@ ingress:
   enabled: false
 
   # -- The ingress class that should be used
-  ingressClassName: "traefik"
+  ingressClassName: "cilium"
 
   # -- The url to use for the ingress reverse proxy to point at this pms instance
   url: ""
@@ -32,7 +32,9 @@ ingress:
   #     secretName: cert-example-com
 
   # -- Custom annotations to put on the ingress resource
-  annotations: {}
+  annotations:
+    cert-manager.io/cluster-issuer: le-ing-prd
+    ingress.cilium.io/loadbalancer-mode: shared
 
 httpRoute:
   # -- Specify if an HTTPRoute resource for the pms server should be created or not

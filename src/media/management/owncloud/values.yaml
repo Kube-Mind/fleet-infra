@@ -1567,7 +1567,7 @@ ingress:
   # @schema
   # -- Ingress class to use.
   # Uses the default ingress class if not set.
-  ingressClassName: traefik
+  ingressClassName: cilium
   # @schema
   # $ref: schema/templates.json#/annotationsTemplate
   # @schema
@@ -1575,7 +1575,8 @@ ingress:
   annotations:
   # @schema
   # $ref: schema/templates.json#/labelsTemplate
-    cert-manager.io/cluster-issuer: letsencrypt-dev
+    cert-manager.io/cluster-issuer: le-ing-prd
+    ingress.cilium.io/loadbalancer-mode: shared
   # @schema
   # -- Labels for the ingress.
   labels: {}

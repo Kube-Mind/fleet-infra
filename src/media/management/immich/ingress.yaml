@@ -5,9 +5,10 @@ metadata:
   name: immich-ingress
   namespace: immich
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prd
+    cert-manager.io/cluster-issuer: le-ing-prd
+    ingress.cilium.io/loadbalancer-mode: shared
 spec:
-  ingressClassName: traefik
+  ingressClassName: cilium
   rules:
     - host: immich.jcan.dev
       http:
