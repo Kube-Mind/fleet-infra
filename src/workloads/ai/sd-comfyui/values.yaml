@@ -8,9 +8,6 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-image:
-  tag: "v0.22.2"
-
 comfyui:
   cli_args: "--cuda-device 0 --verbose DEBUG --fast"
 
