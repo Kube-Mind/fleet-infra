@@ -1,0 +1,48 @@
+---
+# TODO: Remove due to legacy ingress
+# Source: helm-cert-manager/templates/cluster-issuer.yaml
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: le-ing-dev
+spec:
+  acme:
+    # You must replace this email address with your own.
+    # Let's Encrypt will use this to contact you about expiring
+    # certificates, and issues related to your account.
+    email: jesmigel.developer@gmail.com
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      # Secret resource that will be used to store the account's private key.
+      name: le-ing-dev
+    # Add a single challenge solver, HTTP01 using nginx
+    solvers: 
+      - dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-external-secret
+              key: CLOUDFLARE_API_TOKEN
+---
+# TODO: Remove due to legacy ingress
+# Source: helm-cert-manager/templates/cluster-issuer.yaml
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: le-ing-prd
+spec:
+  acme:
+    # You must replace this email address with your own.
+    # Let's Encrypt will use this to contact you about expiring
+    # certificates, and issues related to your account.
+    email: jesmigel.developer@gmail.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      # Secret resource that will be used to store the account's private key.
+      name: le-ing-prd
+    # Add a single challenge solver, HTTP01 using nginx
+    solvers: 
+      - dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-external-secret
+              key: CLOUDFLARE_API_TOKEN

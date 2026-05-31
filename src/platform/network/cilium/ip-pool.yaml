@@ -4,5 +4,4 @@ metadata:
   name: first-pool
 spec:
   blocks:
-    - start: 172.16.1.14
-      stop: 172.16.1.19
+    - cidr: "172.16.1.50/29" # CHANGE THIS to an unused block on your local LAN

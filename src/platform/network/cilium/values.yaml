@@ -1,43 +1,19 @@
-k8sServiceHost: 127.0.0.1
+k8sServiceHost: localhost
 k8sServicePort: 6444
 # --- CRITICAL SAFETY SETTINGS ---
 # Enable eBPF-based Service load balancing
 kubeProxyReplacement: true 
 
-# Enable eBPF Host Routing to bypass the legacy stack
+# 4. BPF Settings: Refine for stability
 bpf:
   hostRouting: true
 
 # Allow Cilium to manage CNI configuration natively
 cni:
-  exclusive: false
-
-# Keep this as is; it allows host-to-pod traffic to use the eBPF datapath
-hostServices:
-  enabled: true
-
-# Explicit node IP detection
-nodePort:
-  enabled: false
+  exclusive: true
 
 # MTU (9000 jumbo - 50 vxlan overhead)
-mtu: 8950
-
-# IPAM
-ipam:
-  mode: cluster-pool
-  operator:
-    clusterPoolIPv4PodCIDRList:
-      - "10.0.0.0/16"
-    clusterPoolIPv4MaskSize: 24
-
-# Disable bandwidth manager for now (less complexity)
-bandwidthManager:
-  enabled: false
-
-enableMulticast: false
-multicast:
-  enabled: false
+MTU: 8950
 
 operator:
   rollOutPods: true
@@ -53,6 +29,11 @@ operator:
 rollOutCiliumPods: true
 agent: true
 agentConfig:
+  tolerations:
+    - key: node-role.kubernetes.io/control-plane
+      operator: Equal
+      value: "true"
+      effect: NoSchedule
   resources:
     requests:
       cpu: 500m
@@ -61,27 +42,12 @@ agentConfig:
       cpu: 500m
       memory: 512Mi
 
-
-
 #debug:
 #  enabled: true
 
-# Increase rate limit when doing L2 announcements
 k8sClientRateLimit:
   qps: 20
   burst: 100
-
-l2announcements:
-  enabled: true
-
-externalIPs:
-  enabled: true
-
-#enableCiliumEndpointSlice: true
-
-loadBalancer:
-  # https://docs.cilium.io/en/stable/network/kubernetes/kubeproxy-free/#maglev-consistent-hashing
-  algorithm: maglev
 
 gatewayAPI:
   enabled: false
@@ -120,8 +86,20 @@ hubble:
         cpu: 200m
         memory: 256Mi
 
+l2announcements:
+  enabled: true
+
+externalIPs:
+  enabled: true
+
 ingressController:
-  enabled: false
+  enabled: true
+  loadbalancerMode: shared
+  default: true
+  service:
+    type: LoadBalancer
+    insecureNodePort: 30080
+    secureNodePort: 30443
 
 # Network Policy Audit Mode - Log violations without blocking
 policyAuditMode: false

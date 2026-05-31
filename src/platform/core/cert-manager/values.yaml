@@ -11,5 +11,5 @@ resources:
 
 featureGates: "ExperimentalGatewayAPISupport=true"
 
-config:
-  enableGatewayAPI: true
+# config:
+#   enableGatewayAPI: true

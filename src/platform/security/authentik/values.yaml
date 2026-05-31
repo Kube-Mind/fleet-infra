@@ -4,8 +4,14 @@ server:
     hosts:
       - auth.jcan.dev
     annotations:
-      kubernetes.io/ingress.class: traefik
-      cert-manager.io/cluster-issuer: letsencrypt-prd
+      cert-manager.io/cluster-issuer: le-ing-prd
+      ingress.cilium.io/loadbalancer-mode: shared
+    ingressClassName: cilium
+    tls:
+      - secretName: authentik-tls
+        hosts:
+          - auth.jcan.dev
+
 postgresql:
   enabled: true
 redis:
