@@ -13,7 +13,6 @@ secrets-integrator-get-resources:
 	@echo "Getting secrets-integrator secrets"
 	kubectl -n $(SECRETS_INTEGRATOR_NAMESPACE) get secrets
 
-
 secrets-integrator-create-token:
 	kubectl -n $(SECRETS_INTEGRATOR_NAMESPACE) create job \
 	--from=cronjob.batch/token-generator manual-trigger-$(shell date +%s)

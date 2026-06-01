@@ -1,9 +1,12 @@
-.PHONY: bao-shell bao-unseal bao-login
+.PHONY: bao-shell bao-unseal bao-login bao-wait
 
 OPENBAO_NAMESPACE=openbao
 OPENBAO_PATH=src/platform/security/openbao
 bao-setup:
 	$(call kustomize_apply,$(OPENBAO_PATH))
+
+bao-wait:
+	$(call k8s_wait_pods_ready,$(OPENBAO_NAMESPACE),app.kubernetes.io/name=openbao)
 
 bao-teardown:
 	$(call kustomize_delete,$(OPENBAO_PATH))
@@ -19,6 +22,11 @@ bao-unseal:
 
 bao-login:
 	kubectl -n $(OPENBAO_NAMESPACE) exec -ti pod/openbao-0 -- sh -c 'bao login'
+
+.PHONY: bao-kv-enable
+bao-kv-enable:
+	kubectl -n $(OPENBAO_NAMESPACE) exec -ti pod/openbao-0 -- sh -c 'bao secrets enable -path=kv -version=2 kv'
+	kubectl -n $(OPENBAO_NAMESPACE) exec -ti pod/openbao-0 -- sh -c 'bao auth enable kubernetes'
 
 .PHONY: get-k8s-service-ip bao-k8s-write-config bao-k8s-init bao-k8s-read-config
 KUBERNETES_PORT_443_TCP_ADDR := $$(kubectl get svc kubernetes -o jsonpath='{.spec.clusterIP}')

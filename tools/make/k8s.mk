@@ -6,8 +6,7 @@ k8s-clean-stale-rs:
 				(.spec.replicas // 0) == 0 and \
 				(.status.replicas // 0) == 0 and \
 				(.status.readyReplicas // 0) == 0 and \
-				(.status.availableReplicas // 0) == 0 and \
-				((now - (.metadata.creationTimestamp | fromdate)) > (7*24*60*60)) \
+				(.status.availableReplicas // 0) == 0 \
 			) | "kubectl delete rs -n \(.metadata.namespace) \(.metadata.name)" \
 			' \
 		| sh
@@ -91,15 +90,27 @@ k8s-test-teardown:
 	$(call kustomize_delete,$(_TEST_PATH))
 
 define kustomize_apply
-	echo "Applying kustomization in $(1)"
+	@echo "Applying kustomization in $(1)"
 	kustomize build --enable-helm $(1) | kubectl apply -f -
 endef
 
 define kustomize_server_side_apply
-	echo "Applying server-side kustomization in $(1)"
+	@echo "Applying server-side kustomization in $(1)"
 	kustomize build --enable-helm $(1) | kubectl apply --server-side -f -
 endef
 
+define kustomize_get
+	@echo "Applying server-side kustomization in $(1)"
+	kustomize build --enable-helm $(1) | kubectl get -f -
+endef
+
 define kustomize_delete
+	@echo "Deleting kustomization in $(1)"
 	kustomize build --enable-helm $(1) | kubectl delete -f -
+endef
+
+define k8s_wait_pods_ready
+	@echo "Waiting for pods with the label $(2) to be ready in namespace $(1)..."
+	kubectl -n $(1) wait --for=condition=ready pod -l $(2) --timeout=360s
+	@echo ""
 endef

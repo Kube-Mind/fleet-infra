@@ -5,6 +5,9 @@ AUTHENTIK_PASSWORD=$$(kubectl -n $(AUTHENTIK_NAMESPACE) get secret authentik-ini
 authentik-setup:
 	$(call kustomize_apply,$(AUTHENTIK_PATH))
 
+authentik-wait:
+	$(call k8s_wait_pods_ready,$(AUTHENTIK_NAMESPACE),app.kubernetes.io/name=authentik)
+
 authentik-teardown:
 	$(call kustomize_delete,$(AUTHENTIK_PATH))
 

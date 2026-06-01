@@ -3,24 +3,33 @@
 # Variables (override on CLI as needed)
 IPV4        ?= 
 API_SERVER_IP ?= 
-TOKEN       ?= `ssh cloudy@$(API_SERVER_IP) sudo -S cat /var/lib/rancher/k3s/server/node-token`
+TOKEN       ?= $(shell ssh cloudy@$(API_SERVER_IP) sudo -S cat /var/lib/rancher/k3s/server/node-token)
 SSH_OPTS    ?= -o StrictHostKeyChecking=no
-.PHONY: control-plane-init control-plane-join worker-join control-plane-get-config control-plane-bootstrap
+.PHONY: k3s-cp-init k3s-cp-join k3s-worker-join k3s-cp-get-config k3s-cp-bootstrap
+
+KUBECONFIG ?= ~/.kube/config
+k3s-cp-get-config:
+	@echo "Retrieving K3s config from $(API_SERVER_IP)..."
+	rsync --rsync-path="sudo rsync" $(API_SERVER_IP):/etc/rancher/k3s/k3s.yaml $(KUBECONFIG)
 
 # --bind-address=0.0.0.0' listen to any interface to allow joining nodes to connect to API server
-# control-plane-init
+# k3s-cp-init
 # cilium-setup
-# control-plane-join
+# k3s-cp-join
 # worker-join
 # longhorn-setup
-# traefik-setup
 # bao-setup
+# external-secrets-setup
+# secrets-integrator-setup
+# cert-manager-setup
+# letsencrypt-setup
+# authentik-setup
 # argocd-setup
 # platform-security-setup
 # platform-core-setup
 # platform-setup
 
-control-plane-init:
+k3s-cp-init:
 	@echo "Initializing controller node at $(API_SERVER_IP)..."
 	ssh $(SSH_OPTS) $(API_SERVER_IP) 'sudo curl -sfL https://get.k3s.io | sh -s - server \
 		--cluster-init \
@@ -31,48 +40,35 @@ control-plane-init:
 		--disable=servicelb \
 		--disable=traefik \
 		--disable-network-policy'
+	$(MAKE) k3s-cp-get-config
 
-echo-token:
+.PHONY: k3s-echo-token
+k3s-echo-token:
 	@echo "TOKEN: $(TOKEN)"
 
-KUBECONFIG ?= ~/.kube/config
-control-plane-get-config:
-	@echo "Retrieving K3s config from $(API_SERVER_IP)..."
-	rsync --rsync-path="sudo rsync" $(API_SERVER_IP):/etc/rancher/k3s/k3s.yaml $(KUBECONFIG)
-
-control-plane-bootstrap: control-plane-init control-plane-get-config cilium-setup
+k3s-cp-bootstrap: k3s-cp-init k3s-cp-get-config cilium-setup
 	kubectl get pods -A
 
 # NOTE: TOKEN must be manually provided
 # /etc/cloud/cloud.cfg.d/90-installer-network.cfg
-control-plane-join:
-	@echo "$(IPV4) Joining control plane node at $(API_SERVER_IP)..."
-	ssh $(SSH_OPTS) $(IPV4) 'sudo curl -sfL https://get.k3s.io | \
-	K3S_URL=https://$(API_SERVER_IP):6443 \
-	K3S_TOKEN=$(TOKEN) \
-	sh -s - server \
-	--bind-address=$(IPV4) \
-	--node-ip=$(IPV4) \
-	--advertise-address=$(IPV4) \
-	--flannel-backend=none \
-	--disable=servicelb \
-	--disable=traefik \
-	--disable-network-policy'
+k3s-cp-join:
+	$(call k3s_cp_join,$(API_SERVER_IP),$(IPV4),$(TOKEN))
+	
 
 # NOTE: TOKEN must be manually provided
-worker-join:
+k3s-worker-join:
 	@echo "Joining worker node at $(IPV4)..."
 	ssh $(SSH_OPTS) $(IPV4) 'sudo curl -sfL https://get.k3s.io | sh -s - agent \
 	--token "$(TOKEN)" --server "https://$(API_SERVER_IP):6443" --bind-address=$(IPV4)'
 
-.PHONY: label-workers label-upgrade label-all
+.PHONY: k3s-label-workers k3s-label-upgrade k3s-label-all
 
-label-workers:
+k3s-label-workers:
 	kubectl label node  usopp node-role.kubernetes.io/worker=true
 	kubectl label node  nami  node-role.kubernetes.io/worker=true
 	kubectl label node  franky  node-role.kubernetes.io/worker=true
 
-label-upgrade:
+k3s-label-upgrade:
 	kubectl label node  luffy  k3s-upgrade=true
 	kubectl label node  zoro   k3s-upgrade=true
 	kubectl label node  sanji  k3s-upgrade=true
@@ -80,10 +76,29 @@ label-upgrade:
 	kubectl label node  nami   k3s-upgrade=true
 	kubectl label node  franky k3s-upgrade=true
 
-label-all: label-workers label-upgrade
+k3s-label-all: k3s-label-workers k3s-label-upgrade
 
-.PHONY: taint-control-plane
-taint-control-plane:
-	kubectl taint node fenrir node-role.kubernetes.io/control-plane=true:NoSchedule
-	kubectl taint node bohr node-role.kubernetes.io/control-plane=true:NoSchedule
-	kubectl taint node tyr node-role.kubernetes.io/control-plane=true:NoSchedule
+.PHONY: k3s-cp-taint
+k3s-cp-taint:
+	kubectl taint node luffy node-role.kubernetes.io/control-plane=true:NoSchedule
+
+define k3s_cp_join
+	@echo "$(2) Joining control plane node at $(1)..."
+	ssh $(SSH_OPTS) $(2) 'sudo curl -sfL https://get.k3s.io | \
+	K3S_URL=https://$(1):6443 \
+	K3S_TOKEN=$(3) \
+	sh -s - server \
+	--bind-address=$(2) \
+	--node-ip=$(2) \
+	--advertise-address=$(2) \
+	--flannel-backend=none \
+	--disable=servicelb \
+	--disable=traefik \
+	--disable-network-policy'
+endef
+
+define k3s_worker_join
+	@echo "$(2) Joining worker node at $(1)..."
+	ssh $(SSH_OPTS) $(2) 'sudo curl -sfL https://get.k3s.io | sh -s - agent \
+	--token "$(3)" --server "https://$(1):6443" --bind-address=$(2)'
+endef

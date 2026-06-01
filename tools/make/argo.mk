@@ -3,7 +3,7 @@ ARGOCD_NAMESPACE=argo-cd
 ARGOCD_PATH=src/platform/core/argo-cd
 ARGOCD_PASSWORD=$$(kubectl -n $(ARGOCD_NAMESPACE) get secret argocd-initial-admin-secret -o yaml | grep -o 'password: .*' | sed -e s"/password\: //g" | base64 -d)
 argocd-setup:
-	$(call kustomize_apply,$(ARGOCD_PATH))
+	$(call kustomize_server_side_apply,$(ARGOCD_PATH))
 
 argocd-teardown:
 	$(call kustomize_delete,$(ARGOCD_PATH))
@@ -39,7 +39,7 @@ argowf-teardown:
 	$(call kustomize_delete,$(ARGOWF_PATH))
 
 argowf-wait:
-	kubectl -n $(ARGOWF_NAMESPACE) wait -l app.kubernetes.io/name=argo-workflows-server --for=condition=ready pod --timeout=360s
+	$(call k8s_wait_pods_ready,$(ARGOWF_NAMESPACE),app.kubernetes.io/name=argo-workflows-server)
 
 argowf-proxy:
 	kubectl -n $(ARGOWF_NAMESPACE) port-forward svc/argo-workflows-server 2746:2746
