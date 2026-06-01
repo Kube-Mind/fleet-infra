@@ -70,21 +70,21 @@ hubble:
     rollOutPods: true
     resources:
       requests:
-        cpu: 200m
-        memory: 256Mi
-      limits:
         cpu: 400m
         memory: 512Mi
+      limits:
+        cpu: 800m
+        memory: 1Gi
   ui:
     enabled: true
     rollOutPods: true
     resources:
       requests:
-        cpu: 200m
-        memory: 256Mi
-      limits:
         cpu: 400m
         memory: 512Mi
+      limits:
+        cpu: 800m
+        memory: 1Gi
 
 l2announcements:
   enabled: true
