@@ -64,7 +64,7 @@ spec:
     spec:
       containers:
         - name: browserless-proxy
-          image: ocr.jcan.dev/private/browserles-proxy:0.1.1
+          image: ocr.jcan.dev/library/browserles-proxy:0.1.0
           securityContext:
             capabilities:
               add: ["NET_ADMIN"]
