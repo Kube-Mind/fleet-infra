@@ -278,11 +278,12 @@ openaiBaseApiUrls: []
 # -- Env vars added to the Open WebUI deployment. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/
 extraEnvVars:
   # -- Default API key value for Pipelines. Should be updated in a production deployment, or be changed to the required API key if not using Pipelines
-  - name: OPENAI_API_KEY
-    valueFrom:
-      secretKeyRef:
-        name: open-webui-external-secret
-        key: OPENAI_API_KEY
+  # - name: OPENAI_API_KEY
+  #   value: "0p3n-w3bu!"
+  # valueFrom:
+  #   secretKeyRef:
+  #     name: pipelines-api-key
+  #     key: api-key
   # - name: OPENAI_API_KEY
   #   valueFrom:
   #     secretKeyRef:
@@ -308,6 +309,11 @@ extraEnvVars:
     value: 'https://auth.jcan.dev/application/o/openwebui/.well-known/openid-configuration'
   - name: OPENID_REDIRECT_URI
     value: 'https://chat.jcan.dev/oauth/oidc/callback'
+  - name: OPENAI_API_KEY
+    valueFrom:
+      secretKeyRef: 
+        name: open-webui-external-secret
+        key: PIPELINES_API_KEY
   - name: OLLAMA_BASE_URL
     value: "http://ollama.ollama.svc.cluster.local:11434"
   - name: PIPELINES_API_BASE_URL
