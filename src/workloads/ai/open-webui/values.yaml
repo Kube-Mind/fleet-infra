@@ -326,7 +326,7 @@ extraEnvVars:
   - name: ENABLE_WEB_SEARCH
     value: "true"
   - name: WEB_SEARCH_ENGINE
-    value: "DDGS"
+    value: "duckduckgo"
   - name: ENABLE_IMAGE_GENERATION
     value: "true"
   - name: IMAGE_GENERATION_ENGINE
