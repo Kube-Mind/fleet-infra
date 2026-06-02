@@ -308,12 +308,6 @@ extraEnvVars:
     value: 'https://auth.jcan.dev/application/o/openwebui/.well-known/openid-configuration'
   - name: OPENID_REDIRECT_URI
     value: 'https://chat.jcan.dev/oauth/oidc/callback'
-
-  - name: OPENAI_API_KEY
-    valueFrom:
-      secretKeyRef: 
-        name: open-webui-external-secret
-        key: PIPELINES_API_KEY
   - name: OLLAMA_BASE_URL
     value: "http://ollama.ollama.svc.cluster.local:11434"
   - name: PIPELINES_API_BASE_URL
