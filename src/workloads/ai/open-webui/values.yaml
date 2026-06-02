@@ -301,6 +301,11 @@ extraEnvVars:
       secretKeyRef: 
         name: open-webui-external-secret
         key: OAUTH_CLIENT_SECRET
+  - name: WEBUI_SECRET_KEY
+    valueFrom:
+      secretKeyRef:
+        name: open-webui-external-secret
+        key: OPENWEBUI_SECRET_KEY
   - name: OAUTH_PROVIDER_NAME
     value: 'authentik'
   - name: ENABLE_LOGIN_FORM
