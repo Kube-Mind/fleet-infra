@@ -291,6 +291,13 @@ extraEnvVars:
   #       key: api-key
   # - name: OLLAMA_DEBUG
   #   value: "1"
+  - name: WEBUI_SECRET_KEY
+    valueFrom:
+      secretKeyRef:
+        name: open-webui-external-secret
+        key: OPENWEBUI_SECRET_KEY
+  - name: OAUTH_PROVIDER_NAME
+    value: 'authentik'
   - name: OAUTH_CLIENT_ID
     valueFrom:
       secretKeyRef: 
@@ -301,13 +308,6 @@ extraEnvVars:
       secretKeyRef: 
         name: open-webui-external-secret
         key: OAUTH_CLIENT_SECRET
-  - name: WEBUI_SECRET_KEY
-    valueFrom:
-      secretKeyRef:
-        name: open-webui-external-secret
-        key: OPENWEBUI_SECRET_KEY
-  - name: OAUTH_PROVIDER_NAME
-    value: 'authentik'
   - name: ENABLE_LOGIN_FORM
     value: 'false'
   - name: OPENID_PROVIDER_URL
@@ -323,12 +323,16 @@ extraEnvVars:
     value: "http://ollama.ollama.svc.cluster.local:11434"
   - name: PIPELINES_API_BASE_URL
     value: http://open-webui-pipelines:9099
-  - name: ENABLE_RAG_WEB_SEARCH
+  - name: ENABLE_WEB_SEARCH
     value: "true"
-  - name: RAG_WEB_SEARCH_PROVIDER
-    value: "ddgs"
-  - name: RAG_WEB_SEARCH_ENGINE
-    value: "ddgs"
+  - name: WEB_SEARCH_ENGINE
+    value: "DDGS"
+  - name: ENABLE_IMAGE_GENERATION
+    value: "true"
+  - name: IMAGE_GENERATION_ENGINE
+    value: "comfyui"
+  - name: COMFYUI_BASE_URL
+    value: "http://sd-comfyui-chart-0.sd-comfyui-chart.sd-comfyui.svc.cluster.local:8188"
 
 # -- Env vars added to the Open WebUI deployment, common across environments. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: environment variables defined in both `extraEnvVars` and `commonEnvVars` will result in a conflict. Avoid duplicates)
 commonEnvVars: []
