@@ -27,7 +27,7 @@ tika:
 
 terminals:
   # -- Automatically install Terminals chart to extend Open WebUI functionality using Terminals:
-  enabled: true
+  enabled: false
 
 # -- A list of Ollama API endpoints. These can be added in lieu of automatically installing the Ollama Helm chart, or in addition to it.
 ollamaUrls: []
@@ -98,7 +98,13 @@ startupProbe: {}
 #   periodSeconds: 5
 #   failureThreshold: 20
 
-resources: {}
+resources:
+  requests:
+    cpu: '500m'
+    memory: '1Gi'
+  limits:
+    cpu: '1000m'
+    memory: '2Gi'
 
 copyAppData:
   # -- Open WebUI copy-app-data init container command (overrides default)
@@ -181,20 +187,6 @@ openaiBaseApiUrls: []
 
 # -- Env vars added to the Open WebUI deployment. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/
 extraEnvVars:
-  # -- Default API key value for Pipelines. Should be updated in a production deployment, or be changed to the required API key if not using Pipelines
-  # - name: OPENAI_API_KEY
-  #   value: "0p3n-w3bu!"
-  # valueFrom:
-  #   secretKeyRef:
-  #     name: pipelines-api-key
-  #     key: api-key
-  # - name: OPENAI_API_KEY
-  #   valueFrom:
-  #     secretKeyRef:
-  #       name: openai-api-key
-  #       key: api-key
-  # - name: OLLAMA_DEBUG
-  #   value: "1"
   - name: WEBUI_SECRET_KEY
     valueFrom:
       secretKeyRef:
@@ -221,6 +213,11 @@ extraEnvVars:
     value: 'false'
   - name: OPENID_REDIRECT_URI
     value: 'https://chat.jcan.dev/oauth/oidc/callback'
+  # For OAuth/SSO, you will probably have to use 'lax' (strict can break OAuth callbacks)
+  - name: WEBUI_SESSION_COOKIE_SAME_SITE
+    value: 'lax'
+  - name: WEBUI_AUTH_COOKIE_SAME_SITE
+    value: 'lax'
   # Pipelines
   - name: OPENAI_API_KEY
     valueFrom:
