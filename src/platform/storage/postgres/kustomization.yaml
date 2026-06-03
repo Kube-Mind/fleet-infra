@@ -4,10 +4,10 @@ resources:
 - namespace.yaml
 
 helmCharts:
-- name: postgres-operator
-  namespace: postgres
-  releaseName: pg-operator
-  repo: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
-  valuesFile: operator/values.yaml
-  version: 1.15.1
-  includeCRDs: true
+  - name: cloudnative-pg
+    valuesFile: operator/values.yaml
+    releaseName: cloudnative-pg
+    namespace: postgres
+    version: 0.28.2
+    includeCRDs: true
+    repo: https://cloudnative-pg.github.io/charts
