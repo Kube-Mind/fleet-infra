@@ -250,7 +250,7 @@ extraEnvVars:
   - name: IMAGE_GENERATION_ENGINE
     value: "comfyui"
   - name: COMFYUI_BASE_URL
-    value: "http://sd-comfyui-chart-0.sd-comfyui-chart.sd-comfyui.svc.cluster.local:8188"
+    value: "http://sd-comfyui-chart.sd-comfyui.svc.cluster.local"
   # Forwards user and session information as HTTP headers to OpenAI API, Ollama API, MCP servers, and Tool servers
   # https://docs.openwebui.com/reference/env-configuration/#enable_forward_user_info_headers
   - name: ENABLE_FORWARD_USER_INFO_HEADERS
