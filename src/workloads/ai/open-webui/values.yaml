@@ -296,6 +296,7 @@ extraEnvVars:
       secretKeyRef:
         name: open-webui-external-secret
         key: OPENWEBUI_SECRET_KEY
+  # Authentication
   - name: OAUTH_PROVIDER_NAME
     value: 'authentik'
   - name: OAUTH_CLIENT_ID
@@ -308,31 +309,38 @@ extraEnvVars:
       secretKeyRef: 
         name: open-webui-external-secret
         key: OAUTH_CLIENT_SECRET
-  - name: ENABLE_LOGIN_FORM
-    value: 'false'
   - name: OPENID_PROVIDER_URL
     value: 'https://auth.jcan.dev/application/o/openwebui/.well-known/openid-configuration'
+  - name: ENABLE_LOGIN_FORM
+    value: 'false'
   - name: OPENID_REDIRECT_URI
     value: 'https://chat.jcan.dev/oauth/oidc/callback'
+  # Pipelines
   - name: OPENAI_API_KEY
     valueFrom:
       secretKeyRef: 
         name: open-webui-external-secret
         key: PIPELINES_API_KEY
-  - name: OLLAMA_BASE_URL
-    value: "http://ollama.ollama.svc.cluster.local:11434"
   - name: PIPELINES_API_BASE_URL
     value: http://open-webui-pipelines:9099
+  - name: OLLAMA_BASE_URL
+    value: "http://ollama.ollama.svc.cluster.local:11434"
+  # Search engine
   - name: ENABLE_WEB_SEARCH
     value: "true"
   - name: WEB_SEARCH_ENGINE
     value: "duckduckgo"
+  # Image generation
   - name: ENABLE_IMAGE_GENERATION
     value: "true"
   - name: IMAGE_GENERATION_ENGINE
     value: "comfyui"
   - name: COMFYUI_BASE_URL
     value: "http://sd-comfyui-chart-0.sd-comfyui-chart.sd-comfyui.svc.cluster.local:8188"
+  # Forwards user and session information as HTTP headers to OpenAI API, Ollama API, MCP servers, and Tool servers
+  # https://docs.openwebui.com/reference/env-configuration/#enable_forward_user_info_headers
+  - name: ENABLE_FORWARD_USER_INFO_HEADERS
+    value: 'true'
 
 # -- Env vars added to the Open WebUI deployment, common across environments. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: environment variables defined in both `extraEnvVars` and `commonEnvVars` will result in a conflict. Avoid duplicates)
 commonEnvVars: []
