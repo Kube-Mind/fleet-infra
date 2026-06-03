@@ -270,7 +270,7 @@ extraEnvVars:
         name: open-webui-external-secret
         key: password
   - name: DATABASE_URL
-    value: "postgresql://$(DB_USER):$(DB_PASSWORD)@openwebui-postgres:5432/openwebui"
+    value: "postgresql://$(DB_USER):$(DB_PASSWORD)@open-webui-postgres-rw:5432/openwebui"
   # QDRANT Integration
   - name: VECTOR_DB
     value: 'qdrant'
