@@ -127,6 +127,7 @@ ingress:
   annotations:
     cert-manager.io/cluster-issuer: le-ing-prd
     ingress.cilium.io/loadbalancer-mode: shared
+    ingress.cilium.io/websocket: "enabled"
   host: "chat.jcan.dev" # update to your real domain
   additionalHosts: []
   tls: true
