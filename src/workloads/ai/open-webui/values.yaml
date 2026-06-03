@@ -213,6 +213,10 @@ extraEnvVars:
     value: 'false'
   - name: OPENID_REDIRECT_URI
     value: 'https://chat.jcan.dev/oauth/oidc/callback'
+  - name: WEBUI_SESSION_COOKIE_SECURE
+    value: 'true'
+  - name: WEBUI_AUTH_COOKIE_SECURE
+    value: 'true'
   # For OAuth/SSO, you will probably have to use 'lax' (strict can break OAuth callbacks)
   - name: WEBUI_SESSION_COOKIE_SAME_SITE
     value: 'lax'
