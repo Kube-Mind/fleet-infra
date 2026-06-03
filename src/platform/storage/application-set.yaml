@@ -69,6 +69,8 @@ spec:
             wave: 20
           - name: postgres
             wave: 30
+          - name: qdrant
+            wave: 30
   template:
     metadata:
       name: '{{ .name }}'

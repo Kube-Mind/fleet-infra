@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- namespace.yaml
+
+helmCharts:
+  - name: qdrant
+    valuesFile: values.yaml
+    releaseName: qdrant
+    namespace: qdrant
+    version: 1.18.1
+    includeCRDs: true
+    repo: https://qdrant.github.io/qdrant-helm

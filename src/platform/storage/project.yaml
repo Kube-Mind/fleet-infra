@@ -27,6 +27,8 @@ spec:
       server: '*'
     - namespace: 'postgres'
       server: '*'
+    - namespace: 'qdrant'
+      server: '*'
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
