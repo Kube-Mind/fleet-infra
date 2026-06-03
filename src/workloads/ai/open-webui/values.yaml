@@ -18,6 +18,11 @@ pipelines:
         secretKeyRef: 
           name: open-webui-external-secret
           key: PIPELINES_API_KEY
+    - name: QDRANT_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: open-webui-external-secret
+          key: QDRANT_SERVICE_API_KEY
     # -- Langfuse example, including values used in Langfuse filter to connect
     # - name: PIPELINES_URLS
     #   value: "https://github.com/open-webui/pipelines/blob/main/examples/filters/langfuse_filter_pipeline.py"  
