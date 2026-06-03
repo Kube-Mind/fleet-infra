@@ -25,6 +25,8 @@ spec:
       server: '*'
     - namespace: 'nfs-provisioner'
       server: '*'
+    - namespace: 'postgres'
+      server: '*'
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'

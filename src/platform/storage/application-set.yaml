@@ -18,7 +18,7 @@ spec:
     - list:
         elements:
           - name: harbor
-            wave: 20
+            wave: 30
             ignoreDifferences:
               - group: ''
                 kind: Secret
@@ -66,7 +66,9 @@ spec:
                 jqPathExpressions:
                   - .spec.preserveUnknownFields
           - name: nfs-provisioner
-            wave: 10
+            wave: 20
+          - name: postgres
+            wave: 30
   template:
     metadata:
       name: '{{ .name }}'
