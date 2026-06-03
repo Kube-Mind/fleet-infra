@@ -145,7 +145,7 @@ persistence:
   additionalLabels: {}
   # storageVolumeName: qdrant-storage
   # storageSubPath: ""
-  # storageClassName: local-path
+  storageClassName: longhorn
   # volumeAttributesClassName: ""
 
 # If you use snapshots or the snapshot shard transfer mechanism, we recommend

@@ -71,6 +71,11 @@ spec:
             wave: 30
           - name: qdrant
             wave: 30
+            ignoreDifferences:
+              - group: apps
+                kind: StatefulSet
+                jqPathExpressions:
+                - '.spec.volumeClaimTemplates[]'
   template:
     metadata:
       name: '{{ .name }}'
