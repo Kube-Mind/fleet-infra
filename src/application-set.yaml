@@ -22,7 +22,7 @@ spec:
             wave: 0
           - name: workloads
             wave: 0
-          - name: media
+          - name: home
             wave: 0
   template:
     metadata:
