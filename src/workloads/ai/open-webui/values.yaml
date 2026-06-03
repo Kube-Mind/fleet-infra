@@ -296,6 +296,8 @@ extraEnvVars:
       secretKeyRef:
         name: open-webui-external-secret
         key: OPENWEBUI_SECRET_KEY
+  - name: CORS_ALLOW_ORIGIN
+    value: 'https://chat.jcan.dev'
   # Authentication
   - name: OAUTH_PROVIDER_NAME
     value: 'authentik'
