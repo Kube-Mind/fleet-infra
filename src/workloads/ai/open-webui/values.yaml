@@ -257,7 +257,7 @@ extraEnvVars:
     value: 'true'
   # https://docs.openwebui.com/reference/env-configuration/#chat_response_stream_delta_chunk_size
   - name: CHAT_RESPONSE_STREAM_DELTA_CHUNK_SIZE
-    value: '10'
+    value: '1'
   # Database configuration (if not using the default sqlite database)
   - name: DB_USER
     valueFrom:
