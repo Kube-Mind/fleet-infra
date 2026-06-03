@@ -11,4 +11,4 @@ helmCharts:
   releaseName: open-webui
   repo: https://helm.openwebui.com
   valuesFile: values.yaml
-  version: 14.6.0
+  version: 14.8.0
