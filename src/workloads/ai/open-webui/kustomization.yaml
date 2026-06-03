@@ -4,6 +4,7 @@ resources:
 - namespace.yaml
 - external-secret.yaml
 - pipelines
+- db-postgres.yaml
 
 helmCharts:
 - name: open-webui
