@@ -10,7 +10,7 @@ pipelines:
   # -- This section can be used to pass required environment variables to your pipelines (e.g. Langfuse hostname)
   extraEnvVars:
     - name: PIPELINES_LOG_LEVEL
-      value: "INFO"
+      value: "DEBUG"
     # API key used by OpenWebUI to access PIPELINES API
     - name: PIPELINES_API_KEY
       valueFrom:
