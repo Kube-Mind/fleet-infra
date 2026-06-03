@@ -230,7 +230,7 @@ extraEnvVars:
   - name: WEBUI_AUTH_COOKIE_SAME_SITE
     value: 'lax'
   # Pipelines
-  - name: OPENAI_API_KEY
+  - name: PIPELINES_API_KEY
     valueFrom:
       secretKeyRef: 
         name: open-webui-external-secret
