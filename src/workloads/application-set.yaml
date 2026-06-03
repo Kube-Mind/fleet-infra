@@ -26,8 +26,6 @@ spec:
           wave: 100
         - name: tools
           wave: 100
-        - name: webapps
-          wave: 100
         - name: work
           wave: 100
   template:
