@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: immich-server
+  namespace: immich
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: immich-server
+  template:
+    metadata:
+      labels:
+        app: immich-server
+    spec:
+      containers:
+        - name: immich-server
+          image: ghcr.io/immich-app/immich-server:v2.7.5
+          ports:
+            - containerPort: 2283
+          envFrom:
+            - configMapRef:
+                name: immich-env
+            - secretRef:
+                name: immich-external-secret
+          env:
+            - name: IMMICH_CONFIG_FILE
+              value: /config/immich-config.yaml
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
+            limits:
+              cpu: 2000m
+              memory: 4Gi
+          volumeMounts:
+            - name: uploads
+              mountPath: /data
+            - mountPath: /config
+              name: config
+              readOnly: true
+      volumes:
+        - name: uploads
+          persistentVolumeClaim:
+            claimName: immich-uploads-pvc
+        - name: config
+          projected:
+            defaultMode: 0440
+            sources:
+              - secret:
+                  name: immich-external-secret
+                  items:
+                    - key: immich-config.yaml
+                      path: immich-config.yaml
