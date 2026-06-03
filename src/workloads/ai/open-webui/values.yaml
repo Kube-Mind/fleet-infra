@@ -258,6 +258,19 @@ extraEnvVars:
   # https://docs.openwebui.com/reference/env-configuration/#chat_response_stream_delta_chunk_size
   - name: CHAT_RESPONSE_STREAM_DELTA_CHUNK_SIZE
     value: '10'
+  # Database configuration (if not using the default sqlite database)
+  - name: DB_USER
+    valueFrom:
+      secretKeyRef: 
+        name: open-webui-external-secret
+        key: DB_USER
+  - name: DB_PASSWORD
+    valueFrom:
+      secretKeyRef: 
+        name: open-webui-external-secret
+        key: password
+  - name: DATABASE_URL
+    value: "postgresql://$(DB_USER):$(DB_PASSWORD)@openwebui-postgres:5432/openwebui"
   # QDRANT Integration
   - name: VECTOR_DB
     value: 'qdrant'

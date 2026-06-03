@@ -1,0 +1,26 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: open-webui-postgres
+  namespace: open-webui
+spec:
+  instances: 3 # Standard production HA configuration
+  
+  storage:
+    size: 20Gi
+    storageClass: longhorn # Change to matching provisioner (e.g., standard, gp3)
+
+  # Instruct CNPG to provision the user using the Secret created by ESO
+  managed:
+    roles:
+      - name: openwebui_user
+        ensure: present
+        login: true
+        passwordSecret:
+          name: open-webui-external-secret
+
+  # Bootstrap an initial application database owned by our managed role
+  bootstrap:
+    initdb:
+      database: openwebui
+      owner: openwebui_user
