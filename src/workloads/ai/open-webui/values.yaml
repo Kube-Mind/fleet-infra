@@ -259,6 +259,20 @@ extraEnvVars:
   # https://docs.openwebui.com/reference/env-configuration/#chat_response_stream_delta_chunk_size
   - name: CHAT_RESPONSE_STREAM_DELTA_CHUNK_SIZE
     value: '10'
+  # QDRANT Integration
+  - name: VECTOR_DB
+    value: 'qdrant'
+  - name: QDRANT_URI
+    value: 'http://qdrant.qdrant.svc.cluster.local:6333'
+  - name: ENABLE_QDRANT_MULTITENANCY_MODE
+    value: 'true'
+  - name: QDRANT_API_KEY
+    valueFrom:
+      secretKeyRef:
+        name: open-webui-external-secret
+        key: QDRANT_SERVICE_API_KEY
+  - name: QDRANT_PREFER_GRPC
+    value: 'false'
 
 # -- Env vars added to the Open WebUI deployment, common across environments. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/ (caution: environment variables defined in both `extraEnvVars` and `commonEnvVars` will result in a conflict. Avoid duplicates)
 commonEnvVars: []
