@@ -25,8 +25,8 @@ k3s-cp-get-config:
 # letsencrypt-setup
 # authentik-setup
 # argocd-setup
-# platform-security-setup
 # platform-core-setup
+# platform-security-setup
 # platform-setup
 
 k3s-cp-init:
