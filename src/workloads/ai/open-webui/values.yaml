@@ -24,7 +24,7 @@ pipelines:
           key: QDRANT_SERVICE_API_KEY
     - name: OLLAMA_BASE_URL
       value: "http://ollama.ollama.svc.cluster.local:11434"
-    - name: STABLE_DIFFUSION_BASE_URL
+    - name: COMFYUI_BASE_URL
       value: "http://sd-comfyui-chart.sd-comfyui.svc.cluster.local"
 
 tika:
