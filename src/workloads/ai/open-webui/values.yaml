@@ -9,9 +9,6 @@ pipelines:
   enabled: true
   # -- This section can be used to pass required environment variables to your pipelines (e.g. Langfuse hostname)
   extraEnvVars:
-    # -- Example pipeline to pull and load on deployment startup, see current pipelines here: https://github.com/open-webui/pipelines/blob/main/examples
-    - name: PIPELINES_URLS
-      value: "https://github.com/open-webui/pipelines/blob/main/examples/filters/detoxify_filter_pipeline.py"
     # API key used by OpenWebUI to access PIPELINES API
     - name: PIPELINES_API_KEY
       valueFrom:
@@ -23,24 +20,13 @@ pipelines:
         secretKeyRef:
           name: open-webui-external-secret
           key: QDRANT_SERVICE_API_KEY
-    # -- Langfuse example, including values used in Langfuse filter to connect
-    # - name: PIPELINES_URLS
-    #   value: "https://github.com/open-webui/pipelines/blob/main/examples/filters/langfuse_filter_pipeline.py"  
-    # - name: LANGFUSE_PUBLIC_KEY
-    #   valueFrom:
-    #     secretKeyRef: 
-    #       name: langfuse-keys
-    #       key: public-key
-    # - name: LANGFUSE_SECRET_KEY
-    #   valueFrom:
-    #     secretKeyRef: 
-    #       name: langfuse-keys
-    #       key: secret-key
-    # - name: LANGFUSE_HOST
-    #   value: https://us.cloud.langfuse.com
 
 tika:
   # -- Automatically install Apache Tika to extend Open WebUI
+  enabled: true
+
+terminals:
+  # -- Automatically install Terminals chart to extend Open WebUI functionality using Terminals:
   enabled: true
 
 # -- A list of Ollama API endpoints. These can be added in lieu of automatically installing the Ollama Helm chart, or in addition to it.
