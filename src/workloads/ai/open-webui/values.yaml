@@ -9,6 +9,8 @@ pipelines:
   enabled: true
   # -- This section can be used to pass required environment variables to your pipelines (e.g. Langfuse hostname)
   extraEnvVars:
+    - name: PIPELINES_LOG_LEVEL
+      value: "INFO"
     # API key used by OpenWebUI to access PIPELINES API
     - name: PIPELINES_API_KEY
       valueFrom:
@@ -20,6 +22,10 @@ pipelines:
         secretKeyRef:
           name: open-webui-external-secret
           key: QDRANT_SERVICE_API_KEY
+    - name: OLLAMA_BASE_URL
+      value: "http://ollama.ollama.svc.cluster.local:11434"
+    - name: STABLE_DIFFUSION_BASE_URL
+      value: "http://sd-comfyui-chart.sd-comfyui.svc.cluster.local"
 
 tika:
   # -- Automatically install Apache Tika to extend Open WebUI
