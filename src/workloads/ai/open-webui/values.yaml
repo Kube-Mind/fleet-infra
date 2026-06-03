@@ -263,7 +263,7 @@ extraEnvVars:
     valueFrom:
       secretKeyRef: 
         name: open-webui-external-secret
-        key: DB_USER
+        key: username
   - name: DB_PASSWORD
     valueFrom:
       secretKeyRef: 
