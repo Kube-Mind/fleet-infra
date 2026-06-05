@@ -33,7 +33,7 @@ tika:
 
 terminals:
   # -- Automatically install Terminals chart to extend Open WebUI functionality using Terminals:
-  enabled: false
+  enabled: true
 
 # -- A list of Ollama API endpoints. These can be added in lieu of automatically installing the Ollama Helm chart, or in addition to it.
 ollamaUrls: []
