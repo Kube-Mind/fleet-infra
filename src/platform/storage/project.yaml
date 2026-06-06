@@ -29,8 +29,6 @@ spec:
       server: '*'
     - namespace: 'qdrant'
       server: '*'
-    - namespace: 'velero'
-      server: '*'
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
