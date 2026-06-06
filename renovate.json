@@ -11,12 +11,13 @@
   ],
   "kustomize": {
     "managerFilePatterns": [
-      "**/kustomization.yaml"
+      "src/**/*.yaml"
     ]
   },
   "helm-values": {
     "managerFilePatterns": [
-      "**/values.yaml"
+      "src/**/*.yaml",
+      "src/**/*.values.yaml"
     ]
   },
   "enabledManagers": [
@@ -27,8 +28,8 @@
   ],
   "kubernetes": {
     "managerFilePatterns": [
-      "**/*.yaml",
-      "**/*.yml"
+      "src/**/*.yaml",
+      "src/**/*.yml"
     ]
   },
   "packageRules": [
@@ -36,6 +37,20 @@
       "matchManagers": [
         "kustomize",
         "helm-values",
+        "kubernetes",
+        "custom.regex"
+      ],
+      "matchFileNames": [
+        "src/platform/observability/**"
+      ],
+      "groupName": "chore(deps): update platform/observability helm charts and oci"
+    },
+  "packageRules": [
+    {
+      "matchManagers": [
+        "kustomize",
+        "helm-values",
+        "kubernetes",
         "custom.regex"
       ],
       "matchFileNames": [
@@ -51,25 +66,9 @@
         "custom.regex"
       ],
       "matchFileNames": [
-        "src/media/management/immich/immich-redis/deployment.yaml",
-        "src/media/management/immich/immich-machine-learning/deployment.yaml",
-        "src/media/management/immich/immich-server/deployment.yaml"
+        "src/home/**"
       ],
-      "groupName": "chore(deps): update media helm charts and oci",
-      "automerge": true
-    },
-    {
-      "matchManagers": [
-        "kustomize",
-        "helm-values",
-        "kubernetes",
-        "custom.regex"
-      ],
-      "matchFileNames": [
-        "src/workloads/work/**"
-      ],
-      "groupName": "chore(deps): update work helm charts and oci",
-      "automerge": true
+      "groupName": "chore(deps): update home helm charts and oci"
     }
   ],
   "customManagers": [
