@@ -15,7 +15,7 @@ The platform layer consists of core infrastructure components that provide a **s
 | Name | Status | Description |
 | ---- | ------ | ----------- |
 | [platform-core](./src/platform/core) | ![platform-core](https://cd.jcan.dev/api/badge?name=platform-core&revision=true&showAppName=true) | Installs critical cluster components such as Argo CD, ingress controllers, certificate managers, and other foundational tools. |
-| [platform-network](./src/platform/network) | ![platform-network](https://cd.jcan.dev/api/badge?name=platform-network&revision=true&showAppName=true) | Manages networking components including CNI plugins, Traefik ingress, and automatic DNS and TLS configuration. |
+| [platform-network](./src/platform/network) | ![platform-network](https://cd.jcan.dev/api/badge?name=platform-network&revision=true&showAppName=true) | Manages networking components including CNI plugins, cilium ingress, and automatic DNS and TLS configuration. |
 | [platform-observability](./src/platform/observability) | ![platform-observability](https://cd.jcan.dev/api/badge?name=platform-observability&revision=true&showAppName=true) | Provides monitoring, logging, and alerting via Prometheus, Grafana, and related telemetry tools. |
 | [platform-security](./src/platform/security) | ![platform-security](https://cd.jcan.dev/api/badge?name=platform-security&revision=true&showAppName=true) | Deploys security tooling for authentication, secrets management, and policy enforcement. |
 | [platform-storage](./src/platform/storage) | ![platform-storage](https://cd.jcan.dev/api/badge?name=platform-storage&revision=true&showAppName=true) | Manages persistent storage provisioners, container registries, and CSI drivers for stateful workloads. |
@@ -48,7 +48,7 @@ The `platform-network` group configures Kubernetes networking infrastructure, in
 | **cilium** | ![cilium](https://cd.jcan.dev/api/badge?name=cilium&revision=true&showAppName=true) | [Cilium](https://cilium.io/) is a high-performance CNI plugin providing networking, observability, and security policies. |
 | **dnsfix** | ![dnsfix](https://cd.jcan.dev/api/badge?name=dnsfix&revision=true&showAppName=true) | Applies DNS patches and workarounds to ensure reliable name resolution within the cluster. |
 | **letsencrypt** | ![letsencrypt](https://cd.jcan.dev/api/badge?name=letsencrypt&revision=true&showAppName=true) | Configures ACME issuers to enable automatic TLS certificates via cert-manager. |
-| **traefik** | ![traefik](https://cd.jcan.dev/api/badge?name=traefik&revision=true&showAppName=true) | [Traefik](https://traefik.io/) is an ingress controller and edge router for routing HTTP/S traffic. |
+| **cilium** | ![cilium](https://cd.jcan.dev/api/badge?name=cilium&revision=true&showAppName=true) | [cilium](https://cilium.io/) is an ingress controller and edge router for routing HTTP/S traffic. |
 
 > [🔝 Back to top](#-table-of-contents)
 ---
