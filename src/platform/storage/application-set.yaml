@@ -76,6 +76,8 @@ spec:
                 kind: StatefulSet
                 jqPathExpressions:
                 - '.spec.volumeClaimTemplates[]'
+          - name: velero
+            wave: 30
   template:
     metadata:
       name: '{{ .name }}'
