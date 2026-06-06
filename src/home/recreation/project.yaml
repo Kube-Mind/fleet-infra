@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: media-management
+  namespace: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-10"
+    argocd.argoproj.io/tracking-id: media:argoproj.io/Application:argo-cd/media-management
+  labels:
+    app.kubernetes.io/instance: 'media-management'
+    app.kubernetes.io/component: management
+    app.kubernetes.io/part-of: media
+    app.kubernetes.io/managed-by: argo-cd
+spec:
+  description: Project for media management applications
+  sourceRepos:
+    - 'https://github.com/Kube-Mind/fleet-infra.git'
+  destinations:
+    - namespace: 'argo-cd'
+      server: '*'
+    - namespace: 'immich'
+      server: '*'
+    - namespace: 'owncloud'
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
