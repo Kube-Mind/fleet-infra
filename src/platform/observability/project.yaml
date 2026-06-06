@@ -18,8 +18,6 @@ spec:
   destinations:
     - namespace: 'kube-prometheus-stack'
       server: '*'
-    - namespace: 'metrics-server'
-      server: '*'
     - namespace: 'loki'
       server: '*'
     - namespace: 'promtail'
