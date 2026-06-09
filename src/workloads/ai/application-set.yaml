@@ -28,6 +28,12 @@ spec:
             wave: 30
           - name: open-webui
             wave: 40
+            ignoreDifferences:
+              - group: ''
+                kind: Secret
+                name: open-webui-terminals-api-key
+                jsonPointers:
+                  - /data/api-key
   template:
     metadata:
       name: '{{ .name }}'
