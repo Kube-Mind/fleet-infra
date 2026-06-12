@@ -134,7 +134,7 @@ initContainer:
     registry: index.docker.io
     repository: alpine
     # -- If unset use latest
-    tag: "3.23"
+    tag: "3.24"
     sha: ""
     pullPolicy: IfNotPresent
 
