@@ -89,7 +89,7 @@ spec:
         volumeMounts:
           - mountPath: /work
             name: work
-        image: alpine/git:v2.52.0
+        image: alpine/git:v2.54.0
         workingDir: /work
         # Do a shallow clone, which is the fastest way to clone, by using the
         # --depth, --branch, and --single-branch options
