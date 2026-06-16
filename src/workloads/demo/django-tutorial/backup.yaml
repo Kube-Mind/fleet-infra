@@ -6,7 +6,7 @@ metadata:
   namespace: longhorn
 spec:
   backupMode: incremental
-  snapshotName: snapshot-django-tutorial
+  snapshotName: snap-7b63f43ca0e44482
   labels:
     app.kubernetes.io/component: database
     app.kubernetes.io/instance: postgres
