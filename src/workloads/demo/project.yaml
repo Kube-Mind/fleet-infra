@@ -21,6 +21,8 @@ spec:
   destinations:
     - namespace: 'argo-cd'
       server: '*'
+    - namespace: 'longhorn'
+      server: '*'
     - namespace: 'django-tutorial'
       server: '*'
   clusterResourceWhitelist:
