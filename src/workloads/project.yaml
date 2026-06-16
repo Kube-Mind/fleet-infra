@@ -19,6 +19,8 @@ spec:
   destinations:
     - namespace: 'argo-cd'
       server: '*'
+    - namespace: 'longhorn'
+      server: '*'
     - namespace: 'workloads-ai'
       server: '*'
     - namespace: 'workloads-ci'
