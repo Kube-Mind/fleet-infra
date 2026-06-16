@@ -3,7 +3,7 @@ apiVersion: longhorn.io/v1beta2
 kind: Backup
 metadata:
   name: backup-django-tutorial
-  namespace: longhorn-system
+  namespace: django-tutorial
 spec:
   backupMode: incremental
   snapshotName: snapshot-django-tutorial
