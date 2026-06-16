@@ -37,7 +37,7 @@ spec:
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
         targetRevision: main
-        path: 'src/workloads/work/{{ .name }}'
+        path: 'src/workloads/demo/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:
         namespace: '{{ .name }}'
