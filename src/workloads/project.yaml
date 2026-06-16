@@ -23,6 +23,8 @@ spec:
       server: '*'
     - namespace: 'workloads-ci'
       server: '*'
+    - namespace: 'workloads-demo'
+      server: '*'
     - namespace: 'workloads-messaging'
       server: '*'
     - namespace: 'workloads-tools'
