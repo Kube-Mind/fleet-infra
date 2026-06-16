@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: workloads-work
+  name: workloads-demo
   namespace: argo-cd
   annotations:
     argocd.argoproj.io/sync-wave: "-10"
