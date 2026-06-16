@@ -24,8 +24,6 @@ spec:
       server: '*'
     - namespace: 'ollama'
       server: '*'
-    - namespace: 'pft'
-      server: '*'
     - namespace: 'ska'
       server: '*'
     - namespace: 'tropic'

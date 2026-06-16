@@ -18,8 +18,6 @@ spec:
   generators:
     - list:
         elements:
-        # - name: pft
-        #   wave: 50
         - name: ska
           wave: 50
         - name: tropic
