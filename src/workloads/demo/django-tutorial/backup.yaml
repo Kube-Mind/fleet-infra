@@ -1,0 +1,14 @@
+---
+apiVersion: longhorn.io/v1beta2
+kind: Backup
+metadata:
+  name: backup-django-tutorial
+  namespace: longhorn-system
+spec:
+  backupMode: incremental
+  snapshotName: snapshot-django-tutorial
+  labels:
+    app.kubernetes.io/component: database
+    app.kubernetes.io/instance: postgres
+    app.kubernetes.io/managed-by: cloudnative-pg
+    app.kubernetes.io/name: postgresql
