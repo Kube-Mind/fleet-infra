@@ -62,7 +62,7 @@ spec:
           - name: repo
           - name: branch
       container:
-        image: alpine/git:v2.52.0
+        image: alpine/git:v2.54.0
         workingDir: /work
         volumeMounts:
           - name: work
