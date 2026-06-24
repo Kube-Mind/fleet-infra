@@ -29,7 +29,7 @@ spec:
                 - secret
                 - --ignore-not-found=true
                 - bao-admin
-              image: 'rancher/kubectl:v1.36.1-amd64'
+              image: 'rancher/kubectl:v1.36.2-amd64'
               imagePullPolicy: IfNotPresent
               name: vault-token-secrets-cleanup
           containers:
@@ -41,7 +41,7 @@ spec:
                 - generic
                 - bao-admin
                 - --from-file=token=/vault/secrets/token
-              image: 'rancher/kubectl:v1.36.1-amd64'
+              image: 'rancher/kubectl:v1.36.2-amd64'
               imagePullPolicy: IfNotPresent
               name: bao-admin
           restartPolicy: Never
