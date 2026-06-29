@@ -76,9 +76,12 @@ k8s-clean-stale-pods:
 		| sh
 	@echo "Cleanup complete."
 
-.PHONY: k8s-watch-nodes
+.PHONY: k8s-watch-nodes k8s-dns-test
 k8s-watch-nodes:
 	watch kubectl get nodes
+
+k8s-dns-test:
+	kubectl run dns-test --rm -i -t --image=busybox:1.35 --restart=Never -- sh
 
 .PHONY: k8s-test-setup k8s-test-teardown
 k8s-test-setup:

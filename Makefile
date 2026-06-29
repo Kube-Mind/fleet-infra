@@ -25,6 +25,7 @@ include $(MAKE_PATH)/qdrant.mk
 include $(MAKE_PATH)/secrets-integrator.mk
 include $(MAKE_PATH)/stable-diffusion.mk
 include $(MAKE_PATH)/system-upgrade.mk
+include $(MAKE_PATH)/tofu.mk
 
 # private helpers
 include privateRules.mk

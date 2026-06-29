@@ -49,8 +49,6 @@ k3s-echo-token:
 k3s-cp-bootstrap: k3s-cp-init k3s-cp-get-config cilium-setup
 	kubectl get pods -A
 
-# NOTE: TOKEN must be manually provided
-# /etc/cloud/cloud.cfg.d/90-installer-network.cfg
 k3s-cp-join:
 	$(call k3s_cp_join,$(API_SERVER_IP),$(IPV4),$(TOKEN))
 	
@@ -69,12 +67,10 @@ k3s-label-workers:
 	kubectl label node  franky  node-role.kubernetes.io/worker=true
 
 k3s-label-upgrade:
-	kubectl label node  luffy  k3s-upgrade=true
-	kubectl label node  zoro   k3s-upgrade=true
-	kubectl label node  sanji  k3s-upgrade=true
-	kubectl label node  usopp  k3s-upgrade=true
-	kubectl label node  nami   k3s-upgrade=true
-	kubectl label node  franky k3s-upgrade=true
+	@for node in $$(kubectl get nodes -o name | sed 's|^node/||'); do \
+		echo "Labeling node $$node with k3s-upgrade=true..."; \
+		kubectl label node $$node k3s-upgrade=true --overwrite; \
+	done
 
 k3s-label-all: k3s-label-workers k3s-label-upgrade
 
