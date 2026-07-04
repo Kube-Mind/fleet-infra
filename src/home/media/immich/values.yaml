@@ -3,7 +3,6 @@
 ## Refer there for more detail about the supported values
 
 # These entries are shared between all the Immich components
-
 controllers:
   main:
     containers:
