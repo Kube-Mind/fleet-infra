@@ -1,0 +1,109 @@
+## This chart relies on the common library chart from bjw-s
+## You can find it at https://github.com/bjw-s-labs/helm-charts/tree/common-5.0.1/charts/library/common
+## Refer there for more detail about the supported values
+
+# These entries are shared between all the Immich components
+
+controllers:
+  main:
+    containers:
+      main:
+        env:
+          REDIS_HOSTNAME: "immich-redis.immich.svc.cluster.local"
+          IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
+        
+        envFrom:
+          - configMapRef:
+              name: immich-env
+          # Add the env vars to connect to your database here. see the example below
+          #
+          # DB_HOSTNAME: immich-postgresql-rw
+          # DB_USERNAME: immich
+          # DB_DATABASE_NAME: immich
+          # DB_PASSWORD:
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: immich-postgres-user
+          #       key: password
+
+immich:
+  metrics:
+    # Enabling this will create the service monitors needed to monitor immich with the prometheus operator
+    enabled: false
+  persistence:
+    # Main data store for all photos shared between different components.
+    library:
+      # Automatically creating the library volume is not supported by this chart
+      # You have to specify an existing PVC to use
+      existingClaim: immich-uploads-pvc
+  # configuration is immich-config.json converted to yaml. Ignored if existingConfiguration is set.
+  # ref: https://immich.app/docs/install/config-file/
+  #
+  configuration: {}
+    # trash:
+    #   enabled: false
+    #   days: 30
+    # storageTemplate:
+    #   enabled: true
+    #   template: "{{y}}/{{y}}-{{MM}}-{{dd}}/{{filename}}"
+  # Sets the resource Kind to store configuration in. Must be either ConfigMap or Secret.
+  configurationKind: Secret
+
+  # Specify existing configuration resource name here to skip creation of a new one
+  existingConfiguration: immich-external-secret
+
+
+# Immich components
+server:
+  enabled: true
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            repository: ghcr.io/immich-app/immich-server
+            pullPolicy: IfNotPresent
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: le-ing-prd
+        ingress.cilium.io/loadbalancer-mode: shared
+        ingress.cilium.io/request-timeout: "36000"
+      hosts:
+        - host: immich.jcan.dev
+          paths:
+            - path: "/"
+              service:
+                identifier: main
+      tls:
+        - hosts:
+            - immich.jcan.dev
+          secretName: immich-tls
+
+machine-learning:
+  enabled: true
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            repository: ghcr.io/immich-app/immich-machine-learning
+            pullPolicy: IfNotPresent
+          env:
+            TRANSFORMERS_CACHE: /cache
+            HF_XET_CACHE: /cache/huggingface-xet
+            MPLCONFIGDIR: /cache/matplotlib-config
+  persistence:
+    cache:
+      enabled: true
+      type: persistentVolumeClaim
+      size: 10Gi
+      accessMode: ReadWriteMany
+      storageClass: longhorn
+      # Optional: to avoid downloading the ML models on every start, replace `type: emptyDir` above with:
+      #   type: persistentVolumeClaim
+      #   size: 10Gi
+      #   accessMode: ReadWriteMany
+      #   # storageClass: your-class
+

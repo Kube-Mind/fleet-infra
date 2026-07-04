@@ -4,10 +4,18 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - external-secret.yaml
-- configmap.yaml
-- immich-database
-- immich-redis
-- immich-machine-learning
-- immich-server
 - configs
-- ingress.yaml
+- immich-redis
+- db-postgres.yaml
+# - immich-database
+# - immich-machine-learning
+# - immich-server
+# - ingress.yaml
+
+helmCharts:
+- name: immich
+  namespace: immich
+  repo: oci://ghcr.io/immich-app/immich-charts/immich
+  valuesFile: values.yaml
+  version: 0.13.1
+  includeCRDs: true
