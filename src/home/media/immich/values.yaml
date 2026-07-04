@@ -13,7 +13,7 @@ controllers:
           DB_PASSWORD:
             valueFrom:
               secretKeyRef:
-                name: immich-postgres-user
+                name: immich-external-secret
                 key: password
         
         envFrom:
