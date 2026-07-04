@@ -23,12 +23,12 @@ spec:
       - name: immichuser
         ensure: present
         login: true
-        superuser: false
+        superuser: true
         inherit: true
         connectionLimit: -1
 
         passwordSecret:
-          name: immich-db-secret
+          name: django-external-secret
 
   # -----------------------------
   # BOOTSTRAP DATABASE
