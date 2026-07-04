@@ -3,26 +3,42 @@ kind: Cluster
 metadata:
   name: immich-postgres
   namespace: immich
+
 spec:
   instances: 1
-  
+
+  postgresql:
+    shared_preload_libraries:
+      - "vector"   # required if using pgvector
+
   storage:
     size: 20Gi
-    storageClass: longhorn # Change to matching provisioner (e.g., standard, gp3)
+    storageClass: longhorn
 
-  # Instruct CNPG to provision the user using the Secret created by ESO
+  # -----------------------------
+  # ROLES (CNPG managed users)
+  # -----------------------------
   managed:
     roles:
-      - connectionLimit: -1	
-        ensure: present	
-        inherit: true
-        name: immich
+      - name: immichuser
+        ensure: present
         login: true
-        passwordSecret:
-          name: immich-external-secret
+        superuser: false
+        inherit: true
+        connectionLimit: -1
 
-  # Bootstrap an initial application database owned by our managed role
+        passwordSecret:
+          name: immich-db-secret
+          key: password
+
+  # -----------------------------
+  # BOOTSTRAP DATABASE
+  # -----------------------------
   bootstrap:
     initdb:
       database: immichdb
       owner: immichuser
+
+      # Install required extensions ONCE at cluster init
+      postInitSQL:
+        - CREATE EXTENSION IF NOT EXISTS vector;
