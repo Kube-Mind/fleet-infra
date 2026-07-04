@@ -29,7 +29,6 @@ spec:
 
         passwordSecret:
           name: immich-db-secret
-          key: password
 
   # -----------------------------
   # BOOTSTRAP DATABASE
