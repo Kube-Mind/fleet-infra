@@ -15,7 +15,7 @@ resources:
 helmCharts:
 - name: immich
   namespace: immich
-  repo: oci://ghcr.io/immich-app/immich-charts/immich
+  repo: oci://ghcr.io/immich-app/immich-charts
   valuesFile: values.yaml
   version: 0.13.1
   includeCRDs: true
