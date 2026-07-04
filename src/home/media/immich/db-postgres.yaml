@@ -21,6 +21,7 @@ spec:
         ensure: present
         login: true
         inherit: true
+        superuser: true
         connectionLimit: -1
 
         passwordSecret:
