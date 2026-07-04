@@ -7,10 +7,6 @@ resources:
 - configs
 - immich-redis
 - db-postgres.yaml
-# - immich-database
-# - immich-machine-learning
-# - immich-server
-# - ingress.yaml
 
 helmCharts:
 - name: immich
