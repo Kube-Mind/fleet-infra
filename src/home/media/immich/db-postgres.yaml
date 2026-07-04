@@ -15,24 +15,17 @@ spec:
     size: 20Gi
     storageClass: longhorn
 
-  # -----------------------------
-  # ROLES (CNPG managed users)
-  # -----------------------------
   managed:
     roles:
       - name: immichuser
         ensure: present
         login: true
-        superuser: true
         inherit: true
         connectionLimit: -1
 
         passwordSecret:
-          name: django-external-secret
+          name: immich-external-secret
 
-  # -----------------------------
-  # BOOTSTRAP DATABASE
-  # -----------------------------
   bootstrap:
     initdb:
       database: immichdb
