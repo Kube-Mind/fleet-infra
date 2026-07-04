@@ -8,4 +8,4 @@ data:
   UPLOAD_LOCATION: "/data"
   DB_DATABASE_NAME: "immichdb"
   DB_USERNAME: "immichuser"
-  DB_HOSTNAME: "immich-postgres.immich.svc.cluster.local"
+  DB_HOSTNAME: "immich-postgres-rw.immich.svc.cluster.local"
