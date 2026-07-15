@@ -4,10 +4,11 @@ metadata:
   name: default
   namespace: argo-workflows
 spec:
-  # Native NATS-based EventBus
+  # Modern JetStream-based EventBus
   nats:
-    native:
-      replicas: 1
+    jetstream:
+      version: "latest"
+      replicas: 3
       # Optional: configure resources
       resources:
         requests:
