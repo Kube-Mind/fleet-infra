@@ -8,7 +8,7 @@ spec:
   nats:
     jetstream:
       version: "latest"
-      replicas: 3
+      replicas: 1
       # Optional: configure resources
       resources:
         requests:
