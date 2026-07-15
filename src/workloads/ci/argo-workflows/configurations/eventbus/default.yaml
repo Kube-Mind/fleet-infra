@@ -4,16 +4,7 @@ metadata:
   name: default
   namespace: argo-workflows
 spec:
-  # Modern JetStream-based EventBus
+  # Native NATS-based EventBus
   nats:
-    jetstream:
-      version: "latest"
+    native:
       replicas: 1
-      # Optional: configure resources
-      resources:
-        requests:
-          memory: 64Mi
-          cpu: 100m
-        limits:
-          memory: 128Mi
-          cpu: 200m
