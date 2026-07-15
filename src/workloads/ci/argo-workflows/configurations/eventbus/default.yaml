@@ -8,8 +8,6 @@ spec:
   nats:
     native:
       replicas: 1
-      metrics:
-        enabled: false
       # Optional: configure resources
       resources:
         requests:
