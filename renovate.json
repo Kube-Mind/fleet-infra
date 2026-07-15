@@ -34,6 +34,8 @@
   },
   "packageRules": [
     {
+      "automerge": true,
+      "groupName": "chore(deps): update observability helm charts and oci",
       "matchManagers": [
         "kustomize",
         "helm-values",
@@ -42,10 +44,11 @@
       ],
       "matchFileNames": [
         "src/platform/observability/**"
-      ],
-      "groupName": "chore(deps): update platform/observability helm charts and oci"
+      ]
     },
     {
+      "automerge": true,
+      "groupName": "chore(deps): update workloads helm charts and oci",
       "matchManagers": [
         "kustomize",
         "helm-values",
@@ -54,10 +57,10 @@
       ],
       "matchFileNames": [
         "src/workloads/**"
-      ],
-      "groupName": "chore(deps): update workloads helm charts and oci"
+      ]
     },
     {
+      "groupName": "chore(deps): update home helm charts and oci",
       "matchManagers": [
         "kustomize",
         "helm-values",
@@ -66,8 +69,7 @@
       ],
       "matchFileNames": [
         "src/home/**"
-      ],
-      "groupName": "chore(deps): update home helm charts and oci"
+      ]
     }
   ],
   "customManagers": [
