@@ -1,7 +1,3 @@
-global:
-  # -- Allow parent charts to override registry hostname
-  imageRegistry: ""
-
 # -- Optional DNS configuration for the Pod
 dnsConfig: {}
 
