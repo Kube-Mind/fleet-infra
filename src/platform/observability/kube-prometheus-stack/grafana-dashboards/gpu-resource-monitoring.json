@@ -5,8 +5,8 @@
     "name": "adtt9jj",
     "namespace": "default",
     "uid": "d836a249-bc32-477a-8be2-a02ac35de620",
-    "resourceVersion": "1784681798162014",
-    "generation": 1,
+    "resourceVersion": "1784682698440012",
+    "generation": 2,
     "creationTimestamp": "2026-07-22T00:56:38Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "3572886984409088"
@@ -15,9 +15,11 @@
       "grafana.app/createdBy": "access-policy:service",
       "grafana.app/managedBy": "classic-file-provisioning",
       "grafana.app/managerId": "sidecarProvider",
-      "grafana.app/sourceChecksum": "fc31f974412e98834a20bb50aaa27d95",
+      "grafana.app/sourceChecksum": "a89e03cbe87f8055a4941ff5f7804410",
       "grafana.app/sourcePath": "/tmp/dashboards/gpu-resource-monitoring.json",
-      "grafana.app/sourceTimestamp": "1784681771000",
+      "grafana.app/sourceTimestamp": "1784682675000",
+      "grafana.app/updatedBy": "access-policy:service",
+      "grafana.app/updatedTimestamp": "2026-07-22T01:11:38Z",
       "grafana.app/folder": ""
     }
   },
@@ -3509,25 +3511,6 @@
     },
     "title": "GPU Resource Monitoring Overview",
     "variables": [
-      {
-        "kind": "DatasourceVariable",
-        "spec": {
-          "allowCustomValue": true,
-          "current": {
-            "text": "",
-            "value": ""
-          },
-          "hide": "dontHide",
-          "includeAll": false,
-          "multi": false,
-          "name": "idc",
-          "options": [],
-          "pluginId": "prometheus",
-          "refresh": "onDashboardLoad",
-          "regex": "",
-          "skipUrlSync": false
-        }
-      },
       {
         "kind": "QueryVariable",
         "spec": {
