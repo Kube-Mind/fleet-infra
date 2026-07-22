@@ -11,7 +11,7 @@
       }
     ]
   },
-  "description": "Suitable for monitoring NVIDIA GPU resource overviews in AI intelligent computing scenarios. Dependent components: dcgm-exporter:3.3.0-3.2.0-ubuntu22.04, prometheus:v2.39.1, grafana:10.3.3",
+  "description": "Suitable for monitoring NVIDIA GPU resource overviews in AI computing scenarios. Dependent components: dcgm-exporter:3.3.0-3.2.0-ubuntu22.04, prometheus:v2.39.1, grafana:10.3.3",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
@@ -2901,7 +2901,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "AI Intelligent Computing - GPU Resource Monitoring Overview",
+  "title": "GPU Resource Monitoring Overview",
   "version": 1,
   "uid": "adtt9jj",
   "id": 4415667301179392
