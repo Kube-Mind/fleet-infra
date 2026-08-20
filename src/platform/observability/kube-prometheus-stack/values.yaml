@@ -14,9 +14,8 @@ alertmanager:
   enabled: true
 
   alertmanagerSpec:
-    alertmanagerConfigSelector:
-      matchLabels:
-        alertmanager-config: kubernetes
+    alertmanagerConfiguration:
+      name: slack-kubernetes
 
   config:
     global:
