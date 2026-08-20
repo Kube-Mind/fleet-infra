@@ -1,0 +1,44 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: slack-kubernetes
+  namespace: kube-prometheus-stack
+spec:
+  route:
+    receiver: slack-kubernetes
+
+    groupBy:
+      - alertname
+      - severity
+      - namespace
+      - node
+
+    groupWait: 30s
+    groupInterval: 5m
+    repeatInterval: 4h
+
+  receivers:
+    - name: slack-kubernetes
+      slackConfigs:
+        - apiURL:
+            name: alertmanager-external-secret
+            key: ALERT_MANAGER_WEBHOOK
+
+          sendResolved: true
+
+          title: >-
+            {{ if eq .Status "firing" }}🔴 Firing{{ else }}🟢 Resolved{{ end }}:
+            {{ .CommonLabels.alertname }}
+
+          text: >-
+            {{ range .Alerts }}
+            *{{ .Annotations.summary }}*
+
+            {{ .Annotations.description }}
+
+            {{- if .Labels.node }}
+            *Node:* {{ .Labels.node }}
+            {{- end }}
+
+            *Severity:* {{ .Labels.severity }}
+            {{ end }}

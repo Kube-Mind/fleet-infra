@@ -1,0 +1,29 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: kubernetes-node-alerts
+  namespace: kube-prometheus-stack
+  labels:
+    app.kubernetes.io/part-of: observability
+    prometheus: kube-prometheus-stack
+    role: alert-rules
+spec:
+  groups:
+    - name: kubernetes.nodes
+      rules:
+        - alert: KubernetesNodeNotReady
+          expr: |
+            kube_node_status_condition{
+              condition="Ready",
+              status="true"
+            } == 0
+          for: 5m
+          labels:
+            severity: critical
+            category: kubernetes
+          annotations:
+            summary: "Kubernetes node {{ $labels.node }} is not ready"
+            description: >-
+              Kubernetes node {{ $labels.node }} has been in a
+              NotReady state for more than 5 minutes.
+            runbook_url: "https://github.com/Kube-Mind/fleet-infra"

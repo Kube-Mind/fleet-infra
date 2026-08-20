@@ -4,6 +4,7 @@ resources:
 - namespace.yaml
 - external-secret.yaml
 - grafana-dashboards
+- alertmanager
 
 helmCharts:
 - name: kube-prometheus-stack
