@@ -30,7 +30,7 @@ alertmanager:
       repeat_interval: 4h
       receiver: slack-default
       routes:
-      - receiver: 'slack-default'
+      - receiver: 'slack-kubernetes'
         matchers:
           - alertname = "Watchdog"
 
