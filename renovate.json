@@ -35,20 +35,7 @@
   "packageRules": [
     {
       "automerge": true,
-      "groupName": "chore(deps): update observability helm charts and oci",
-      "matchManagers": [
-        "kustomize",
-        "helm-values",
-        "kubernetes",
-        "custom.regex"
-      ],
-      "matchFileNames": [
-        "src/platform/observability/**"
-      ]
-    },
-    {
-      "automerge": true,
-      "groupName": "chore(deps): update workloads helm charts and oci",
+      "groupName": "chore-auto(deps): update helm charts and oci",
       "matchManagers": [
         "kustomize",
         "helm-values",
@@ -57,6 +44,31 @@
       ],
       "matchFileNames": [
         "src/workloads/**"
+      ]
+    },
+    {
+      "automerge": true,
+      "groupName": "chore-auto(deps): update platform helm charts and oci",
+      "matchManagers": [
+        "kustomize",
+        "helm-values",
+        "kubernetes",
+        "custom.regex"
+      ],
+      "matchFileNames": [
+        "src/platform/core/argo-cd/**",
+        "src/platform/core/cert-manager/**",
+        "src/platform/core/system-upgrade/**",
+        "src/platform/observability/kube-prometheus-stack/**",
+        "src/platform/observability/loki/**",
+        "src/platform/observability/promtail/**",
+        "src/platform/security/authentik/**",
+        "src/platform/security/external-secrets/**",
+        "src/platform/security/openbao/**",
+        "src/platform/security/harbor/**",
+        "src/platform/security/nfs-provisioner/**",
+        "src/platform/security/postgres/**",
+        "src/platform/security/qdrant/**"
       ]
     },
     {
