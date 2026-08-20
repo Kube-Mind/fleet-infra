@@ -10,6 +10,12 @@ crds:
     enabled: true
     forceConflicts: true
 
+alertmanager:
+  alertmanagerSpec:
+    alertmanagerConfigSelector:
+      matchLabels:
+        app.kubernetes.io/part-of: observability
+
 grafana:
   enabled: true
   
