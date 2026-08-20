@@ -17,6 +17,8 @@ spec:
   generators:
     - list:
         elements:
+          - name: cluster-maintenance
+            wave: 30
           - name: dnsfix
             wave: 30
           - name: jupyterhub
