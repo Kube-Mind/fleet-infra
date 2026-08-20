@@ -27,7 +27,7 @@ alertmanager:
       group_wait: 30s
       group_interval: 5m
       repeat_interval: 4h
-      receiver: slack-default
+      receiver: slack-kubernetes
 
 grafana:
   enabled: true
