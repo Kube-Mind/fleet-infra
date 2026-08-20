@@ -10,12 +10,6 @@ crds:
     enabled: true
     forceConflicts: true
 
-alertmanager:
-  alertmanagerSpec:
-    alertmanagerConfigSelector:
-      matchLabels:
-        app.kubernetes.io/part-of: observability
-
 grafana:
   enabled: true
   
@@ -79,11 +73,11 @@ grafana:
           url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090/
           access: proxy
           isDefault: false
-        - name: Alertmanager
-          type: alertmanager
-          url: http://kube-prometheus-stack-alertmanager.kube-prometheus-stack:9093/
-          access: proxy
-          isDefault: false
+        # - name: Alertmanager
+        #   type: alertmanager
+        #   url: http://kube-prometheus-stack-alertmanager.kube-prometheus-stack:9093/
+        #   access: proxy
+        #   isDefault: false
         - name: Loki
           type: loki
           url: http://loki.loki.svc.cluster.local:3100/
