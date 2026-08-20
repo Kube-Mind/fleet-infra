@@ -1,6 +1,9 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: AlertmanagerConfig
 metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: >-
+      kube-prometheus-stack:monitoring.coreos.com/AlertmanagerConfig:kube-prometheus-stack/slack-kubernetes
   name: slack-kubernetes
   namespace: kube-prometheus-stack
 spec:
