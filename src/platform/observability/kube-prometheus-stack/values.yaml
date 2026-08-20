@@ -28,10 +28,6 @@ alertmanager:
       group_interval: 5m
       repeat_interval: 4h
       receiver: slack-default
-      routes:
-      - receiver: 'slack-kubernetes'
-        matchers:
-          - alertname = "Watchdog"
 
 grafana:
   enabled: true
