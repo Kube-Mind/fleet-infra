@@ -21,11 +21,13 @@ spec:
   destinations:
     - namespace: 'argo-cd'
       server: '*'
-    - namespace: cluster-maintenance
+    - namespace: 'cluster-maintenance'
       server: '*'
     - namespace: 'dnsfix'
       server: '*'
     - namespace: 'jupyterhub'
+      server: '*'
+    - namespace: 'kube-system'
       server: '*'
     - namespace: 'n8n'
       server: '*'
