@@ -29,6 +29,21 @@ alertmanager:
       repeat_interval: 4h
       receiver: slack-kubernetes
 
+kubeControllerManager:
+  enabled: true
+  ## If your kube controller manager is not deployed as a pod, specify IPs it can be found on
+  ##
+  endpoints:
+    - 172.16.1.14
+    - 172.16.1.15
+    - 172.16.1.16
+
+defaultRules:
+  create: true
+  ## Disabled PrometheusRule alerts
+  disabled:
+    KubeProxyDown: true
+
 grafana:
   enabled: true
   
