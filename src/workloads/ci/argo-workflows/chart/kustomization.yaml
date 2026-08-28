@@ -6,7 +6,7 @@ helmCharts:
   namespace: argo-workflows
   repo: https://argoproj.github.io/argo-helm
   valuesFile: workflows.values.yaml
-  version: 2.0.2
+  version: 2.0.3
   includeCRDs: true
 
 - name: argo-events
