@@ -9,6 +9,6 @@ helmCharts:
     valuesFile: values.yaml
     releaseName: qdrant
     namespace: qdrant
-    version: 1.19.0
+    version: 1.19.1
     includeCRDs: true
     repo: https://qdrant.github.io/qdrant-helm
