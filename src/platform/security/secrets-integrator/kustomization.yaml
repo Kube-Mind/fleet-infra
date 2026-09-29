@@ -5,4 +5,4 @@ resources:
 - cluster-secretstore.yaml
 - rbac.yaml
 - token-generator.yaml
-# - application.yaml
+- bitwarden-secretstore.yaml
