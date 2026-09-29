@@ -1,0 +1,37 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: argocd-external-secret
+  namespace: argo-cd
+spec:
+  data:
+    - remoteRef:
+        conversionStrategy: Default
+        decodingStrategy: None
+        key: platform/security/bitwarden
+        metadataPolicy: None
+        nullBytePolicy: Ignore
+        property: maccount-user
+      secretKey: maccount-user
+    - remoteRef:
+        conversionStrategy: Default
+        decodingStrategy: None
+        key: platform/security/bitwarden
+        metadataPolicy: None
+        nullBytePolicy: Ignore
+        property: maccount-token
+      secretKey: maccount-token
+  refreshInterval: 15s
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: vault
+  target:
+    creationPolicy: Owner
+    deletionPolicy: Retain
+    name: bitwarden-external-secret
+    template:
+      engineVersion: v2
+      mergePolicy: Replace
+      metadata:
+        labels:
+          app.kubernetes.io/part-of: argocd
