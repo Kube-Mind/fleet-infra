@@ -1,7 +1,7 @@
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
-  name: argocd-external-secret
+  name: bitwarden-external-secret
   namespace: argo-cd
 spec:
   data:
