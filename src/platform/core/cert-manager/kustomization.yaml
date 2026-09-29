@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
 - namespace.yaml
+- internal-issuer.yaml
 - external-secret.yaml
 
 helmCharts:

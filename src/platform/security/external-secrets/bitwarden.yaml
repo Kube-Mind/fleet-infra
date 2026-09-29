@@ -2,7 +2,7 @@ apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: bitwarden-external-secret
-  namespace: argo-cd
+  namespace: external-secrets
 spec:
   data:
     - remoteRef:
@@ -35,3 +35,48 @@ spec:
       metadata:
         labels:
           app.kubernetes.io/part-of: argocd
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: bitwarden-ca
+  namespace: external-secrets
+spec:
+  isCA: true
+  commonName: bitwarden-sdk-ca
+  secretName: bitwarden-ca-certs
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: internal-cluster-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: bitwarden-tls
+  namespace: external-secrets
+spec:
+  secretName: bitwarden-tls-certs
+
+  issuerRef:
+    name: bitwarden-ca-issuer
+    kind: Issuer
+    group: cert-manager.io
+
+  dnsNames:
+    - bitwarden-sdk-server
+    - bitwarden-sdk-server.external-secrets
+    - bitwarden-sdk-server.external-secrets.svc
+    - bitwarden-sdk-server.external-secrets.svc.cluster.local
+
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+
+  usages:
+    - digital signature
+    - key encipherment
+    - server auth
