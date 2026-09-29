@@ -63,7 +63,7 @@ spec:
 
   issuerRef:
     name: internal-cluster-issuer
-    kind: Issuer
+    kind: ClusterIssuer
     group: cert-manager.io
 
   dnsNames:
