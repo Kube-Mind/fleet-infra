@@ -62,7 +62,7 @@ spec:
   secretName: bitwarden-tls-certs
 
   issuerRef:
-    name: bitwarden-ca-issuer
+    name: internal-issuer
     kind: Issuer
     group: cert-manager.io
 
