@@ -35,7 +35,7 @@
   "packageRules": [
     {
       "automerge": true,
-      "groupName": "chore-auto(deps): update helm charts and oci",
+      "groupName": "chore-auto(deps): update workloads helm charts and oci",
       "matchManagers": [
         "kustomize",
         "helm-values",
