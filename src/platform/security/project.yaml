@@ -24,8 +24,6 @@ spec:
       server: '*'
     - namespace: 'neuvector'
       server: '*'
-    - namespace: 'openbao'
-      server: '*'
     - namespace: 'secrets-integrator'
       server: '*'
   clusterResourceWhitelist:
