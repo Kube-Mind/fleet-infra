@@ -33,8 +33,8 @@ validator:
       - name: WITH_WORKLOAD	
         value: 'false'
 
-devicePlugin:
-  enabled: false
+# devicePlugin:
+#   enabled: false
 
 dcgmExporter:
   enabled: true
