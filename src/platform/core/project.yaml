@@ -20,6 +20,8 @@ spec:
       server: '*'
     - namespace: 'cert-manager'
       server: '*'
+    - namespace: 'hami'
+      server: '*'
     - namespace: 'kube-system'
       server: '*'
     - namespace: 'nvidia-operator'

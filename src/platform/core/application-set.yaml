@@ -21,6 +21,8 @@ spec:
           wave: 0
         - name: cert-manager
           wave: 10
+        - name: hami
+          wave: 20
         - name: nvidia-operator
           wave: 10
           ignoreDifferences:
