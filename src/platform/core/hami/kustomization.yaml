@@ -5,10 +5,10 @@ resources:
 - namespace.yaml
 
 helmCharts:
-- name: gpu-operator
-  namespace: nvidia-operator
-  releaseName: nvidia-operator
+- name: hami
+  namespace: hami
+  releaseName: hami
   repo: https://project-hami.github.io/HAMi/
   valuesFile: values.yaml
-  version: v26.7.1
+  version: 2.10.0
   includeCRDs: true
