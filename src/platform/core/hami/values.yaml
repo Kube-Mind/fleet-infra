@@ -1,4 +1,8 @@
 enabled: true
+# TODO: This does not work for some reason
 devices:
   nvidia:
     runtimeClassName: nvidia
+
+prometheus:
+  enabled: true
