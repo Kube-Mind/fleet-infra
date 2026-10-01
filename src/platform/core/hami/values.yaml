@@ -1,2 +1,4 @@
 enabled: true
-runtimeClassName: nvidia
+devices:
+  nvidia:
+    runtimeClassName: nvidia
