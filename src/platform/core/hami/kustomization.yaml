@@ -12,3 +12,15 @@ helmCharts:
   valuesFile: values.yaml
   version: 2.10.0
   includeCRDs: true
+
+patches:
+  - target:
+      group: apps
+      version: v1
+      kind: DaemonSet
+      name: hami-device-plugin
+      namespace: hami
+    patch: |-
+      - op: add
+        path: /spec/template/spec/runtimeClassName
+        value: nvidia
