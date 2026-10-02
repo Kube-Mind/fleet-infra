@@ -15,6 +15,9 @@ spec:
     - bitwarden-sdk-server.external-secrets
     - bitwarden-sdk-server.external-secrets.svc
     - bitwarden-sdk-server.external-secrets.svc.cluster.local
+  ipAddresses:
+    - 127.0.0.1
+    - ::1
   privateKey:
     algorithm: ECDSA
     size: 256
