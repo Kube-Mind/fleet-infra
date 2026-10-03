@@ -9,8 +9,15 @@ helmCharts:
   namespace: hami
   releaseName: hami
   repo: https://project-hami.github.io/HAMi/
-  valuesFile: values.yaml
+  valuesFile: hami.values.yaml
   version: 2.10.0
+  includeCRDs: true
+- name: hami-webui
+  namespace: hami
+  releaseName: hami
+  repo: https://project-hami.github.io/HAMi-WebUI
+  valuesFile: hami-webui.values.yaml
+  version: 1.3.0
   includeCRDs: true
 
 patches:

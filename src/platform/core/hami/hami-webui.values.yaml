@@ -1,0 +1,175 @@
+# Default values for hami-webui.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+vendorNodeSelectors:
+  NVIDIA: gpu=on
+  Ascend: ascend=on
+  DCU: dcu=on
+  MLU: mlu=on
+  Metax: metax-tech.com/gpu.installed=true
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+namespaceOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+# fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+# runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 3000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources:
+  frontend:
+    limits:
+      cpu: 200m
+      memory: 500Mi
+    requests:
+      cpu: 200m
+      memory: 500Mi
+  backend:
+    limits:
+      cpu: 50m
+      memory: 250Mi
+    requests:
+      cpu: 50m
+      memory: 250Mi
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+env:
+  frontend:
+    - name: TZ
+      value: "Australia/Melbourne"
+  backend:
+    - name: TZ
+      value: "Australia/Melbourne"
+
+serviceMonitor:
+  enabled: true
+  interval: 15s
+  honorLabels: false
+  additionalLabels:
+    jobRelease: hami-webui-prometheus
+  relabelings: []
+
+hamiServiceMonitor:
+  enabled: true
+  interval: 15s
+  # Preserve HAMi's namespace/pod/container workload labels when they collide
+  # with Prometheus scrape-target labels; required by the WebUI queries.
+  honorLabels: true
+  additionalLabels:
+    jobRelease: hami-webui-prometheus
+  svcNamespace: kube-system
+  relabelings: []
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+dcgm-exporter:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    interval: 15s
+    honorLabels: false
+    additionalLabels:
+      jobRelease: hami-webui-prometheus
+  nodeSelector:
+    gpu: "on"
+
+externalPrometheus:
+  enabled: true
+  # If externalPrometheus.enabled is true, this address will be used
+  address: "http://kube-prometheus-stack-prometheus.kube-prometheus-stack:9090"
+  # Single PromQL upstream timeout (sent to Prometheus / VictoriaMetrics as the &timeout= parameter).
+  timeout: "1m"
+
+# Kratos server timeouts. These bound the deadline placed on each incoming HTTP/gRPC
+# request context. They no longer affect /metrics generation (which runs in the background),
+# but they still gate the page-side APIs, some of which legitimately take a few seconds
+# against a large Prometheus / VictoriaMetrics cluster.
+backend:
+  http:
+    timeout: "60s"
+  grpc:
+    timeout: "60s"
+  # Readiness probe on the backend's /readyz. The backend only starts listening
+  # after its k8s informer caches have synced, so gating the pod on /readyz keeps
+  # it out of the Service until the backend can serve — this prevents the frontend
+  # BFF from hitting "connection refused" against the not-yet-listening backend
+  # during startup. failureThreshold * periodSeconds should comfortably exceed the
+  # worst-case informer sync time on a large cluster.
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 60
+
+# Background /metrics collector. The collector runs independently of Prometheus scrape;
+# scrapes only serialize the in-memory registry, so they are O(1) and immune to scrape
+# timeouts. Tune interval if you need fresher data or want to reduce upstream load further.
+metricsExporter:
+  # How often the collector refreshes hami_* metrics from the upstream Prometheus / VictoriaMetrics.
+  interval: "30s"
+  # Hard cap on a single refresh cycle. Should be >= externalPrometheus.timeout and < interval * 2.
+  timeout: "60s"
+
+# The frontend axios client timeout (default 60000ms) is compiled into the JS
+# bundle at image build time from the VUE_APP_REQUEST_TIMEOUT env var, as Vite
+# evaluates process.env at build, not at runtime. To change it for a deployed
+# cluster you need to rebuild packages/web with a different VUE_APP_REQUEST_TIMEOUT
+# (set in packages/web/.env.production or as a build-arg). It cannot be tuned
+# through this values.yaml.
+
