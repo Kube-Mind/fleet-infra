@@ -118,15 +118,7 @@ tolerations: []
 affinity: {}
 
 dcgm-exporter:
-  enabled: true
-  serviceMonitor:
-    enabled: true
-    interval: 15s
-    honorLabels: false
-    additionalLabels:
-      jobRelease: hami-webui-prometheus
-  nodeSelector:
-    gpu: "on"
+  enabled: false
 
 externalPrometheus:
   enabled: true
