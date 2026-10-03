@@ -61,10 +61,12 @@ k3s-worker-join:
 
 .PHONY: k3s-label-workers k3s-label-upgrade k3s-label-all
 
+K3S_WORKERS := usopp nami franky
 k3s-label-workers:
-	kubectl label node  usopp node-role.kubernetes.io/worker=true
-	kubectl label node  nami  node-role.kubernetes.io/worker=true
-	kubectl label node  franky  node-role.kubernetes.io/worker=true
+	@for host in $(K3S_WORKERS); do \
+		echo "Labeling node $$host with k3s-upgrade=true gpu=on"; \
+		kubectl label node $$host node-role.kubernetes.io/worker=true gpu=on; \
+	done
 
 k3s-label-upgrade:
 	@for node in $$(kubectl get nodes -o name | sed 's|^node/||'); do \
