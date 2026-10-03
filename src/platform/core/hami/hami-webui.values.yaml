@@ -4,13 +4,6 @@
 
 replicaCount: 1
 
-vendorNodeSelectors:
-  NVIDIA: gpu=on
-  Ascend: ascend=on
-  DCU: dcu=on
-  MLU: mlu=on
-  Metax: metax-tech.com/gpu.installed=true
-
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -97,7 +90,7 @@ serviceMonitor:
   interval: 15s
   honorLabels: false
   additionalLabels:
-    jobRelease: hami-webui-prometheus
+    release: kube-prometheus-stack
   relabelings: []
 
 hamiServiceMonitor:
