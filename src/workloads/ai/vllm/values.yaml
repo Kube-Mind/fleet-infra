@@ -847,7 +847,7 @@ cacheserverSpec:
   # -- Tolerations configuration for the cache server pods
   tolerations: []
   # -- RuntimeClassName configuration for the cache server pods
-  runtimeClassName: ""
+  runtimeClassName: "nvidia"
   # -- SchedulerName configuration for the cache server pods
   schedulerName: ""
   # -- Pod-level security context configuration
