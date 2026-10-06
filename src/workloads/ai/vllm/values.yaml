@@ -49,7 +49,6 @@ servingEngineSpec:
     requestCPU: 6
     requestMemory: "16Gi"
     requestGPU: 1
-    requestGPUType: "nvidia.com/gpu"
 
     # HAMi: MiB
     requestGPUMem: "16000"
