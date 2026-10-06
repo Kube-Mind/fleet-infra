@@ -66,7 +66,7 @@ servingEngineSpec:
     # -- The type of GPU requested. If not specified, defaults to "nvidia.com/gpu"
     requestGPUType: ""
     # -- Requires HAMi. The amount of GPU memory requested. Each unit equals to 1M. https://project-hami.io/docs/userguide/NVIDIA-device/specify-device-memory-usage
-    requestGPUMem: "16000"
+    requestGPUMem: "20000"
     # -- Requires HAMi. The percentage of GPU memory requested, e.g., "80". It cannot be used together with requestGPUMem.
     requestGPUMemPercentage: "80"
     # -- Requires HAMi. The percentage of GPU cores requested, e.g., "10". Each unit equals to 1% device cores. https://project-hami.io/docs/userguide/NVIDIA-device/specify-device-core-usage
@@ -76,7 +76,7 @@ servingEngineSpec:
     # -- The memory limit for the model. If limitCPU and limitMemory are not specified, only GPU resources will have limits set equal to their requests.
     limitMemory: "32Gi"
     # -- Requires HAMi. The limit of GPU memory. Each unit equals to 1M. https://project-hami.io/docs/userguide/NVIDIA-device/specify-device-memory-usage
-    limitGPUMem: "16000"
+    limitGPUMem: "20000"
     # -- Requires HAMi. The limit of GPU memory of GPU
     limitGPUMemPercentage: "80"
     # -- Requires HAMi. The limit of GPU cores. Each unit equals to 1% device cores. https://project-hami.io/docs/userguide/NVIDIA-device/specify-device-core-usage
