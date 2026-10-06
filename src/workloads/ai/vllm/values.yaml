@@ -24,7 +24,7 @@ servingEngineSpec:
   ## The model below serves as an example. It is not deployed by default.
   modelSpec:
   # -- The name of the model.
-  - name: "qwen3"
+  - name: "qwen3-14b-awq"
     enabled: true
 
     annotations: {}
@@ -37,8 +37,6 @@ servingEngineSpec:
 
     runtimeClassName: "nvidia"
 
-    repository: "lmcache/vllm-openai"
-    tag: "latest"
     imagePullSecret: ""
 
     modelURL: "Qwen/Qwen3-14B-AWQ"
@@ -51,7 +49,7 @@ servingEngineSpec:
     requestCPU: 6
     requestMemory: "16Gi"
     requestGPU: 1
-    requestGPUType: ""
+    requestGPUType: "nvidia.com/gpu"
 
     # HAMi: MiB
     requestGPUMem: "16000"
