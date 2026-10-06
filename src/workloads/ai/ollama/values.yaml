@@ -209,19 +209,17 @@ ingress:
 # Configure resource requests and limits
 # ref: http://kubernetes.io/docs/user-guide/compute-resources/
 resources:
-  # -- Pod requests
   requests:
-    nvidia.com/gpu: '0'
-    # CPU request
+    nvidia.com/gpu: "1"
+    nvidia.com/gpumem: "4000"
     cpu: 4
-    # Memory limit
     memory: 20Gi
 
-  # -- Pod limit
   limits:
-    nvidia.com/gpu: '0'
-
-    # CPU limit
+    nvidia.com/gpu: "1"
+    nvidia.com/gpumem: "4000"
+    cpu: 4
+    memory: 20Gi
     # cpu: 4000m
 
 # Configure extra options for liveness probe
