@@ -26,7 +26,7 @@ servingEngineSpec:
   # -- The name of the model.
   - name: "mistral"
     # -- Whether to deploy the model. it Default to true if not set
-    enabled: false
+    enabled: true
     # -- The annotations to add to the deployment
     annotations: {}
     # -- The annotations to add to the pods
