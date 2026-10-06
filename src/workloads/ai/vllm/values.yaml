@@ -24,168 +24,107 @@ servingEngineSpec:
   ## The model below serves as an example. It is not deployed by default.
   modelSpec:
   # -- The name of the model.
-  - name: "mistral"
-    # -- Whether to deploy the model. it Default to true if not set
+  - name: "qwen3-14b"
     enabled: true
-    # -- The annotations to add to the deployment
+
     annotations: {}
-    # -- The annotations to add to the pods
     podAnnotations: {}
-    # -- Additional labels to add to the deployment
     labels: {}
-    # -- Additional labels to add to the pods
     podLabels: {}
-    # -- The name of the service account to use for the deployment
+
     serviceAccountName: ""
-    # -- The name of the priority class name for the deployment
     priorityClassName: ""
-    # -- Runtime class for the pod, e.g., "nvidia". If not specified, falls back to servingEngineSpec.runtimeClassName
+
     runtimeClassName: "nvidia"
-    # -- The repository of the model
+
     repository: "lmcache/vllm-openai"
-    # -- The tag of the model
     tag: "latest"
-    # -- Name of secret with credentials to private container repository
     imagePullSecret: ""
-    # -- The URL of the model
-    modelURL: "mistralai/Mistral-7B-Instruct-v0.2"
-    # -- Hugging Face model revision (branch, tag, or commit hash) to pin the model version
+
+    modelURL: "Qwen/Qwen3-14B-AWQ"
     modelRevision: ""
-    # -- Chat template (Jinga2) specifying tokenizer configuration
-    # chatTemplate: "{% for message in messages %}\n{% if message['role'] == 'user' %}\n{{ 'Question:\n' + message['content'] + '\n\n' }}{% elif message['role'] == 'system' %}\n{{ 'System:\n' + message['content'] + '\n\n' }}{% elif message['role'] == 'assistant' %}{{ 'Answer:\n'  + message['content'] + '\n\n' }}{% endif %}\n{% if loop.last and add_generation_prompt %}\n{{ 'Answer:\n' }}{% endif %}{% endfor %}"
-    # -- The number of replicas for the model
+
     replicaCount: 1
-    # -- a resources block containing requests and limits. If specified, this takes priority over simplified resource fields
+
     resources: {}
-    # -- The number of CPUs requested for the model
+
     requestCPU: 6
-    # -- The amount of memory requested for the model
     requestMemory: "16Gi"
-    # -- The number of GPUs requested for the model
-    requestGPU: 1 # @schema type:[integer, number, string]
-    # -- The type of GPU requested. If not specified, defaults to "nvidia.com/gpu"
+    requestGPU: 1
     requestGPUType: ""
-    # -- Requires HAMi. The amount of GPU memory requested. Each unit equals to 1M. https://project-hami.io/docs/userguide/NVIDIA-device/specify-device-memory-usage
-    requestGPUMem: "20000"
-    # -- Requires HAMi. The percentage of GPU memory requested, e.g., "80". It cannot be used together with requestGPUMem.
-    requestGPUMemPercentage: "80"
-    # -- Requires HAMi. The percentage of GPU cores requested, e.g., "10". Each unit equals to 1% device cores. https://project-hami.io/docs/userguide/NVIDIA-device/specify-device-core-usage
-    requestGPUCores: "10"
-    # -- The CPU limit for the model. If limitCPU and limitMemory are not specified, only GPU resources will have limits set equal to their requests.
-    limitCPU: 8 # @schema type:[integer, number, string]
-    # -- The memory limit for the model. If limitCPU and limitMemory are not specified, only GPU resources will have limits set equal to their requests.
+
+    # HAMi: MiB
+    requestGPUMem: "16000"
+    requestGPUMemPercentage: ""
+    requestGPUCores: "100"
+
+    limitCPU: 8
     limitMemory: "32Gi"
-    # -- Requires HAMi. The limit of GPU memory. Each unit equals to 1M. https://project-hami.io/docs/userguide/NVIDIA-device/specify-device-memory-usage
-    limitGPUMem: "20000"
-    # -- Requires HAMi. The limit of GPU memory of GPU
-    limitGPUMemPercentage: "80"
-    # -- Requires HAMi. The limit of GPU cores. Each unit equals to 1% device cores. https://project-hami.io/docs/userguide/NVIDIA-device/specify-device-core-usage
-    limitGPUCores: "10"
-    # -- The amount of storage requested for the model
+
+    # HAMi: MiB
+    limitGPUMem: "16000"
+    limitGPUMemPercentage: ""
+    limitGPUCores: "100"
+
     pvcStorage: "50Gi"
-    # -- The access mode policy for the mounted volume.
     pvcAccessMode:
       - ReadWriteOnce
-    # -- The storage class of the PVC
     storageClass: "longhorn"
-    # -- The labels to match the PVC.
+
     pvcMatchLabels: {}
-    # -- The labels to add to the PVC
     pvcLabels: {}
-    # -- The annotations to add to the PVC
     pvcAnnotations: {}
-    # Use an externally-managed PersistentVolumeClaim instead of one created by
-    # this chart. When set, the chart skips rendering the PVC and mounts the
-    # named claim directly (useful for GitOps setups where PVCs are managed
-    # outside the chart). Leave unset to have the chart create the PVC.
-    # pvcExistingClaimName: "my-existing-claim"
-    # -- Additional volumes to add to the pod, in Kubernetes volume format
+
     extraVolumes: []
-      # - name: tmp-volume
-      #   emptyDir:
-      #     medium: ""
-      #     sizeLimit: 5Gi
-    # -- Additional volume mounts to add to the container, in Kubernetes volumeMount format
     extraVolumeMounts: []
-      # - name: tmp-volume
-      #   mountPath: /tmp
-    # -- The configuration for the init container to be run before the main container.
+
     initContainer:
-    # -- The name of the init container
       name: "init"
-      # -- The Docker image for the init container
       image: "busybox:latest"
-      # -- The command to run in the init container
       command:
         - "sh"
         - "-c"
-      # -- Additional arguments to pass to the command
       args:
         - "ls"
-      # -- List of environment variables to set in the container
       env: []
-      # -- The resource requests and limits for the container
       resources: {}
-      # -- Whether to mount the model's volume
       mountPvcStorage: true
-      # -- Additional volume mounts to add to the init container, in Kubernetes volumeMount format. https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#volumemount-v1-core
       extraVolumeMounts: []
-    # -- The configuration for the VLLM model
+
     vllmConfig:
-      # -- Specify to 1 to use vLLM v0, otherwise vLLM v1 is used
       v0: "0"
-      # -- Enable prefix caching
+
       enablePrefixCaching: false
-      # -- Enable chunked prefill.
       enableChunkedPrefill: false
-      # -- The maximum model length
+
+      # Start conservatively; increase later if required.
       maxModelLen: 16384
-      # -- The data type
-      dtype: "bfloat16"
-      # -- The degree of tensor parallelism
+
+      dtype: "float16"
+
       tensorParallelSize: 1
-      # -- Maximum number of sequences to be processed in a single iteration.
-      maxNumSeqs: 32
-      # -- The maximum number of LoRA models to be loaded in a single batch
-      maxLoras: 4
-      # -- The fraction of GPU memory to be used for the model executor, which can range from 0 to 1
-      gpuMemoryUtilization: 0.95 # @schema type:[integer, number, string]
-      # -- The runner type for the model, can be auto or pooling
-      runner: "pooling" # @schema enum:[auto,pooling]
-      # -- The conversion type for the model, can be "token_embed", "embed", "token_classify", "classify", or "score".
-      convert: "embed" # @schema enum:[token_embed,embed,token_classify,classify,score]
-      # --  Extra command line arguments to pass to vLLM
+
+      maxNumSeqs: 8
+      maxLoras: 0
+
+      # 16 GiB HAMi allocation -> ~14.4 GiB vLLM budget
+      gpuMemoryUtilization: 0.90
+
+      runner: "auto"
+
+      convert: "auto"
+
       extraArgs: []
-    # -- The configuration of the LMCache for KV offloading
+
     lmcacheConfig:
-      # -- Enable LMCache
-      enabled: true
-      # -- The CPU offloading buffer size
-      cpuOffloadingBufferSize: "30" # @schema type:[integer, number, string]
-      # -- The log level for LMCache, e.g., "DEBUG", "INFO", "WARNING", "ERROR"
-      logLevel: INFO # @schema enum:[DEBUG,INFO,WARNING,ERROR]
-    # -- Hugging Face token configuration. Can be either a string that will be stored in a generated secret or an object referencing an existing secret.
-    # hf_token: # @schema type:[string, object]
-    #   # -- Name of the existing Kubernetes secret that contains the Hugging Face token
-    #   secretName: ""
-    #   # -- Key within the secret that contains the Hugging Face token
-    #   secretKey: ""
-    # -- Reference to an existing Kubernetes Secret from which all key/value pairs will be loaded as environment variables into the container
+      enabled: false
+      cpuOffloadingBufferSize: "0"
+      logLevel: INFO
+
     envFromSecret: {}
-      # name: s3-registry
-    #   The referenced Secret could look like:
-    #     apiVersion: v1
-    #     kind: Secret
-    #     metadata:
-    #       name: s3-registry
-    #       namespace: vllm
-    #     data:
-    #       AWS_ACCESS_KEY_ID: <base64-encoded-value>
-    #       AWS_SECRET_ACCESS_KEY: <base64-encoded-value>
-    #       AWS_ENDPOINT_URL: <base64-encoded-value>
-    # -- The environment variables to set in the container, e.g., your HF_TOKEN
+
     env: []
-    # -- Affinity configuration
+
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -195,120 +134,24 @@ servingEngineSpec:
                   operator: In
                   values:
                     - franky
-    # -- The node selector terms to match the nodes. When both affinity and nodeSelectorTerms are defined, nodeSelectorTerms will be ignored.
-    nodeSelectorTerms: []
-    # -- Directly assigns a pod to a specific node (e.g., "192.168.56.5"). When both nodeName and nodeSelectorTerms are defined, the preference is given to nodeName.
-    nodeName: ""
-    # -- Per-model tolerations. Interacts with servingEngineSpec.tolerations according to tolerationsPolicy.
-    tolerations: []
-    #   Example:
-    #   tolerations:
-    #     - key: "dedicated"
-    #       operator: "Equal"
-    #       value: "gpu-model-a"
-    #       effect: "NoSchedule"
-    # -- How per-model tolerations interact with global servingEngineSpec.tolerations.
-    tolerationsPolicy: append
-    #   - "append" (default): model tolerations are appended to the global tolerations (union of both lists).
-    #   - "override": model tolerations replace the global tolerations entirely for this model.
-    # -- The size of the shared memory
-    shmSize: "20Gi"
-    # -- The model's service annotations
-    serviceAnnotations: {}
-    # -- Whether to enable LoRA
-    enableLoRA: true
-    # -- KEDA autoscaling configuration for this model deployment. Requires KEDA to be installed in the cluster.
-    keda:
-      # -- Whether to enable KEDA autoscaling for this model
-      enabled: true
-      # -- Minimum number of replicas (supports 0 for scale-to-zero)
-      minReplicaCount: 1 # @schema minimum:0
-      # -- Maximum number of replicas
-      maxReplicaCount: 5
-      # -- How often KEDA should check the metrics (in seconds)
-      pollingInterval: 15
-      # -- How long to wait before scaling down after scaling up (in seconds).
-      cooldownPeriod: 360
-      # -- Number of replicas to scale to when no triggers are active
-      idleReplicaCount: 0
-      # -- Initial cooldown period in seconds before scaling down after creation
-      initialCooldownPeriod: 60
-      # -- Fallback configuration when scaler fails
-      fallback:
-        # -- Number of consecutive failures before fallback
-        failureThreshold: 3
-        # -- Number of replicas to scale to in fallback
-        replicas: 2
-      # -- List of KEDA trigger configurations
-      triggers:
-        # -- Trigger type
-        type: "prometheus"
-        # -- Trigger metadata
-        metadata:
-          # -- Prometheus server address
-          serverAddress: "http://prometheus-operated.monitoring.svc:9090"
-          # -- Name of the metric to monitor
-          metricName: "vllm:num_requests_waiting"
-          # -- Prometheus query to fetch the metric
-          query: "vllm:num_requests_waiting"
-          # -- Threshold value that triggers scaling
-          threshold: "5"
-      # -- Advanced KEDA configuration
-      advanced:
-        # --  Restore original replica count when ScaledObject is deleted
-        restoreToOriginalReplicaCount: false
-        # -- HPA-specific configuration
-        horizontalPodAutoscalerConfig:
-          # -- Custom name for the HPA resource
-          name: "keda-hpa-{scaled-object-name}"
-          # -- HPA scaling behavior configuration, see https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
-          behavior: {}
-        # -- Scaling modifiers for composite metrics
-        scalingModifiers:
-          # -- Target value for the composed metric
-          target: ""
-          # -- Activation target for the composed metric
-          activationTarget: ""
-          # -- Metric type (AverageValue or Value)
-          metricType: "AverageValue"
-          # -- Formula to compose metrics together
-          formula: ""
 
-    # -- RaySec configuration, to deploy the model as a rayCluster instead of a deployment
-    raySpec:
-      # -- Whether to deploy the model as a rayCluster
+    nodeSelectorTerms: []
+    nodeName: ""
+
+    tolerations: []
+    tolerationsPolicy: append
+
+    shmSize: "20Gi"
+
+    serviceAnnotations: {}
+
+    enableLoRA: false
+
+    keda:
       enabled: false
-      # -- Head node configuration
-      headNode:
-        # -- CPU request for the head node
-        requestCPU: 1
-        # -- Memory request for the head node
-        requestMemory: "1Gi"
-        # -- GPU request for the head node
-        requestGPU: 1
-        # -- Raw Kubernetes resources block for the head node container. When set, overrides the request*/limit* fields above.
-        # resources:
-        #   requests:
-        #     cpu: "2"
-        #     memory: "8Gi"
-        #     nvidia.com/gpu: "1"
-        #   limits:
-        #     cpu: "4"
-        #     memory: "16Gi"
-        #     nvidia.com/gpu: "1"
-        # -- Optional init container run before the Ray head container starts. Mirrors modelSpec.initContainer.
-        # initContainer:
-        #   name: "init"
-        #   image: "busybox:latest"
-        #   command: ["sh", "-c"]
-        #   args: ["ls"]
-        #   env: []
-        #   resources: {}
-        #   mountPvcStorage: true
-        #   extraVolumeMounts: []
-      # Worker nodes reuse the top-level modelSpec fields:
-      #   - resources come from modelSpec.requestCPU / requestMemory / requestGPU (or modelSpec.resources for a raw override)
-      #   - the optional init container comes from modelSpec.initContainer
+
+    raySpec:
+      enabled: false
 
   # -- Container port
   containerPort: 8000
