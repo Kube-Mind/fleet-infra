@@ -5,11 +5,11 @@ resources:
 - external-secret.yaml
 - db-postgres.yaml
 
-helmCharts:
-- name: litellm
-  releaseName: litellm
-  namespace: litellm
-  repo: oci://ghcr.io/berriai/litellm/chart
-  valuesFile: values.yaml
-  version: 1.104.0
-  includeCRDs: true
+# helmCharts:
+# - name: litellm
+#   releaseName: litellm
+#   namespace: litellm
+#   repo: oci://ghcr.io/berriai/litellm/chart
+#   valuesFile: values.yaml
+#   version: 1.104.0
+#   includeCRDs: true
