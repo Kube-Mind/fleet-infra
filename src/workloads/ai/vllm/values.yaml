@@ -64,7 +64,7 @@ servingEngineSpec:
     # -- The number of GPUs requested for the model
     requestGPU: 1 # @schema type:[integer, number, string]
     # -- The type of GPU requested. If not specified, defaults to "nvidia.com/gpu"
-    requestGPUType: "nvidia.com/gpu.product=NVIDIA-RTX-4000-Ada-Generation"
+    requestGPUType: ""
     # -- Requires HAMi. The amount of GPU memory requested. Each unit equals to 1M. https://project-hami.io/docs/userguide/NVIDIA-device/specify-device-memory-usage
     requestGPUMem: "3000"
     # -- Requires HAMi. The percentage of GPU memory requested, e.g., "80". It cannot be used together with requestGPUMem.
