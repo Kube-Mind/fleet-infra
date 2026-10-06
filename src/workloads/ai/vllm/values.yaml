@@ -87,7 +87,7 @@ servingEngineSpec:
     pvcAccessMode:
       - ReadWriteOnce
     # -- The storage class of the PVC
-    storageClass: ""
+    storageClass: "longhorn"
     # -- The labels to match the PVC.
     pvcMatchLabels: {}
     # -- The labels to add to the PVC
