@@ -76,7 +76,7 @@ servingEngineSpec:
     # -- The memory limit for the model. If limitCPU and limitMemory are not specified, only GPU resources will have limits set equal to their requests.
     limitMemory: "32Gi"
     # -- Requires HAMi. The limit of GPU memory. Each unit equals to 1M. https://project-hami.io/docs/userguide/NVIDIA-device/specify-device-memory-usage
-    limitGPUMem: "3000"
+    limitGPUMem: "10000"
     # -- Requires HAMi. The limit of GPU memory of GPU
     limitGPUMemPercentage: "80"
     # -- Requires HAMi. The limit of GPU cores. Each unit equals to 1% device cores. https://project-hami.io/docs/userguide/NVIDIA-device/specify-device-core-usage
