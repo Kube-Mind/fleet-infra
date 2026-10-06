@@ -55,16 +55,16 @@ servingEngineSpec:
 
     # HAMi: MiB
     requestGPUMem: "16000"
-    requestGPUMemPercentage: ""
-    requestGPUCores: "100"
+    requestGPUMemPercentage: "80"
+    requestGPUCores: "10"
 
     limitCPU: 8
     limitMemory: "32Gi"
 
     # HAMi: MiB
     limitGPUMem: "16000"
-    limitGPUMemPercentage: ""
-    limitGPUCores: "100"
+    limitGPUMemPercentage: "80"
+    limitGPUCores: "10"
 
     pvcStorage: "50Gi"
     pvcAccessMode:
