@@ -155,9 +155,7 @@ servingEngineSpec:
       # -- The conversion type for the model, can be "token_embed", "embed", "token_classify", "classify", or "score".
       convert: "embed" # @schema enum:[token_embed,embed,token_classify,classify,score]
       # --  Extra command line arguments to pass to vLLM
-      extraArgs:
-        - "--gpu-memory-utilization"
-        - "0.4"
+      extraArgs: []
     # -- The configuration of the LMCache for KV offloading
     lmcacheConfig:
       # -- Enable LMCache
@@ -1025,8 +1023,6 @@ sharedPvcStorage:
   image:
     # -- Docker image repository
     repository: "busybox"
-    # -- Docker image tag
-    tag: "1.37"
 
 
 
