@@ -133,7 +133,7 @@ servingEngineSpec:
     # -- The configuration for the VLLM model
     vllmConfig:
       # -- Specify to 1 to use vLLM v0, otherwise vLLM v1 is used
-      v0: "1"
+      v0: "0"
       # -- Enable prefix caching
       enablePrefixCaching: false
       # -- Enable chunked prefill.
