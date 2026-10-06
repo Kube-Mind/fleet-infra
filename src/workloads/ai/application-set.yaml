@@ -24,8 +24,8 @@ spec:
               kind: StatefulSet
               jqPathExpressions:
               - '.spec.volumeClaimTemplates[]'
-          - name: litellm
-            wave: 40
+          # - name: litellm
+          #   wave: 40
           - name: ollama
             wave: 30
           - name: open-webui
