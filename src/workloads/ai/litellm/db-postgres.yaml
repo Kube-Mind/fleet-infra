@@ -1,0 +1,28 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: litellm-postgres
+  namespace: litellm
+spec:
+  instances: 3 # Standard production HA configuration
+  
+  storage:
+    size: 20Gi
+    storageClass: longhorn # Change to matching provisioner (e.g., standard, gp3)
+
+  # Instruct CNPG to provision the user using the Secret created by ESO
+  managed:
+    roles:
+      - connectionLimit: -1	
+        ensure: present	
+        inherit: true
+        name: litellm_user
+        login: true
+        passwordSecret:
+          name: litellm-external-secret
+
+  # Bootstrap an initial application database owned by our managed role
+  bootstrap:
+    initdb:
+      database: litellm
+      owner: litellm_user

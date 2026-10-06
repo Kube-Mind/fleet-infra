@@ -1,0 +1,38 @@
+masterKey:
+  secretName: litellm-external-secret
+  secretKey: masterkey
+
+database:
+  writer:
+    host: "litellm-postgres-rw:5432/litellm"
+    port: 5432
+    dbname: litellm
+    passwordSecret:
+      name: litellm-external-secret
+      usernameKey: username
+      passwordKey: password
+  # optional: add database.reader to route reads to a replica
+
+redis:
+  host: "litellm-redis:6379"
+  port: 6379
+  passwordSecret:
+    name: litellm-external-secret
+    passwordKey: REDIS_PASSWORD
+
+# one host fronting gateway, backend, and ui
+# ingress:
+#   enabled: true
+#   className: "<alb | gce | azure-application-gateway | nginx>"
+#   # alb (default) or nginx. ingress-nginx's admission webhook rejects the chart's
+#   # dotted paths (/favicon.ico, /eu.assemblyai) unless this is nginx
+#   controller: alb
+#   host: llm.example.com
+#   # optional: routes the chart does not ship a rule for, e.g. a passthrough
+#   # prefix added after this chart version or a custom
+#   # general_settings.pass_through_endpoints path. Additive: every built-in
+#   # UI, gateway, and backend path is still rendered
+#   extraPaths:
+#     - path: /watsonx
+#       pathType: Prefix     # default; Exact and ImplementationSpecific also work
+#       service: gateway     # default; backend and ui also work

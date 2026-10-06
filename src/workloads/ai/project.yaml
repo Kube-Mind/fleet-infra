@@ -21,6 +21,8 @@ spec:
       server: '*'
     - namespace: 'sd-comfyui'
       server: '*'
+    - namespace: 'litellm'
+      server: '*'
     - namespace: 'ollama'
       server: '*'
     - namespace: 'open-webui'
