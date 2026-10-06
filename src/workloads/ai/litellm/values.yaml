@@ -36,3 +36,10 @@ ingress:
     - secretName: litellm-ingress-tls
       hosts:
         - llm.jcan.dev
+
+proxy_config:
+  model_list:
+    - model_name: qwen3-14b
+      litellm_params:
+        model: hosted_vllm/Qwen/Qwen3-14B-AWQ
+        api_base: http://vllm-qwen3-engine-service.vllm.svc.cluster.local:80/v1
