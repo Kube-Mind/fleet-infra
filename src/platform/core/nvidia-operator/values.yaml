@@ -1,6 +1,8 @@
 enabled: true
 fullnameOverride: nvidia-operator
 
+cdi:
+  enabled: false
 toolkit:
   env:
   - name: CONTAINERD_CONFIG
