@@ -141,7 +141,7 @@ podSecurityContext: {}
 
 # -- Container Security Context
 securityContext:
-  privileged: true
+  privileged: false
   # capabilities:
   #  drop:
   #   - ALL
