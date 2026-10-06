@@ -1,3 +1,4 @@
+fullnameOverride: "litellm"
 masterKey:
   secretName: litellm-external-secret
   secretKey: masterkey
