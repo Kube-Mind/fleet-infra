@@ -18,6 +18,7 @@ spec:
         inherit: true
         name: litellm_user
         login: true
+        createdb: true
         passwordSecret:
           name: litellm-external-secret
 
