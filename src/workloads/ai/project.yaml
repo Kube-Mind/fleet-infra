@@ -25,6 +25,8 @@ spec:
       server: '*'
     - namespace: 'open-webui'
       server: '*'
+    - namespace: 'vllm'
+      server: '*'
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'

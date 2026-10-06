@@ -34,6 +34,8 @@ spec:
                 name: open-webui-terminals-api-key
                 jsonPointers:
                   - /data/api-key
+          - name: vllm
+            wave: 30
   template:
     metadata:
       name: '{{ .name }}'
