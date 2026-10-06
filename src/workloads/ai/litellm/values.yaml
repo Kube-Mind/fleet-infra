@@ -15,7 +15,6 @@ database:
       name: litellm-external-secret
       usernameKey: username
       passwordKey: password
-  # optional: add database.reader to route reads to a replica
 
 redis:
   host: "litellm-redis"
@@ -31,8 +30,13 @@ ingress:
   annotations:
     cert-manager.io/cluster-issuer: le-ing-prd
     ingress.cilium.io/loadbalancer-mode: shared
+    ingress.cilium.io/websocket: "enabled"
   hosts:
     - host: llm.jcan.dev
       paths:
         - path: /
           pathType: ImplementationSpecific
+  tls:
+    - secretName: litellm-ingress-tls
+      hosts:
+        - llm.jcan.dev
