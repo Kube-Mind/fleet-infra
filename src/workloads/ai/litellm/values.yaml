@@ -3,9 +3,9 @@ fullnameOverride: "litellm"
 liteadmin:
   backendUrl: "http://litellm-gateway:4000"
 
-masterKey:
-  secretName: litellm-external-secret
-  secretKey: masterkey
+# masterKey:
+#   secretName: litellm-external-secret
+#   secretKey: masterkey
 
 database:
   writer:
