@@ -3,9 +3,9 @@ fullnameOverride: "litellm"
 liteadmin:
   backendUrl: "http://litellm-gateway:4000"
 
-# masterKey:
-#   secretName: litellm-external-secret
-#   secretKey: masterkey
+masterKey:
+  secretName: litellm-external-secret
+  secretKey: masterkey
 
 database:
   writer:
@@ -60,6 +60,8 @@ gateway:
         secretKeyRef:
           name: litellm-external-secret
           key: GENERIC_CLIENT_SECRET
+    - name: LITELLM_MODE
+      value: "PRODUCTION"
   config:
     proxy_config:
       model_list:
