@@ -64,7 +64,7 @@ backend:
     - name: QDRANT_API_KEY
       valueFrom:
         secretKeyRef:
-          name: open-webui-external-secret
+          name: litellm-external-secret
           key: QDRANT_SERVICE_API_KEY
 
     # Authentik OIDC
