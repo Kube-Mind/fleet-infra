@@ -41,6 +41,7 @@ ingress:
 gateway:
   envSecrets:
     - litellm-external-secret
+  logLevel: DEBUG
 
   extraEnv:
     # Authentik OIDC
@@ -69,8 +70,6 @@ gateway:
       value: "PRODUCTION"
     - name: AUTO_REDIRECT_UI_LOGIN_TO_SSO
       value: "true"
-    - name: LITELLM_LOG
-      value: "DEBUG"
     - name: PROXY_BASE_URL
       value: "https://llm.jcan.dev"
 
