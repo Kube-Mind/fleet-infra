@@ -1,4 +1,5 @@
 fullnameOverride: "litellm"
+
 liteadmin:
   backendUrl: "http://litellm-gateway:4000"
 
@@ -40,20 +41,15 @@ ingress:
 gateway:
   envSecrets:
     - litellm-external-secret
+  extraEnv:
+    - name: GENERIC_AUTHORIZATION_ENDPOINT
+      value: "https://auth.jcan.dev/application/o/authorize/"
+    - name: GENERIC_TOKEN_ENDPOINT
+      value: "https://auth.jcan.dev/application/o/token/"
+    - name: GENERIC_USERINFO_ENDPOINT
+      value: "https://auth.jcan.dev/application/o/userinfo/"
   config:
     proxy_config:
-      general_settings:
-        enable_jwt_auth: true
-
-        litellm_jwtauth:
-          user_id_upsert: true
-
-          issuers:
-            - issuer: "https://auth.jcan.dev/application/o/litellm/"
-              audience: "litellm"
-              user_id_jwt_field: "sub"
-              user_email_jwt_field: "email"
-
       model_list:
         - model_name: qwen3-14b
           litellm_params:
