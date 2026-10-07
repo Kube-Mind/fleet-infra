@@ -50,6 +50,15 @@ gateway:
       value: "https://auth.jcan.dev/application/o/userinfo/"
     - name: GENERIC_SCOPE
       value: "openid profile email groups roles"
+    - name: GENERIC_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: litellm-external-secret
+          key: GENERIC_CLIENT_ID
+    - name: GENERIC_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: litellm-external-secret
   config:
     proxy_config:
       model_list:
