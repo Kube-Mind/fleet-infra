@@ -69,9 +69,6 @@ backend:
     - name: GENERIC_USERINFO_ENDPOINT
       value: "https://auth.jcan.dev/application/o/userinfo/"
 
-    - name: GENERIC_ROLE_MAPPINGS_ROLES
-      value: '{"proxy_admin":["LiteLLM Admins"]}'
-
     - name: GENERIC_CLIENT_ID
       valueFrom:
         secretKeyRef:
@@ -96,11 +93,21 @@ backend:
     - name: GENERIC_USER_DISPLAY_NAME_ATTRIBUTE
       value: "name"
 
-    # Public URL used to construct /sso/callback
+    # Authentik group -> LiteLLM role
+    - name: GENERIC_ROLE_MAPPINGS_GROUP_CLAIM
+      value: "groups"
+
+    - name: GENERIC_ROLE_MAPPINGS_ROLES
+      value: '{"proxy_admin":["LiteLLM Admins"]}'
+
+    - name: GENERIC_ROLE_MAPPINGS_DEFAULT_ROLE
+      value: "internal_user"
+
+    # Public URL
     - name: PROXY_BASE_URL
       value: "https://llm.jcan.dev"
 
-    # Automatically redirect /ui login to Authentik
+    # Automatically redirect UI login to Authentik
     - name: AUTO_REDIRECT_UI_LOGIN_TO_SSO
       value: "true"
 
