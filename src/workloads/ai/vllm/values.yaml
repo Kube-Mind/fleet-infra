@@ -814,7 +814,12 @@ loraController:
   tolerations: []
 
   # -- Environment variables
-  env: []
+  env:
+    - name: HUGGING_FACE_HUB_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: vllm-external-secret
+          key: HUGGING_FACE_HUB_TOKEN
 
   # -- Extra arguments for the lora controller
   extraArgs: []
