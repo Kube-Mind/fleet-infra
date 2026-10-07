@@ -1,0 +1,86 @@
+# yaml-language-server: $schema=https://goauthentik.io/blueprints/schema.json
+---
+version: 1
+metadata:
+  name: Apps - LiteLLM
+entries:
+  - id: litellm-admin-group
+    model: authentik_core.group
+    identifiers:
+      name: LiteLLM Admins
+    attrs:
+      name: LiteLLM Admins
+  
+  - id: litellm-viewer-group
+    model: authentik_core.group
+    identifiers:
+      name: LiteLLM Viewers
+    attrs:
+      name: LiteLLM Viewers
+  
+  - id: litellm_provider
+    model: authentik_providers_oauth2.oauth2provider
+    identifiers:
+      name: auth.jcan.dev/litellm
+    attrs:
+      authorization_flow:
+        !Find [
+          authentik_flows.flow,
+          [slug, "default-provider-authorization-implicit-consent"],
+        ]
+      signing_key:
+        !Find [
+          authentik_crypto.certificatekeypair,
+          [name, "authentik Self-signed Certificate"],
+        ]
+      invalidation_flow:
+        !Find [
+          authentik_flows.flow,
+          [slug, "default-provider-invalidation-flow"],
+        ]
+
+      grant_types:
+        - authorization_code
+        - refresh_token
+  
+      client_type: confidential
+      redirect_uris:
+        - url: https://llm.jcan.dev/sso/callback
+          matching_mode: strict
+      client_id: !Env LITELLM_CLIENT_ID
+      client_secret: !Env LITELLM_CLIENT_SECRET
+      access_code_validity: minutes=1
+      access_token_validity: hours=1
+      refresh_token_validity: days=30
+
+      sub_mode: hashed_user_id
+      property_mappings:
+        - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "openid"]]
+        - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "profile"]]
+        - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "email"]]
+
+  - id: litellm_application
+    model: authentik_core.application
+    identifiers:
+      slug: litellm
+    attrs:
+      name: LiteLLM
+      group: Platform
+      meta_description: LLM Proxy Gateway
+      icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/vllm.png
+      provider: !KeyOf litellm_provider
+      policy_engine_mode: any
+
+  - model: authentik_policies.policybinding
+    identifiers:
+      target: !KeyOf litellm_application
+      group: !Find [authentik_core.group, [name, "LiteLLM Admins"]]
+    attrs:
+      order: 1
+  
+  - model: authentik_policies.policybinding
+    identifiers:
+      target: !KeyOf litellm_application
+      group: !Find [authentik_core.group, [name, "LiteLLM Viewers"]]
+    attrs:
+      order: 2

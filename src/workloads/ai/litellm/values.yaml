@@ -38,8 +38,22 @@ ingress:
         - llm.jcan.dev
 
 gateway:
+  envSecrets:
+    - litellm-external-secret
   config:
     proxy_config:
+      general_settings:
+        enable_jwt_auth: true
+
+        litellm_jwtauth:
+          user_id_upsert: true
+
+          issuers:
+            - issuer: "https://auth.jcan.dev/application/o/litellm/"
+              audience: "litellm"
+              user_id_jwt_field: "sub"
+              user_email_jwt_field: "email"
+
       model_list:
         - model_name: qwen3-14b
           litellm_params:
