@@ -82,7 +82,7 @@ backend:
           key: GENERIC_CLIENT_SECRET
 
     - name: GENERIC_SCOPE
-      value: "openid profile email"
+      value: "openid profile email groups"
 
     - name: GENERIC_USER_ID_ATTRIBUTE
       value: "sub"
