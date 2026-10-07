@@ -48,6 +48,8 @@ gateway:
       value: "https://auth.jcan.dev/application/o/token/"
     - name: GENERIC_USERINFO_ENDPOINT
       value: "https://auth.jcan.dev/application/o/userinfo/"
+    - name: GENERIC_SCOPE
+      value: "openid profile email groups roles"
   config:
     proxy_config:
       model_list:
