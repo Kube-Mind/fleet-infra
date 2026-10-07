@@ -59,6 +59,7 @@ gateway:
       valueFrom:
         secretKeyRef:
           name: litellm-external-secret
+          key: GENERIC_CLIENT_SECRET
   config:
     proxy_config:
       model_list:
