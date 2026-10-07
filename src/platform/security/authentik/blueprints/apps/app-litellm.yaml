@@ -65,7 +65,7 @@ entries:
       slug: litellm
     attrs:
       name: LiteLLM
-      group: Platform
+      group: Workloads
       meta_description: LLM Proxy Gateway
       icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/vllm.png
       provider: !KeyOf litellm_provider
