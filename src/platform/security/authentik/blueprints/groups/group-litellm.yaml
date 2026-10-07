@@ -10,9 +10,9 @@ entries:
       name: LiteLLM Admins
     attrs:
       name: LiteLLM Admins
-  - id: litellm-viewers
+  - id: litellm-users
     model: authentik_core.group
     identifiers:
-      name: LiteLLM Viewers
+      name: LiteLLM Users
     attrs:
-      name: LiteLLM Viewers
+      name: LiteLLM Users

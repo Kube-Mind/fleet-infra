@@ -11,12 +11,12 @@ entries:
     attrs:
       name: LiteLLM Admins
   
-  - id: litellm-viewer-group
+  - id: litellm-user-group
     model: authentik_core.group
     identifiers:
-      name: LiteLLM Viewers
+      name: LiteLLM Users
     attrs:
-      name: LiteLLM Viewers
+      name: LiteLLM Users
   
   - id: litellm_provider
     model: authentik_providers_oauth2.oauth2provider
@@ -38,17 +38,18 @@ entries:
           authentik_flows.flow,
           [slug, "default-provider-invalidation-flow"],
         ]
-
+    
       grant_types:
         - authorization_code
         - refresh_token
-  
+
       client_type: confidential
       redirect_uris:
         - url: https://llm.jcan.dev/sso/callback
           matching_mode: strict
       client_id: !Env LITELLM_CLIENT_ID
       client_secret: !Env LITELLM_CLIENT_SECRET
+
       access_code_validity: minutes=1
       access_token_validity: hours=1
       refresh_token_validity: days=30
@@ -70,14 +71,14 @@ entries:
       icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/vllm.png
       provider: !KeyOf litellm_provider
       policy_engine_mode: any
-
+  
   - model: authentik_policies.policybinding
     identifiers:
       target: !KeyOf litellm_application
       group: !Find [authentik_core.group, [name, "LiteLLM Admins"]]
     attrs:
       order: 1
-  
+
   - model: authentik_policies.policybinding
     identifiers:
       target: !KeyOf litellm_application
