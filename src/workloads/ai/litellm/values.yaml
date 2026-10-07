@@ -58,10 +58,6 @@ backend:
 
   logLevel: DEBUG
 
-  config:
-    general_settings:
-      disable_env_credential_login: true
-
   extraEnv:
     # Authentik OIDC
     - name: GENERIC_AUTHORIZATION_ENDPOINT
@@ -113,6 +109,9 @@ backend:
 
     # Automatically redirect UI login to Authentik
     - name: AUTO_REDIRECT_UI_LOGIN_TO_SSO
+      value: "true"
+
+    - name: LITELLM_HIDE_DEFAULT_CREDENTIALS_HINT
       value: "true"
 
     - name: LITELLM_MODE
