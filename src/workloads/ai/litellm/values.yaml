@@ -24,7 +24,7 @@ redis:
     name: litellm-external-secret
     passwordKey: REDIS_PASSWORD
 
-# one host fronting gateway, backend, and ui
+# One host fronting gateway, backend, and UI
 ingress:
   enabled: true
   className: "cilium"
@@ -41,7 +41,9 @@ ingress:
 gateway:
   envSecrets:
     - litellm-external-secret
+
   extraEnv:
+    # Authentik OIDC
     - name: GENERIC_AUTHORIZATION_ENDPOINT
       value: "https://auth.jcan.dev/application/o/authorize/"
     - name: GENERIC_TOKEN_ENDPOINT
@@ -49,7 +51,7 @@ gateway:
     - name: GENERIC_USERINFO_ENDPOINT
       value: "https://auth.jcan.dev/application/o/userinfo/"
     - name: GENERIC_SCOPE
-      value: "openid profile email groups roles"
+      value: "openid profile email"
     - name: GENERIC_CLIENT_ID
       valueFrom:
         secretKeyRef:
@@ -60,12 +62,19 @@ gateway:
         secretKeyRef:
           name: litellm-external-secret
           key: GENERIC_CLIENT_SECRET
+
     - name: LITELLM_MODE
       value: "PRODUCTION"
+
   config:
     proxy_config:
+      general_settings:
+        # Send Admin UI users directly to Authentik instead
+        # of displaying LiteLLM's local login page.
+        auto_redirect_ui_login_to_sso: true
+
       model_list:
         - model_name: qwen3-14b
           litellm_params:
             model: hosted_vllm/Qwen/Qwen3-14B-AWQ
-            api_base: http://vllm-qwen3-engine-service.vllm.svc.cluster.local:80/v1
+            api_base: "http://vllm-qwen3-engine-service.vllm.svc.cluster.local:80/v1"
