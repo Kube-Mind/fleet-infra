@@ -347,7 +347,12 @@ routerSpec:
   replicaCount: 1
 
   # -- List of environment variables to set for the router
-  env: []
+  env:
+    - name: HUGGING_FACE_HUB_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: vllm-external-secret
+          key: HUGGING_FACE_HUB_TOKEN
 
   # -- autoscaling configuration
   autoscaling:
@@ -814,12 +819,7 @@ loraController:
   tolerations: []
 
   # -- Environment variables
-  env:
-    - name: HUGGING_FACE_HUB_TOKEN
-      valueFrom:
-        secretKeyRef:
-          name: vllm-external-secret
-          key: HUGGING_FACE_HUB_TOKEN
+  env: []
 
   # -- Extra arguments for the lora controller
   extraArgs: []
