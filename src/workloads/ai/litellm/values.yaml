@@ -42,7 +42,7 @@ migrationJob:
   enabled: true
   hooks:
     helm:
-      enabled: false
+      enabled: true
     argocd:
       enabled: true
 
