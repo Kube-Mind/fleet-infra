@@ -45,6 +45,8 @@ gateway:
 
   extraEnv:
     # Authentik OIDC
+    - name: EXPERIMENTAL_OIDC_ENABLED
+      value: "true"
     - name: GENERIC_AUTHORIZATION_ENDPOINT
       value: "https://auth.jcan.dev/application/o/authorize/"
     - name: GENERIC_TOKEN_ENDPOINT
