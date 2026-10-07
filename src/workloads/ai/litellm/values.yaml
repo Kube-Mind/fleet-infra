@@ -58,6 +58,10 @@ backend:
 
   logLevel: DEBUG
 
+  config:
+    general_settings:
+      disable_env_credential_login: true
+
   extraEnv:
     # Authentik OIDC
     - name: GENERIC_AUTHORIZATION_ENDPOINT
