@@ -39,7 +39,12 @@ ingress:
         - llm.jcan.dev
 
 migrationJob:
-  enabled: false
+  enabled: true
+  hooks:
+    helm:
+      enabled: false
+    argocd:
+      enabled: true
 
 gateway:
   envSecrets:
