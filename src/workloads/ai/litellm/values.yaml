@@ -62,6 +62,8 @@ gateway:
         secretKeyRef:
           name: litellm-external-secret
           key: GENERIC_CLIENT_SECRET
+    - name: STORE_MODEL_IN_DB
+      value: "true"
 
     - name: LITELLM_MODE
       value: "PRODUCTION"
