@@ -43,6 +43,7 @@ migrationJob:
   hooks:
     helm:
       enabled: true
+      weight: 0
     argocd:
       enabled: true
 
