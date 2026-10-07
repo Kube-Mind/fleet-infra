@@ -38,6 +38,9 @@ ingress:
       hosts:
         - llm.jcan.dev
 
+migrationJob:
+  enabled: false
+
 gateway:
   envSecrets:
     - litellm-external-secret
@@ -65,6 +68,8 @@ gateway:
 
     - name: LITELLM_MODE
       value: "PRODUCTION"
+    - name: PROXY_BASE_URL
+      value: "https://llm.jcan.dev"
 
   config:
     proxy_config:
