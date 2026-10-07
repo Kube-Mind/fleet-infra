@@ -24,7 +24,7 @@ redis:
     name: litellm-external-secret
     passwordKey: REDIS_PASSWORD
 
-# One host fronting gateway, backend, and UI
+# One host fronting gateway, backend, and ui
 ingress:
   enabled: true
   className: "cilium"
@@ -38,52 +38,68 @@ ingress:
       hosts:
         - llm.jcan.dev
 
+# LLM data plane
 gateway:
   envSecrets:
     - litellm-external-secret
-  logLevel: DEBUG
-
-  extraEnv:
-    # Authentik OIDC
-    - name: EXPERIMENTAL_OIDC_ENABLED
-      value: "true"
-    - name: GENERIC_AUTHORIZATION_ENDPOINT
-      value: "https://auth.jcan.dev/application/o/authorize/"
-    - name: GENERIC_TOKEN_ENDPOINT
-      value: "https://auth.jcan.dev/application/o/token/"
-    - name: GENERIC_USERINFO_ENDPOINT
-      value: "https://auth.jcan.dev/application/o/userinfo/"
-    - name: GENERIC_SCOPE
-      value: "openid profile email"
-    - name: GENERIC_CLIENT_ID
-      valueFrom:
-        secretKeyRef:
-          name: litellm-external-secret
-          key: GENERIC_CLIENT_ID
-    - name: GENERIC_CLIENT_SECRET
-      valueFrom:
-        secretKeyRef:
-          name: litellm-external-secret
-          key: GENERIC_CLIENT_SECRET
-    - name: STORE_MODEL_IN_DB
-      value: "true"
-
-    - name: LITELLM_MODE
-      value: "PRODUCTION"
-    - name: AUTO_REDIRECT_UI_LOGIN_TO_SSO
-      value: "true"
-    - name: PROXY_BASE_URL
-      value: "https://llm.jcan.dev"
 
   config:
     proxy_config:
-      general_settings:
-        # Send Admin UI users directly to Authentik instead
-        # of displaying LiteLLM's local login page.
-        auto_redirect_ui_login_to_sso: true
-
       model_list:
         - model_name: qwen3-14b
           litellm_params:
             model: hosted_vllm/Qwen/Qwen3-14B-AWQ
             api_base: "http://vllm-qwen3-engine-service.vllm.svc.cluster.local:80/v1"
+
+# Management API / SSO
+backend:
+  envSecrets:
+    - litellm-external-secret
+
+  logLevel: DEBUG
+
+  extraEnv:
+    # Authentik OIDC
+    - name: GENERIC_AUTHORIZATION_ENDPOINT
+      value: "https://auth.jcan.dev/application/o/authorize/"
+
+    - name: GENERIC_TOKEN_ENDPOINT
+      value: "https://auth.jcan.dev/application/o/token/"
+
+    - name: GENERIC_USERINFO_ENDPOINT
+      value: "https://auth.jcan.dev/application/o/userinfo/"
+
+    - name: GENERIC_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: litellm-external-secret
+          key: GENERIC_CLIENT_ID
+
+    - name: GENERIC_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: litellm-external-secret
+          key: GENERIC_CLIENT_SECRET
+
+    - name: GENERIC_SCOPE
+      value: "openid profile email"
+
+    - name: GENERIC_USER_ID_ATTRIBUTE
+      value: "sub"
+
+    - name: GENERIC_USER_EMAIL_ATTRIBUTE
+      value: "email"
+
+    - name: GENERIC_USER_DISPLAY_NAME_ATTRIBUTE
+      value: "name"
+
+    # Public URL used to construct /sso/callback
+    - name: PROXY_BASE_URL
+      value: "https://llm.jcan.dev"
+
+    # Automatically redirect /ui login to Authentik
+    - name: AUTO_REDIRECT_UI_LOGIN_TO_SSO
+      value: "true"
+
+    - name: LITELLM_MODE
+      value: "PRODUCTION"
