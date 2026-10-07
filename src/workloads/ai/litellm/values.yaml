@@ -38,15 +38,6 @@ ingress:
       hosts:
         - llm.jcan.dev
 
-migrationJob:
-  enabled: true
-  hooks:
-    helm:
-      enabled: true
-      weight: 0
-    argocd:
-      enabled: true
-
 gateway:
   envSecrets:
     - litellm-external-secret
