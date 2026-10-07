@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=https://goauthentik.io/blueprints/schema.json
+---
+version: 1
+metadata:
+  name: Application Group - LiteLLM
+entries:
+  - id: litellm-admins
+    model: authentik_core.group
+    identifiers:
+      name: LiteLLM Admins
+    attrs:
+      name: LiteLLM Admins
+  - id: litellm-viewers
+    model: authentik_core.group
+    identifiers:
+      name: LiteLLM Viewers
+    attrs:
+      name: LiteLLM Viewers
