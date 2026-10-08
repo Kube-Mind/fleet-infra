@@ -12,5 +12,5 @@ helmCharts:
   namespace: litellm
   repo: oci://ghcr.io/berriai/litellm/chart
   valuesFile: values.yaml
-  version: 1.104.0
+  version: 1.104.1
   includeCRDs: true
