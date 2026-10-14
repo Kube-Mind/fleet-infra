@@ -56,14 +56,14 @@ resources:
     memory: 64Gi
     nvidia.com/gpu:  1
     nvidia.com/gpucores: '10'
-    nvidia.com/gpumem: 16k
+    nvidia.com/gpumem: 4k
     nvidia.com/gpumem-percentage: '80'
   requests:
     cpu: 8
     memory: 64Gi
     nvidia.com/gpu:  1
     nvidia.com/gpucores: '10'
-    nvidia.com/gpumem: 16k
+    nvidia.com/gpumem: 4k
     nvidia.com/gpumem-percentage: '80'
 
 autoscaling:
