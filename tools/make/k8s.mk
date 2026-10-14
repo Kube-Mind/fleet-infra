@@ -1,4 +1,4 @@
-.PHONY: k8s-clean-stale-rs k8s-clean-stale-volumes k8s-clean-orphans
+.PHONY: k8s-clean-stale-rs k8s-clean-stale-volumes k8s-clean-orphans k8s-clean-stale-workflows
 k8s-clean-stale-rs:
 	kubectl get rs -A -o json \
 		| jq -r '.items[] \
@@ -17,6 +17,14 @@ k8s-clean-stale-volumes:
 		| select(.status.state=="detached" and .status.robustness=="unknown") \
 		| .metadata.name' \
 		| xargs -r kubectl -n longhorn delete volume
+
+k8s-clean-stale-workflows:
+	kubectl -n argo-workflows get workflows -o json \
+		| jq -r '.items[] \
+		| select(.status.phase=="Succeeded") \
+		| .metadata.name' \
+		| xargs -r kubectl -n argo-workflows delete workflow
+
 
 k8s-clean-orphans:
 	kubectl get orphans -A -o json \
