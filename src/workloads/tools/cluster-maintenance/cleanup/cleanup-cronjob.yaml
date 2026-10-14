@@ -71,7 +71,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: cleanup
-              image: ocr.jcan.dev/library/k8s-utils:26.10.13
+              image: ocr.jcan.dev/library/k8s-utils:26.10.14
               imagePullPolicy: IfNotPresent
               command:
                 - /bin/sh
