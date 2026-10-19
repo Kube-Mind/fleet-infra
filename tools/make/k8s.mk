@@ -21,7 +21,7 @@ k8s-clean-stale-volumes:
 k8s-clean-stale-workflows:
 	kubectl -n argo-workflows get workflows -o json \
 		| jq -r '.items[] \
-		| select(.status.phase=="Succeeded") \
+		| select(.status.phase=="Succeeded" or .status.phase=="Failed") \
 		| .metadata.name' \
 		| xargs -r kubectl -n argo-workflows delete workflow
 
