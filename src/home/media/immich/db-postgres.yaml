@@ -6,6 +6,11 @@ metadata:
 
 spec:
   instances: 3
+  postgresql:
+    extensions:
+      - name: pgvector
+        image:
+          reference: ghcr.io/cloudnative-pg/pgvector:0.8.6-18-trixie
 
   storage:
     size: 20Gi
