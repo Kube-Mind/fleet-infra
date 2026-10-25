@@ -49,12 +49,12 @@ servingEngineSpec:
     resources: {}
 
     requestCPU: 6
-    requestMemory: "16Gi"
+    requestMemory: "32Gi"
     requestGPU: 1
     requestGPUType: ""
 
     # HAMi: MiB
-    requestGPUMem: "18000"
+    requestGPUMem: "16000"
     requestGPUMemPercentage: "80"
     requestGPUCores: "10"
 
@@ -62,7 +62,7 @@ servingEngineSpec:
     limitMemory: "32Gi"
 
     # HAMi: MiB
-    limitGPUMem: "18000"
+    limitGPUMem: "16000"
     limitGPUMemPercentage: "80"
     limitGPUCores: "10"
 
