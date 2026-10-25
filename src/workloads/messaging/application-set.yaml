@@ -6,8 +6,6 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: '0'
     argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/messaging
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
   labels:
     app.kubernetes.io/instance: messaging
     app.kubernetes.io/part-of: workloads
@@ -34,8 +32,6 @@ spec:
         app.kubernetes.io/instance: '{{ .name }}'
         app.kubernetes.io/component: '{{ .name }}'
         app.kubernetes.io/part-of: workloads-messaging
-      finalizers:
-        - resources-finalizer.argocd.argoproj.io
     spec:
       project: workloads-messaging
       source:
