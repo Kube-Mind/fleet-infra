@@ -15,21 +15,64 @@ metadata:
 spec:
   description: Project for workloads applications
   sourceRepos:
+    # Internal
     - 'https://github.com/Kube-Mind/fleet-infra.git'
+    - 'https://gitlab.com/Kube-Mind/dnsfix.git'
+    # External
+    - 'https://gitlab.com/ska-telescope/pst/ska-pst.git'
+    - 'https://github.com/fourier-space-au/pft.git'
   destinations:
+    # External
     - namespace: 'argo-cd'
       server: '*'
-    - namespace: 'workloads-ai'
+    - namespace: 'kube-system'
       server: '*'
-    - namespace: 'workloads-ci'
+    # AI
+    - namespace: 'litellm'
       server: '*'
-    - namespace: 'workloads-demo'
+    - namespace: 'ollama'
       server: '*'
-    - namespace: 'workloads-messaging'
+    - namespace: 'open-webui'
       server: '*'
-    - namespace: 'workloads-tools'
+    - namespace: 'sd-comfyui'
       server: '*'
-    - namespace: 'workloads-work'
+    - namespace: 'vllm'
+      server: '*'
+
+    # CI
+    - namespace: 'argo-workflows'
+      server: '*'
+    - namespace: 'github-runner'
+      server: '*'
+    - namespace: 'gitlab-runner'
+      server: '*'
+
+    # Demo
+    - namespace: 'django-tutorial'
+      server: '*'
+
+    # Messaging
+    - namespace: 'kafka'
+      server: '*'
+    - namespace: 'rabbitmq'
+      server: '*'
+    - namespace: 'rabbitmq-system'
+      server: '*'
+
+    # Tools
+    - namespace: 'cluster-maintenance'
+      server: '*'
+    - namespace: 'dnsfix'
+      server: '*'
+    - namespace: 'jupyterhub'
+      server: '*'
+    - namespace: 'n8n'
+      server: '*'
+
+    # Work
+    - namespace: 'ska'
+      server: '*'
+    - namespace: 'tropic'
       server: '*'
   clusterResourceWhitelist:
     - group: '*'

@@ -18,39 +18,116 @@ spec:
   generators:
     - list:
         elements:
-        - name: ai
-          wave: 100
-        - name: ci
-          wave: 100
-        - name: demo
-          wave: 100
-        - name: messaging
-          wave: 100
-        - name: tools
-          wave: 100
-        - name: work
-          wave: 100
+        # AI workloads
+        - name: litellm
+          component: ai
+          wave: 40
+        - name: ollama
+          component: ai
+          wave: 40
+        - name: open-webui
+          component: ai
+          wave: 40
+          ignoreDifferences:
+            - group: ''
+              kind: Secret
+              name: open-webui-terminals-api-key
+              jsonPointers:
+                - /data/api-key
+        - name: sd-comfyui
+          component: ai
+          wave: 40
+          ignoreDifferences:
+          - group: apps
+            kind: StatefulSet
+            jqPathExpressions:
+            - '.spec.volumeClaimTemplates[]'
+        - name: vllm
+          component: ai
+          wave: 40
+        
+        # CI workloads
+        - name: argo-workflows
+          component: ci
+          wave: 30
+        - name: github-runner
+          component: ci
+          wave: 30
+        - name: gitlab-runner
+          component: ci
+          wave: 30
+
+        # Demo workloads
+        - name: django-tutorial
+          component: demo
+          wave: 40
+
+        # Messaging workloads
+        - name: kafka
+          component: messaging
+          wave: 30
+        - name: rabbitmq
+          component: messaging
+          wave: 30
+        
+        # Tools workloads
+        - name: cluster-maintenance
+          component: tools
+          wave: 30
+        - name: dnsfix
+          component: tools
+          wave: 40
+        - name: jupyterhub
+          component: tools
+          wave: 30
+          ignoreDifferences:
+            - group: ''
+              kind: Secret
+              name: jupyterhub-hub
+              jsonPointers:
+                - /data/hub.config.ConfigurableHTTPProxy.auth_token
+                - /data/hub.config.CryptKeeper.keys
+                - /data/hub.config.JupyterHub.cookie_secret
+                - /data/values.yaml
+            - group: ''
+              kind: Secret
+              name: harbor-registry-htpasswd
+              jsonPointers:
+                - /data/REGISTRY_HTPASSWD
+            - group: apps
+              kind: Deployment
+              jqPathExpressions:
+                - .spec.template.metadata.annotations."checksum/auth-token"
+                - .spec.template.metadata.annotations."checksum/secret"
+
+        # Work workloads
+        - name: ska
+          component: work
+          wave: 40
+        - name: tropic
+          component: work
+          wave: 40
   template:
     metadata:
-      name: 'workloads-{{ .name }}'
+      name: '{{ .name }}'
       annotations:
-        argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/{{ .name }}
+        argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/{{ .component }}/{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"
       finalizers:
         - resources-finalizer.argocd.argoproj.io
       labels:
         app.kubernetes.io/instance: '{{ .name }}'
-        app.kubernetes.io/component: '{{ .name }}'
+        app.kubernetes.io/component: '{{ .component }}'
         app.kubernetes.io/part-of: workloads
     spec:
       project: workloads
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
         targetRevision: main
-        path: 'src/workloads/{{ .name }}'
+        path: 'src/workloads/{{ .component }}/{{ .name }}'
         kustomize: {} # Let Kustomize handle naming
       destination:
-        namespace: 'workloads-{{ .name }}'
+        namespace: '{{ .name }}'
         server: https://kubernetes.default.svc
       syncPolicy:
         automated:
@@ -68,3 +145,9 @@ spec:
           - ServerSideApply=true
           - PruneLast=true
           - RespectIgnoreDifferences=true
+  templatePatch: |
+    {{- if .ignoreDifferences }}
+    spec:
+      ignoreDifferences:
+      {{- toYaml .ignoreDifferences | nindent 12 }}
+    {{- end }}
