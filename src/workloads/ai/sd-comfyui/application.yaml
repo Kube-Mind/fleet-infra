@@ -14,7 +14,7 @@ spec:
   destination:
     namespace: sd-comfyui
     server: https://kubernetes.default.svc
-  project: workloads-ai
+  project: workloads
   sources:
     - helm:
         valueFiles:
