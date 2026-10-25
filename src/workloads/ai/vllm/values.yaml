@@ -62,7 +62,7 @@ servingEngineSpec:
     limitMemory: "32Gi"
 
     # HAMi: MiB
-    limitGPUMem: "16000"
+    limitGPUMem: "20000"
     limitGPUMemPercentage: "80"
     limitGPUCores: "10"
 
