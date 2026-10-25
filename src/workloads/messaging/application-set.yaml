@@ -6,8 +6,8 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: '0'
     argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/messaging
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  # finalizers:
+  #   - resources-finalizer.argocd.argoproj.io
   labels:
     app.kubernetes.io/instance: messaging
     app.kubernetes.io/part-of: workloads
