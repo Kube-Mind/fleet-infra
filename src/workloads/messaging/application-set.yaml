@@ -34,8 +34,8 @@ spec:
         app.kubernetes.io/instance: '{{ .name }}'
         app.kubernetes.io/component: '{{ .name }}'
         app.kubernetes.io/part-of: workloads-messaging
-      finalizers:
-        - resources-finalizer.argocd.argoproj.io
+      # finalizers:
+      #   - resources-finalizer.argocd.argoproj.io
     spec:
       project: workloads-messaging
       source:
