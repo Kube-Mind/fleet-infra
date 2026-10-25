@@ -34,7 +34,7 @@ spec:
       labels:
         app.kubernetes.io/instance: '{{ .name }}'
         app.kubernetes.io/component: 'github-runner'
-        app.kubernetes.io/part-of: workloads-ci
+        app.kubernetes.io/part-of: workloads
     spec:
       project: workloads
       source:

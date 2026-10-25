@@ -29,7 +29,7 @@ spec:
       labels:
         app.kubernetes.io/instance: '{{ .name }}'
         app.kubernetes.io/component: 'argo-workflows'
-        app.kubernetes.io/part-of: workloads-ci
+        app.kubernetes.io/part-of: workloads
     spec:
       project: workloads
       source:
