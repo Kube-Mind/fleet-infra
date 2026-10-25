@@ -44,6 +44,8 @@ spec:
         namespace: '{{ .name }}'
         server: https://kubernetes.default.svc
       syncPolicy:
+        # Preserve resources on deletion to avoid accidental data loss
+        preserveResourcesOnDeletion: true
         retry:
           limit: 1
           backoff:
