@@ -54,7 +54,7 @@ servingEngineSpec:
     requestGPUType: ""
 
     # HAMi: MiB
-    requestGPUMem: "16000"
+    requestGPUMem: "18000"
     requestGPUMemPercentage: "80"
     requestGPUCores: "10"
 
