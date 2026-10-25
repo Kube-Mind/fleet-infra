@@ -6,8 +6,8 @@ metadata:
     argocd.argoproj.io/sync-wave: '30'
   labels:
     app.kubernetes.io/instance: sd-comfyui
-    app.kubernetes.io/component: sd-comfyui
-    app.kubernetes.io/part-of: workloads-ai
+    app.kubernetes.io/component: ai
+    app.kubernetes.io/part-of: workloads
   name: sd-comfyui-chart
   namespace: argo-cd
 spec:
