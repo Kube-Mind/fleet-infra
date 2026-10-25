@@ -6,6 +6,8 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: '0'
     argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/messaging
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
   labels:
     app.kubernetes.io/instance: messaging
     app.kubernetes.io/part-of: workloads
@@ -13,7 +15,8 @@ metadata:
 spec:
   goTemplate: true
   syncPolicy:
-    preserveResourcesOnDeletion: true
+    applicationsSync: create-update
+    preserveResourcesOnDeletion: true # Preserve resources on deletion to avoid accidental data loss
   generators:
     - list:
         elements:
@@ -31,14 +34,15 @@ spec:
         app.kubernetes.io/instance: '{{ .name }}'
         app.kubernetes.io/component: '{{ .name }}'
         app.kubernetes.io/part-of: workloads-messaging
-      # Intentionally omit resources-finalizer.argocd.argoproj.io
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
     spec:
       project: workloads-messaging
       source:
         repoURL: https://github.com/Kube-Mind/fleet-infra.git
         targetRevision: main
         path: 'src/workloads/messaging/{{ .name }}'
-        kustomize: {}
+        kustomize: {} # Let Kustomize handle naming
       destination:
         namespace: '{{ .name }}'
         server: https://kubernetes.default.svc

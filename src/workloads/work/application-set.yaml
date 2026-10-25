@@ -15,6 +15,9 @@ metadata:
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
+  syncPolicy:
+    applicationsSync: create-update
+    preserveResourcesOnDeletion: true # Preserve resources on deletion to avoid accidental data loss
   generators:
     - list:
         elements:

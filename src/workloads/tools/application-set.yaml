@@ -14,6 +14,10 @@ metadata:
     app.kubernetes.io/managed-by: argo-cd
 spec:
   goTemplate: true
+  syncPolicy:
+    applicationsSync: create-update
+    preserveResourcesOnDeletion: true # Preserve resources on deletion to avoid accidental data loss
+
   generators:
     - list:
         elements:
