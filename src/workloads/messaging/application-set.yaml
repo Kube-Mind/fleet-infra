@@ -29,8 +29,6 @@ spec:
       annotations:
         argocd.argoproj.io/tracking-id: workloads-messaging:argoproj.io/Application:argo-cd/{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"
-      finalizers:
-        - resources-finalizer.argocd.argoproj.io
       labels:
         app.kubernetes.io/instance: '{{ .name }}'
         app.kubernetes.io/component: '{{ .name }}'
