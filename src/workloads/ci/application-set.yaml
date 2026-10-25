@@ -6,8 +6,6 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: '0'
     argocd.argoproj.io/tracking-id: workloads:argoproj.io/Application:argo-cd/ci
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
   labels:
     app.kubernetes.io/instance: ci
     app.kubernetes.io/part-of: workloads
@@ -33,8 +31,6 @@ spec:
       annotations:
         argocd.argoproj.io/tracking-id: workloads-ci:argoproj.io/Application:argo-cd/{{ .name }}
         argocd.argoproj.io/sync-wave: "{{ .wave }}"
-      finalizers:
-        - resources-finalizer.argocd.argoproj.io
       labels:
         app.kubernetes.io/instance: '{{ .name }}'
         app.kubernetes.io/component: '{{ .name }}'
