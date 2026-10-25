@@ -6,8 +6,8 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: '0'
     argocd.argoproj.io/tracking-id: platform:argoproj.io/Application:argo-cd/observability
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  # finalizers:
+  #   - resources-finalizer.argocd.argoproj.io
   labels:
     app.kubernetes.io/instance: core
     app.kubernetes.io/part-of: infrastructure
@@ -40,8 +40,8 @@ spec:
       name: '{{ .name }}'
       annotations:
         argocd.argoproj.io/tracking-id: platform-observability:argoproj.io/Application:argo-cd/{{ .name }}
-      finalizers:
-        - resources-finalizer.argocd.argoproj.io
+      # finalizers:
+      # - resources-finalizer.argocd.argoproj.io
       labels:
         app.kubernetes.io/instance: '{{ .name }}'
         app.kubernetes.io/component: '{{ .name }}'

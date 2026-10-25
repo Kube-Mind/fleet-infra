@@ -6,8 +6,8 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: '0'
     argocd.argoproj.io/tracking-id: platform:argoproj.io/Application:argo-cd/storage
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  # finalizers:
+  #   - resources-finalizer.argocd.argoproj.io
   labels:
     app.kubernetes.io/instance: storage
     app.kubernetes.io/part-of: platform
