@@ -26,27 +26,57 @@ servingEngineSpec:
   # -- The name of the model.
   - name: "qwen3"
     enabled: true
+
+    annotations: {}
+    podAnnotations: {}
+    labels: {}
+    podLabels: {}
+
+    serviceAccountName: ""
+    priorityClassName: ""
+
     runtimeClassName: "nvidia"
+
+    repository: "lmcache/vllm-openai"
+    tag: "latest"
+    imagePullSecret: ""
+
     modelURL: "Qwen/Qwen3-14B-AWQ"
     modelRevision: ""
+
     replicaCount: 1
+
+    resources: {}
+
     requestCPU: 6
     requestMemory: "16Gi"
     requestGPU: 1
+    requestGPUType: ""
+
     # HAMi: MiB
     requestGPUMem: "16000"
     requestGPUMemPercentage: "80"
     requestGPUCores: "10"
+
     limitCPU: 8
     limitMemory: "32Gi"
+
     # HAMi: MiB
     limitGPUMem: "16000"
     limitGPUMemPercentage: "80"
     limitGPUCores: "10"
+
     pvcStorage: "50Gi"
     pvcAccessMode:
       - ReadWriteOnce
     storageClass: "longhorn"
+
+    pvcMatchLabels: {}
+    pvcLabels: {}
+    pvcAnnotations: {}
+
+    extraVolumes: []
+    extraVolumeMounts: []
 
     initContainer:
       name: "init"
@@ -63,19 +93,37 @@ servingEngineSpec:
 
     vllmConfig:
       v0: "0"
+
       enablePrefixCaching: false
       enableChunkedPrefill: false
+
       # Start conservatively; increase later if required.
       maxModelLen: 16384
+
       dtype: "float16"
+
       tensorParallelSize: 1
+
       maxNumSeqs: 8
       maxLoras: 0
+
       # 16 GiB HAMi allocation -> ~14.4 GiB vLLM budget
       gpuMemoryUtilization: 0.90
+
       runner: "auto"
+
       convert: "auto"
+
       extraArgs: []
+
+    lmcacheConfig:
+      enabled: false
+      cpuOffloadingBufferSize: "0"
+      logLevel: INFO
+
+    envFromSecret: {}
+
+    env: []
 
     affinity:
       nodeAffinity:
@@ -593,6 +641,7 @@ routerSpec:
     #   targetLabel: nodename
     #   replacement: $1
     #   action: replace
+
 
 # -- Set to true do deploy dashboards stored in the "dashboards" directory as configmaps. This requires the kube-prometheus-stack to be deployed with Grafana enabled and properly configured to pick up dashboards from configmaps.
 grafanaDashboards:
