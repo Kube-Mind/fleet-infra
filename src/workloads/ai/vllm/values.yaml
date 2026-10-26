@@ -47,7 +47,12 @@ servingEngineSpec:
     pvcAccessMode:
       - ReadWriteOnce
     storageClass: "longhorn"
-
+    env:
+      - name: HF_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: vllm-external-secret
+            key: HUGGING_FACE_HUB_TOKEN
     vllmConfig:
       enablePrefixCaching: true
       enableChunkedPrefill: false
