@@ -36,12 +36,12 @@ servingEngineSpec:
     requestCPU: 8
     requestMemory: "32Gi"
     requestGPU: 1
-    # requestGPUMem: "16000"
-    # requestGPUCores: "90"
+    requestGPUMem: "16000"
+    requestGPUCores: "90"
     limitCPU: 12
     limitMemory: "40Gi"
-    # limitGPUMem: "16000"
-    # limitGPUCores: "90"
+    limitGPUMem: "16000"
+    limitGPUCores: "90"
 
     pvcStorage: "60Gi"
     pvcAccessMode:
@@ -61,7 +61,7 @@ servingEngineSpec:
       tensorParallelSize: 1
       maxNumSeqs: 1
       maxLoras: 0
-      gpuMemoryUtilization: 0.85
+      gpuMemoryUtilization: 0.9
       extraArgs:
         - "--quantization"
         - "awq"
