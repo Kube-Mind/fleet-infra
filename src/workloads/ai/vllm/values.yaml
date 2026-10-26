@@ -32,7 +32,7 @@ servingEngineSpec:
     repository: "lmcache/vllm-openai"
     tag: "latest"
 
-    modelURL: "mistralai/Devstral-Small-2-24B-Instruct-2512"
+    modelURL: "androiddrew/Devstral-Small-2-24B-Instruct-2512-AWQ-4bit"
     modelRevision: ""
 
     replicaCount: 1
