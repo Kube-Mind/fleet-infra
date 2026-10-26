@@ -195,7 +195,9 @@ servingEngineSpec:
 
       runner: "auto"
       convert: "auto"
-      extraArgs: []
+      extraArgs:
+        - "--quantization"
+        - "awq"
 
     lmcacheConfig:
       enabled: false
