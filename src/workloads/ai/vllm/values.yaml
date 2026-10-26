@@ -24,7 +24,7 @@ servingEngineSpec:
   ## The model below serves as an example. It is not deployed by default.
   modelSpec:
   # -- The name of the model.
-  - name: "qwen3"
+  - name: "qwen2"
     enabled: true
 
     runtimeClassName: "nvidia"
