@@ -174,15 +174,16 @@ servingEngineSpec:
             key: HUGGING_FACE_HUB_TOKEN
 
     vllmConfig:
-      maxModelLen: 2048
+      maxModelLen: 1024
       dtype: "half"
       tensorParallelSize: 1
       maxNumSeqs: 1
       maxLoras: 0
-      gpuMemoryUtilization: 0.80
+      gpuMemoryUtilization: 0.9
       enablePrefixCaching: true
       enableChunkedPrefill: true
-      extraArgs: []
+      extraArgs:
+        - "--enforce-eager"
 
     lmcacheConfig:
       enabled: false
