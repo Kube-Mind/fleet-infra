@@ -26,11 +26,11 @@ spec:
     - ref: values
       repoURL: https://github.com/Kube-Mind/fleet-infra.git
       targetRevision: main
-  ignoreDifferences:
-    - group: apps
-      kind: StatefulSet
-      jqPathExpressions:
-      - '.spec.volumeClaimTemplates[]'
+  # ignoreDifferences:
+  #   - group: apps
+  #     kind: StatefulSet
+  #     jqPathExpressions:
+  #     - '.spec.volumeClaimTemplates[]'
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
