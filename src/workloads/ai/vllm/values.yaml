@@ -159,12 +159,12 @@ servingEngineSpec:
     requestMemory: "4Gi"
     requestGPU: 1
 
-    requestGPUMem: "3000"
+    requestGPUMem: "4000"
     requestGPUCores: "60"
 
     limitCPU: 4
     limitMemory: "6Gi"
-    limitGPUMem: "3000"
+    limitGPUMem: "4000"
     limitGPUCores: "60"
 
     pvcStorage: "10Gi"
@@ -191,7 +191,7 @@ servingEngineSpec:
       maxNumSeqs: 1
       maxLoras: 0
 
-      gpuMemoryUtilization: 0.85
+      gpuMemoryUtilization: 1
 
       runner: "auto"
       convert: "auto"
