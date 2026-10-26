@@ -142,23 +142,18 @@ servingEngineSpec:
 
     shmSize: "8Gi"
 
-  - name: "starcoder"
+  - name: "qwen-general"
     enabled: true
-
     runtimeClassName: "nvidia"
-
     repository: "lmcache/vllm-openai"
     tag: "latest"
-
-    modelURL: "bigcode/starcoder2-3b"
+    modelURL: "Qwen/Qwen2.5-3B-Instruct-AWQ"
     modelRevision: ""
-
     replicaCount: 1
 
     requestCPU: 2
-    requestMemory: "10Gi"
+    requestMemory: "8Gi"
     requestGPU: 1
-
     requestGPUMem: "3000"
     requestGPUCores: "60"
 
@@ -171,7 +166,6 @@ servingEngineSpec:
     pvcAccessMode:
       - ReadWriteOnce
     storageClass: "longhorn"
-
     env:
       - name: HF_TOKEN
         valueFrom:
@@ -180,24 +174,15 @@ servingEngineSpec:
             key: HUGGING_FACE_HUB_TOKEN
 
     vllmConfig:
-      v0: "0"
-
-      enablePrefixCaching: true
-      enableChunkedPrefill: true
-
-      maxModelLen: 1024
+      maxModelLen: 2048
       dtype: "half"
       tensorParallelSize: 1
       maxNumSeqs: 1
       maxLoras: 0
-
-      gpuMemoryUtilization: 0.85
-
-      runner: "auto"
-      convert: "auto"
-      extraArgs:
-        - "--cpu-offload-gb"
-        - "4"
+      gpuMemoryUtilization: 0.80
+      enablePrefixCaching: true
+      enableChunkedPrefill: true
+      extraArgs: []
 
     lmcacheConfig:
       enabled: false
