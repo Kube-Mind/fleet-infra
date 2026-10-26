@@ -27,93 +27,60 @@ servingEngineSpec:
   - name: "qwen3"
     enabled: true
 
-    annotations: {}
-    podAnnotations: {}
-    labels: {}
-    podLabels: {}
-
-    serviceAccountName: ""
-    priorityClassName: ""
-
     runtimeClassName: "nvidia"
-
     repository: "lmcache/vllm-openai"
     tag: "latest"
-    imagePullSecret: ""
 
+    # Coding-focused model
     modelURL: "Qwen/Qwen3-14B-AWQ"
     modelRevision: ""
 
     replicaCount: 1
 
-    resources: {}
-
     requestCPU: 6
-    requestMemory: "32Gi"
+    requestMemory: "24Gi"
     requestGPU: 1
     requestGPUType: ""
 
-    # HAMi: MiB
-    requestGPUMem: "16000"
-    requestGPUMemPercentage: "80"
-    requestGPUCores: "10"
+    # HAMi: reserve approximately 50% of 20 GiB VRAM
+    requestGPUMem: "10000"
+    requestGPUMemPercentage: "50"
+    requestGPUCores: "40"
 
     limitCPU: 8
     limitMemory: "32Gi"
 
-    # HAMi: MiB
+    # Allow expansion to approximately 80% of the GPU
     limitGPUMem: "16000"
     limitGPUMemPercentage: "80"
-    limitGPUCores: "10"
+    limitGPUCores: "80"
 
     pvcStorage: "50Gi"
     pvcAccessMode:
       - ReadWriteOnce
     storageClass: "longhorn"
 
-    pvcMatchLabels: {}
-    pvcLabels: {}
-    pvcAnnotations: {}
-
-    extraVolumes: []
-    extraVolumeMounts: []
-
-    initContainer:
-      name: "init"
-      image: "busybox:latest"
-      command:
-        - "sh"
-        - "-c"
-      args:
-        - "ls"
-      env: []
-      resources: {}
-      mountPvcStorage: true
-      extraVolumeMounts: []
-
     vllmConfig:
       v0: "0"
 
-      enablePrefixCaching: false
+      enablePrefixCaching: true
       enableChunkedPrefill: false
 
-      # Start conservatively; increase later if required.
-      maxModelLen: 16384
+      # Start with a smaller context to reduce KV cache pressure
+      maxModelLen: 8192
 
       dtype: "float16"
-
       tensorParallelSize: 1
 
-      maxNumSeqs: 8
+      # Conservative coding workload concurrency
+      maxNumSeqs: 2
       maxLoras: 0
 
-      # 16 GiB HAMi allocation -> ~14.4 GiB vLLM budget
+      # Limit vLLM to 50% of the memory visible to it
       gpuMemoryUtilization: 0.90
 
       runner: "auto"
-
       convert: "auto"
-
       extraArgs: []
 
     lmcacheConfig:
@@ -121,9 +88,7 @@ servingEngineSpec:
       cpuOffloadingBufferSize: "0"
       logLevel: INFO
 
-    envFromSecret: {}
-
-    env: []
+    shmSize: "8Gi"
 
     affinity:
       nodeAffinity:
@@ -135,13 +100,12 @@ servingEngineSpec:
                   values:
                     - "true"
 
+
     nodeSelectorTerms: []
     nodeName: ""
 
     tolerations: []
     tolerationsPolicy: append
-
-    shmSize: "20Gi"
 
     serviceAnnotations: {}
 
