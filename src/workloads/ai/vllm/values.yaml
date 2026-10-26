@@ -24,35 +24,103 @@ servingEngineSpec:
   ## The model below serves as an example. It is not deployed by default.
   modelSpec:
   # -- The name of the model.
-  - name: "qwen2"
+  - name: "devstral"
     enabled: true
 
+    nodeName: "franky"
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
     tag: "latest"
 
-    modelURL: "Qwen/Qwen2.5-Coder-7B-Instruct-AWQ"
+    modelURL: "mistralai/Devstral-Small-2-24B-Instruct-2512"
     modelRevision: ""
 
     replicaCount: 1
 
-    requestCPU: 6
-    requestMemory: "24Gi"
+    requestCPU: 8
+    requestMemory: "32Gi"
     requestGPU: 1
 
-    # HAMi: equal request and limit values
-    requestGPUMem: "16000"
-    requestGPUMemPercentage: "80"
-    requestGPUCores: "80"
+    # HAMi GPU memory is specified in MB.
+    # Do not set requestGPUMemPercentage alongside requestGPUMem.
+    requestGPUMem: "18000"
+    requestGPUCores: "90"
 
-    limitCPU: 8
-    limitMemory: "24Gi"
-    limitGPUMem: "16000"
-    limitGPUMemPercentage: "80"
-    limitGPUCores: "80"
+    limitCPU: 12
+    limitMemory: "40Gi"
+    limitGPUMem: "18000"
+    limitGPUCores: "90"
 
-    pvcStorage: "30Gi"
+    pvcStorage: "60Gi"
+    pvcAccessMode:
+      - ReadWriteOnce
+    storageClass: "longhorn"
+
+    enableTool: true
+    toolCallParser: "mistral"
+
+    env:
+      - name: HF_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: vllm-external-secret
+            key: HUGGING_FACE_HUB_TOKEN
+
+    vllmConfig:
+      v0: "0"
+
+      enablePrefixCaching: true
+      enableChunkedPrefill: false
+
+      maxModelLen: 8192
+      dtype: "half"
+      tensorParallelSize: 1
+      maxNumSeqs: 1
+      maxLoras: 0
+
+      gpuMemoryUtilization: 0.85
+
+      runner: "auto"
+      convert: "auto"
+      extraArgs:
+        - "--quantization"
+        - "bitsandbytes"
+
+    lmcacheConfig:
+      enabled: false
+      cpuOffloadingBufferSize: "0"
+      logLevel: INFO
+
+    shmSize: "8Gi"
+
+  - name: "starcoder"
+    enabled: true
+
+    nodeName: "nami"
+    runtimeClassName: "nvidia"
+
+    repository: "lmcache/vllm-openai"
+    tag: "latest"
+
+    modelURL: "bigcode/starcoder2-3b"
+    modelRevision: ""
+
+    replicaCount: 1
+
+    requestCPU: 2
+    requestMemory: "4Gi"
+    requestGPU: 1
+
+    requestGPUMem: "3000"
+    requestGPUCores: "60"
+
+    limitCPU: 4
+    limitMemory: "6Gi"
+    limitGPUMem: "3000"
+    limitGPUCores: "60"
+
+    pvcStorage: "10Gi"
     pvcAccessMode:
       - ReadWriteOnce
     storageClass: "longhorn"
@@ -70,26 +138,92 @@ servingEngineSpec:
       enablePrefixCaching: true
       enableChunkedPrefill: false
 
-      # Start conservatively to avoid OOM
-      maxModelLen: 8192
-      dtype: "float16"
+      maxModelLen: 2048
+      dtype: "half"
       tensorParallelSize: 1
-      maxNumSeqs: 2
+      maxNumSeqs: 1
       maxLoras: 0
 
-      # Reserve headroom for CUDA graphs and runtime allocations
-      gpuMemoryUtilization: 0.80
+      gpuMemoryUtilization: 0.70
 
       runner: "auto"
       convert: "auto"
-      extraArgs: []
+      extraArgs:
+        - "--quantization"
+        - "bitsandbytes"
 
     lmcacheConfig:
       enabled: false
       cpuOffloadingBufferSize: "0"
       logLevel: INFO
 
-    shmSize: "8Gi"
+    shmSize: "2Gi"
+  
+  - name: "bge-small"
+    enabled: true
+
+    nodeName: "usopp"
+    runtimeClassName: "nvidia"
+
+    repository: "lmcache/vllm-openai"
+    tag: "latest"
+
+    modelURL: "BAAI/bge-small-en-v1.5"
+    modelRevision: ""
+
+    replicaCount: 1
+
+    requestCPU: 2
+    requestMemory: "4Gi"
+    requestGPU: 1
+
+    requestGPUMem: "1200"
+    requestGPUCores: "20"
+
+    limitCPU: 2
+    limitMemory: "4Gi"
+    limitGPUMem: "1200"
+    limitGPUCores: "20"
+
+    pvcStorage: "5Gi"
+    pvcAccessMode:
+      - ReadWriteOnce
+    storageClass: "longhorn"
+
+    env:
+      - name: HF_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: vllm-external-secret
+            key: HUGGING_FACE_HUB_TOKEN
+
+    vllmConfig:
+      v0: "0"
+
+      enablePrefixCaching: false
+      enableChunkedPrefill: false
+
+      maxModelLen: 512
+      dtype: "half"
+      tensorParallelSize: 1
+      maxNumSeqs: 4
+      maxLoras: 0
+
+      gpuMemoryUtilization: 0.50
+
+      runner: "pooling"
+      convert: "auto"
+      extraArgs:
+        - "--pooler-config.task"
+        - "embed"
+
+    lmcacheConfig:
+      enabled: false
+      cpuOffloadingBufferSize: "0"
+      logLevel: INFO
+
+    shmSize: "2Gi"
+
   # -- Container port
   containerPort: 8000
   # -- Service port

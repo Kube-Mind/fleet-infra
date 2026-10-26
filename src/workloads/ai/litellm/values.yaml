@@ -46,10 +46,20 @@ gateway:
   config:
     proxy_config:
       model_list:
-        - model_name: qwen2-7b
+        - model_name: devstral
           litellm_params:
-            model: hosted_vllm/Qwen/Qwen2.5-Coder-7B-Instruct-AWQ
-            api_base: "http://vllm-qwen2-engine-service.vllm.svc.cluster.local:80/v1"
+            model: hosted_vllm/mistralai/Devstral-Small-2-24B-Instruct-2512
+            api_base: "http://vllm-devstral-engine-service.vllm.svc.cluster.local:80/v1"
+
+        - model_name: starcoder
+          litellm_params:
+            model: hosted_vllm/bigcode/starcoder2-3b
+            api_base: "http://vllm-starcoder-engine-service.vllm.svc.cluster.local:80/v1"
+
+        - model_name: bge-small
+          litellm_params:
+            model: hosted_vllm/BAAI/bge-small-en-v1.5
+            api_base: "http://vllm-bge-small-engine-service.vllm.svc.cluster.local:80/v1"
 
 # Management API / SSO
 backend:
