@@ -183,7 +183,7 @@ servingEngineSpec:
       v0: "0"
 
       enablePrefixCaching: true
-      enableChunkedPrefill: false
+      enableChunkedPrefill: true
 
       maxModelLen: 2048
       dtype: "half"
@@ -191,13 +191,11 @@ servingEngineSpec:
       maxNumSeqs: 1
       maxLoras: 0
 
-      gpuMemoryUtilization: 0.70
+      gpuMemoryUtilization: 0.85
 
       runner: "auto"
       convert: "auto"
-      extraArgs:
-        - "--quantization"
-        - "awq"
+      extraArgs: []
 
     lmcacheConfig:
       enabled: false
