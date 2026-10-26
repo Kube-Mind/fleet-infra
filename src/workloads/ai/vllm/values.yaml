@@ -36,11 +36,11 @@ servingEngineSpec:
     requestCPU: 8
     requestMemory: "32Gi"
     requestGPU: 1
-    requestGPUMem: "16000"
+    # requestGPUMem: "16000"
     requestGPUCores: "90"
     limitCPU: 12
     limitMemory: "40Gi"
-    limitGPUMem: "16000"
+    # limitGPUMem: "16000"
     limitGPUCores: "90"
 
     pvcStorage: "60Gi"
@@ -143,7 +143,7 @@ servingEngineSpec:
     shmSize: "8Gi"
 
   - name: "qwen-general"
-    enabled: true
+    enabled: false
     runtimeClassName: "nvidia"
     repository: "lmcache/vllm-openai"
     tag: "latest"
