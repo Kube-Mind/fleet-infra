@@ -78,7 +78,7 @@ servingEngineSpec:
       maxNumSeqs: 1
       maxLoras: 0
 
-      gpuMemoryUtilization: 0.85
+      gpuMemoryUtilization: 0.70
 
       runner: "auto"
       convert: "auto"
