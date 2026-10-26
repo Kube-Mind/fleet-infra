@@ -43,12 +43,12 @@ servingEngineSpec:
 
     # HAMi GPU memory is specified in MB.
     # Do not set requestGPUMemPercentage alongside requestGPUMem.
-    requestGPUMem: "18000"
+    requestGPUMem: "16000"
     requestGPUCores: "90"
 
     limitCPU: 12
     limitMemory: "40Gi"
-    limitGPUMem: "18000"
+    limitGPUMem: "16000"
     limitGPUCores: "90"
 
     pvcStorage: "60Gi"
