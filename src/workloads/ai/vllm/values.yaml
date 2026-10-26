@@ -58,7 +58,7 @@ servingEngineSpec:
     storageClass: "longhorn"
 
     env:
-      - name: HUGGING_FACE_HUB_TOKEN
+      - name: HF_TOKEN
         valueFrom:
           secretKeyRef:
             name: vllm-external-secret
