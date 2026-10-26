@@ -9,7 +9,7 @@ masterKey:
 
 database:
   writer:
-    host: "litellm-postgres-rw:5432/litellm"
+    host: "litellm-postgres-rw"
     port: 5432
     dbname: litellm
     passwordSecret:
