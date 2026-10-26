@@ -57,6 +57,13 @@ servingEngineSpec:
       - ReadWriteOnce
     storageClass: "longhorn"
 
+    env:
+      - name: HUGGING_FACE_HUB_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: vllm-external-secret
+            key: HUGGING_FACE_HUB_TOKEN
+
     vllmConfig:
       v0: "0"
 
