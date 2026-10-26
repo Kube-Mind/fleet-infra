@@ -24,96 +24,57 @@ servingEngineSpec:
   ## The model below serves as an example. It is not deployed by default.
   modelSpec:
   # -- The name of the model.
-  - name: "qwen3"
+  - name: "qwen-coder"
     enabled: true
-
-    annotations: {}
-    podAnnotations: {}
-    labels: {}
-    podLabels: {}
-
-    serviceAccountName: ""
-    priorityClassName: ""
 
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
     tag: "latest"
-    imagePullSecret: ""
 
-    modelURL: "Qwen/Qwen3-14B-AWQ"
+    modelURL: "Qwen/Qwen2.5-Coder-7B-Instruct-AWQ"
     modelRevision: ""
 
     replicaCount: 1
 
-    resources: {}
-
     requestCPU: 6
-    requestMemory: "16Gi"
+    requestMemory: "24Gi"
     requestGPU: 1
-    requestGPUType: ""
 
-    # HAMi: MiB
+    # HAMi: equal request and limit values
     requestGPUMem: "16000"
     requestGPUMemPercentage: "80"
-    requestGPUCores: "10"
+    requestGPUCores: "80"
 
     limitCPU: 8
-    limitMemory: "32Gi"
-
-    # HAMi: MiB
+    limitMemory: "24Gi"
     limitGPUMem: "16000"
     limitGPUMemPercentage: "80"
-    limitGPUCores: "10"
+    limitGPUCores: "80"
 
-    pvcStorage: "50Gi"
+    pvcStorage: "30Gi"
     pvcAccessMode:
       - ReadWriteOnce
     storageClass: "longhorn"
 
-    pvcMatchLabels: {}
-    pvcLabels: {}
-    pvcAnnotations: {}
-
-    extraVolumes: []
-    extraVolumeMounts: []
-
-    initContainer:
-      name: "init"
-      image: "busybox:latest"
-      command:
-        - "sh"
-        - "-c"
-      args:
-        - "ls"
-      env: []
-      resources: {}
-      mountPvcStorage: true
-      extraVolumeMounts: []
-
     vllmConfig:
       v0: "0"
 
-      enablePrefixCaching: false
+      enablePrefixCaching: true
       enableChunkedPrefill: false
 
-      # Start conservatively; increase later if required.
-      maxModelLen: 16384
-
+      # Start conservatively to avoid OOM
+      maxModelLen: 8192
       dtype: "float16"
-
       tensorParallelSize: 1
-
-      maxNumSeqs: 8
+      maxNumSeqs: 2
       maxLoras: 0
 
-      # 16 GiB HAMi allocation -> ~14.4 GiB vLLM budget
-      gpuMemoryUtilization: 0.90
+      # Reserve headroom for CUDA graphs and runtime allocations
+      gpuMemoryUtilization: 0.80
 
       runner: "auto"
-
       convert: "auto"
-
       extraArgs: []
 
     lmcacheConfig:
@@ -121,38 +82,7 @@ servingEngineSpec:
       cpuOffloadingBufferSize: "0"
       logLevel: INFO
 
-    envFromSecret: {}
-
-    env: []
-
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: nvidia.com/gpu.present
-                  operator: In
-                  values:
-                    - "true"
-
-    nodeSelectorTerms: []
-    nodeName: ""
-
-    tolerations: []
-    tolerationsPolicy: append
-
-    shmSize: "20Gi"
-
-    serviceAnnotations: {}
-
-    enableLoRA: false
-
-    keda:
-      enabled: false
-
-    raySpec:
-      enabled: false
-
+    shmSize: "8Gi"
   # -- Container port
   containerPort: 8000
   # -- Service port
