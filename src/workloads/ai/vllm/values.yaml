@@ -82,9 +82,7 @@ servingEngineSpec:
 
       runner: "auto"
       convert: "auto"
-      extraArgs:
-        - "--quantization"
-        - "bitsandbytes"
+      extraArgs: []
 
     lmcacheConfig:
       enabled: false
