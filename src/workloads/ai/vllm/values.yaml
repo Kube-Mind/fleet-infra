@@ -24,8 +24,45 @@ servingEngineSpec:
   ## The model below serves as an example. It is not deployed by default.
   modelSpec:
   # -- The name of the model.
-  - name: "devstral"
+  - name: "qwen2.5-coder"
     enabled: true
+    runtimeClassName: "nvidia"
+    repository: "lmcache/vllm-openai"
+    tag: "latest"
+    modelURL: "Qwen/Qwen2.5-Coder-7B-Instruct-AWQ"
+    modelRevision: ""
+    replicaCount: 1
+
+    requestCPU: 8
+    requestMemory: "32Gi"
+    requestGPU: 1
+    requestGPUMem: "12000"
+    requestGPUCores: "90"
+    limitCPU: 12
+    limitMemory: "40Gi"
+    limitGPUMem: "12000"
+    limitGPUCores: "90"
+
+    pvcStorage: "60Gi"
+    pvcAccessMode:
+      - ReadWriteOnce
+    storageClass: "longhorn"
+
+    vllmConfig:
+      enablePrefixCaching: true
+      enableChunkedPrefill: false
+      maxModelLen: 8192
+      dtype: "half"
+      tensorParallelSize: 1
+      maxNumSeqs: 1
+      maxLoras: 0
+      gpuMemoryUtilization: 0.85
+      extraArgs:
+        - "--quantization"
+        - "awq"
+
+  - name: "devstral"
+    enabled: false
 
     runtimeClassName: "nvidia"
 
