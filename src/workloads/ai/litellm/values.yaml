@@ -46,10 +46,10 @@ gateway:
   config:
     proxy_config:
       model_list:
-        - model_name: qwen-coder
+        - model_name: qwen2-coder
           litellm_params:
             model: hosted_vllm/Qwen/Qwen2.5-Coder-7B-Instruct-AWQ
-            api_base: "http://vllm-qwen-coder-engine-service.vllm.svc.cluster.local:80/v1"
+            api_base: "http://vllm-qwen2-coder-engine-service.vllm.svc.cluster.local:80/v1"
 
         # - model_name: devstral
         #   litellm_params:
