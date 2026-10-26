@@ -27,60 +27,93 @@ servingEngineSpec:
   - name: "qwen3"
     enabled: true
 
+    annotations: {}
+    podAnnotations: {}
+    labels: {}
+    podLabels: {}
+
+    serviceAccountName: ""
+    priorityClassName: ""
+
     runtimeClassName: "nvidia"
+
     repository: "lmcache/vllm-openai"
     tag: "latest"
+    imagePullSecret: ""
 
-    # Coding-focused model
     modelURL: "Qwen/Qwen3-14B-AWQ"
     modelRevision: ""
 
     replicaCount: 1
 
+    resources: {}
+
     requestCPU: 6
-    requestMemory: "24Gi"
+    requestMemory: "16Gi"
     requestGPU: 1
     requestGPUType: ""
 
-    # HAMi: reserve approximately 50% of 20 GiB VRAM
-    requestGPUMem: "10000"
-    requestGPUMemPercentage: "50"
-    requestGPUCores: "40"
+    # HAMi: MiB
+    requestGPUMem: "16000"
+    requestGPUMemPercentage: "80"
+    requestGPUCores: "10"
 
     limitCPU: 8
     limitMemory: "32Gi"
 
-    # Allow expansion to approximately 80% of the GPU
+    # HAMi: MiB
     limitGPUMem: "16000"
     limitGPUMemPercentage: "80"
-    limitGPUCores: "80"
+    limitGPUCores: "10"
 
     pvcStorage: "50Gi"
     pvcAccessMode:
       - ReadWriteOnce
     storageClass: "longhorn"
 
+    pvcMatchLabels: {}
+    pvcLabels: {}
+    pvcAnnotations: {}
+
+    extraVolumes: []
+    extraVolumeMounts: []
+
+    initContainer:
+      name: "init"
+      image: "busybox:latest"
+      command:
+        - "sh"
+        - "-c"
+      args:
+        - "ls"
+      env: []
+      resources: {}
+      mountPvcStorage: true
+      extraVolumeMounts: []
+
     vllmConfig:
       v0: "0"
 
-      enablePrefixCaching: true
+      enablePrefixCaching: false
       enableChunkedPrefill: false
 
-      # Start with a smaller context to reduce KV cache pressure
-      maxModelLen: 8192
+      # Start conservatively; increase later if required.
+      maxModelLen: 16384
 
       dtype: "float16"
+
       tensorParallelSize: 1
 
-      # Conservative coding workload concurrency
-      maxNumSeqs: 2
+      maxNumSeqs: 8
       maxLoras: 0
 
-      # Limit vLLM to 50% of the memory visible to it
+      # 16 GiB HAMi allocation -> ~14.4 GiB vLLM budget
       gpuMemoryUtilization: 0.90
 
       runner: "auto"
+
       convert: "auto"
+
       extraArgs: []
 
     lmcacheConfig:
@@ -88,7 +121,9 @@ servingEngineSpec:
       cpuOffloadingBufferSize: "0"
       logLevel: INFO
 
-    shmSize: "8Gi"
+    envFromSecret: {}
+
+    env: []
 
     affinity:
       nodeAffinity:
@@ -100,12 +135,13 @@ servingEngineSpec:
                   values:
                     - "true"
 
-
     nodeSelectorTerms: []
     nodeName: ""
 
     tolerations: []
     tolerationsPolicy: append
+
+    shmSize: "20Gi"
 
     serviceAnnotations: {}
 
@@ -606,6 +642,240 @@ routerSpec:
     #   replacement: $1
     #   action: replace
 
+# -- Configuration for the LMCache cache server deployment
+cacheserverSpec:
+  # -- Whether to enable the cache server
+  enabled: false
+  # -- Image configuration for the cache Server
+  image:
+    # -- Docker image repository for the cache server
+    repository: "lmcache/vllm-openai"
+    # -- Docker image tag for the cache server
+    tag: "latest"
+  # -- Image pull policy for the cache server
+  imagePullPolicy: "IfNotPresent" # @schema enum:[Always,IfNotPresent,Never]
+  # -- Image pull secrets for private container registries
+  imagePullSecrets: []
+  # -- Number of replicas for the cache server pod
+  replicaCount: 1
+  # -- Port the cache server container is listening on
+  containerPort: 8000
+  # -- Kubernetes service type for the cache server
+  serviceType: ClusterIP # @schema enum:[ClusterIP,NodePort,LoadBalancer,ExternalName]
+  # -- Port the cache server service will listen on
+  servicePort: 80
+  # -- Service annotations for the cache server service
+  serviceAnnotations: {}
+  # -- Resource requests and limits for the cache server container
+  resources: {}
+  # -- Customized annotations for the cache server deployment
+  annotations: {}
+  # -- Customized labels for the cache server deployment and service
+  labels: {}
+  # -- Deployment strategy for the cache server pods
+  strategy:  # @schema additionalProperties: false
+    # -- Customize updateStrategy of the cache server deployment.
+    type: RollingUpdate # @schema enum:[RollingUpdate, Recreate]
+    rollingUpdate:
+      maxUnavailable: 0  # @schema type:[integer, string, null]
+      maxSurge: 1        # @schema type:[integer, string, null]
+
+  # -- Configuration for the liveness probe
+  livenessProbe: # @schema additionalProperties: false
+    # -- The number of seconds to wait before starting the first probe.
+    initialDelaySeconds: 30
+    # -- The number of seconds to wait between consecutive probes.
+    periodSeconds: 10
+    # -- The number of consecutive failures allowed before considering the probe as failed.
+    failureThreshold: 3
+    # -- The number of seconds to wait for a probe response before considering it as failed.
+    timeoutSeconds: 5
+  # -- Tolerations configuration for the cache server pods
+  tolerations: []
+  # -- RuntimeClassName configuration for the cache server pods
+  runtimeClassName: "nvidia"
+  # -- SchedulerName configuration for the cache server pods
+  schedulerName: ""
+  # -- Pod-level security context configuration
+  securityContext: {}
+  # -- Container-level security context configuration
+  containerSecurityContext: {}
+  # -- Priority class for the cache server pods
+  priorityClassName: ""
+  # -- Node selector for the cache server pods
+  nodeSelector: {}
+  # -- Affinity configuration. If specified, takes precedence over nodeSelectorTerms.
+  affinity: {}
+  # -- Serialization/deserialization format for the cache server
+  serde: ""
+
+# -- LoRA Adapters Configuration
+loraAdapters:
+  # -- The name of the LoRA adapter instance
+  - name: "llama3-nemoguard-adapter"
+    # -- Whether to create le LoRa adapter
+    enabled: false
+    # -- The name of the base model this adapter is for
+    baseModel: llama3-8b-instr
+    # -- API key configuration for vLLM authentication. If not Set, it defaults to servingEngineSpec.vllmApiKey
+    vllmApiKey:
+      # -- Name of the secret
+      secretName: "vllm-api-key"
+      # -- Key in the secret containing the API key
+      secretKey: "VLLM_API_KEY"
+    # -- Configuration for the adapter source
+    adapterSource:
+      # -- Type of adapter source (local, s3, http, huggingface)
+      type: "local"
+      # -- Name of the adapter to apply
+      adapterName: "llama-3.1-nemoguard-8b-topic-control"
+      # -- Path to the LoRA adapter weights
+      adapterPath: "/data/lora-adapters/llama-3.1-nemoguard-8b-topic-control"
+      # -- Repository to get the LoRA adapter from
+      repository: ""
+      # -- Pattern to use for the adapter name
+      pattern: ""
+      # -- Maximum number of adapters to load
+      maxAdapters: 1
+      # -- Reference to secret with storage credentials
+      ## Can be either a string that will be stored in a generated secret or an object referencing an existing secret.
+      credentials:  # @schema type:[string, object]
+        # -- Name of the secret
+        secretName: "secret"
+        # -- Key in the secret containing the credentials
+        secretKey: "key"
+    # -- Configuration for adapter deployment
+    loraAdapterDeploymentConfig:
+      # -- Placement algorithm to use (default, ordered, equalized)
+      algorithm: "default"
+      # -- Number of replicas that should load this adapter
+      replicas: 1
+      # -- Additional labels for the LoRA adapter
+      labels: {}
+
+# -- lora controller Configuration
+loraController:
+  # -- Whether to enable the Lora Controller
+  enableLoraController: false
+  # -- kubernetes cluster domain
+  kubernetesClusterDomain: "cluster.local"
+
+  # -- The name of an existing service account to use for the lora controller deployment.
+  # -- If set, no ServiceAccount will be created and this name will be used directly.
+  serviceAccountName: ""
+
+  # -- Number of lora controller replicas
+  replicaCount: 1
+
+  # -- lora controller image configuration
+  image:
+    # -- Docker image repository
+    repository: "lmcache/lmstack-lora-controller"
+    # -- Docker image tag
+    tag: "latest"
+    # -- Image pull policy
+    pullPolicy: "IfNotPresent" # @schema enum:[Always,IfNotPresent,Never]
+
+  # -- Image pull secrets
+  imagePullSecrets: []
+
+  # -- Deployment annotations
+  annotations: {}
+
+  # -- Deployment labels
+  labels: {}
+
+  # -- Pod annotations
+  podAnnotations: {}
+
+  # -- Pod labels
+  podLabels: {}
+
+  # @schema skipProperties:true
+  # -- Pod security context
+  podSecurityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+
+  # @schema skipProperties:true
+  # -- Container security context
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+
+  # -- lora controller resources
+  resources: {}
+
+  # -- Node selector
+  nodeSelector: {}
+
+  # -- Affinity
+  affinity: {}
+
+  # -- Tolerations
+  tolerations: []
+
+  # -- Environment variables
+  env: []
+
+  # -- Extra arguments for the lora controller
+  extraArgs: []
+
+  # -- Lora Controller metrics configuration
+  metrics:
+    # -- Expose lora controller metrics
+    enabled: true
+
+  # -- loraController Webhook configuration
+  webhook:
+    # -- Deploy a webhook inside lora controller
+    enabled: false
+
+  # -- loraController Pod Disruption Budget
+  # -- Ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+  pdb:
+    # -- Deploy a PodDisruptionBudget for the loraController deployment
+    enabled: false
+    # -- Labels to be added to loraController pdb
+    labels: {}
+    # -- Annotations to be added to loraController pdb
+    annotations: {}
+    # -- Number of pods that are available after eviction as number or percentage (eg.: 50%)
+    minAvailable: # @schema type:[string, integer, null];minimum:0
+    # -- Number of pods that are unavailable after eviction as number or percentage (eg.: 50%).
+    maxUnavailable: # @schema type:[string, integer, null];minimum:0
+
+# -- Configuration for a shared PVC that can be mounted to multiple model deployments.
+sharedPvcStorage:
+  # -- Whether to enable shared storage for the models
+  enabled: false
+  # -- Size of the shared storage volume
+  size: "100Gi"
+  # -- Access modes for the shared storage volume
+  accessModes:
+    - ReadWriteMany
+  # -- Storage class name for the shared storage volume
+  storageClass: ""
+  # -- Host path for the shared storage volume. Specifying a hostPath or nfs server will create a PersistentVolume. These fields should be omitted to rely on dynamic provisioning of PersistentVolumeClaim.
+  hostPath: ""
+  # -- NFS configuration for the shared storage volume
+  nfs:
+    # -- NFS server address for the shared storage volume
+    server: ""
+    # -- NFS export path for the shared storage volume
+    path: ""
+  # -- Docker image used in the lora Controller as an init container to set permissions in the PVC
+  image:
+    # -- Docker image repository
+    repository: "busybox"
+
+
+
+# -- Array of extra Kubernetes objects to deploy. Each object should be a valid Kubernetes manifest in YAML format. This can be used to deploy additional resources such as ConfigMaps, Secrets, or custom resources that are not directly supported by the chart's built-in configuration. Supports use of custom Helm templates.
+extraObjects: []
 
 # -- Set to true do deploy dashboards stored in the "dashboards" directory as configmaps. This requires the kube-prometheus-stack to be deployed with Grafana enabled and properly configured to pick up dashboards from configmaps.
 grafanaDashboards:
