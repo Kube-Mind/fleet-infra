@@ -82,7 +82,16 @@ servingEngineSpec:
 
       runner: "auto"
       convert: "auto"
-      extraArgs: []
+      extraArgs:
+        - "--config-format"
+        - "mistral"
+        - "--load-format"
+        - "mistral"
+        - "--tokenizer-mode"
+        - "mistral"
+        - "--tool-call-parser"
+        - "mistral"
+        - "--enable-auto-tool-choice"
 
     lmcacheConfig:
       enabled: false
