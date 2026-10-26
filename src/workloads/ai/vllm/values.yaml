@@ -156,14 +156,14 @@ servingEngineSpec:
     replicaCount: 1
 
     requestCPU: 2
-    requestMemory: "4Gi"
+    requestMemory: "10Gi"
     requestGPU: 1
 
     requestGPUMem: "3000"
     requestGPUCores: "60"
 
     limitCPU: 4
-    limitMemory: "6Gi"
+    limitMemory: "10Gi"
     limitGPUMem: "3000"
     limitGPUCores: "60"
 
@@ -185,7 +185,7 @@ servingEngineSpec:
       enablePrefixCaching: true
       enableChunkedPrefill: true
 
-      maxModelLen: 2048
+      maxModelLen: 1024
       dtype: "half"
       tensorParallelSize: 1
       maxNumSeqs: 1
@@ -197,7 +197,7 @@ servingEngineSpec:
       convert: "auto"
       extraArgs:
         - "--cpu-offload-gb"
-        - "2"
+        - "4"
 
     lmcacheConfig:
       enabled: false
