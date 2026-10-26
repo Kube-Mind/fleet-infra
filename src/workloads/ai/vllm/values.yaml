@@ -72,7 +72,7 @@ servingEngineSpec:
       enablePrefixCaching: true
       enableChunkedPrefill: false
 
-      maxModelLen: 8192
+      maxModelLen: 4096
       dtype: "half"
       tensorParallelSize: 1
       maxNumSeqs: 1
