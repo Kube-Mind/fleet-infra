@@ -164,7 +164,7 @@ singleuser:
               - key: kubernetes.io/hostname
                 operator: In
                 values:
-                  - turing
+                  - franky
   storage:
     type: dynamic
     dynamic:
