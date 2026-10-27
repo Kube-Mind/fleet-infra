@@ -25,7 +25,7 @@ servingEngineSpec:
   modelSpec:
   # -- The name of the model.
   - name: "gemma4-26b-a4b"
-    enabled: true
+    enabled: false
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
@@ -74,7 +74,7 @@ servingEngineSpec:
         - "gemma4"
     
   - name: "qwen2-coder"
-    enabled: false
+    enabled: true
     runtimeClassName: "nvidia"
     repository: "lmcache/vllm-openai"
     tag: "latest"
