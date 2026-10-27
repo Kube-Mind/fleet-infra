@@ -70,6 +70,8 @@ servingEngineSpec:
       extraArgs:
         - "--tokenizer"
         - "google/gemma-4-26B-A4B-it"
+        - "--format"
+        - "gguf"
     
   - name: "qwen2-coder"
     enabled: false
