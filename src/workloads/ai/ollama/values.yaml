@@ -211,13 +211,13 @@ ingress:
 resources:
   requests:
     nvidia.com/gpu: "1"
-    nvidia.com/gpumem: "4000"
+    nvidia.com/gpumem: "2000"
     cpu: 4
     memory: 20Gi
 
   limits:
     nvidia.com/gpu: "1"
-    nvidia.com/gpumem: "4000"
+    nvidia.com/gpumem: "2000"
     cpu: 4
     memory: 20Gi
     # cpu: 4000m
