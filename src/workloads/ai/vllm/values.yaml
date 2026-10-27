@@ -60,7 +60,7 @@ servingEngineSpec:
     vllmConfig:
       enablePrefixCaching: true
       enableChunkedPrefill: false
-      maxModelLen: 8192
+      maxModelLen: 4096
       dtype: "auto"
       tensorParallelSize: 1
       maxNumSeqs: 1
