@@ -29,7 +29,7 @@ servingEngineSpec:
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
-    tag: ""
+    tag: "latest"
 
     modelURL: "ggml-org/gemma-4-26B-A4B-it-GGUF:Q4_K_M"
     modelRevision: ""
