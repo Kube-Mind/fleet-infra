@@ -70,8 +70,6 @@ servingEngineSpec:
       extraArgs:
         - "--tokenizer"
         - "google/gemma-4-26B-A4B-it"
-        - "--reasoning-parser"
-        - "gemma4"
     
   - name: "qwen2-coder"
     enabled: false
