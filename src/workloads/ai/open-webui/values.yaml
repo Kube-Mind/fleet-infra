@@ -237,8 +237,22 @@ extraEnvVars:
         key: PIPELINES_API_KEY
   - name: PIPELINES_API_BASE_URL
     value: http://open-webui-pipelines:9099
-  - name: OLLAMA_BASE_URL
-    value: "http://ollama.ollama.svc.cluster.local:11434"
+  
+  # START: OLLAMA integration (commented out by default, uncomment to enable)
+  # - name: OLLAMA_BASE_URL
+  #   value: "http://ollama.ollama.svc.cluster.local:11434"
+  # END: OLLAMA integration
+  
+  # START: LiteLLM integration
+  - name: OPENAI_API_BASE_URL
+    value: "http://litellm-gateway.litellm.svc.cluster.local:4000/v1"
+  - name: OPENAI_API_KEY
+    valueFrom:
+      secretKeyRef:
+        name: open-webui-external-secret
+        key: LITELLM_API_KEY
+  # END: LiteLLM integration
+
   # Search engine
   - name: ENABLE_WEB_SEARCH
     value: "true"
