@@ -58,14 +58,15 @@ servingEngineSpec:
             key: HUGGING_FACE_HUB_TOKEN
 
     vllmConfig:
+      maxModelLen: 2048
+      maxNumSeqs: 1
+      gpuMemoryUtilization: 0.95
       enablePrefixCaching: true
-      enableChunkedPrefill: false
-      maxModelLen: 4096
+      enableChunkedPrefill: true
       dtype: "auto"
       tensorParallelSize: 1
-      maxNumSeqs: 1
       maxLoras: 0
-      gpuMemoryUtilization: 0.90
+      extraArgs: []
     
   - name: "qwen2-coder"
     enabled: false
