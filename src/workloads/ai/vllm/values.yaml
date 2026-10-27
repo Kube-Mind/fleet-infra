@@ -38,11 +38,11 @@ servingEngineSpec:
     requestCPU: 8
     requestMemory: "32Gi"
     requestGPU: 1
-    requestGPUMem: "18000"
+    requestGPUMem: "20475"
     requestGPUCores: "90"
     limitCPU: 12
     limitMemory: "40Gi"
-    limitGPUMem: "18000"
+    limitGPUMem: "20475"
     limitGPUCores: "90"
 
     pvcStorage: "60Gi"
