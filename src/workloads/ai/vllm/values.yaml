@@ -58,7 +58,7 @@ servingEngineSpec:
             key: HUGGING_FACE_HUB_TOKEN
 
     vllmConfig:
-      maxModelLen: 2048
+      maxModelLen: 1024
       maxNumSeqs: 1
       gpuMemoryUtilization: 0.95
       enablePrefixCaching: true
