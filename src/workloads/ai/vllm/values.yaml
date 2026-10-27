@@ -67,11 +67,7 @@ servingEngineSpec:
       maxLoras: 0
       gpuMemoryUtilization: 0.90
 
-      extraArgs:
-        - "--tokenizer"
-        - "google/gemma-4-26B-A4B-it"
-        - "--format"
-        - "gguf"
+      extraArgs: []
     
   - name: "qwen2-coder"
     enabled: false
