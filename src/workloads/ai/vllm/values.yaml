@@ -24,14 +24,14 @@ servingEngineSpec:
   ## The model below serves as an example. It is not deployed by default.
   modelSpec:
   # -- The name of the model.
-  - name: "gemma4-26b-a4b"
+  - name: "gpt-oss-20b"
     enabled: true
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
     tag: "latest"
 
-    modelURL: "google/gemma-4-26B-A4B-it-qat-q4_0-gguf"
+    modelURL: "openai/gpt-oss-20b"
     modelRevision: ""
     replicaCount: 1
 
@@ -60,14 +60,12 @@ servingEngineSpec:
     vllmConfig:
       enablePrefixCaching: true
       enableChunkedPrefill: false
-      maxModelLen: 4096
+      maxModelLen: 8192
       dtype: "auto"
       tensorParallelSize: 1
       maxNumSeqs: 1
       maxLoras: 0
       gpuMemoryUtilization: 0.90
-
-      extraArgs: []
     
   - name: "qwen2-coder"
     enabled: false
