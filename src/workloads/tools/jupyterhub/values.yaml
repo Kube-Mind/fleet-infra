@@ -116,14 +116,8 @@ hub:
       - ports:
           - port: 6443
   
-  nodeAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: nvidia.com/gpu.present
-              operator: In
-              values:
-                - "true"
+  nodeSelector:
+    nvidia.com/gpu.present: "true"
 
   service:
     type: ClusterIP
