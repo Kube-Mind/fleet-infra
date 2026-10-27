@@ -49,7 +49,7 @@ gateway:
         - model_name: gpt-oss-20b
           litellm_params:
             model: hosted_vllm/openai/gpt-oss-20b
-            api_base: "http://vllm-openai/gpt-oss-20b-engine-service.vllm.svc.cluster.local:80/v1"
+            api_base: "http://vllm-openai/vllm-gpt-oss-20b-engine-service.vllm.svc.cluster.local:80/v1"
 
         - model_name: qwen2-general
           litellm_params:
