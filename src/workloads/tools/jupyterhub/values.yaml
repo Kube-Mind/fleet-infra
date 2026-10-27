@@ -115,6 +115,15 @@ hub:
     egress:
       - ports:
           - port: 6443
+  
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: nvidia.com/gpu.present
+              operator: In
+              values:
+                - "true"
 
   service:
     type: ClusterIP
@@ -158,13 +167,13 @@ singleuser:
         # extra_resource_limits:
         #   nvidia.com/gpu: "1"
         mem_limit: 4G
-        node_affinity_required:
-          required:
-            - matchExpressions:
-              - key: kubernetes.io/hostname
-                operator: In
-                values:
-                  - franky
+        # node_affinity_required:
+        #   required:
+        #     - matchExpressions:
+        #       - key: kubernetes.io/hostname
+        #         operator: In
+        #         values:
+        #           - franky
   storage:
     type: dynamic
     dynamic:
