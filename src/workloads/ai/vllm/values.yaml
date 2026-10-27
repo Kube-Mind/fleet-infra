@@ -24,8 +24,57 @@ servingEngineSpec:
   ## The model below serves as an example. It is not deployed by default.
   modelSpec:
   # -- The name of the model.
-  - name: "qwen2-coder"
+  - name: "gemma4-26b-a4b"
     enabled: true
+    runtimeClassName: "nvidia"
+
+    repository: "lmcache/vllm-openai"
+    tag: "gemma4-gguf" # Custom image built below
+
+    modelURL: "ggml-org/gemma-4-26B-A4B-it-GGUF:Q4_K_M"
+    modelRevision: ""
+    replicaCount: 1
+
+    requestCPU: 8
+    requestMemory: "32Gi"
+    requestGPU: 1
+    requestGPUMem: "16000"
+    requestGPUCores: "90"
+    limitCPU: 12
+    limitMemory: "40Gi"
+    limitGPUMem: "16000"
+    limitGPUCores: "90"
+
+    pvcStorage: "60Gi"
+    pvcAccessMode:
+      - ReadWriteOnce
+    storageClass: "longhorn"
+
+    env:
+      - name: HF_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: vllm-external-secret
+            key: HUGGING_FACE_HUB_TOKEN
+
+    vllmConfig:
+      enablePrefixCaching: true
+      enableChunkedPrefill: false
+      maxModelLen: 4096
+      dtype: "auto"
+      tensorParallelSize: 1
+      maxNumSeqs: 1
+      maxLoras: 0
+      gpuMemoryUtilization: 0.90
+
+      extraArgs:
+        - "--tokenizer"
+        - "google/gemma-4-26B-A4B-it"
+        - "--reasoning-parser"
+        - "gemma4"
+    
+  - name: "qwen2-coder"
+    enabled: false
     runtimeClassName: "nvidia"
     repository: "lmcache/vllm-openai"
     tag: "latest"
