@@ -25,11 +25,11 @@ servingEngineSpec:
   modelSpec:
   # -- The name of the model.
   - name: "gemma4-26b-a4b"
-    enabled: false
+    enabled: true
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
-    tag: "gemma4-gguf" # Custom image built below
+    tag: ""
 
     modelURL: "ggml-org/gemma-4-26B-A4B-it-GGUF:Q4_K_M"
     modelRevision: ""
@@ -74,7 +74,7 @@ servingEngineSpec:
         - "gemma4"
     
   - name: "qwen2-coder"
-    enabled: true
+    enabled: false
     runtimeClassName: "nvidia"
     repository: "lmcache/vllm-openai"
     tag: "latest"
