@@ -185,12 +185,13 @@ enableOpenaiApi: true
 
 # -- OpenAI base API URL to use. Defaults to the Pipelines service endpoint when Pipelines are enabled, and "https://api.openai.com/v1".
 # if Pipelines are not enabled and this value is blank
-openaiBaseApiUrl: "http://open-webui-pipelines:9099/v1"
+openaiBaseApiUrl: ""
 
 # -- OpenAI base API URLs to use. Overwrites the value in openaiBaseApiUrl if set
-openaiBaseApiUrls: []
-  # - "https://api.openai.com/v1"
-  # - "https://api.company.openai.com/v1"
+openaiBaseApiUrls:
+  - "http://open-webui-pipelines.open-webui.svc.cluster.local:9099"
+  - "http://open-webui-pipelines:9099/v1"
+  - "http://litellm-gateway.litellm.svc.cluster.local:4000/v1"
 
 # -- Env vars added to the Open WebUI deployment. Most up-to-date environment variables can be found here: https://docs.openwebui.com/getting-started/env-configuration/
 extraEnvVars:
