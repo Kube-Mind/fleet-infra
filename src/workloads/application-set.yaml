@@ -37,6 +37,7 @@ spec:
               name: open-webui-terminals-api-key
               jsonPointers:
                 - /data/api-key
+        
         # - name: sd-comfyui
         #   component: ai
         #   wave: 40
@@ -45,6 +46,7 @@ spec:
         #     kind: StatefulSet
         #     jqPathExpressions:
         #     - '.spec.volumeClaimTemplates[]'
+        
         - name: vllm
           component: ai
           wave: 40
