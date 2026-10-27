@@ -31,7 +31,7 @@ servingEngineSpec:
     repository: "lmcache/vllm-openai"
     tag: "latest"
 
-    modelURL: "google/gemma-4-26B-A4B-it-qat-q4_0-gguf:Q4_0"
+    modelURL: "google/gemma-4-26B-A4B-it-qat-q4_0-gguf"
     modelRevision: ""
     replicaCount: 1
 
