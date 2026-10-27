@@ -66,7 +66,11 @@ servingEngineSpec:
       dtype: "auto"
       tensorParallelSize: 1
       maxLoras: 0
-      extraArgs: []
+      extraArgs:
+        - "--kv-offloading-backend"
+        - "native"
+        - "--kv-offloading-size"
+        - "4"
     
   - name: "qwen2-coder"
     enabled: false
