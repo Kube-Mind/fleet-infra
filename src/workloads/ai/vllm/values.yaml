@@ -67,6 +67,9 @@ servingEngineSpec:
       tensorParallelSize: 1
       maxLoras: 0
       extraArgs:
+        - "--enable-auto-tool-choice"
+        - "--tool-call-parser"
+        - "openai"
         - "--kv-offloading-backend"
         - "native"
         - "--kv-offloading-size"
