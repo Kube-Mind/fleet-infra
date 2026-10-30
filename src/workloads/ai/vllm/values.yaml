@@ -27,7 +27,7 @@ servingEngineSpec:
 
 # Qwen3.8-27B - RTX 4000 Ada 20GB
   - name: "qwen3-27b"
-    enabled: false
+    enabled: true
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
