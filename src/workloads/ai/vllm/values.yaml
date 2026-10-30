@@ -402,51 +402,41 @@ servingEngineSpec:
   # -- deployment strategy
   strategy: {}
 
-  # -- Readiness probe configuration
+  # -- Startup probe configuration
   startupProbe:
-    # -- Number of seconds after the container has started before startup probe is initiated
-    initialDelaySeconds: 15
-    # -- How often (in seconds) to perform the startup probe
+    # Allow sufficient time for model download, loading and GPU initialisation
+    initialDelaySeconds: 30
     periodSeconds: 10
-    # -- Number of times after which if a probe fails in a row, Kubernetes considers that the overall check has failed: the container is not ready
-    failureThreshold:
-      60
-      # -- Configuration of the Kubelet http request on the server
+    timeoutSeconds: 5
+    failureThreshold: 180
+    successThreshold: 1
     httpGet:
-      # -- Path to access on the HTTP server
       path: /health
-      # -- Name or number of the port to access on the container, on which the server is listening
-      port: 8000  # @schema type:[integer, string]
+      port: 8000
 
   # -- Liveness probe configuration
   livenessProbe:
-    # -- Number of seconds after the container has started before liveness probe is initiated
+    # Startup probe takes precedence until it succeeds
     initialDelaySeconds: 15
-    # -- Number of times after which if a probe fails in a row, Kubernetes considers that the overall check has failed: the container is not alive
+    periodSeconds: 20
+    timeoutSeconds: 5
     failureThreshold: 3
-    # -- How often (in seconds) to perform the liveness probe
-    periodSeconds: 10
-    # -- Configuration of the Kubelet http request on the server
+    successThreshold: 1
     httpGet:
-      # -- Path to access on the HTTP server
       path: /health
-      # -- Name or number of the port to access on the container, on which the server is listening
-      port: 8000  # @schema type:[integer, string]
+      port: 8000
 
   # -- Readiness probe configuration
   readinessProbe:
-    # -- Number of seconds after the container has started before readiness probe is initiated
-    initialDelaySeconds: 15
-    # -- Number of times after which if a probe fails in a row, Kubernetes considers that the overall check has failed: the container is not alive
+    # Keep the pod out of service until vLLM is ready
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
     failureThreshold: 3
-    # -- How often (in seconds) to perform the readiness probe
-    periodSeconds: 5
-    # -- Configuration of the Kubelet http request on the server
+    successThreshold: 1
     httpGet:
-      # -- Path to access on the HTTP server
       path: /health
-      # -- Name or number of the port to access on the container, on which the server is listening
-      port: 8000  # @schema type:[integer, string]
+      port: 8000
 
   # -- Tolerations configuration (when there are taints on nodes)
   # Example:
