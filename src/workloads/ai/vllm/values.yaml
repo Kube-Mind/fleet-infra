@@ -66,11 +66,11 @@ servingEngineSpec:
 
     vllmConfig:
       # Start conservatively
-      maxModelLen: 16384
+      maxModelLen: 4096
       maxNumSeqs: 1
 
       # Reserve GPU memory for CUDA/runtime allocations
-      gpuMemoryUtilization: 0.90
+      gpuMemoryUtilization: 0.85
 
       # Memory and execution optimisations
       enablePrefixCaching: true
@@ -83,8 +83,8 @@ servingEngineSpec:
       extraArgs:
         # Retain CPU offloading initially for model fit.
         # Test reducing this after confirming GPU memory headroom.
-        - "--cpu-offload-gb"
-        - "2"
+        # - "--cpu-offload-gb"
+        # - "6"
 
         # Reduce KV-cache memory consumption
         - "--kv-cache-dtype"
