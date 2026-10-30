@@ -66,11 +66,11 @@ servingEngineSpec:
 
     vllmConfig:
       # Context and concurrency
-      maxModelLen: 16384
+      maxModelLen: 8192
       maxNumSeqs: 1
 
       # GPU memory
-      gpuMemoryUtilization: 0.95
+      gpuMemoryUtilization: 0.98
 
       # Execution optimisations
       enablePrefixCaching: true
