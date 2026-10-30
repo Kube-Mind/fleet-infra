@@ -83,8 +83,8 @@ servingEngineSpec:
       extraArgs:
         # Retain CPU offloading initially for model fit.
         # Test reducing this after confirming GPU memory headroom.
-        # - "--cpu-offload-gb"
-        # - "6"
+        - "--cpu-offload-gb"
+        - "2"
 
         # Reduce KV-cache memory consumption
         - "--kv-cache-dtype"
