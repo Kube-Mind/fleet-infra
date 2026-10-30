@@ -46,16 +46,18 @@ gateway:
   config:
     proxy_config:
       model_list:
-        - model_name: gpt-oss-20b
+        - model_name: qwen3-coder
           litellm_params:
-            model: hosted_vllm/openai/gpt-oss-20b
-            api_base: "http://vllm-gpt-oss-20b-engine-service.vllm.svc.cluster.local:80/v1"
-
+            model: hosted_vllm/avyukth/Qwen3.8-27B-AWQ-INT4
+            api_base: "http://vllm-qwen3-27b-engine-service.vllm.svc.cluster.local:80/v1"
         - model_name: qwen2-general
           litellm_params:
             model: hosted_vllm/Qwen/Qwen2.5-3B-Instruct-AWQ
             api_base: "http://vllm-qwen-general-engine-service.vllm.svc.cluster.local:80/v1"
-
+        # - model_name: gpt-oss-20b
+        #   litellm_params:
+        #     model: hosted_vllm/openai/gpt-oss-20b
+        #     api_base: "http://vllm-gpt-oss-20b-engine-service.vllm.svc.cluster.local:80/v1"
         # - model_name: qwen2-coder
         #   litellm_params:
         #     model: hosted_vllm/Qwen/Qwen2.5-Coder-7B-Instruct-AWQ
