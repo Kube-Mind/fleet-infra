@@ -24,8 +24,92 @@ servingEngineSpec:
   ## The model below serves as an example. It is not deployed by default.
   modelSpec:
   # -- The name of the model.
-  - name: "gpt-oss-20b"
+
+# Qwen3.8-27B - RTX 4000 Ada 20GB
+  - name: "qwen3.8-27b"
     enabled: true
+    runtimeClassName: "nvidia"
+
+    repository: "lmcache/vllm-openai"
+    tag: "latest"
+
+    modelURL: "avyukth/Qwen3.8-27B-AWQ-INT4"
+    modelRevision: ""
+    replicaCount: 1
+
+    # CPU resources
+    requestCPU: 12
+    requestMemory: "64Gi"
+
+    # Single RTX 4000 Ada
+    requestGPU: 1
+    requestGPUMem: "18000"
+    requestGPUCores: "90"
+
+    limitCPU: 16
+    limitMemory: "80Gi"
+    limitGPUMem: "18000"
+    limitGPUCores: "90"
+
+    # Model storage
+    pvcStorage: "80Gi"
+    pvcAccessMode:
+      - ReadWriteOnce
+    storageClass: "longhorn"
+
+    env:
+      - name: HF_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: vllm-external-secret
+            key: HUGGING_FACE_HUB_TOKEN
+
+    vllmConfig:
+      # Start conservatively
+      maxModelLen: 16384
+      maxNumSeqs: 1
+
+      # Reserve GPU memory for CUDA/runtime allocations
+      gpuMemoryUtilization: 0.90
+
+      # Memory and execution optimisations
+      enablePrefixCaching: true
+      enableChunkedPrefill: true
+
+      dtype: "auto"
+      tensorParallelSize: 1
+      maxLoras: 0
+
+      extraArgs:
+        # CPU weight offloading
+        - "--cpu-offload-gb"
+        - "6"
+
+        # Quantised KV cache
+        - "--kv-cache-dtype"
+        - "fp8"
+
+        # KV cache offloading
+        - "--kv-offloading-backend"
+        - "native"
+        - "--kv-offloading-size"
+        - "4"
+
+        # Limit prefill memory consumption
+        - "--max-num-batched-tokens"
+        - "2048"
+
+        # Qwen reasoning support
+        - "--reasoning-parser"
+        - "qwen3"
+
+        # OpenCode tool calling
+        - "--enable-auto-tool-choice"
+        - "--tool-call-parser"
+        - "qwen3_coder"
+
+  - name: "gpt-oss-20b"
+    enabled: false
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
