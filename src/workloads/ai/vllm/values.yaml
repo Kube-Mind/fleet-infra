@@ -83,7 +83,7 @@ servingEngineSpec:
       extraArgs:
         # CPU weight offloading
         - "--cpu-offload-gb"
-        - "2"
+        - "4"
 
         # Quantised KV cache
         - "--kv-cache-dtype"
