@@ -43,13 +43,13 @@ servingEngineSpec:
 
     # Single RTX 4000 Ada
     requestGPU: 1
-    requestGPUMem: "18000"
-    requestGPUCores: "100"
+    requestGPUMem: "20000"
+    requestGPUCores: "90"
 
     limitCPU: 16
     limitMemory: "80Gi"
-    limitGPUMem: "18000"
-    limitGPUCores: "100"
+    limitGPUMem: "20000"
+    limitGPUCores: "90"
 
     # Model storage
     pvcStorage: "80Gi"
@@ -66,11 +66,11 @@ servingEngineSpec:
 
     vllmConfig:
       # Start conservatively
-      maxModelLen: 4096
+      maxModelLen: 65536
       maxNumSeqs: 1
 
       # Reserve GPU memory for CUDA/runtime allocations
-      gpuMemoryUtilization: 0.85
+      gpuMemoryUtilization: 0.95
 
       # Memory and execution optimisations
       enablePrefixCaching: true
@@ -82,26 +82,26 @@ servingEngineSpec:
 
       extraArgs:
         # Retain CPU offloading initially for model fit.
-        # Test reducing this after confirming GPU memory headroom.
-        # - "--cpu-offload-gb"
-        # - "6"
+      # Test reducing this after confirming GPU memory headroom.
+      # - "--cpu-offload-gb"
+      # - "6"
 
-        # Reduce KV-cache memory consumption
-        - "--kv-cache-dtype"
-        - "fp8"
+      # Reduce KV-cache memory consumption
+      - "--kv-cache-dtype"
+      - "fp8"
 
-        # Prefill batch sizing
-        - "--max-num-batched-tokens"
-        - "4096"
+      # Prefill batch sizing
+      - "--max-num-batched-tokens"
+      - "2048"
 
-        # Qwen reasoning support
-        - "--reasoning-parser"
-        - "qwen3"
+      # Qwen reasoning support
+      - "--reasoning-parser"
+      - "qwen3"
 
-        # OpenCode tool calling
-        - "--enable-auto-tool-choice"
-        - "--tool-call-parser"
-        - "qwen3_coder"
+      # OpenCode tool calling
+      - "--enable-auto-tool-choice"
+      - "--tool-call-parser"
+      - "qwen3_coder"
 
   - name: "gpt-oss-20b"
     enabled: false
