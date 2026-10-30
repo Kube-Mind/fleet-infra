@@ -81,21 +81,16 @@ servingEngineSpec:
       maxLoras: 0
 
       extraArgs:
-        # CPU weight offloading
+        # Retain CPU offloading initially for model fit.
+        # Test reducing this after confirming GPU memory headroom.
         - "--cpu-offload-gb"
-        - "4"
+        - "6"
 
-        # Quantised KV cache
+        # Reduce KV-cache memory consumption
         - "--kv-cache-dtype"
         - "fp8"
 
-        # KV cache offloading
-        - "--kv-offloading-backend"
-        - "native"
-        - "--kv-offloading-size"
-        - "4"
-
-        # Limit prefill memory consumption
+        # Prefill batch sizing
         - "--max-num-batched-tokens"
         - "2048"
 
