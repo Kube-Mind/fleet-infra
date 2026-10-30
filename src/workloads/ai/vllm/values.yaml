@@ -66,7 +66,7 @@ servingEngineSpec:
 
     vllmConfig:
       # Start conservatively
-      maxModelLen: 16384
+      maxModelLen: 65536
       maxNumSeqs: 1
 
       # Reserve GPU memory for CUDA/runtime allocations
