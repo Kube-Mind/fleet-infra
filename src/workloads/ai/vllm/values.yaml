@@ -60,7 +60,7 @@ servingEngineSpec:
     vllmConfig:
       maxModelLen: 65536
       maxNumSeqs: 1
-      gpuMemoryUtilization: 0.95
+      gpuMemoryUtilization: 0.96
       enablePrefixCaching: true
       enableChunkedPrefill: true
       dtype: "auto"
