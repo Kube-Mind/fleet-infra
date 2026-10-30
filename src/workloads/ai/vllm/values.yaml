@@ -44,12 +44,12 @@ servingEngineSpec:
     # Single RTX 4000 Ada
     requestGPU: 1
     requestGPUMem: "18000"
-    requestGPUCores: "90"
+    requestGPUCores: "100"
 
     limitCPU: 16
     limitMemory: "80Gi"
     limitGPUMem: "18000"
-    limitGPUCores: "90"
+    limitGPUCores: "100"
 
     # Model storage
     pvcStorage: "80Gi"
@@ -70,7 +70,7 @@ servingEngineSpec:
       maxNumSeqs: 1
 
       # Reserve GPU memory for CUDA/runtime allocations
-      gpuMemoryUtilization: 0.95
+      gpuMemoryUtilization: 0.98
 
       # Memory and execution optimisations
       enablePrefixCaching: true
@@ -92,7 +92,7 @@ servingEngineSpec:
 
         # Prefill batch sizing
         - "--max-num-batched-tokens"
-        - "2048"
+        - "4096"
 
         # Qwen reasoning support
         - "--reasoning-parser"
