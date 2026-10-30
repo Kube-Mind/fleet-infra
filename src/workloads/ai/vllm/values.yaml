@@ -70,7 +70,7 @@ servingEngineSpec:
       maxNumSeqs: 1
 
       # Reserve GPU memory for CUDA/runtime allocations
-      gpuMemoryUtilization: 0.90
+      gpuMemoryUtilization: 0.95
 
       # Memory and execution optimisations
       enablePrefixCaching: true
