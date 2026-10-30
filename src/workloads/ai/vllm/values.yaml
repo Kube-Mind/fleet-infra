@@ -82,7 +82,7 @@ servingEngineSpec:
 
       extraArgs:
         - "--cpu-offload-gb"
-        - "2"
+        - "4"
         - "--kv-cache-dtype"
         - "fp8"
         - "--max-num-batched-tokens"
