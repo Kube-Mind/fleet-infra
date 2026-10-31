@@ -81,23 +81,15 @@ servingEngineSpec:
       maxLoras: 0
 
       extraArgs:
-        # FP8 KV cache
+        - "--cpu-offload-gb"
+        - "2"
         - "--kv-cache-dtype"
         - "fp8"
-
-        # Conservative prefill batch size
         - "--max-num-batched-tokens"
         - "1024"
-
-        # Skip multimodal encoder memory profiling.
-        # Suitable for text-only workloads.
         - "--skip-mm-profiling"
-
-        # Qwen reasoning support
         - "--reasoning-parser"
         - "qwen3"
-
-        # OpenCode tool calling
         - "--enable-auto-tool-choice"
         - "--tool-call-parser"
         - "qwen3_coder"
