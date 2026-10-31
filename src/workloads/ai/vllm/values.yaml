@@ -70,7 +70,7 @@ servingEngineSpec:
       maxNumSeqs: 1
 
       # GPU memory
-      gpuMemoryUtilization: 0.98
+      gpuMemoryUtilization: 0.90
 
       # Execution optimisations
       enablePrefixCaching: true
