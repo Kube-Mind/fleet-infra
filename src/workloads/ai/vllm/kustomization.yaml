@@ -10,4 +10,4 @@ helmCharts:
   releaseName: vllm
   repo: https://vllm-project.github.io/production-stack
   valuesFile: values.yaml
-  version: 0.1.13
+  version: 0.1.14
