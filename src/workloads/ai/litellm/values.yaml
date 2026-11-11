@@ -48,8 +48,12 @@ gateway:
       model_list:
         - model_name: qwen3-coder
           litellm_params:
-            model: hosted_vllm/avyukth/Qwen3.8-27B-AWQ-INT4
-            api_base: "http://vllm-qwen3-27b-engine-service.vllm.svc.cluster.local:80/v1"
+            model: hosted_vllm/groxaxo/Qwopus3.5-9B-Coder-Flash-Heretic
+            api_base: "http://vllm-qwopus3-9b-engine-service.vllm.svc.cluster.local:80/v1"
+        # - model_name: qwen3-coder
+        #   litellm_params:
+        #     model: hosted_vllm/avyukth/Qwen3.8-27B-AWQ-INT4
+        #     api_base: "http://vllm-qwen3-27b-engine-service.vllm.svc.cluster.local:80/v1"
         - model_name: qwen2-general
           litellm_params:
             model: hosted_vllm/Qwen/Qwen2.5-3B-Instruct-AWQ
