@@ -25,81 +25,55 @@ servingEngineSpec:
   modelSpec:
   # -- The name of the model.
   # Qwen3.6-27B-GPTQ-Int4 - RTX 4000 Ada 20GB
-  - name: "qwen3-27b-coder390"
+  - name: "qwopus3-27b-coder-flash"
     enabled: true
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
     tag: "latest"
 
-    modelURL: "gsdavidp/Qwen3.8-27B-Coder390"
+    modelURL: "mlx-community/Qwopus3.8-27B-Coder-Flash-4bit"
     modelRevision: ""
     replicaCount: 1
 
-    # CPU resources
-    requestCPU: 16
-    requestMemory: "64Gi"
-
-    # RTX 4000 Ada
+    requestCPU: 8
+    requestMemory: "40Gi"
     requestGPU: 1
-    requestGPUMem: "20000"
-    requestGPUCores: "90"
+    requestGPUMem: 19456
+    requestGPUCores: 90
 
-    limitCPU: 20
-    limitMemory: "80Gi"
-    limitGPUMem: "20000"
-    limitGPUCores: "90"
+    limitCPU: 16
+    limitMemory: "48Gi"
+    limitGPUMem: 19456
+    limitGPUCores: 90
 
-    # Model storage
-    pvcStorage: "80Gi"
-    pvcAccessMode:
-      - ReadWriteOnce
+    pvcStorage: "100Gi"
+    pvcAccessMode: "ReadWriteOnce"
     storageClass: "longhorn"
 
     env:
-      - name: HF_TOKEN
+      - name: "HUGGING_FACE_HUB_TOKEN"
         valueFrom:
           secretKeyRef:
-            name: vllm-external-secret
-            key: HUGGING_FACE_HUB_TOKEN
-      - name: "VLLM_USE_FLASHINFER_SAMPLER"
-        value: "0"
+            name: "vllm-external-secret"
+            key: "HUGGING_FACE_HUB_TOKEN"
 
     vllmConfig:
-      maxModelLen: 4096
+      maxModelLen: 2048
       maxNumSeqs: 1
-      gpuMemoryUtilization: 0.90
-
-      enablePrefixCaching: true
+      gpuMemoryUtilization: 0.95
+      dtype: "bfloat16"
+      tensorParallelSize: 1
+      enablePrefixCaching: false
       enableChunkedPrefill: true
 
-      dtype: "auto"
-      tensorParallelSize: 1
-      maxLoras: 0
-
-      extraArgs:
-        # Increased CPU weight offloading
-        - "--cpu-offload-gb"
-        - "6"
-
-        # Memory-efficient KV cache
-        - "--kv-cache-dtype"
-        - "fp8"
-
-        - "--max-num-batched-tokens"
-        - "512"
-
-        # Coding workload
-        - "--language-model-only"
-
-        # Agentic reasoning and tool calling
-        - "--trust-remote-code"
-        - "--reasoning-parser"
-        - "qwen3"
-
-        - "--enable-auto-tool-choice"
-        - "--tool-call-parser"
-        - "qwen3_coder"
+    extraArgs:
+      - "--trust-remote-code"
+      - "--reasoning-parser"
+      - "qwen3"
+      - "--enable-auto-tool-choice"
+      - "--tool-call-parser"
+      - "qwen3_coder"
 
   # Qwen3.8-27B - RTX 4000 Ada 20GB
   - name: "qwen3-27b"
