@@ -69,6 +69,7 @@ servingEngineSpec:
       enableChunkedPrefill: true
 
     extraArgs:
+      - "--language-model-only"
       - "--trust-remote-code"
       - "--reasoning-parser"
       - "qwen3"
