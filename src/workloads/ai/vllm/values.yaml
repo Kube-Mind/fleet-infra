@@ -23,16 +23,15 @@ servingEngineSpec:
   # -- Array of specifications for configuring multiple serving engine deployments running different models. Each entry in the modelSpec array should contain the following fields
   ## The model below serves as an example. It is not deployed by default.
   modelSpec:
-  # -- The name of the model.
-  # Qwopus3.5-9B-Coder-Flash-Heretic
-  - name: "qwopus3-9b"
+  # Qwen3-Coder-30B-A3B-REAP-AWQ
+  - name: "qwen3-coder-30b"
     enabled: true
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
     tag: "latest"
 
-    modelURL: "groxaxo/Qwopus3.5-9B-Coder-Flash-Heretic"
+    modelURL: "mattbucci/Qwen3-Coder-30B-A3B-REAP-AWQ"
     modelRevision: ""
     replicaCount: 1
 
@@ -75,29 +74,19 @@ servingEngineSpec:
       enablePrefixCaching: true
       enableChunkedPrefill: true
 
-      dtype: "auto"
+      # Model precision
+      dtype: "bfloat16"
       tensorParallelSize: 1
       maxLoras: 0
-
       extraArgs:
-        # Qwen3.5 architecture
-        - "--trust-remote-code"
-
-        # Text-only inference: save VRAM
-        - "--language-model-only"
-
-        # Online FP8 weight quantization
         - "--quantization"
-        - "fp8_per_tensor"
-
-        # Reasoning support
-        - "--reasoning-parser"
-        - "qwen3"
-
-        # Agentic coding / tool calling
+        - "moe_wna16"
         - "--enable-auto-tool-choice"
         - "--tool-call-parser"
         - "qwen3_coder"
+        - "--disable-cuda-graph"
+
+
   # Qwen3.8-27B - RTX 4000 Ada 20GB
   - name: "qwen3-27b"
     enabled: false
