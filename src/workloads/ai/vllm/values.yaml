@@ -24,7 +24,7 @@ servingEngineSpec:
   ## The model below serves as an example. It is not deployed by default.
   modelSpec:
   # -- The name of the model.
-  # Qwen3.8-27B - RTX 4000 Ada 20GB
+  # Qwen3.6-27B-GPTQ-Int4 - RTX 4000 Ada 20GB
   - name: "qwen3-27b-gptq"
     enabled: true
     runtimeClassName: "nvidia"
@@ -32,7 +32,7 @@ servingEngineSpec:
     repository: "lmcache/vllm-openai"
     tag: "latest"
 
-    modelURL: "Qwen/Qwen3.5-27B-GPTQ-Int4"
+    modelURL: "Qwen/Qwen3.6-27B-GPTQ-Int4"
     modelRevision: ""
     replicaCount: 1
 
@@ -40,7 +40,7 @@ servingEngineSpec:
     requestCPU: 16
     requestMemory: "64Gi"
 
-    # RTX 4000 Ada - full HAMi GPU allocation
+    # RTX 4000 Ada
     requestGPU: 1
     requestGPUMem: "20000"
     requestGPUCores: "90"
@@ -64,15 +64,10 @@ servingEngineSpec:
             key: HUGGING_FACE_HUB_TOKEN
 
     vllmConfig:
-      # Context and concurrency
-      maxModelLen: 8192
+      maxModelLen: 4096
       maxNumSeqs: 1
-      maxNumBatchedTokens: 1024
-
-      # GPU memory
       gpuMemoryUtilization: 0.90
 
-      # Execution optimisations
       enablePrefixCaching: true
       enableChunkedPrefill: true
 
@@ -81,22 +76,24 @@ servingEngineSpec:
       maxLoras: 0
 
       extraArgs:
-        # Small CPU offload allowance to help fit within 20 GB
+        # Increased CPU weight offloading
         - "--cpu-offload-gb"
-        - "2"
+        - "6"
 
         # Memory-efficient KV cache
         - "--kv-cache-dtype"
         - "fp8"
 
-        # Coding workload: no vision encoder required
+        - "--max-num-batched-tokens"
+        - "512"
+
+        # Coding workload
         - "--language-model-only"
 
-        # Qwen reasoning support
+        # Agentic reasoning and tool calling
         - "--reasoning-parser"
         - "qwen3"
 
-        # Agentic tool calling for OpenCode
         - "--enable-auto-tool-choice"
         - "--tool-call-parser"
         - "qwen3_coder"
