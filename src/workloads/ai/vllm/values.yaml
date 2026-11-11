@@ -25,14 +25,14 @@ servingEngineSpec:
   modelSpec:
   # -- The name of the model.
   # Qwen3.6-27B-GPTQ-Int4 - RTX 4000 Ada 20GB
-  - name: "qwen3-27b-gptq"
+  - name: "qwen3.8-27b-coder390"
     enabled: true
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
     tag: "latest"
 
-    modelURL: "Qwen/Qwen3.6-27B-GPTQ-Int4"
+    modelURL: "gsdavidp/Qwen3.8-27B-Coder390"
     modelRevision: ""
     replicaCount: 1
 
@@ -62,6 +62,8 @@ servingEngineSpec:
           secretKeyRef:
             name: vllm-external-secret
             key: HUGGING_FACE_HUB_TOKEN
+      - name: "VLLM_USE_FLASHINFER_SAMPLER"
+        value: "0"
 
     vllmConfig:
       maxModelLen: 4096
@@ -91,6 +93,7 @@ servingEngineSpec:
         - "--language-model-only"
 
         # Agentic reasoning and tool calling
+        - "--trust-remote-code"
         - "--reasoning-parser"
         - "qwen3"
 
