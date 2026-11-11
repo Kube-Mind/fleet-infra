@@ -79,13 +79,12 @@ servingEngineSpec:
       tensorParallelSize: 1
       maxLoras: 0
       extraArgs:
-        - "--quantization"
-        - "moe_wna16"
         - "--enable-auto-tool-choice"
+        - "--reasoning-parser"
+        - "qwen3"
         - "--tool-call-parser"
         - "qwen3_coder"
-        - "--disable-cuda-graph"
-
+        - "--disable-log-requests"
 
   # Qwen3.8-27B - RTX 4000 Ada 20GB
   - name: "qwen3-27b"
