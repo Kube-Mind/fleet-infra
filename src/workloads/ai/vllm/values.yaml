@@ -24,62 +24,9 @@ servingEngineSpec:
   ## The model below serves as an example. It is not deployed by default.
   modelSpec:
   # -- The name of the model.
-  # Qwen3.6-27B-GPTQ-Int4 - RTX 4000 Ada 20GB
-  - name: "qwopus3-27b-coder-flash"
-    enabled: true
-    runtimeClassName: "nvidia"
-
-    repository: "lmcache/vllm-openai"
-    tag: "latest"
-
-    modelURL: "mlx-community/Qwopus3.8-27B-Coder-Flash-4bit"
-    modelRevision: ""
-    replicaCount: 1
-
-    requestCPU: 8
-    requestMemory: "40Gi"
-    requestGPU: 1
-    requestGPUMem: 19456
-    requestGPUCores: 90
-
-    limitCPU: 16
-    limitMemory: "48Gi"
-    limitGPUMem: 19456
-    limitGPUCores: 90
-
-    pvcStorage: "100Gi"
-    pvcAccessMode:
-      - "ReadWriteOnce"
-    storageClass: "longhorn"
-
-    env:
-      - name: "HUGGING_FACE_HUB_TOKEN"
-        valueFrom:
-          secretKeyRef:
-            name: "vllm-external-secret"
-            key: "HUGGING_FACE_HUB_TOKEN"
-
-    vllmConfig:
-      maxModelLen: 2048
-      maxNumSeqs: 1
-      gpuMemoryUtilization: 0.95
-      dtype: "bfloat16"
-      tensorParallelSize: 1
-      enablePrefixCaching: false
-      enableChunkedPrefill: true
-
-    extraArgs:
-      - "--language-model-only"
-      - "--trust-remote-code"
-      - "--reasoning-parser"
-      - "qwen3"
-      - "--enable-auto-tool-choice"
-      - "--tool-call-parser"
-      - "qwen3_coder"
-
   # Qwen3.8-27B - RTX 4000 Ada 20GB
   - name: "qwen3-27b"
-    enabled: false
+    enabled: true
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
@@ -118,7 +65,7 @@ servingEngineSpec:
 
     vllmConfig:
       # Context and concurrency
-      maxModelLen: 32768
+      maxModelLen: 65536
       maxNumSeqs: 1
 
       # GPU memory
@@ -134,12 +81,11 @@ servingEngineSpec:
 
       extraArgs:
         - "--cpu-offload-gb"
-        - "2"
+        - "4"
         - "--kv-cache-dtype"
         - "fp8"
         - "--max-num-batched-tokens"
-        - "1024"
-        - "--skip-mm-profiling"
+        - "2048"
         - "--reasoning-parser"
         - "qwen3"
         - "--enable-auto-tool-choice"
