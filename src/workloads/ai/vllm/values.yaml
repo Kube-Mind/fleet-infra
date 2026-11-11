@@ -34,7 +34,7 @@ servingEngineSpec:
     tag: "latest"
 
     modelURL: "AtomicChat/Qwen3-Coder-30B-A3B-GGUF"
-    modelRevision: "Q2_K"
+    modelRevision: ""
     replicaCount: 1
 
     # CPU resources
