@@ -46,7 +46,7 @@ gateway:
   config:
     proxy_config:
       model_list:
-        - model_name: qwen3-coder
+        - model_name: qwopus-coder
           litellm_params:
             model: hosted_vllm/groxaxo/Qwopus3.5-9B-Coder-Flash-Heretic
             api_base: "http://vllm-qwopus3-9b-engine-service.vllm.svc.cluster.local:80/v1"
