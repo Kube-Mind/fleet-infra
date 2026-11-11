@@ -48,7 +48,8 @@ servingEngineSpec:
     limitGPUCores: 90
 
     pvcStorage: "100Gi"
-    pvcAccessMode: "ReadWriteOnce"
+    pvcAccessMode:
+      - "ReadWriteOnce"
     storageClass: "longhorn"
 
     env:
