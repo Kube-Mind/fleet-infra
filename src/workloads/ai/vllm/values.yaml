@@ -80,8 +80,8 @@ servingEngineSpec:
       maxLoras: 0
       extraArgs:
         - "--enable-auto-tool-choice"
-        - "--reasoning-parser"
-        - "qwen3"
+        # - "--reasoning-parser"
+        # - "qwen3"
         - "--tool-call-parser"
         - "qwen3_coder"
 
