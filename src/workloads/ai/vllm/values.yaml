@@ -26,13 +26,13 @@ servingEngineSpec:
   # -- The name of the model.
   # Qwen3.8-27B - RTX 4000 Ada 20GB
   - name: "qwen3-27b"
-    enabled: true
+    enabled: false
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
     tag: "latest"
 
-    modelURL: "nchapman/Qwen3.8-27B-W2.6A16-HGPTQ-RCO"
+    modelURL: "avyukth/Qwen3.8-27B-AWQ-INT4"
     modelRevision: ""
     replicaCount: 1
 
@@ -80,8 +80,13 @@ servingEngineSpec:
       maxLoras: 0
 
       extraArgs:
-        - "--tokenizer"
-        - "Qwen/Qwen3.8-27B"
+        - "--cpu-offload-gb"
+        - "2"
+        - "--kv-cache-dtype"
+        - "fp8"
+        - "--max-num-batched-tokens"
+        - "1024"
+        - "--skip-mm-profiling"
         - "--reasoning-parser"
         - "qwen3"
         - "--enable-auto-tool-choice"
