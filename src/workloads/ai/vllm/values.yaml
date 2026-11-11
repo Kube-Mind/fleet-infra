@@ -33,7 +33,7 @@ servingEngineSpec:
     repository: "lmcache/vllm-openai"
     tag: "latest"
 
-    modelURL: "hf.co/AtomicChat/Qwen3-Coder-30B-A3B-GGUF:Q2_K"
+    modelURL: "AtomicChat/Qwen3-Coder-30B-A3B-GGUF:Q2_K"
     modelRevision: ""
     replicaCount: 1
 
