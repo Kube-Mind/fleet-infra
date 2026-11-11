@@ -32,7 +32,7 @@ servingEngineSpec:
     repository: "lmcache/vllm-openai"
     tag: "latest"
 
-    modelURL: "gsdavidp/Qwen3.8-27B-Coder390"
+    modelURL: "gsdavidp/Qwen3.8-27B-Coder390/INT4/W4A16"
     modelRevision: ""
     replicaCount: 1
 
