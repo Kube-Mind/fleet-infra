@@ -32,7 +32,7 @@ servingEngineSpec:
     repository: "lmcache/vllm-openai"
     tag: "latest"
 
-    modelURL: "avyukth/Qwen3.8-27B-AWQ-INT4"
+    modelURL: "desva0/Qwen3.8-27B-Uncensored-W4A16"
     modelRevision: ""
     replicaCount: 1
 
@@ -65,7 +65,7 @@ servingEngineSpec:
 
     vllmConfig:
       # Context and concurrency
-      maxModelLen: 65536
+      maxModelLen: 32768
       maxNumSeqs: 1
 
       # GPU memory
@@ -80,17 +80,11 @@ servingEngineSpec:
       maxLoras: 0
 
       extraArgs:
-        - "--cpu-offload-gb"
-        - "8"
         - "--kv-cache-dtype"
         - "fp8"
-        - "--max-num-batched-tokens"
-        - "2048"
-        - "--reasoning-parser"
-        - "qwen3"
         - "--enable-auto-tool-choice"
         - "--tool-call-parser"
-        - "qwen3_coder"
+        - "hermes"
 
   - name: "gpt-oss-20b"
     enabled: false
