@@ -32,7 +32,7 @@ servingEngineSpec:
     repository: "lmcache/vllm-openai"
     tag: "latest"
 
-    modelURL: "desva0/Qwen3.8-27B-Uncensored-W4A16"
+    modelURL: "razarath/Qwen3.8-27B-heretic-ara-GPTQ-W4A16-g64-int8-embed"
     modelRevision: ""
     replicaCount: 1
 
@@ -80,9 +80,15 @@ servingEngineSpec:
       maxLoras: 0
 
       extraArgs:
+        - "--kv-cache-dtype"
+        - "fp8"
+        - "--reasoning-parser"
+        - "qwen3"
+        - "--max-num-batched-tokens"
+        - "4096"
         - "--enable-auto-tool-choice"
         - "--tool-call-parser"
-        - "hermes"
+        - "qwen3_xml"
 
   - name: "gpt-oss-20b"
     enabled: false
