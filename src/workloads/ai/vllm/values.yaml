@@ -25,7 +25,7 @@ servingEngineSpec:
   modelSpec:
   # -- The name of the model.
   # Qwopus3.5-9B-Coder-Flash-Heretic
-  - name: "qwopus3-5-9b"
+  - name: "qwopus3-9b"
     enabled: true
     runtimeClassName: "nvidia"
 
