@@ -24,6 +24,80 @@ servingEngineSpec:
   ## The model below serves as an example. It is not deployed by default.
   modelSpec:
   # -- The name of the model.
+  # Qwopus3.5-9B-Coder-Flash-Heretic
+  - name: "qwopus3-5-9b"
+    enabled: true
+    runtimeClassName: "nvidia"
+
+    repository: "lmcache/vllm-openai"
+    tag: "latest"
+
+    modelURL: "groxaxo/Qwopus3.5-9B-Coder-Flash-Heretic"
+    modelRevision: ""
+    replicaCount: 1
+
+    # CPU resources
+    requestCPU: 8
+    requestMemory: "32Gi"
+
+    # RTX 4000 Ada - full GPU allocation
+    requestGPU: 1
+    requestGPUMem: "20000"
+    requestGPUCores: "90"
+
+    limitCPU: 12
+    limitMemory: "48Gi"
+    limitGPUMem: "20000"
+    limitGPUCores: "90"
+
+    # Model storage
+    pvcStorage: "40Gi"
+    pvcAccessMode:
+      - ReadWriteOnce
+    storageClass: "longhorn"
+
+    env:
+      - name: HF_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: vllm-external-secret
+            key: HUGGING_FACE_HUB_TOKEN
+
+    vllmConfig:
+      # Context and concurrency
+      maxModelLen: 8192
+      maxNumSeqs: 1
+
+      # GPU memory
+      gpuMemoryUtilization: 0.90
+
+      # Execution optimisations
+      enablePrefixCaching: true
+      enableChunkedPrefill: true
+
+      dtype: "auto"
+      tensorParallelSize: 1
+      maxLoras: 0
+
+      extraArgs:
+        # Qwen3.5 architecture
+        - "--trust-remote-code"
+
+        # Text-only inference: save VRAM
+        - "--language-model-only"
+
+        # Online FP8 weight quantization
+        - "--quantization"
+        - "fp8_per_tensor"
+
+        # Reasoning support
+        - "--reasoning-parser"
+        - "qwen3"
+
+        # Agentic coding / tool calling
+        - "--enable-auto-tool-choice"
+        - "--tool-call-parser"
+        - "qwen3_coder"
   # Qwen3.8-27B - RTX 4000 Ada 20GB
   - name: "qwen3-27b"
     enabled: false
