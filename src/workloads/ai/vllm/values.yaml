@@ -30,7 +30,7 @@ servingEngineSpec:
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
-    tag: ""
+    tag: "latest"
 
     modelURL: "Qwen/Qwen3.5-27B-GPTQ-Int4"
     modelRevision: ""
