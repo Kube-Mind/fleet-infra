@@ -33,7 +33,7 @@ servingEngineSpec:
     repository: "lmcache/vllm-openai"
     tag: "latest"
 
-    modelURL: "avyukth/Qwen3.8-27B-AWQ-INT4"
+    modelURL: "Qwen/Qwen3.6-35B-A3B"
     modelRevision: ""
     replicaCount: 1
 
