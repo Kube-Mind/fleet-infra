@@ -25,15 +25,15 @@ servingEngineSpec:
   modelSpec:
   # -- The name of the model.
 
-  # Qwen3.8-27B - RTX 4000 Ada 20GB
-  - name: "qwen3-27b"
+  # Qwen3.8-30B - RTX 4000 Ada 20GB
+  - name: "qwen3-30b"
     enabled: true
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
     tag: "latest"
 
-    modelURL: "avyukth/Qwen3.8-27B-AWQ-INT4"
+    modelURL: "hf.co/AtomicChat/Qwen3-Coder-30B-A3B-GGUF:Q2_K"
     modelRevision: ""
     replicaCount: 1
 
