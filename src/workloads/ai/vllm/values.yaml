@@ -25,7 +25,7 @@ servingEngineSpec:
   modelSpec:
   # -- The name of the model.
   # Qwen3.6-27B-GPTQ-Int4 - RTX 4000 Ada 20GB
-  - name: "qwen3.8-27b-coder390"
+  - name: "qwen3-27b-coder390"
     enabled: true
     runtimeClassName: "nvidia"
 
