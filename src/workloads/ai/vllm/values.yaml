@@ -84,8 +84,6 @@ servingEngineSpec:
         - "qwen3"
         - "--tool-call-parser"
         - "qwen3_coder"
-        - "--default-chat-template-kwargs"
-        - '{"enable_thinking": false}'
 
   # Qwen3.8-27B - RTX 4000 Ada 20GB
   - name: "qwen3-27b"
