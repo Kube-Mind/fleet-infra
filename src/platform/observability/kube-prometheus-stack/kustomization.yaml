@@ -12,5 +12,5 @@ helmCharts:
   releaseName: kube-prometheus-stack
   repo: https://prometheus-community.github.io/helm-charts
   valuesFile: values.yaml
-  version: 93.2.2
+  version: 93.3.0
   includeCRDs: true
