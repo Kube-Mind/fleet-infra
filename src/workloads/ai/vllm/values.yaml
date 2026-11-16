@@ -25,7 +25,7 @@ servingEngineSpec:
   modelSpec:
   # Qwen3-Coder-30B-A3B-REAP-AWQ
   - name: "qwen3-coder-30b"
-    enabled: true
+    enabled: false
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
@@ -154,7 +154,67 @@ servingEngineSpec:
         - "--tool-call-parser"
         - "qwen3_coder"
 
-  - name: "gpt-oss-20b"
+  # xCloudinfo/gpt-oss-20b-Code-xCloud
+  - name: "gpt-20b-coder"
+    enabled: true
+    runtimeClassName: "nvidia"
+
+    repository: "lmcache/vllm-openai"
+    tag: "latest"
+
+    modelURL: "xCloudinfo/gpt-oss-20b-Code-xCloud"
+    modelRevision: ""
+    replicaCount: 1
+
+    # CPU / RAM
+    requestCPU: 8
+    requestMemory: "32Gi"
+    limitCPU: 12
+    limitMemory: "40Gi"
+
+    # HAMi GPU allocation
+    requestGPU: 1
+    requestGPUMem: "18000"
+    requestGPUCores: "90"
+    limitGPUMem: "18000"
+    limitGPUCores: "90"
+
+    # Model cache
+    pvcStorage: "60Gi"
+    pvcAccessMode:
+      - ReadWriteOnce
+    storageClass: "longhorn"
+
+    env:
+      - name: HF_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: vllm-external-secret
+            key: HUGGING_FACE_HUB_TOKEN
+
+    vllmConfig:
+      # Context and scheduling
+      maxModelLen: 32768
+      maxNumSeqs: 1
+
+      # GPU memory
+      gpuMemoryUtilization: 0.94
+
+      # Cache optimisations
+      enablePrefixCaching: true
+      enableChunkedPrefill: true
+
+      # Model execution
+      dtype: "auto"
+      tensorParallelSize: 1
+      maxLoras: 0
+
+      extraArgs:
+        - "--enable-auto-tool-choice"
+        - "--tool-call-parser"
+        - "openai"
+
+  - name: "gpt-20b"
     enabled: false
     runtimeClassName: "nvidia"
 
