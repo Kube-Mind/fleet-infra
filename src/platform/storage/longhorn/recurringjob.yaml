@@ -5,7 +5,7 @@ metadata:
   name: backup-regular
   namespace: longhorn
 spec:
-  cron: "0 */4 * * *"   # Every 4 hours (12AM, 4AM, 8AM, 12PM, 4PM, 8PM)
+  cron: "0 6 * * 6"   # Runs every Saturday at 6:00 AM.
   task: "backup"
   groups:
     - default
@@ -21,7 +21,7 @@ metadata:
   name: snapshot-cleanup
   namespace: longhorn
 spec:
-  cron: "15 */6 * * *"
+  cron: "0 12 * * 6" # Runs every Saturday at 12:00 PM (noon).
   task: "snapshot-cleanup"
   groups:
     - default
