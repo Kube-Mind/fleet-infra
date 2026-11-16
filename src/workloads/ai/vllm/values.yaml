@@ -127,10 +127,39 @@ servingEngineSpec:
       extraArgs:
         - "--enforce-eager"
 
-    lmcacheConfig:
-      enabled: false
-      cpuOffloadingBufferSize: "0"
-      logLevel: INFO
+    initContainer:
+    # -- The name of the init container
+      name: "init"
+      # -- The Docker image for the init container
+      image: "busybox:latest"
+      # -- The command to run in the init container
+      command:
+        - "sh"
+        - "-c"
+      # -- Additional arguments to pass to the command
+      args:
+      - |
+        set -eu
+
+        echo "Preparing Hugging Face cache..."
+
+        mkdir -p /data/hub/.locks
+
+        chmod 0777 /data
+        chmod -R a+rwX /data/hub
+
+        echo "Cache permissions:"
+        ls -ldn /data /data/hub /data/hub/.locks
+
+        echo "Hugging Face cache permissions fixed."
+      # -- List of environment variables to set in the container
+      env: []
+      # -- The resource requests and limits for the container
+      resources: {}
+      # -- Whether to mount the model's volume
+      mountPvcStorage: true
+      # -- Additional volume mounts to add to the init container, in Kubernetes volumeMount format. https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#volumemount-v1-core
+      extraVolumeMounts: []
 
     shmSize: "2Gi"
 
