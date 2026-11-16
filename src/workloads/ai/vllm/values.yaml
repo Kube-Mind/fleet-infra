@@ -213,6 +213,21 @@ servingEngineSpec:
         - "--enable-auto-tool-choice"
         - "--tool-call-parser"
         - "openai"
+    initContainers:
+      - name: fix-model-cache-permissions
+        image: busybox:1.36
+        command:
+          - sh
+          - -c
+          - |
+            mkdir -p /data/hub
+            chown -R 1000:1000 /data
+            chmod -R u+rwX,g+rwX /data
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+          - name: model-cache
+            mountPath: /data
 
   - name: "gpt-20b"
     enabled: false
