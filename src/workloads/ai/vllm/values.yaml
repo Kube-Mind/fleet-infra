@@ -23,63 +23,9 @@ servingEngineSpec:
   # -- Array of specifications for configuring multiple serving engine deployments running different models. Each entry in the modelSpec array should contain the following fields
   ## The model below serves as an example. It is not deployed by default.
   modelSpec:
-  # liodon-ai/DeepSeek-Coder-V2-Lite-Base-FP8
-  - name: "deepseek-coder-v2-lite"
-    enabled: true
-    runtimeClassName: "nvidia"
-
-    repository: "lmcache/vllm-openai"
-    tag: "latest"
-
-    modelURL: "liodon-ai/DeepSeek-Coder-V2-Lite-Base-FP8"
-    modelRevision: ""
-    replicaCount: 1
-
-    # CPU / RAM
-    requestCPU: 8
-    requestMemory: "32Gi"
-    limitCPU: 12
-    limitMemory: "40Gi"
-
-    # HAMi GPU allocation
-    requestGPU: 1
-    requestGPUMem: "19500"
-    requestGPUCores: "90"
-    limitGPUMem: "19500"
-    limitGPUCores: "90"
-
-    # Model cache
-    pvcStorage: "60Gi"
-    pvcAccessMode:
-      - ReadWriteOnce
-    storageClass: "longhorn"
-
-    env:
-      - name: HF_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: vllm-external-secret
-            key: HUGGING_FACE_HUB_TOKEN
-
-    vllmConfig:
-      # Context
-      maxModelLen: 8192
-      maxNumSeqs: 1
-
-      # GPU memory
-      gpuMemoryUtilization: 0.95
-
-      # Optimisations
-      enablePrefixCaching: true
-      enableChunkedPrefill: true
-
-      # Model execution
-      dtype: "auto"
-      tensorParallelSize: 1
-      maxLoras: 0
   # Qwen3-Coder-30B-A3B-REAP-AWQ
   - name: "qwen3-coder-30b"
-    enabled: false
+    enabled: true
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
@@ -249,6 +195,56 @@ servingEngineSpec:
       extraArgs:
         - "--quantization"
         - "awq"
+
+  - name: "qwen-general"
+    enabled: true
+    runtimeClassName: "nvidia"
+    repository: "lmcache/vllm-openai"
+    tag: "latest"
+    modelURL: "Qwen/Qwen2.5-3B-Instruct-AWQ"
+    modelRevision: ""
+    replicaCount: 1
+
+    requestCPU: 2
+    requestMemory: "8Gi"
+    requestGPU: 1
+    requestGPUMem: "3000"
+    requestGPUCores: "60"
+
+    limitCPU: 4
+    limitMemory: "10Gi"
+    limitGPUMem: "3000"
+    limitGPUCores: "60"
+
+    pvcStorage: "10Gi"
+    pvcAccessMode:
+      - ReadWriteOnce
+    storageClass: "longhorn"
+    env:
+      - name: HF_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: vllm-external-secret
+            key: HUGGING_FACE_HUB_TOKEN
+
+    vllmConfig:
+      maxModelLen: 1024
+      dtype: "half"
+      tensorParallelSize: 1
+      maxNumSeqs: 1
+      maxLoras: 0
+      gpuMemoryUtilization: 0.9
+      enablePrefixCaching: true
+      enableChunkedPrefill: true
+      extraArgs:
+        - "--enforce-eager"
+
+    lmcacheConfig:
+      enabled: false
+      cpuOffloadingBufferSize: "0"
+      logLevel: INFO
+
+    shmSize: "2Gi"
 
   # -- Container port
   containerPort: 8000
