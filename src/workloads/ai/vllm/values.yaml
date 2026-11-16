@@ -23,6 +23,60 @@ servingEngineSpec:
   # -- Array of specifications for configuring multiple serving engine deployments running different models. Each entry in the modelSpec array should contain the following fields
   ## The model below serves as an example. It is not deployed by default.
   modelSpec:
+  # liodon-ai/DeepSeek-Coder-V2-Lite-Base-FP8
+  - name: "deepseek-coder-v2-lite"
+    enabled: true
+    runtimeClassName: "nvidia"
+
+    repository: "lmcache/vllm-openai"
+    tag: "latest"
+
+    modelURL: "liodon-ai/DeepSeek-Coder-V2-Lite-Base-FP8"
+    modelRevision: ""
+    replicaCount: 1
+
+    # CPU / RAM
+    requestCPU: 8
+    requestMemory: "32Gi"
+    limitCPU: 12
+    limitMemory: "40Gi"
+
+    # HAMi GPU allocation
+    requestGPU: 1
+    requestGPUMem: "19500"
+    requestGPUCores: "90"
+    limitGPUMem: "19500"
+    limitGPUCores: "90"
+
+    # Model cache
+    pvcStorage: "60Gi"
+    pvcAccessMode:
+      - ReadWriteOnce
+    storageClass: "longhorn"
+
+    env:
+      - name: HF_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: vllm-external-secret
+            key: HUGGING_FACE_HUB_TOKEN
+
+    vllmConfig:
+      # Context
+      maxModelLen: 8192
+      maxNumSeqs: 1
+
+      # GPU memory
+      gpuMemoryUtilization: 0.95
+
+      # Optimisations
+      enablePrefixCaching: true
+      enableChunkedPrefill: true
+
+      # Model execution
+      dtype: "auto"
+      tensorParallelSize: 1
+      maxLoras: 0
   # Qwen3-Coder-30B-A3B-REAP-AWQ
   - name: "qwen3-coder-30b"
     enabled: false
@@ -153,81 +207,6 @@ servingEngineSpec:
         - "--enable-auto-tool-choice"
         - "--tool-call-parser"
         - "qwen3_coder"
-
-  # xCloudinfo/gpt-oss-20b-Code-xCloud
-  - name: "gpt-20b-coder"
-    enabled: true
-    runtimeClassName: "nvidia"
-
-    repository: "lmcache/vllm-openai"
-    tag: "latest"
-
-    modelURL: "xCloudinfo/gpt-oss-20b-Code-xCloud"
-    modelRevision: ""
-    replicaCount: 1
-
-    # CPU / RAM
-    requestCPU: 8
-    requestMemory: "32Gi"
-    limitCPU: 12
-    limitMemory: "40Gi"
-
-    # HAMi GPU allocation
-    requestGPU: 1
-    requestGPUMem: "18000"
-    requestGPUCores: "90"
-    limitGPUMem: "18000"
-    limitGPUCores: "90"
-
-    # Model cache
-    pvcStorage: "60Gi"
-    pvcAccessMode:
-      - ReadWriteOnce
-    storageClass: "longhorn"
-
-    env:
-      - name: HF_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: vllm-external-secret
-            key: HUGGING_FACE_HUB_TOKEN
-
-    vllmConfig:
-      # Context and scheduling
-      maxModelLen: 32768
-      maxNumSeqs: 1
-
-      # GPU memory
-      gpuMemoryUtilization: 0.94
-
-      # Cache optimisations
-      enablePrefixCaching: true
-      enableChunkedPrefill: true
-
-      # Model execution
-      dtype: "auto"
-      tensorParallelSize: 1
-      maxLoras: 0
-
-      extraArgs:
-        - "--enable-auto-tool-choice"
-        - "--tool-call-parser"
-        - "openai"
-    initContainers:
-      - name: fix-model-cache-permissions
-        image: busybox:1.36
-        command:
-          - sh
-          - -c
-          - |
-            mkdir -p /data/hub
-            chown -R 1000:1000 /data
-            chmod -R u+rwX,g+rwX /data
-        securityContext:
-          runAsUser: 0
-        volumeMounts:
-          - name: model-cache
-            mountPath: /data
 
   - name: "gpt-20b"
     enabled: false
