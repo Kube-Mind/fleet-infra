@@ -25,7 +25,7 @@ servingEngineSpec:
   modelSpec:
   # Qwen3-Coder-30B-A3B-REAP-AWQ
   - name: "qwen3-coder"
-    enabled: false
+    enabled: true
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
