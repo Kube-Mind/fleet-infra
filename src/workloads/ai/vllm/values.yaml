@@ -143,6 +143,7 @@ servingEngineSpec:
         - "--enforce-eager"
         - "--enable-auto-tool-choice"
         - "--tool-call-parser"
+        - "deepseek_v2"
 
     initContainer:
       name: "init"
