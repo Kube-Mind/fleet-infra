@@ -24,14 +24,14 @@ servingEngineSpec:
   ## The model below serves as an example. It is not deployed by default.
   modelSpec:
   # Qwen3-Coder-30B-A3B-REAP-AWQ
-  - name: "qwen3-coder-30b"
+  - name: "qwen3-coder"
     enabled: false
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
     tag: "latest"
 
-    modelURL: "mattbucci/Qwen3-Coder-30B-A3B-REAP-AWQ"
+    modelURL: "QuantTrio/Qwen3-Coder-30B-A3B-Instruct-AWQ"
     modelRevision: ""
     replicaCount: 1
 
@@ -39,7 +39,7 @@ servingEngineSpec:
     requestCPU: 8
     requestMemory: "32Gi"
 
-    # RTX 4000 Ada - full GPU allocation
+    # RTX 4000 Ada - single GPU
     requestGPU: 1
     requestGPUMem: "20000"
     requestGPUCores: "90"
@@ -64,11 +64,11 @@ servingEngineSpec:
 
     vllmConfig:
       # Context and concurrency
-      maxModelLen: 32768
+      maxModelLen: 8192
       maxNumSeqs: 1
 
       # GPU memory
-      gpuMemoryUtilization: 0.90
+      gpuMemoryUtilization: 0.95
 
       # Execution optimisations
       enablePrefixCaching: true
@@ -78,70 +78,12 @@ servingEngineSpec:
       dtype: "bfloat16"
       tensorParallelSize: 1
       maxLoras: 0
+
       extraArgs:
+        - "--trust-remote-code"
         - "--enable-auto-tool-choice"
-        - "--reasoning-parser"
-        - "qwen3"
         - "--tool-call-parser"
         - "qwen3_coder"
-
-  - name: "deepseek-coder"
-    enabled: true
-    runtimeClassName: "nvidia"
-    repository: "lmcache/vllm-openai"
-    tag: "v0.5.8rc1"
-
-    modelURL: "liodon-ai/DeepSeek-Coder-V2-Lite-Base-FP8"
-    modelRevision: ""
-    replicaCount: 1
-
-    # CPU and system memory
-    requestCPU: 8
-    requestMemory: "32Gi"
-    requestGPU: 1
-
-    # HAMi GPU allocation (MiB)
-    requestGPUMem: "19000"
-    requestGPUCores: "90"
-
-    limitCPU: 12
-    limitMemory: "48Gi"
-    limitGPUMem: "19000"
-    limitGPUCores: "90"
-
-    pvcStorage: "25Gi"
-    pvcAccessMode:
-      - ReadWriteOnce
-    storageClass: "longhorn"
-
-    env:
-      - name: HF_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: vllm-external-secret
-            key: HUGGING_FACE_HUB_TOKEN
-
-    vllmConfig:
-      maxModelLen: 32768
-
-      # Let the checkpoint's quantization configuration
-      # determine the FP8 weight representation.
-      dtype: "auto"
-
-      tensorParallelSize: 1
-      maxNumSeqs: 1
-      maxLoras: 0
-
-      # Allow enough room for FP8 weights and runtime allocations.
-      gpuMemoryUtilization: 0.95
-
-      enablePrefixCaching: true
-      enableChunkedPrefill: true
-
-      extraArgs:
-        - "--enable-auto-tool-choice"
-        - "--tool-call-parser"
-        - "deepseek_v4"
 
     initContainer:
       name: "init"
