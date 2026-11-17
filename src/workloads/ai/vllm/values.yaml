@@ -142,6 +142,8 @@ servingEngineSpec:
       extraArgs:
         - "--enforce-eager"
         - "--enable-auto-tool-choice"
+        - "--tool-call-parser"
+        - "deepseek_v4"
 
     initContainer:
       name: "init"
