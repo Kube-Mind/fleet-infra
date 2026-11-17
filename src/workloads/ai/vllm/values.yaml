@@ -25,7 +25,7 @@ servingEngineSpec:
   modelSpec:
   # Qwen3-Coder-30B-A3B-REAP-AWQ
   - name: "qwen3-coder-30b"
-    enabled: true
+    enabled: false
     runtimeClassName: "nvidia"
 
     repository: "lmcache/vllm-openai"
@@ -84,6 +84,93 @@ servingEngineSpec:
         - "qwen3"
         - "--tool-call-parser"
         - "qwen3_coder"
+
+  - name: "gpt-20b-coder"
+    enabled: true
+    runtimeClassName: "nvidia"
+
+    repository: "lmcache/vllm-openai"
+    tag: "latest"
+
+    modelURL: "xCloudinfo/gpt-oss-20b-Code-xCloud"
+    modelRevision: ""
+    replicaCount: 1
+
+    # CPU / RAM
+    requestCPU: 8
+    requestMemory: "32Gi"
+    limitCPU: 12
+    limitMemory: "40Gi"
+
+    # HAMi GPU allocation
+    requestGPU: 1
+    requestGPUMem: "18000"
+    requestGPUCores: "90"
+    limitGPUMem: "18000"
+    limitGPUCores: "90"
+
+    # Model cache
+    pvcStorage: "60Gi"
+    pvcAccessMode:
+      - ReadWriteOnce
+    storageClass: "longhorn"
+
+    env:
+      - name: HF_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: vllm-external-secret
+            key: HUGGING_FACE_HUB_TOKEN
+
+    vllmConfig:
+      # Context and scheduling
+      maxModelLen: 16384
+      maxNumSeqs: 1
+
+      # GPU memory
+      gpuMemoryUtilization: 0.94
+
+      # Cache optimisations
+      enablePrefixCaching: true
+      enableChunkedPrefill: true
+
+      # Model execution
+      dtype: "auto"
+      tensorParallelSize: 1
+      maxLoras: 0
+
+      extraArgs:
+        - "--enable-auto-tool-choice"
+        - "--tool-call-parser"
+        - "openai"
+    
+    initContainer:
+    # -- The name of the init container
+      name: "init"
+      # -- The Docker image for the init container
+      image: "busybox:latest"
+      # -- The command to run in the init container
+      command:
+        - "sh"
+        - "-c"
+      # -- Additional arguments to pass to the command
+      args:
+      - |
+        set -eu
+
+        echo "Preparing Hugging Face cache..."
+
+        mkdir -p /data/hub/.locks
+
+        chmod 0777 /data
+        chmod -R a+rwX /data/hub
+
+        echo "Cache permissions:"
+        ls -ldn /data /data/hub /data/hub/.locks
+
+        echo "Hugging Face cache permissions fixed."
+      # -- Whether to mount the model's volume
+      mountPvcStorage: true
 
   - name: "qwen-general"
     enabled: true
@@ -152,14 +239,8 @@ servingEngineSpec:
         ls -ldn /data /data/hub /data/hub/.locks
 
         echo "Hugging Face cache permissions fixed."
-      # -- List of environment variables to set in the container
-      env: []
-      # -- The resource requests and limits for the container
-      resources: {}
       # -- Whether to mount the model's volume
       mountPvcStorage: true
-      # -- Additional volume mounts to add to the init container, in Kubernetes volumeMount format. https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#volumemount-v1-core
-      extraVolumeMounts: []
 
     shmSize: "2Gi"
 
