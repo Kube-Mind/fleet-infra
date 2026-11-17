@@ -85,32 +85,35 @@ servingEngineSpec:
         - "--tool-call-parser"
         - "qwen3_coder"
 
-  - name: "gpt-20b-coder"
+  - name: "deepseek-coder"
     enabled: true
     runtimeClassName: "nvidia"
-
     repository: "lmcache/vllm-openai"
-    tag: "latest"
 
-    modelURL: "xCloudinfo/gpt-oss-20b-Code-xCloud"
+    # IMPORTANT:
+    # Replace with an LMCache image built against vLLM >= 0.8.5.
+    # Do not retain v0.5.8rc1.
+    tag: "nightly-2026-11-14"
+
+    modelURL: "liodon-ai/DeepSeek-Coder-V2-Lite-Base-FP8"
     modelRevision: ""
     replicaCount: 1
 
-    # CPU / RAM
+    # CPU and system memory
     requestCPU: 8
     requestMemory: "32Gi"
-    limitCPU: 12
-    limitMemory: "40Gi"
-
-    # HAMi GPU allocation
     requestGPU: 1
-    requestGPUMem: "18000"
+
+    # HAMi GPU allocation (MiB)
+    requestGPUMem: "19000"
     requestGPUCores: "90"
-    limitGPUMem: "18000"
+
+    limitCPU: 12
+    limitMemory: "48Gi"
+    limitGPUMem: "19000"
     limitGPUCores: "90"
 
-    # Model cache
-    pvcStorage: "60Gi"
+    pvcStorage: "25Gi"
     pvcAccessMode:
       - ReadWriteOnce
     storageClass: "longhorn"
@@ -123,60 +126,54 @@ servingEngineSpec:
             key: HUGGING_FACE_HUB_TOKEN
 
     vllmConfig:
-      # Context and scheduling
-      maxModelLen: 16384
+      # Start with a small context to preserve VRAM.
+      maxModelLen: 4096
+
+      # Let the checkpoint's quantization configuration
+      # determine the FP8 weight representation.
+      dtype: "auto"
+
+      tensorParallelSize: 1
       maxNumSeqs: 1
+      maxLoras: 0
 
-      # GPU memory
-      gpuMemoryUtilization: 0.94
+      # Allow enough room for FP8 weights and runtime allocations.
+      gpuMemoryUtilization: 0.95
 
-      # Cache optimisations
       enablePrefixCaching: true
       enableChunkedPrefill: true
 
-      # Model execution
-      dtype: "auto"
-      tensorParallelSize: 1
-      maxLoras: 0
-
       extraArgs:
-        - "--enable-auto-tool-choice"
-        - "--tool-call-parser"
-        - "openai"
-    
+        - "--enforce-eager"
+
     initContainer:
-    # -- The name of the init container
       name: "init"
-      # -- The Docker image for the init container
       image: "busybox:latest"
-      # -- The command to run in the init container
       command:
         - "sh"
         - "-c"
-      # -- Additional arguments to pass to the command
       args:
-      - |
-        set -eu
+        - |
+          set -eu
 
-        echo "Preparing Hugging Face cache..."
+          echo "Preparing Hugging Face cache..."
 
-        mkdir -p /data/hub/.locks
+          mkdir -p /data/hub/.locks
 
-        chmod 0777 /data
-        chmod -R a+rwX /data/hub
+          chmod 0777 /data
+          chmod -R a+rwX /data/hub
 
-        echo "Cache permissions:"
-        ls -ldn /data /data/hub /data/hub/.locks
+          echo "Cache permissions:"
+          ls -ldn /data /data/hub /data/hub/.locks
 
-        echo "Hugging Face cache permissions fixed."
-      # -- Whether to mount the model's volume
+          echo "Hugging Face cache permissions fixed."
       mountPvcStorage: true
 
   - name: "qwen-general"
     enabled: true
     runtimeClassName: "nvidia"
     repository: "lmcache/vllm-openai"
-    tag: "v0.5.8rc1"
+    tag: "nightly-2026-11-14"
     modelURL: "Qwen/Qwen2.5-3B-Instruct-AWQ"
     modelRevision: ""
     replicaCount: 1
