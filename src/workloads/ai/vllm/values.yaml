@@ -133,12 +133,12 @@ servingEngineSpec:
       requestCPU: 4
       requestMemory: "12Gi"
       requestGPU: 1
-      requestGPUMem: "8000"
+      requestGPUMem: "4000"
       requestGPUCores: "60"
 
       limitCPU: 6
       limitMemory: "16Gi"
-      limitGPUMem: "8000"
+      limitGPUMem: "4000"
       limitGPUCores: "60"
 
       pvcStorage: "15Gi"
