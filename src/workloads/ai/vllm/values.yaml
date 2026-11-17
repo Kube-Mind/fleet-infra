@@ -64,7 +64,7 @@ servingEngineSpec:
 
     vllmConfig:
       # Context and concurrency
-      maxModelLen: 8192
+      maxModelLen: 32768
       maxNumSeqs: 1
 
       # GPU memory
