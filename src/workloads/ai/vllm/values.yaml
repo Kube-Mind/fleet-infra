@@ -139,7 +139,6 @@ servingEngineSpec:
       enableChunkedPrefill: true
 
       extraArgs:
-        - "--enforce-eager"
         - "--enable-auto-tool-choice"
         - "--tool-call-parser"
         - "deepseek_v4"
