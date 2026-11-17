@@ -118,9 +118,84 @@ servingEngineSpec:
             echo "Hugging Face cache permissions fixed."
         mountPvcStorage: true
 
+    # Ministral 3 3B Instruct 2512 - Compaction
+    - name: "ministral3-compaction"
+      enabled: true
+      runtimeClassName: "nvidia"
+
+      repository: "lmcache/vllm-openai"
+      tag: "v0.5.8rc1"
+
+      modelURL: "mistralai/Ministral-3-3B-Instruct-2512"
+      modelRevision: ""
+      replicaCount: 1
+
+      requestCPU: 4
+      requestMemory: "12Gi"
+      requestGPU: 1
+      requestGPUMem: "8000"
+      requestGPUCores: "60"
+
+      limitCPU: 6
+      limitMemory: "16Gi"
+      limitGPUMem: "8000"
+      limitGPUCores: "60"
+
+      pvcStorage: "15Gi"
+      pvcAccessMode:
+        - ReadWriteOnce
+      storageClass: "longhorn"
+
+      env:
+        - name: HF_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: vllm-external-secret
+              key: HUGGING_FACE_HUB_TOKEN
+
+      vllmConfig:
+        maxModelLen: 8192
+        dtype: "auto"
+        tensorParallelSize: 1
+        maxNumSeqs: 1
+        maxLoras: 0
+        gpuMemoryUtilization: 0.80
+        enablePrefixCaching: true
+        enableChunkedPrefill: true
+        extraArgs:
+          - "--tokenizer_mode"
+          - "mistral"
+          - "--config_format"
+          - "mistral"
+          - "--load_format"
+          - "mistral"
+
+      initContainer:
+        name: "init"
+        image: "busybox:latest"
+        command:
+          - "sh"
+          - "-c"
+        args:
+          - |
+            set -eu
+
+            echo "Preparing Hugging Face cache..."
+
+            mkdir -p /data/hub/.locks
+
+            chmod 0777 /data
+            chmod -R a+rwX /data/hub
+
+            echo "Cache permissions:"
+            ls -ldn /data /data/hub /data/hub/.locks
+
+            echo "Hugging Face cache permissions fixed."
+        mountPvcStorage: true
+
 
     - name: "qwen-general"
-      enabled: true
+      enabled: false
       runtimeClassName: "nvidia"
       repository: "lmcache/vllm-openai"
       tag: "v0.5.8rc1"
