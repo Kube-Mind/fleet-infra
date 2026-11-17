@@ -122,8 +122,7 @@ servingEngineSpec:
             key: HUGGING_FACE_HUB_TOKEN
 
     vllmConfig:
-      # Start with a small context to preserve VRAM.
-      maxModelLen: 4096
+      maxModelLen: 32768
 
       # Let the checkpoint's quantization configuration
       # determine the FP8 weight representation.
