@@ -23,90 +23,101 @@ servingEngineSpec:
   # -- Array of specifications for configuring multiple serving engine deployments running different models. Each entry in the modelSpec array should contain the following fields
   ## The model below serves as an example. It is not deployed by default.
   modelSpec:
-  # Qwen3-Coder-30B-A3B-REAP-AWQ
-  - name: "qwen3-coder"
-    enabled: true
-    runtimeClassName: "nvidia"
+    # Qwen3-Coder-30B-A3B-Instruct-AWQ
+    - name: "qwen3-coder"
+      enabled: true
+      runtimeClassName: "nvidia"
 
-    repository: "lmcache/vllm-openai"
-    tag: "latest"
+      repository: "lmcache/vllm-openai"
+      tag: "latest"
 
-    modelURL: "QuantTrio/Qwen3-Coder-30B-A3B-Instruct-AWQ"
-    modelRevision: ""
-    replicaCount: 1
+      modelURL: "QuantTrio/Qwen3-Coder-30B-A3B-Instruct-AWQ"
+      modelRevision: ""
+      replicaCount: 1
 
-    # CPU resources
-    requestCPU: 8
-    requestMemory: "32Gi"
+      # CPU resources
+      requestCPU: 8
+      requestMemory: "32Gi"
 
-    # RTX 4000 Ada - single GPU
-    requestGPU: 1
-    requestGPUMem: "20000"
-    requestGPUCores: "90"
+      # RTX 4000 Ada - single GPU
+      requestGPU: 1
+      requestGPUMem: "20000"
+      requestGPUCores: "90"
 
-    limitCPU: 12
-    limitMemory: "48Gi"
-    limitGPUMem: "20000"
-    limitGPUCores: "90"
+      limitCPU: 12
+      limitMemory: "48Gi"
+      limitGPUMem: "20000"
+      limitGPUCores: "90"
 
-    # Model storage
-    pvcStorage: "40Gi"
-    pvcAccessMode:
-      - ReadWriteOnce
-    storageClass: "longhorn"
+      # Model storage
+      pvcStorage: "40Gi"
+      pvcAccessMode:
+        - ReadWriteOnce
+      storageClass: "longhorn"
 
-    env:
-      - name: HF_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: vllm-external-secret
-            key: HUGGING_FACE_HUB_TOKEN
+      env:
+        - name: HF_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: vllm-external-secret
+              key: HUGGING_FACE_HUB_TOKEN
 
-    vllmConfig:
-      # Context and concurrency
-      maxModelLen: 16384
-      maxNumSeqs: 1
+      vllmConfig:
+        # Context and concurrency
+        maxModelLen: 32768
+        maxNumSeqs: 1
 
-      # GPU memory
-      gpuMemoryUtilization: 0.95
+        # GPU memory
+        gpuMemoryUtilization: 0.95
 
-      # Execution optimisations
-      enablePrefixCaching: true
-      enableChunkedPrefill: true
+        # Execution optimisations
+        enablePrefixCaching: true
+        enableChunkedPrefill: true
 
-      # Model precision
-      dtype: "bfloat16"
-      tensorParallelSize: 1
-      maxLoras: 0
+        # Limit prefill workload
+        # Reduces temporary activation memory requirements
+        maxNumBatchedTokens: 2048
 
-      extraArgs:
-        - "--trust-remote-code"
-        - "--enable-auto-tool-choice"
-        - "--tool-call-parser"
-        - "qwen3_coder"
+        # Model precision
+        dtype: "bfloat16"
+        tensorParallelSize: 1
+        maxLoras: 0
 
-    initContainer:
-      name: "init"
-      image: "busybox:latest"
-      command:
-        - "sh"
-        - "-c"
-      args:
-        - |
-          set -eu
+        extraArgs:
+          - "--trust-remote-code"
 
-          echo "Preparing Hugging Face cache..."
+          # FP8 KV cache - approximately 50% less KV memory
+          - "--kv-cache-dtype"
+          - "fp8"
 
-          mkdir -p /data/hub/.locks
+          # Tool calling
+          - "--enable-auto-tool-choice"
+          - "--tool-call-parser"
+          - "qwen3_coder"
 
-          chmod 0777 /data
-          chmod -R a+rwX /data/hub
+      initContainer:
+        name: "init"
+        image: "busybox:latest"
+        command:
+          - "sh"
+          - "-c"
+        args:
+          - |
+            set -eu
 
-          echo "Cache permissions:"
-          ls -ldn /data /data/hub /data/hub/.locks
+            echo "Preparing Hugging Face cache..."
 
-          echo "Hugging Face cache permissions fixed."
-      mountPvcStorage: true
+            mkdir -p /data/hub/.locks
+
+            chmod 0777 /data
+            chmod -R a+rwX /data/hub
+
+            echo "Cache permissions:"
+            ls -ldn /data /data/hub /data/hub/.locks
+
+            echo "Hugging Face cache permissions fixed."
+        mountPvcStorage: true
+
 
   - name: "qwen-general"
     enabled: true
