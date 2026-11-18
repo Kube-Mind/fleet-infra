@@ -50,10 +50,10 @@ gateway:
           litellm_params:
             model: hosted_vllm/QuantTrio/Qwen3-Coder-30B-A3B-Instruct-AWQ
             api_base: "http://vllm-qwen3-coder-engine-service.vllm.svc.cluster.local:80/v1"
-        - model_name: qwen2-general
+        - model_name: qwen2-compaction
           litellm_params:
             model: hosted_vllm/Qwen/Qwen2.5-3B-Instruct-AWQ
-            api_base: "http://vllm-qwen-general-engine-service.vllm.svc.cluster.local:80/v1"
+            api_base: "http://vllm-qwen2-compaction-engine-service.vllm.svc.cluster.local:80/v1"
 
 # Management API / SSO
 backend:

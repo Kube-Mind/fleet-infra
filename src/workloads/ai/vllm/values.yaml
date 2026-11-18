@@ -118,31 +118,30 @@ servingEngineSpec:
             echo "Hugging Face cache permissions fixed."
         mountPvcStorage: true
 
-
-    # Ministral 3 3B Instruct 2512 - Compaction
-    - name: "ministral3-compaction"
+    # Qwen/Qwen2.5-3B-Instruct-AWQ
+    - name: "qwen2-compaction"
       enabled: true
       runtimeClassName: "nvidia"
 
       repository: "lmcache/vllm-openai"
       tag: "v0.5.8rc1"
 
-      modelURL: "mistralai/Ministral-3-3B-Instruct-2512"
+      modelURL: "Qwen/Qwen2.5-3B-Instruct-AWQ"
       modelRevision: ""
       replicaCount: 1
 
-      requestCPU: 4
-      requestMemory: "12Gi"
+      requestCPU: 2
+      requestMemory: "8Gi"
       requestGPU: 1
-      requestGPUMem: "4000"
+      requestGPUMem: "3000"
       requestGPUCores: "60"
 
-      limitCPU: 6
-      limitMemory: "16Gi"
-      limitGPUMem: "4000"
+      limitCPU: 4
+      limitMemory: "10Gi"
+      limitGPUMem: "3000"
       limitGPUCores: "60"
 
-      pvcStorage: "15Gi"
+      pvcStorage: "10Gi"
       pvcAccessMode:
         - ReadWriteOnce
       storageClass: "longhorn"
@@ -153,26 +152,20 @@ servingEngineSpec:
             secretKeyRef:
               name: vllm-external-secret
               key: HUGGING_FACE_HUB_TOKEN
-        - name: PYTORCH_CUDA_ALLOC_CONF
-          value: "expandable_segments:True"
 
       vllmConfig:
         maxModelLen: 2048
-        dtype: "auto"
+        dtype: "half"
         tensorParallelSize: 1
         maxNumSeqs: 1
         maxLoras: 0
-        gpuMemoryUtilization: 0.75
+        gpuMemoryUtilization: 0.9
         enablePrefixCaching: false
-        enableChunkedPrefill: true
+        enableChunkedPrefill: false
         extraArgs:
-          - "--tokenizer_mode"
-          - "mistral"
-          - "--config_format"
-          - "mistral"
-          - "--load_format"
-          - "mistral"
           - "--enforce-eager"
+          - "--max-num-batched-tokens"
+          - "512"
 
       initContainer:
         name: "init"
@@ -195,78 +188,6 @@ servingEngineSpec:
             ls -ldn /data /data/hub /data/hub/.locks
 
             echo "Hugging Face cache permissions fixed."
-        mountPvcStorage: true
-
-
-
-    - name: "qwen-general"
-      enabled: false
-      runtimeClassName: "nvidia"
-      repository: "lmcache/vllm-openai"
-      tag: "v0.5.8rc1"
-      modelURL: "Qwen/Qwen2.5-3B-Instruct-AWQ"
-      modelRevision: ""
-      replicaCount: 1
-
-      requestCPU: 2
-      requestMemory: "8Gi"
-      requestGPU: 1
-      requestGPUMem: "3000"
-      requestGPUCores: "60"
-
-      limitCPU: 4
-      limitMemory: "10Gi"
-      limitGPUMem: "3000"
-      limitGPUCores: "60"
-
-      pvcStorage: "10Gi"
-      pvcAccessMode:
-        - ReadWriteOnce
-      storageClass: "longhorn"
-      env:
-        - name: HF_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: vllm-external-secret
-              key: HUGGING_FACE_HUB_TOKEN
-      vllmConfig:
-        maxModelLen: 1024
-        dtype: "half"
-        tensorParallelSize: 1
-        maxNumSeqs: 1
-        maxLoras: 0
-        gpuMemoryUtilization: 0.9
-        enablePrefixCaching: true
-        enableChunkedPrefill: true
-        extraArgs:
-          - "--enforce-eager"
-
-      initContainer:
-      # -- The name of the init container
-        name: "init"
-        # -- The Docker image for the init container
-        image: "busybox:latest"
-        # -- The command to run in the init container
-        command:
-          - "sh"
-          - "-c"
-        # -- Additional arguments to pass to the command
-        args:
-        - |
-          set -eu
-
-          echo "Preparing Hugging Face cache..."
-
-          mkdir -p /data/hub/.locks
-
-          chmod 0777 /data
-          chmod -R a+rwX /data/hub
-
-          echo "Cache permissions:"
-          ls -ldn /data /data/hub /data/hub/.locks
-
-          echo "Hugging Face cache permissions fixed."
-        # -- Whether to mount the model's volume
         mountPvcStorage: true
 
       shmSize: "2Gi"
