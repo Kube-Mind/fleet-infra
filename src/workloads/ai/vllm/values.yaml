@@ -154,7 +154,7 @@ servingEngineSpec:
               key: HUGGING_FACE_HUB_TOKEN
 
       vllmConfig:
-        maxModelLen: 2048
+        maxModelLen: 4096
         dtype: "half"
         tensorParallelSize: 1
         maxNumSeqs: 1
@@ -164,8 +164,6 @@ servingEngineSpec:
         enableChunkedPrefill: false
         extraArgs:
           - "--enforce-eager"
-          - "--max-num-batched-tokens"
-          - "512"
 
       initContainer:
         name: "init"
