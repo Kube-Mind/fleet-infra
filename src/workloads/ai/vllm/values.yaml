@@ -154,7 +154,7 @@ servingEngineSpec:
               key: HUGGING_FACE_HUB_TOKEN
 
       vllmConfig:
-        maxModelLen: 8192
+        maxModelLen: 4096
         dtype: "auto"
         tensorParallelSize: 1
         maxNumSeqs: 1
