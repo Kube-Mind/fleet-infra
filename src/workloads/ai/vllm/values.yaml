@@ -118,6 +118,7 @@ servingEngineSpec:
             echo "Hugging Face cache permissions fixed."
         mountPvcStorage: true
 
+
     # Ministral 3 3B Instruct 2512 - Compaction
     - name: "ministral3-compaction"
       enabled: true
@@ -152,15 +153,17 @@ servingEngineSpec:
             secretKeyRef:
               name: vllm-external-secret
               key: HUGGING_FACE_HUB_TOKEN
+        - name: PYTORCH_CUDA_ALLOC_CONF
+          value: "expandable_segments:True"
 
       vllmConfig:
-        maxModelLen: 4096
+        maxModelLen: 2048
         dtype: "auto"
         tensorParallelSize: 1
         maxNumSeqs: 1
         maxLoras: 0
-        gpuMemoryUtilization: 0.95
-        enablePrefixCaching: true
+        gpuMemoryUtilization: 0.75
+        enablePrefixCaching: false
         enableChunkedPrefill: true
         extraArgs:
           - "--tokenizer_mode"
@@ -169,6 +172,7 @@ servingEngineSpec:
           - "mistral"
           - "--load_format"
           - "mistral"
+          - "--enforce-eager"
 
       initContainer:
         name: "init"
@@ -192,6 +196,7 @@ servingEngineSpec:
 
             echo "Hugging Face cache permissions fixed."
         mountPvcStorage: true
+
 
 
     - name: "qwen-general"
