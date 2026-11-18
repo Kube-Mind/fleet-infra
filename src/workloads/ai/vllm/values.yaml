@@ -159,7 +159,7 @@ servingEngineSpec:
         tensorParallelSize: 1
         maxNumSeqs: 1
         maxLoras: 0
-        gpuMemoryUtilization: 0.80
+        gpuMemoryUtilization: 0.95
         enablePrefixCaching: true
         enableChunkedPrefill: true
         extraArgs:
