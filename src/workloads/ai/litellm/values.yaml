@@ -54,6 +54,10 @@ gateway:
           litellm_params:
             model: hosted_vllm/Qwen/Qwen2.5-3B-Instruct-AWQ
             api_base: "http://vllm-qwen2-compaction-engine-service.vllm.svc.cluster.local:80/v1"
+            additional_drop_params:
+              - tools
+              - tool_choice
+              - parallel_tool_calls
 
 # Management API / SSO
 backend:
