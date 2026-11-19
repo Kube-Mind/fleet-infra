@@ -29,7 +29,7 @@ servingEngineSpec:
       runtimeClassName: "nvidia"
 
       repository: "lmcache/vllm-openai"
-      tag: "v0.5.8rc1"
+      tag: "nightly-2026-11-18"
 
       modelURL: "cyankiwi/Devstral-Small-2-24B-Instruct-2512-AWQ-4bit"
       modelRevision: ""
@@ -121,7 +121,7 @@ servingEngineSpec:
       runtimeClassName: "nvidia"
 
       repository: "lmcache/vllm-openai"
-      tag: "latest"
+      tag: "nightly-2026-11-18"
 
       modelURL: "QuantTrio/Qwen3-Coder-30B-A3B-Instruct-AWQ"
       modelRevision: ""
@@ -216,7 +216,7 @@ servingEngineSpec:
       runtimeClassName: "nvidia"
 
       repository: "lmcache/vllm-openai"
-      tag: "v0.5.8rc1"
+      tag: "nightly-2026-11-18"
 
       modelURL: "Qwen/Qwen2.5-3B-Instruct-AWQ"
       modelRevision: ""
