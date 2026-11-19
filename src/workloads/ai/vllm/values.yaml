@@ -247,7 +247,7 @@ servingEngineSpec:
 
       vllmConfig:
         maxModelLen: 2048
-        dtype: "bfloat16"
+        dtype: "half"
         tensorParallelSize: 1
         maxNumSeqs: 1
         maxLoras: 0
