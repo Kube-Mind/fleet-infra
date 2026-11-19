@@ -25,7 +25,7 @@ servingEngineSpec:
   modelSpec:
     # Devstral Small 2 24B - cyankiwi AWQ INT4
     - name: "devstral-24b"
-      enabled: true
+      enabled: false
       runtimeClassName: "nvidia"
 
       repository: "lmcache/vllm-openai"
@@ -117,7 +117,7 @@ servingEngineSpec:
 
     # Qwen3-Coder-30B-A3B-Instruct-AWQ
     - name: "qwen3-coder"
-      enabled: false
+      enabled: true
       runtimeClassName: "nvidia"
 
       repository: "lmcache/vllm-openai"

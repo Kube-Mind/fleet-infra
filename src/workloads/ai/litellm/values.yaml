@@ -46,14 +46,14 @@ gateway:
   config:
     proxy_config:
       model_list:
-        - model_name: devstral-24b
-          litellm_params:
-            model: hosted_vllm/cyankiwi/Devstral-Small-2-24B-Instruct-2512-AWQ-4bit
-            api_base: "http://vllm-devstral-24b-engine-service.vllm.svc.cluster.local:80/v1"
-        # - model_name: qwen3-coder
+        # - model_name: devstral-24b
         #   litellm_params:
-        #     model: hosted_vllm/QuantTrio/Qwen3-Coder-30B-A3B-Instruct-AWQ
-        #     api_base: "http://vllm-qwen3-coder-engine-service.vllm.svc.cluster.local:80/v1"
+        #     model: hosted_vllm/cyankiwi/Devstral-Small-2-24B-Instruct-2512-AWQ-4bit
+        #     api_base: "http://vllm-devstral-24b-engine-service.vllm.svc.cluster.local:80/v1"
+        - model_name: qwen3-coder
+          litellm_params:
+            model: hosted_vllm/QuantTrio/Qwen3-Coder-30B-A3B-Instruct-AWQ
+            api_base: "http://vllm-qwen3-coder-engine-service.vllm.svc.cluster.local:80/v1"
         - model_name: qwen2-compaction
           litellm_params:
             model: hosted_vllm/Qwen/Qwen2.5-3B-Instruct-AWQ
