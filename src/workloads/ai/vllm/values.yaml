@@ -247,11 +247,11 @@ servingEngineSpec:
 
       vllmConfig:
         maxModelLen: 1024
-        dtype: "half"
+        dtype: "bfloat16"
         tensorParallelSize: 1
         maxNumSeqs: 1
         maxLoras: 0
-        gpuMemoryUtilization: 0.9
+        gpuMemoryUtilization: 0.95
         enablePrefixCaching: false
         enableChunkedPrefill: false
         extraArgs:
