@@ -29,7 +29,7 @@ servingEngineSpec:
       runtimeClassName: "nvidia"
 
       repository: "lmcache/vllm-openai"
-      tag: "nightly-2026-11-18"
+      tag: "v0.5.7-amd64"
 
       modelURL: "cyankiwi/Devstral-Small-2-24B-Instruct-2512-AWQ-4bit"
       modelRevision: ""
@@ -121,7 +121,7 @@ servingEngineSpec:
       runtimeClassName: "nvidia"
 
       repository: "lmcache/vllm-openai"
-      tag: "nightly-2026-11-18"
+      tag: "v0.5.7-amd64"
 
       modelURL: "QuantTrio/Qwen3-Coder-30B-A3B-Instruct-AWQ"
       modelRevision: ""
@@ -216,7 +216,7 @@ servingEngineSpec:
       runtimeClassName: "nvidia"
 
       repository: "lmcache/vllm-openai"
-      tag: "nightly-2026-11-18"
+      tag: "v0.5.7-amd64"
 
       modelURL: "Qwen/Qwen2.5-3B-Instruct-AWQ"
       modelRevision: ""
@@ -246,7 +246,7 @@ servingEngineSpec:
               key: HUGGING_FACE_HUB_TOKEN
 
       vllmConfig:
-        maxModelLen: 1024
+        maxModelLen: 2048
         dtype: "bfloat16"
         tensorParallelSize: 1
         maxNumSeqs: 1
