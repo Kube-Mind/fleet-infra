@@ -24,7 +24,7 @@ servingEngineSpec:
   ## The model below serves as an example. It is not deployed by default.
   modelSpec:
     # Devstral Small 2 24B - cyankiwi AWQ INT4
-    - name: "devstral-small-2"
+    - name: "devstral-24b"
       enabled: true
       runtimeClassName: "nvidia"
 
